@@ -33,7 +33,7 @@ var env = process.env.NODE_ENV || 'development';
 
 // development only
 if (env === 'development') {
-  app.use(express.errorHandler());
+  //app.use(express.errorHandler());
 }
 
 // production only
@@ -52,6 +52,12 @@ app.get('/partials/:name', routes.partials);
 
 // JSON API
 app.get('/api/name', api.name);
+
+app.get('/api/unresolved', api.unresolved);
+
+app.post('/api/create', api.create);
+
+app.post('/api/solve', api.solve);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);

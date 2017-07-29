@@ -1,1 +1,17 @@
-p This is the partial for view 1.
+div
+  table(class = "table")
+    thead
+      tr: th ID
+          th Tipo queja
+          th Servicio
+          th Sentimiento
+          th Prioridad
+          th
+    tbody
+      tr(ng-repeat="task in unresolved")
+        td {{task._id}}
+        td {{task.kind}}
+        td {{task.service}}
+        td {{task.feeling}}
+        td {{task.priority}}
+        td: button(ng-click="resolve(task._id)", class="btn btn-success") Resolver

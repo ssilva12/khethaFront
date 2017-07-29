@@ -2,7 +2,8 @@
 /*
  * GET home page.
  */
-
+database = require('../routes/db');
+var db = database.connect();
 exports.index = function(req, res){
   res.render('index');
 };

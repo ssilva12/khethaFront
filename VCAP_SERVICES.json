@@ -1,0 +1,24 @@
+
+{
+   "cloudantNoSQLDB": [
+      {
+         "name": "hackaton",
+         "label": "cloudantNoSQLDB",
+         "plan": "Lite",
+         "credentials": {
+            "username": "e7fbfc7c-47ee-4094-920c-9a50c01bfdaf-bluemix",
+            "password": "42ffb7af213abeade19400495b2669d3ccdc575aa3274fa2d8dd58b262bcf574",
+            "host": "e7fbfc7c-47ee-4094-920c-9a50c01bfdaf-bluemix.cloudant.com",
+            "port": 443,
+            "url": "https://e7fbfc7c-47ee-4094-920c-9a50c01bfdaf-bluemix:42ffb7af213abeade19400495b2669d3ccdc575aa3274fa2d8dd58b262bcf574@e7fbfc7c-47ee-4094-920c-9a50c01bfdaf-bluemix.cloudant.com"
+            }
+      }
+   ],
+   "watson": [
+      {
+         "version": "v2",
+         "username": "d56d4d32-4fb2-4a93-a1f6-ca8196f603bd",
+         "password": "ZCM3oKnpibyr"
+      }
+   ]
+}
