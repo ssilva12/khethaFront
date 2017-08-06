@@ -22,11 +22,13 @@ exports.unresolved = function(req, res){
 }
 
 exports.create = function(req, res){
-  var prioridad = req.body.prioridad
-  var tipoDeQueja = req.body.tipoDeQueja
-  var servicioFallando = req.body.servicioFallando
-  var estadoDeAnimo = req.body.estadoDeAnimo
-  var task = {type:"task",kind:tipoDeQueja,service:servicioFallando,feeling:estadoDeAnimo,priority:prioridad,status:"unresolved"}
+  var title = req.body.name
+  var identification = req.body.id
+  var type = req.body.type
+  var hour = req.body.hour
+  var reason = req.body.reason
+  var task = {type:"medical_care",identification:identification,kind:type,hour:hour,title:title,reason:reason,status:"unresolved"}
+  
   db.insert(task, function(err, body) {
     if (!err)
       res.write(JSON.stringify(body));

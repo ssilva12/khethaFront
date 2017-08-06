@@ -1,4 +1,21 @@
-p This is the partial for view 2.
-p
-  | Showing of 'interpolate' filter:
-  | {{ 'Current version is v%VERSION%.' | interpolate }}
+block content
+    h1= title
+    form(name="add-appointment",action="/api/create", method="post", class="black-form")
+        div.input.form-group
+            span.label.black-form Nombre
+            input(type="text", name="name",id="name", class="form-control")
+        div.input.form-group
+            span.label.black-form Identificación
+            input(type="text", name="id",id="id", class="form-control")
+        div.input.form-group
+            span.label.black-form Tipo de atención
+            input(type="text", name="type",id="type", class="form-control")
+        div.input.form-group
+            span.label.black-form Motivo
+            input(type="text", name="reason",id="reason", class="form-control")
+        div.input.form-group
+            span.label.black-form Hora
+            input(type="text", name="hour",id="hour", class="form-control")
+        div.actions.col-md-1.col-md-offset-11
+            input(type="submit", value="Agregar", class="btn btn-success")
+
