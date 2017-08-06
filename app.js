@@ -6,7 +6,7 @@
 var express = require('express'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override'),
-  errorHandler = require('error-handler'),
+  errorHandler = require('errorhandler'),
   morgan = require('morgan'),
   routes = require('./routes'),
   api = require('./routes/api'),
