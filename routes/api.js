@@ -9,7 +9,7 @@ exports.name = function (req, res) {
 };
 
 exports.unresolved = function(req, res){
-  db.find({selector:{ "type": {"$eq": "task"},"status": {"$eq": "unresolved"}}}, function(er, result) {
+  db.find({selector:{ "type": {"$eq": "medical_care"},"status": {"$eq": "unresolved"}}}, function(er, result) {
 		if (er == null){
 			res.write(JSON.stringify(result));
 		}
@@ -22,16 +22,17 @@ exports.unresolved = function(req, res){
 }
 
 exports.create = function(req, res){
-  var title = req.body.name
+  var name = req.body.name
   var identification = req.body.id
   var type = req.body.type
   var hour = req.body.hour
   var reason = req.body.reason
-  var task = {type:"medical_care",identification:identification,kind:type,hour:hour,title:title,reason:reason,status:"unresolved"}
+  var task = {type:"medical_care",name:name,identification:identification,kind:type,hour:hour,reason:reason,status:"unresolved"}
   
   db.insert(task, function(err, body) {
     if (!err)
-      res.write(JSON.stringify(body));
+      //res.write(JSON.stringify(body));
+      res.redirect('/');
       res.end()
     });
 }
