@@ -3,13 +3,15 @@ extends layout
 block body
   div(class="container")
     div(ng-controller='AppCtrl')
-      h2 Citas Médicas
+      h2 {{ $route.current.activetab}}
       hr
       ul(class="nav nav-tabs")
-        li(role="presentation", class="active")
+        li(role="presentation", ng-class="{active: $route.current.activetab == 'view1'}")
           a(href='view1') Sin resolver
-        li(role="presentation")
+        li(role="presentation", ng-class="{active: $route.current.activetab == 'view2'}")
           a(href='view2') Formulario
+        li(role="Buscar", ng-class="{active: $route.current.activetab == 'search'}")
+          a(href='search') Buscar Grams
 
       div(ng-view)
 
@@ -19,3 +21,4 @@ block body
   script(src='js/controllers.js')
   script(src='js/filters.js')
   script(src='js/directives.js')
+  script(src='js/factories.js')

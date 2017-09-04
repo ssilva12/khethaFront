@@ -6,4 +6,88 @@
 // Demonstrate how to register services
 // In this case it is a simple value service.
 angular.module('myApp.services', []).
-  value('version', '0.1');
+  value('version', '0.1')
+  .service('Dictionary', function($http) {
+    var url = "http://localhost:9000/"
+    this.getSynonyms = function (name,callback) {
+      $http({
+        method: 'GET',
+        params: {er: name},
+        headers: {
+          'Access-Control-Allow-Origin':'true'
+        },
+        url: url+'search'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+    this.createPrimary = function (name,callback) {
+      $http({
+        method: 'POST',
+        params: {er: name},
+        headers: {
+          'Access-Control-Allow-Origin':'true'
+        },
+        url: url+'createPrimary'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+    this.createSynonyms = function (synonymEr,primaryId,callback){
+      $http({
+        method: 'POST',
+        params: {synonymEr:synonymEr, primaryId:primaryId},
+        headers: {
+          'Access-Control-Allow-Origin':'true'
+        },
+        url: url+'createSynonyms'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+    this.updateGram = function(er,id,callback){
+      $http({
+        method: 'PUT',
+        params: {er:er, id:id},
+        headers: {
+          'Access-Control-Allow-Origin':'true'
+        },
+        url: url+'grams'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+    this.deleteGram = function(id,type,callback){
+      $http({
+        method: 'DELETE',
+        params: {id:id,gramType:type},
+        headers: {
+          'Access-Control-Allow-Origin':'true'
+        },
+        url: url+'grams'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+  });
+

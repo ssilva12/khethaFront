@@ -32,3 +32,10 @@
 .black-form {
   color: black !important;
 }
+
+.bordered-div{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: solid;
+  border-color: black;
+}

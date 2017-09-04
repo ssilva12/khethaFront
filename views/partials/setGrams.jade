@@ -1,0 +1,29 @@
+div(class="col-md-10")
+    div.input.form-group
+        span.label.black-form Primario
+        input(type="text", name="name",id="name", class="form-control", ng-model="primary.ir")
+div(class="col-md-1")
+    button(ng-click="editGram(primary)") Editar
+div(class="col-md-1")
+    button(ng-click="deleteGram(primary.id,'primary')") Borrar
+div(class="col-md-12")
+    div.input.form-group
+        span.label.black-form Sinonimo
+        input(type="text", name="name", class="form-control", ng-model="newSyn")
+div(class="col-md-offset-11 col-md-1")
+    div.input.form-group
+        span.label.black-form   
+        button(ng-click="createSynonym(newSyn,primary.id)") Crear
+div(class="col-md-6 col-md-offset-3 bordered-div")
+    span.label.black-form Sinonimos
+    table(class = "table")
+            thead
+            tr: th ir
+                th 
+                th
+            tbody
+            tr(ng-repeat = "(key, synonym) in synonyms")
+                td: {{synonym.ir}}
+                td: button(ng-click="editGram(synonym)") Editar
+                td: button(ng-click="deleteGram(synonym.id,'synonym')") Borrar
+            

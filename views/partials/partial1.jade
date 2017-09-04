@@ -3,15 +3,7 @@ div
     thead
       tr: th Identificación
           th Nombre
-          th Tipo
-          th Motivo
-          th Hora
-          th
+          
     tbody
       tr(ng-repeat="task in unresolved")
-        td {{task.identification}}
-        td {{task.name}}
-        td {{task.type}}
-        td {{task.reason}}
-        td {{task.hour}}
-        td: button(ng-click="resolve(task._id)", class="btn btn-success") Atender
+        

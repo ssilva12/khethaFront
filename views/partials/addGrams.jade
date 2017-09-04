@@ -1,0 +1,10 @@
+div(class="col-md-6 col-md-offset-3")
+    h4 estas en add
+    div.input.form-group
+        span.label.black-form Primario
+        input(type="text", name="name",id="name", class="form-control", ng-model="name")
+div(class="col-md-6 col-md-offset-3 bordered-div")
+    div.input.form-group
+        span.label.black-form Sinonimos
+        input(type="text", name="name",id="name", class="form-control", ng-model="name")
+        button(class="btn btn-default", ng-click="add(name)") Mas
