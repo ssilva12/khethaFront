@@ -74,7 +74,7 @@ angular.module('myApp.controllers', []).
 
     $scope.uploadPic = function(file) {
     file.upload = Upload.upload({
-      url: 'http://localhost:3000/upload',
+      url: 'https://guarded-atoll-31281.herokuapp.com/upload',
       data: {file: file},
     });
 
