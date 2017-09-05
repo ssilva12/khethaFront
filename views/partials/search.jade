@@ -4,6 +4,10 @@ div(class="col-md-6 col-md-offset-3")
         span.label.black-form Nombre
         input(type="text", name="name",id="name", class="form-control", ng-model="name")
         button(class="btn btn-default", ng-click="search(name)") Buscar
+        
+        input(type="file", name="image", ngf-select, ng-model="picFile", name="file" )
+        button(ng-click="uploadPic(picFile)") Subir
+
     div(ng-show="notFound")
         p el termino no existe, ¿desea crearlo como una entrada primaria?
         div(class="col-md-4")

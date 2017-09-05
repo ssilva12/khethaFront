@@ -1,6 +1,11 @@
 /*
  * Serve JSON to our AngularJS client
  */
+var http = require('http');
+var request = require('request');
+
+//The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
+
 
 exports.name = function (req, res) {
   res.json({
@@ -48,4 +53,43 @@ exports.solve = function(req, res){
         res.end()
     });
 	});
+}
+
+
+exports.upload = function(req, res){
+  
+
+  callback = function(response) {
+    var str = '';
+
+    //another chunk of data has been recieved, so append it to `str`
+    response.on('data', function (chunk) {
+      str += chunk;
+    });
+
+    //the whole response has been recieved, so we just print it out here
+    response.on('end', function () {
+      console.log(str);
+    });
+  } 
+
+
+  if(typeof require !== 'undefined') XLSX = require('xlsx');
+  var workbook = XLSX.readFile(req.file.path);
+  var first_sheet_name = workbook.SheetNames[0];
+  var worksheet = workbook.Sheets[first_sheet_name];
+  var keys = Object.keys(worksheet)
+
+  var http = require('http');
+  
+  keys.forEach(function(entry) {
+      request.post({
+          headers: {'content-type':'application/json'},
+          url:'http://localhost:9000/createPrimary2',
+          form:{er:worksheet[entry]["h"]}
+      },function(error, response, body){
+        debugger;
+      console.log(body)
+    }); 
+  });
 }

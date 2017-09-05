@@ -11,6 +11,10 @@
     "method-override": "^1.0.0",
     "morgan": "^1.0.0",
     "cloudant": "^1.4.0",
-    "cfenv": "^1.0.3"
+    "cfenv": "^1.0.3",
+    "ng-file-upload": "*",
+    "xlsx": "*",
+    "multer":"*",
+    "request":"*"
   }
 }

@@ -47,7 +47,7 @@ angular.module('myApp.controllers', []).
     // write Ctrl here
 
   }).
-  controller('SearchCtrl', function ($scope,$location,Dictionary,termFactory) {
+  controller('SearchCtrl', function ($scope,$location,Dictionary,termFactory,Upload,$timeout) {
     $scope.search = function(name){
       Dictionary.getSynonyms(name,function(error,data){
         if (!error){
@@ -71,10 +71,29 @@ angular.module('myApp.controllers', []).
         }
       })
     };
+
+    $scope.uploadPic = function(file) {
+    file.upload = Upload.upload({
+      url: 'http://localhost:3000/upload',
+      data: {file: file},
+    });
+
+    file.upload.then(function (response) {
+      $timeout(function () {
+        file.result = response.data;
+      });
+    }, function (response) {
+      if (response.status > 0)
+        $scope.errorMsg = response.status + ': ' + response.data;
+    }, function (evt) {
+      // Math.min is to fix IE which reports 200% sometimes
+      file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+    });
+    }
   }).
   controller('AddCtrl', function ($scope) {
     $scope.add = function(){
-      console.log("lo va a add")
+      
     }
   }).
   controller('SetCtrl', function ($scope,$location,termFactory,Dictionary) {
@@ -94,7 +113,6 @@ angular.module('myApp.controllers', []).
         $location.path("/editGram");
     }
     $scope.deleteGram = function(id,type){
-      console.log(id)
       Dictionary.deleteGram(id,type,function(err,res){
         console.log(res)
       });

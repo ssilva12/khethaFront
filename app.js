@@ -14,7 +14,8 @@ var express = require('express'),
   path = require('path');
 
 var app = module.exports = express();
-
+var multer  = require('multer');
+var upload = multer({ dest: 'upload/'});
 
 /**
  * Configuration
@@ -58,6 +59,8 @@ app.get('/api/unresolved', api.unresolved);
 app.post('/api/create', api.create);
 
 app.post('/api/solve', api.solve);
+
+app.post('/upload',upload.single('file'),api.upload);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
