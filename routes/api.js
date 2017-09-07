@@ -79,17 +79,20 @@ exports.upload = function(req, res){
   var first_sheet_name = workbook.SheetNames[0];
   var worksheet = workbook.Sheets[first_sheet_name];
   var keys = Object.keys(worksheet)
-
+  debugger;
+  var json = XLSX.utils.sheet_to_json(worksheet)
   var http = require('http');
-  
-  keys.forEach(function(entry) {
-      request.post({
+  for (var i = 0; i < json.length; i++){
+    var obj = json[i];
+    debugger;
+    request.post({
           headers: {'content-type':'application/json'},
           url:'http://localhost:9000/createPrimary2',
-          form:{er:worksheet[entry]["h"]}
+          form:{er:obj["name"],dic:obj["dic"]}
       },function(error, response, body){
         debugger;
       console.log(body)
     }); 
-  });
+  }
+  
 }
