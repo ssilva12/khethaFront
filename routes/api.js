@@ -88,7 +88,7 @@ exports.upload = function(req, res){
     request.post({
           headers: {'content-type':'application/json'},
           url:'http://guarded-atoll-31281.herokuapp.com/createPrimary2',
-          form:{er:obj["name"],dic:obj["dic"]}
+          form:{er:obj["Name"],dic:obj["Dictionary"]}
       },function(error, response, body){
         debugger;
       console.log(body)
