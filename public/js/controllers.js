@@ -43,10 +43,6 @@ angular.module('myApp.controllers', []).
     }
 
   }).
-  controller('MyCtrl2', function ($scope) {
-    // write Ctrl here
-
-  }).
   controller('SearchCtrl', function ($scope,$location,Dictionary,termFactory,Upload,$timeout) {
     $scope.search = function(name){
       Dictionary.getSynonyms(name,function(error,data){
@@ -89,11 +85,6 @@ angular.module('myApp.controllers', []).
       // Math.min is to fix IE which reports 200% sometimes
       file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
     });
-    }
-  }).
-  controller('AddCtrl', function ($scope) {
-    $scope.add = function(){
-      
     }
   }).
   controller('SetCtrl', function ($scope,$location,termFactory,Dictionary) {

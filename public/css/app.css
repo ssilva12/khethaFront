@@ -39,3 +39,12 @@
   border: solid;
   border-color: black;
 }
+
+.container-fixed{
+  padding-top: 10px; 
+}
+
+.search-div{
+  border-bottom: solid;
+  border-color: black;
+}

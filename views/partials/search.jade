@@ -1,18 +1,19 @@
-div(class="col-md-6 col-md-offset-3")
-    Estas en search
-    div.input.form-group
-        span.label.black-form Nombre
-        input(type="text", name="name",id="name", class="form-control", ng-model="name")
-        button(class="btn btn-default", ng-click="search(name)") Buscar
-        
-        input(type="file", name="image", ngf-select, ng-model="picFile", name="file" )
-        button(ng-click="uploadPic(picFile)") Subir
-
-    div(ng-show="notFound")
-        p el termino no existe, ¿desea crearlo como una entrada primaria?
-        div(class="col-md-4")
-            {{name}}
-        div(class="col-md-2")
-            button(id="createPrimary", class="btn btn-default", ng-click="createPrimary(name)") Crear
-        
-        
+div(class="row search-div")
+    div(class="col-md-6")
+        h1 Buscar
+        div.input.form-group
+            span.label.black-form Nombre
+            input(type="text", name="name",id="name", class="form-control", ng-model="name")
+            button(class="btn btn-default", ng-click="search(name)") Buscar
+    div(class="col-md-6")      
+        div(ng-show="notFound")
+            h2 el termino no existe, ¿desea crearlo como una entrada primaria?
+            div(class="col-md-4")
+                {{name}}
+            div(class="col-md-2")
+                button(id="createPrimary", class="btn btn-default", ng-click="createPrimary(name)") Crear
+    
+div(class="col-md-12")
+    h1 Cargar Diccionario
+    input(type="file", name="image", ngf-select, ng-model="picFile", name="file" )  
+    button(ng-click="uploadPic(picFile)") Subir
