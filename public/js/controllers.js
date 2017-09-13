@@ -69,8 +69,8 @@ angular.module('myApp.controllers', []).
         }
       })
     };
-    //var url = 'http://polar-garden-35450.herokuapp.com'
-    var url = 'http://localhost:3000'
+    var url = 'http://polar-garden-35450.herokuapp.com'
+    //var url = 'http://localhost:3000'
     $scope.uploadPic = function(file) {
     file.upload = Upload.upload({
       url: url+'/upload',
