@@ -9,7 +9,7 @@ div(class="row search-div")
         div(ng-show="notFound")
             h2 el termino no existe, ¿desea crearlo como una entrada primaria?
             div(class="col-md-4")
-                {{name}}
+                sugeridos {{suggested}}
             div(class="col-md-2")
                 button(id="createPrimary", class="btn btn-default", ng-click="createPrimary(name)") Crear
     

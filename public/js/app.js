@@ -43,7 +43,7 @@ config(function ($routeProvider, $locationProvider) {
       activetab: 'search'
     }).
     otherwise({
-      redirectTo: '/search'
+      redirectTo: '/view1'
     });
 
   $locationProvider.html5Mode(true);

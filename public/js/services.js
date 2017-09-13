@@ -8,8 +8,8 @@
 angular.module('myApp.services', []).
   value('version', '0.1')
   .service('Dictionary', function($http) {
-    //var url = "http://localhost:9000/"
-    var url = "http://guarded-atoll-31281.herokuapp.com/"
+    var url = "http://localhost:9000/"
+    //var url = "http://guarded-atoll-31281.herokuapp.com/"
     this.getSynonyms = function (name,callback) {
       $http({
         method: 'GET',
