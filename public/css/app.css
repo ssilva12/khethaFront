@@ -34,8 +34,9 @@
 }
 
 .bordered-div{
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding: 15px;
+  margin-left: 15px;
+  margin-right: 20px;
   border: solid;
   border-color: black;
 }

@@ -26,6 +26,12 @@ angular.module('myApp.factories', []).
         },
         getCurrent : function () {
             return(this.current);
+        },
+        setCurrentSynonym : function (current) {
+            this.currentSynonym = current;
+        },
+        getCurrentSynonym : function () {
+            return(this.currentSynonym);
         }
     };
   });

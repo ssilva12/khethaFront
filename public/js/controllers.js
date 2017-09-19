@@ -6,40 +6,35 @@ angular.module('myApp.controllers', []).
   controller('AppCtrl', function ($scope, $http,$route) {
     $scope.$route = $route;
   }).
-  controller('MyCtrl1', function ($scope,$http) {
+  controller('MyCtrl1', function ($scope,$http,Dictionary,$location,termFactory) {
 
     //trae los tickets sin resolver
     getUnresolved();
-
-    function getUnresolved(){
-        $http({
-        method: 'GET',
-        url: '/api/unresolved'
-      }).
-      success(function (data, status, headers, config) {
-        console.log(data);
-        $scope.unresolved = data.docs;
-      }).
-      error(function (data, status, headers, config) {
-        $scope.name = 'Error!';
+    $scope.items=["1","4","7"];
+    $scope.getSuggested = function(name){
+      Dictionary.getSynonyms(name,function(error,data){
+        if (!error){
+          if(data.suggested){
+            $scope.suggested = data.suggested
+            $scope.items = data.suggested
+            console.log(data)
+          }
+        }
       });
     }
-    
 
-    //resuelve un ticket
-    $scope.resolve = function(id){
-        $http({
-        method: 'POST',
-        url: '/api/solve',
-        data: {id:id}
-      }).
-      success(function (data, status, headers, config) {
-        console.log(data);
-        getUnresolved();
-      }).
-      error(function (data, status, headers, config) {
-        $scope.name = 'Error!';
-      });
+    $scope.solve = function(name){
+      termFactory.setCurrent(name);
+      console.log(termFactory.getCurrent());
+      $location.path("/solve");
+    }
+    function getUnresolved(){
+        Dictionary.getUnresolved(function(error,data){
+          console.log(data.unresolved)
+          if(!error){
+            $scope.unresolved = data.unresolved;
+          }
+        });
     }
 
   }).
@@ -69,8 +64,8 @@ angular.module('myApp.controllers', []).
         }
       })
     };
-    var url = 'http://polar-garden-35450.herokuapp.com'
-    //var url = 'http://localhost:3000'
+    //var url = 'http://polar-garden-35450.herokuapp.com'
+    var url = 'http://localhost:3000'
     $scope.uploadPic = function(file) {
     file.upload = Upload.upload({
       url: url+'/upload',
@@ -94,6 +89,7 @@ angular.module('myApp.controllers', []).
     $scope.newSyn = "";
     $scope.primary = termFactory.getPrimary();
     $scope.synonyms = termFactory.getSynonyms();
+    $scope.newSyn = termFactory.getCurrent();
     $scope.createSynonym = function(synonymEr,primaryId){
       Dictionary.createSynonyms(synonymEr,primaryId, function(error,res){
         if (!error){
@@ -118,5 +114,47 @@ angular.module('myApp.controllers', []).
       Dictionary.updateGram(er,id,function(err,res){
         console.log(res)
       })
+    }
+  })
+  .controller('SolveCtrl',function($scope,Dictionary,termFactory,$location){
+    $scope.current = termFactory.getCurrent();
+    $scope.synonymsSearch = termFactory.getCurrent();
+    getSuggested($scope.synonymsSearch);
+    $scope.getSuggested = function(name){
+      getSuggested(name)
+    }
+    $scope.selectPrimary = function(name){
+      $scope.primary = name;
+      console.log($scope.primary)
+    }
+    $scope.editOriginal = function(name){
+      document.getElementById("myId").disabled = false;
+    }
+    
+    function getSuggested(name){
+      Dictionary.getSynonyms(name,function(error,data){
+        if (!error){
+          if(data.suggested){
+            $scope.suggested = data.suggested;
+            $scope.items = data.suggested;
+          }
+        }
+      });
+      $scope.search = function(name){
+        Dictionary.getSynonyms(name,function(error,data){
+          if (!error){
+            if(!data.primary){
+              $scope.suggested = data.suggested
+              $scope.notFound = true
+            }else{
+              termFactory.setSynonyms(data.synonyms);
+              termFactory.setCurrent($scope.current);
+              termFactory.setPrimary(data.primary);
+              //debugger;
+              $location.path("/setGrams");
+            }        
+          }
+        });
+      }
     }
   });

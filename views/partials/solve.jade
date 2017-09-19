@@ -1,0 +1,30 @@
+div(class="form-gorup")  
+  div(class="col-md-12")
+    label: h4 Entrada
+  div(class="col-md-11")
+    input(type="text",id="myId", disabled="true",class="form-control", ng-model="current")
+  div(class="col-md-1")
+    button(ng-click="editOriginal()") Editar
+div(class="form-gorup")
+  div.col-md-12
+    label: h4 Busqueda de sinonimos
+  div.col-md-12
+    input(type="text",class="form-control", ng-model="synonymsSearch",ng-change="getSuggested(synonymsSearch)")
+div.col-md-12
+  h4 Crear
+div.col-md-12.bordered-div
+  {{primary}}
+ 
+div.col-md-12
+  h4 Sugerencias
+div(class="col-md-10 col-md-offset-1")
+  table(class = "table")
+    thead
+      tr: th Nombre
+          th Diccionario
+          th   
+    tbody
+      tr(ng-repeat="entry in suggested")
+        td: {{entry}}
+        td {{entry}}  
+        td: button(ng-click="search(entry)") seleccionar

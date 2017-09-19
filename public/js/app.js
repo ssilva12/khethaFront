@@ -13,13 +13,13 @@ angular.module('myApp', [
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.
     when('/view1', {
-      templateUrl: 'partials/partial1',
+      templateUrl: 'partials/unresolved',
       controller: 'MyCtrl1',
       activetab: 'view1'
     }).
-    when('/view2', {
-      templateUrl: 'partials/partial2',
-      controller: 'MyCtrl2',
+    when('/solve', {
+      templateUrl: 'partials/solve',
+      controller: 'SolveCtrl',
       activetab: 'view2'
     }).
     when('/search', {

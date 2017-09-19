@@ -1,0 +1,16 @@
+
+input(type="text", list="suggested")
+datalist#suggested
+  <option value="aa">
+div
+  table(class = "table")
+    thead
+      tr: th Nombre
+          th Diccionario
+          th
+          
+    tbody
+      tr(ng-repeat="task in unresolved")
+        td: input(type="text", ng-model="task.name" ,class="form-control", ng-change="getSuggested(task.name)")
+        td {{task.dictionary}}
+        td: button(ng-click="solve(task.name)") resolver
