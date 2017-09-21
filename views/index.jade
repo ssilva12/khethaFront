@@ -4,11 +4,12 @@ block body
   div(class="container container-fixed")
     div(ng-controller='AppCtrl')
       ul(class="nav nav-tabs")
-        li(role="Buscar", ng-class="{active: $route.current.activetab == 'search'}")
-          a(href='search') Buscar Grams
-        li(role="presentation", ng-class="{active: $route.current.activetab == 'view1'}")
-          a(href='view1') Sin resolver
-        
+        li(role="synonyms", ng-class="{active: $route.current.activetab == 'synonyms'}")
+          a(href='synonyms') sinonimos
+        li(role="presentation", ng-class="{active: $route.current.activetab == 'unresolved'}")
+          a(href='unresolved') Sin resolver
+        li(role="presentation", ng-class="{active: $route.current.activetab == 'search'}")
+          a(href='search') Buscar
 
       div(ng-view)
 
