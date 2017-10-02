@@ -172,6 +172,7 @@ angular.module('myApp.controllers', []).
   controller('CandidatesCtrl', function ($scope,$location,candidateFactory,Dictionary) {
     $scope.jobs=candidateFactory.getJobs();
     $scope.features=candidateFactory.getFeatures();
+    $scope.schooling=candidateFactory.getSchooling();
     Dictionary.getCandidates(function(err,res){
         if (!err){
           $scope.candidates=res.candidates
@@ -186,8 +187,10 @@ angular.module('myApp.controllers', []).
           if (!err){
             candidateFactory.setJobs(res.jobs);
             candidateFactory.setFeatures(res.features);
+            candidateFactory.setSchooling(res.schooling);
             $scope.jobs=candidateFactory.getJobs();
             $scope.features=candidateFactory.getFeatures();
+            $scope.schooling=candidateFactory.getSchooling();
             $location.path("/candidate");
           }            
         });

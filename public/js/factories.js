@@ -54,6 +54,12 @@ angular.module('myApp.factories', []).
         },
         setFeatures : function (features) {
             this.features = features;
+        },
+        getSchooling : function () {
+            return(this.schooling);
+        },
+        setSchooling : function (schooling) {
+            this.schooling = schooling;
         }
     };
   });
