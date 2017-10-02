@@ -1,0 +1,11 @@
+h4: estas en candidatos
+table(class = "table")
+    thead
+      tr: th Nombre
+          th Datos
+          th     
+    tbody
+      tr(ng-repeat = "candidate in candidates")
+        td {{candidate.name}}
+        td Datos
+        td: button.btn.btn-success(ng-click="showCandidate(candidate)") Ver

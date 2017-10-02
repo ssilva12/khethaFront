@@ -47,6 +47,26 @@ config(function ($routeProvider, $locationProvider) {
       controller: 'SearchCtrl',
       activetab: 'search'
     }).
+    when('/candidates', {
+      templateUrl: 'partials/candidates',
+      controller: 'CandidatesCtrl',
+      activetab: 'candidates'
+    }).
+    when('/candidate', {
+      templateUrl: 'partials/candidate',
+      controller: 'CandidatesCtrl',
+      activetab: 'candidate'
+    }).
+    when('/jobs', {
+      templateUrl: 'partials/jobs',
+      controller: 'SearchCtrl',
+      activetab: 'jobs'
+    }).
+    when('/match', {
+      templateUrl: 'partials/match',
+      controller: 'SearchCtrl',
+      activetab: 'match'
+    }).
     otherwise({
       redirectTo: '/synonyms'
     });

@@ -10,6 +10,12 @@ block body
           a(href='unresolved') Sin resolver
         li(role="presentation", ng-class="{active: $route.current.activetab == 'search'}")
           a(href='search') Buscar
+        li(role="presentation", ng-class="{active: $route.current.activetab == 'candidates'}")
+          a(href='candidates') Candidatos
+        li(role="presentation", ng-class="{active: $route.current.activetab == 'jobs'}")
+          a(href='jobs') Cargos
+        li(role="presentation", ng-class="{active: $route.current.activetab == 'match'}")
+          a(href='match') Match
 
       div(ng-view)
 

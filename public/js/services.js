@@ -8,8 +8,8 @@
 angular.module('myApp.services', []).
   value('version', '0.1')
   .service('Dictionary', function($http) {
-    //var url = "http://localhost:9000/"
-    var url = "http://guarded-atoll-31281.herokuapp.com/"
+    var url = "http://localhost:9000/"
+    //var url = "http://guarded-atoll-31281.herokuapp.com/"
     this.getSynonyms = function (name,callback) {
       $http({
         method: 'GET',
@@ -114,6 +114,33 @@ angular.module('myApp.services', []).
         callback(null,data)
       }).
       error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+    this.getCandidates = function (callback) {
+      $http({
+        method: 'GET',
+        url: url+'candidates'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        debugger;
+        callback("Error")
+      });
+    }
+    this.getCandidate = function (id,callback) {
+      $http({
+        method: 'GET',
+        params: {id: id},
+        url: url+'candidate'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        debugger;
         callback("Error")
       });
     }

@@ -34,4 +34,26 @@ angular.module('myApp.factories', []).
             return(this.currentSynonym);
         }
     };
+  }).factory('candidateFactory', function() {
+    this.candidate = {};
+    return {
+        getCandidate : function () {
+            return(this.candidate);
+        },
+        setCandidate : function (candidate) {
+            this.candidate = candidate;
+        },
+        getJobs : function () {
+            return(this.jobs);
+        },
+        setJobs : function (jobs) {
+            this.jobs = jobs;
+        },
+        getFeatures : function () {
+            return(this.features);
+        },
+        setFeatures : function (features) {
+            this.features = features;
+        }
+    };
   });

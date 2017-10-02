@@ -7,7 +7,7 @@ angular.module('myApp.controllers', []).
     $scope.$route = $route;
   }).
   controller('MyCtrl1', function ($scope,$http,Dictionary,$location,termFactory) {
-
+    termFactory.setCurrent(null);
     //trae los tickets sin resolver
     getUnresolved();
     $scope.items=["1","4","7"];
@@ -39,6 +39,7 @@ angular.module('myApp.controllers', []).
 
   }).
   controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upload,$timeout) {
+    termFactory.setCurrent(null);
     $scope.search = function(name){
       Dictionary.getSynonyms(name,function(error,data){
         if (!error){
@@ -160,10 +161,36 @@ angular.module('myApp.controllers', []).
     }
   }).
   controller('SearchCtrl', function ($scope,termFactory,Dictionary) {
+    termFactory.setCurrent(null);
     $scope.current = termFactory.getCurrent();
     $scope.search = function(er){
       Dictionary.searchString(er,function(err,res){
         $scope.output=res.primary;
       })
     }
+  }).
+  controller('CandidatesCtrl', function ($scope,$location,candidateFactory,Dictionary) {
+    $scope.jobs=candidateFactory.getJobs();
+    $scope.features=candidateFactory.getFeatures();
+    Dictionary.getCandidates(function(err,res){
+        if (!err){
+          $scope.candidates=res.candidates
+        }else{
+          debugger;
+          console.log(err)
+        }
+      });
+      $scope.showCandidate = function(candidate){
+        candidateFactory.setCandidate(candidate)
+        Dictionary.getCandidate(candidate.id,function(err,res){
+          if (!err){
+            candidateFactory.setJobs(res.jobs);
+            candidateFactory.setFeatures(res.features);
+            $scope.jobs=candidateFactory.getJobs();
+            $scope.features=candidateFactory.getFeatures();
+            $location.path("/candidate");
+          }            
+        });
+        console.log(candidateFactory.getCandidate())
+      }
   });
