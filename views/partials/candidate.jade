@@ -6,13 +6,15 @@ div.row
                 thead
                 tr: th Nombre
                     th Empresa
-                    th Tiempo
-                    th Acciones    
+                    th Fecha inicial
+                    th Fecha final
+                    th Acciones
                 tbody
                 tr(ng-repeat = "job in jobs")
                     td {{job.jobName}}
                     td {{job.company}}
-                    td Datos
+                    td {{job.start}}
+                    td {{job.end}}
                     td: button.btn.btn-success(ng-click="showCandidate(candidate)") Esto
 div.row
     div.col-md.12
@@ -22,7 +24,7 @@ div.row
                 thead
                 tr: th Caracteristica
                     th Tiempo
-                    th Acciones    
+                    th Acciones
                 tbody
                 tr(ng-repeat = "feature in features")
                     td {{feature.feature}}
