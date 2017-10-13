@@ -1,23 +1,28 @@
 extends layout
 
 block body
-  div(class="container container-fixed")
-    div(ng-controller='AppCtrl')
-      ul(class="nav nav-tabs")
-        li(role="synonyms", ng-class="{active: $route.current.activetab == 'synonyms'}")
-          a(href='synonyms') sinonimos
-        li(role="presentation", ng-class="{active: $route.current.activetab == 'unresolved'}")
-          a(href='unresolved') Sin resolver
-        li(role="presentation", ng-class="{active: $route.current.activetab == 'search'}")
-          a(href='search') Buscar
-        li(role="presentation", ng-class="{active: $route.current.activetab == 'candidates'}")
-          a(href='candidates') Candidatos
-        li(role="presentation", ng-class="{active: $route.current.activetab == 'jobs'}")
-          a(href='jobs') Cargos
-        li(role="presentation", ng-class="{active: $route.current.activetab == 'match'}")
-          a(href='match') Match
+  div.top-bar
+    div.col-md-1.col-md-offset-1
+      h3 KHETHA
+    div.col-md-3.col-md-offset-6
+      h3 RESUME-ANALYZER
+  div.side-bar
+  div.content
+    div(class="container container-fixed")
+      div(ng-controller='AppCtrl')
+        ul(class="nav nav-tabs")
+          li(role="synonyms", ng-class="{active: $route.current.activetab == 'synonyms'}")
+            a(href='synonyms') sinonimos
+          li(role="presentation", ng-class="{active: $route.current.activetab == 'unresolved'}")
+            a(href='unresolved') Sin resolver
+          li(role="presentation", ng-class="{active: $route.current.activetab == 'search'}")
+            a(href='search') Buscar
+          li(role="presentation", ng-class="{active: $route.current.activetab == 'candidates'}")
+            a(href='candidates') Candidatos
+          li(role="presentation", ng-class="{active: $route.current.activetab == 'jobs'}")
+            a(href='jobs') Cargos
 
-      div(ng-view)
+        div(ng-view)
 
   script(src='js/lib/angular/angular.js')
   script(src='js/app.js')
@@ -27,3 +32,4 @@ block body
   script(src='js/directives.js')
   script(src='js/factories.js')
   script(src='js/lib/ng-file-upload.min.js')
+  script(src='js/lib/angular-spinner.min.js')

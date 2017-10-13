@@ -1,1 +1,13 @@
-h4: estas en match
+div(ng-show = "match")
+    div.col-md.12
+        div(id="jobs")
+            table(class = "table")
+                thead
+                tr: th Nombre
+                    th Datos
+                    th 
+                tbody
+                tr: td FERNANDO DÁVILA GARCÍA
+                    td ingeniero industrial
+                    td: button.btn.btn-success(ng-click="showCandidate(candidate)") Ver
+<span us-spinner="{radius:30, width:8, length: 16}"></span>

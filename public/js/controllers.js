@@ -65,8 +65,8 @@ angular.module('myApp.controllers', []).
         }
       })
     };
-    var url = 'http://polar-garden-35450.herokuapp.com'
-    //var url = 'http://localhost:3000'
+    //var url = 'http://polar-garden-35450.herokuapp.com'
+    var url = 'http://localhost:3000'
     $scope.uploadPic = function(file) {
     file.upload = Upload.upload({
       url: url+'/upload',
@@ -194,6 +194,26 @@ angular.module('myApp.controllers', []).
             $location.path("/candidate");
           }            
         });
-        console.log(candidateFactory.getCandidate())
       }
+  }).
+  controller('JobsCtrl', function ($scope,$timeout,$location,candidateFactory,Dictionary,usSpinnerService) {
+    console.log("jobsCtrl");
+    Dictionary.getCandidates(function(err,res){
+      if (!err){
+        $scope.candidates=res.candidates
+      }else{
+        console.log(err)
+      }
+    });
+    $timeout(function() {
+      usSpinnerService.stop();
+      $scope.match = true;
+    }, 3000); 
+    $scope.matchJob = function(){
+      $location.path("/match");
+      console.log("cambio")
+    }
+    $scope.new = function(){
+      $location.path("/job");
+    }
   });

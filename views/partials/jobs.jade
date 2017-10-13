@@ -1,1 +1,20 @@
-h4: estas en jobs
+div.row
+    div.col-md.12
+        table(class = "table")
+            thead
+                tr: th Cargo
+                    th Vacantes
+                    th Area
+                    th Ver
+                    th Match
+            tbody
+                tr: td Desarrollador ninja
+                    td 5
+                    td Software
+                    td: button.btn.btn-success(ng-click="new()") Ver
+                    td: button.btn.btn-info(ng-click="matchJob()") Match
+                tr: td Soporte y mantenimiento
+                    td 36
+                    td Soporte
+                    td: button.btn.btn-success(ng-click="new()") Ver
+                    td: button.btn.btn-info(ng-click="matchJob()") Match

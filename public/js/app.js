@@ -8,7 +8,8 @@ angular.module('myApp', [
   'myApp.services',
   'myApp.directives',
   'myApp.factories',
-  'ngFileUpload'
+  'ngFileUpload',
+  'angularSpinner'
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.
@@ -59,13 +60,18 @@ config(function ($routeProvider, $locationProvider) {
     }).
     when('/jobs', {
       templateUrl: 'partials/jobs',
-      controller: 'SearchCtrl',
+      controller: 'JobsCtrl',
+      activetab: 'jobs'
+    }).
+    when('/job', {
+      templateUrl: 'partials/newJob',
+      controller: 'JobsCtrl',
       activetab: 'jobs'
     }).
     when('/match', {
       templateUrl: 'partials/match',
-      controller: 'SearchCtrl',
-      activetab: 'match'
+      controller: 'JobsCtrl',
+      activetab: 'jobs'
     }).
     otherwise({
       redirectTo: '/synonyms'

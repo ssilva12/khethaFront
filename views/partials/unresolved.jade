@@ -1,7 +1,4 @@
 
-input(type="text", list="suggested")
-datalist#suggested
-  <option value="aa">
 div
   table(class = "table")
     thead
@@ -11,6 +8,6 @@ div
           
     tbody
       tr(ng-repeat="task in unresolved")
-        td: input(type="text", ng-model="task.name" ,class="form-control", ng-change="getSuggested(task.name)")
+        td: {{task.name}}
         td {{task.dictionary}}
-        td: button(ng-click="solve(task.name)") resolver
+        td: button.btn.btn.btn-deffault(ng-click="solve(task.name)") resolver

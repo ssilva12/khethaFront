@@ -80,8 +80,8 @@ exports.upload = function(req, res){
   var keys = Object.keys(worksheet)
   var json = XLSX.utils.sheet_to_json(worksheet)
   var http = require('http');
-  var url = 'http://guarded-atoll-31281.herokuapp.com/'
-  //var url = 'http://localhost:9000/'
+  //var url = 'http://guarded-atoll-31281.herokuapp.com/'
+  var url = 'http://localhost:9000/'
   for (var i = 0; i < json.length; i++){
     var obj = json[i];
     debugger;
