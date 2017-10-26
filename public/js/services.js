@@ -104,6 +104,18 @@ angular.module('myApp.services', []).
         callback("Error")
       });
     }
+    this.getMetaRelationships = function(callback){
+      $http({
+        method: 'GET',
+        url: url+'getMetaRelationships'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
     this.searchString = function (name,callback) {
       $http({
         method: 'GET',
@@ -126,7 +138,6 @@ angular.module('myApp.services', []).
         callback(null,data)
       }).
       error(function (data, status, headers, config) {
-        debugger;
         callback("Error")
       });
     }
@@ -140,7 +151,6 @@ angular.module('myApp.services', []).
         callback(null,data)
       }).
       error(function (data, status, headers, config) {
-        debugger;
         callback("Error")
       });
     }

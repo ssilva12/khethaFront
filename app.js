@@ -54,13 +54,9 @@ app.get('/partials/:name', routes.partials);
 // JSON API
 app.get('/api/name', api.name);
 
-app.get('/api/unresolved', api.unresolved);
-
-app.post('/api/create', api.create);
-
-app.post('/api/solve', api.solve);
-
 app.post('/upload',upload.single('file'),api.upload);
+
+app.post('/uploadMeta',upload.single('file'),api.uploadMeta);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);

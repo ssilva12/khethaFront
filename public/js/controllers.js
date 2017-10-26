@@ -40,10 +40,10 @@ angular.module('myApp.controllers', []).
   }).
   controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upload,$timeout) {
     termFactory.setCurrent(null);
+    getMeta();
     $scope.search = function(name){
       Dictionary.getSynonyms(name,function(error,data){
         if (!error){
-          
           if(!data.primary){
             $scope.suggested = data.suggested
             $scope.notFound = true
@@ -67,23 +67,39 @@ angular.module('myApp.controllers', []).
     };
     //var url = 'http://polar-garden-35450.herokuapp.com'
     var url = 'http://localhost:3000'
-    $scope.uploadPic = function(file) {
-    file.upload = Upload.upload({
-      url: url+'/upload',
-      data: {file: file},
-    });
-
-    file.upload.then(function (response) {
-      $timeout(function () {
-        file.result = response.data;
+    $scope.uploadFiles = function(file,type) {
+      if(type=="primary"){
+        var route = "/upload"
+        var meta = $scope.meta
+      }else{
+        var route = "/uploadMeta"
+        var meta = null
+      }
+      file.upload = Upload.upload({
+        url: url+route,
+        data: {file: file, meta: meta},
       });
-    }, function (response) {
-      if (response.status > 0)
-        $scope.errorMsg = response.status + ': ' + response.data;
-    }, function (evt) {
-      // Math.min is to fix IE which reports 200% sometimes
-      file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-    });
+
+      file.upload.then(function (response) {
+        $timeout(function () {
+          file.result = response.data;
+        });
+      }, function (response) {
+        if (response.status > 0)
+          $scope.errorMsg = response.status + ': ' + response.data;
+      }, function (evt) {
+        // Math.min is to fix IE which reports 200% sometimes
+        file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+      });
+    }
+
+    function getMeta(){
+        Dictionary.getMetaRelationships(function(error,data){
+          console.log(data.metaRelationships)
+          if(!error){
+            $scope.metaRelationships = data.metaRelationships;
+          }
+        });
     }
   }).
   controller('SetCtrl', function ($scope,$location,termFactory,Dictionary) {
