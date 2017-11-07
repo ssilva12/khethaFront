@@ -73,6 +73,21 @@ config(function ($routeProvider, $locationProvider) {
       controller: 'JobsCtrl',
       activetab: 'jobs'
     }).
+    when('/metaFeatures', {
+      templateUrl: 'partials/metaFeatures',
+      controller: 'metaFeaturesCtrl',
+      activetab: 'metaFeatures'
+    }).
+    when('/metaFeature', {
+      templateUrl: 'partials/showMetaFeature',
+      controller: 'metaFeaturesCtrl',
+      activetab: 'metaFeatures'
+    }).
+    when('/metaRelation', {
+      templateUrl: 'partials/showMetaRelation',
+      controller: 'metaFeaturesCtrl',
+      activetab: 'metaFeatures'
+    }).
     otherwise({
       redirectTo: '/synonyms'
     });

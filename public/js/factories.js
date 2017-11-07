@@ -62,4 +62,26 @@ angular.module('myApp.factories', []).
             this.schooling = schooling;
         }
     };
+  }).factory('metaFeaturesFactory', function() {
+    this.candidate = {};
+    return {
+        getMetaFeature : function () {
+            return(this.MetaFeature);
+        },
+        setMetaFeature : function (MetaFeature) {
+            this.MetaFeature = MetaFeature;
+        },
+        getMetaRelations : function () {
+            return(this.MetaRelations)
+        },
+        setMetaRelations : function (MetaRelations) {
+            this.MetaRelations = MetaRelations;
+        },
+        getCurrentMetaRelation : function () {
+            return(this.currentMetaRelation)
+        },
+        setCurrentMetaRelation : function (currentMetaRelation) {
+            this.currentMetaRelation = currentMetaRelation;
+        }
+    };
   });

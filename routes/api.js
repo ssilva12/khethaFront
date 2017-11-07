@@ -24,8 +24,7 @@ exports.uploadMeta = function(req, res){
   var keys = Object.keys(worksheet)
   var json = XLSX.utils.sheet_to_json(worksheet)
   for (var i = 0; i < json.length; i++){
-    var obj = json[i];
-    debugger
+    var obj = json[i]; 
     request.post({
           headers: {'content-type':'application/json'},
           url:url+'createMetaretionship',
@@ -45,7 +44,6 @@ exports.upload = function(req, res){
   var json = XLSX.utils.sheet_to_json(worksheet);
   var metaId = req.body.meta.id
   for (var i = 0; i < json.length; i++){
-    debugger;
     var obj = json[i];
     request.post({
           headers: {'content-type':'application/json'},

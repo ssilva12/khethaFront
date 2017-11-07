@@ -104,10 +104,23 @@ angular.module('myApp.services', []).
         callback("Error")
       });
     }
-    this.getMetaRelationships = function(callback){
+    this.getMetaFeatures = function(callback){
       $http({
         method: 'GET',
-        url: url+'getMetaRelationships'
+        url: url+'getMetaFeatures'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+    this.getMetaFeature = function(id,callback){
+      $http({
+        params: {id: id},
+        method: 'GET',
+        url: url+'getMetaFeature'
       }).
       success(function (data, status, headers, config) {
         callback(null,data)
@@ -146,6 +159,19 @@ angular.module('myApp.services', []).
         method: 'GET',
         params: {id: id},
         url: url+'candidate'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+    this.updateMetaFeature = function (metaFeature,callback) {
+      $http({
+        method: 'PUT',
+        data: {metaFeature:metaFeature},
+        url: url+'metaFeature'
       }).
       success(function (data, status, headers, config) {
         callback(null,data)

@@ -13,6 +13,8 @@ block body
         ul(class="nav nav-tabs")
           li(role="synonyms", ng-class="{active: $route.current.activetab == 'synonyms'}")
             a(href='synonyms') Diccionario
+          li(role="metaFeatures", ng-class="{active: $route.current.activetab == 'metaFeatures'}")
+            a(href='metaFeatures') Meta caracteristicas
           li(role="presentation", ng-class="{active: $route.current.activetab == 'unresolved'}")
             a(href='unresolved') Sin resolver
           li(role="presentation", ng-class="{active: $route.current.activetab == 'search'}")

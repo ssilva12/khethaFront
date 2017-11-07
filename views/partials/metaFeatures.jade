@@ -1,0 +1,11 @@
+div
+  table(class = "table")
+    thead
+      tr: th Nombre
+          th Diccionario
+          th
+    tbody
+      tr(ng-repeat="metaFeature in metaFeatures")
+        td: {{metaFeature.name}}
+        td {{metaFeature.dictionary}}
+        td: button.btn.btn.btn-deffault(ng-click="showMetaFeature(metaFeature.id)") Ver

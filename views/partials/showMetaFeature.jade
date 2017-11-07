@@ -1,0 +1,38 @@
+div.row
+    div(class="col-md-12")
+        div.input.form-group
+            span.label.black-form Meta caracteristica
+            input(type="text", name="name",id="name", class="form-control", ng-model="metaFeature.name")
+    div(class="col-md-2")
+        span.label.black-form Diccionario
+    div(class="col-md-10")
+        p {{metaFeature.dictionary}}
+    div(class="col-md-2")
+        span.label.black-form Meta Relaciones
+    div(class="col-md-10")
+        p Mesurable
+    div(class="col-md-2")
+        input(type="checkbox", name="gps", ng-model="metaFeature.HasGPS")
+        label(for="gender_filter") GPS
+    div(class="col-md-10")
+        input(type="checkbox", name="acronym", ng-model="metaFeature.HasCountryAcronyms")
+        label(for="gender_filter") Acrónimo país
+    div(class="col-md-2")
+        input(type="checkbox", name="end_date", ng-model="metaFeature.HasEndDate")
+        label(for="gender_filter") Fecha fin
+    div(class="col-md-10")
+        input(type="checkbox", name="value", ng-model="metaFeature.HasValue")
+        label(for="gender_filter") Valor
+    div(class="col-md-2")
+        button(ng-click="updateMetaFeature(metaFeature)") Editar
+div.row(style="margin-top: 25px;")
+    div(class="col-md-6 col-md-offset-3")
+        span.label.black-form Meta relaciones
+        table(class = "table")
+                thead
+                tr: th ir
+                    th 
+                tbody
+                tr(ng-repeat = "(key, metaRelation) in metaRelations")
+                    td: {{metaRelation.name}}
+                    td: button(ng-click="editMetaRelation(metaRelation)") Editar

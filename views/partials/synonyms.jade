@@ -28,7 +28,7 @@ h1 Cargar Diccionario
 <div class="modal-body">
 
 input(type="file", name="image", ngf-select, ng-model="dictionary", name="file" )
-<select ng-model="meta" ng-options="x.name for x in metaRelationships" class="form-control">
+<select ng-model="meta" ng-options="x.name for x in metaFeatures" class="form-control">
 </select>  
 button(ng-click="uploadFiles(dictionary,'primary')") Subir
 </div>
