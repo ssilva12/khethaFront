@@ -64,8 +64,8 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
       }
     })
   };
-  var url = 'http://polar-garden-35450.herokuapp.com'
-  //var url = 'http://localhost:3000'
+  //var url = 'http://polar-garden-35450.herokuapp.com'
+  var url = 'http://localhost:3000'
   $scope.uploadFiles = function(file,type) {
     if(type=="primary"){
       var route = "/upload"
@@ -244,11 +244,23 @@ controller('metaFeaturesCtrl', function ($scope,$location,metaFeaturesFactory,Di
   $scope.showMetaFeature = function (id){
     Dictionary.getMetaFeature(id,function(error,data){
       if(!error){
+        Object.keys(data.metaFeatures).forEach(function (key) { 
+          var value = data.metaFeatures[key]
+          if(data.metaFeatures[key]=="true"){
+            data.metaFeatures[key] = true;
+          }else if(data.metaFeatures[key]=="false"){
+            data.metaFeatures[key] = false;
+          }
+        })
         metaFeaturesFactory.setMetaFeature(data.metaFeatures)
         metaFeaturesFactory.setMetaRelations(data.metaRelations)
         $location.path("/metaFeature");
       }
     })
+  }
+
+  $scope.newMetaRelation = function(){
+    $location.path("/newMetaRelation");
   }
 
   $scope.editMetaRelation = function(metaRelation){

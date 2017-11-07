@@ -83,6 +83,11 @@ config(function ($routeProvider, $locationProvider) {
       controller: 'metaFeaturesCtrl',
       activetab: 'metaFeatures'
     }).
+    when('/newMetaRelation', {
+      templateUrl: 'partials/newMetaRelation',
+      controller: 'metaFeaturesCtrl',
+      activetab: 'metaFeatures'
+    }).
     when('/metaRelation', {
       templateUrl: 'partials/showMetaRelation',
       controller: 'metaFeaturesCtrl',
