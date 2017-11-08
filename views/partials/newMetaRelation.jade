@@ -8,11 +8,11 @@ div.row
             input.form-control(type="text", id="methaRelation", name="methaRelation", ng-model="metaRelation.name") 
         div.form-group
             label(for="orderNumber") Posición
-            input.form-control(type="text", id="orderNumber", name="orderNumber") 
+            input.form-control(type="text", id="orderNumber", name="orderNumber",ng-model="metaRelation.orderNumber") 
         div.form-group
             label(for="fromValue") Desde
-            input.form-control(type="text", id="fromValue", name="fromValue") 
+            input.form-control(type="text", id="fromValue", name="fromValue",ng-model="metaRelation.from") 
         div.form-group
             label(for="toValue", disabled) Hasta
             input.form-control(type="text", disabled, id="toValue", name="toValue")
-        button.btn.btn-success guardar
+        button.btn.btn-success(ng-click="saveMetaRelation(metaFeature,metaRelation)") guardar

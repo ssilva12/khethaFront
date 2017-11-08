@@ -8,8 +8,8 @@
 angular.module('myApp.services', []).
   value('version', '0.1')
   .service('Dictionary', function($http) {
-    var url = "http://localhost:9000/"
-    //var url = "http://guarded-atoll-31281.herokuapp.com/"
+    //var url = "http://localhost:9000/"
+    var url = "http://guarded-atoll-31281.herokuapp.com/"
     this.getSynonyms = function (name,callback) {
       $http({
         method: 'GET',
@@ -172,6 +172,20 @@ angular.module('myApp.services', []).
         method: 'PUT',
         data: {metaFeature:metaFeature},
         url: url+'metaFeature'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+    this.saveMetaRelation = function (metaFeature,metaRelation,callback) {
+      //debugger;
+      $http({
+        method: 'POST',
+        params: {name:metaRelation.name,orderNumber:metaRelation.orderNumber,from:metaRelation.from,id:metaFeature.id},
+        url: url+'createmetaRelation'
       }).
       success(function (data, status, headers, config) {
         callback(null,data)
