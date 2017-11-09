@@ -10,7 +10,10 @@ div.row
     div(class="col-md-2")
         span.label.black-form Meta Relaciones
     div(class="col-md-10")
-        p Mesurable
+        select.form-control( ng-model="metaFeature.type")
+            option Occurs
+            option Levels
+            option Mesurable
     div(class="col-md-2")
         input(type="checkbox", name="gps", ng-model="metaFeature.HasGPS")
         label(for="gender_filter") GPS

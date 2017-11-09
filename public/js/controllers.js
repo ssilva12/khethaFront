@@ -251,7 +251,16 @@ controller('metaFeaturesCtrl', function ($scope,$location,metaFeaturesFactory,Di
           }else if(data.metaFeatures[key]=="false"){
             data.metaFeatures[key] = false;
           }
-        })
+        });
+        data.metaRelations.sort(function(a, b) {
+          return parseFloat(a.from) - parseFloat(b.from);
+        });
+        for(var i=0;i<data.metaRelations.length;i++){
+          data.metaRelations[i].orderNumber = i;
+          if(i!=(data.metaRelations.length -1) ){
+            data.metaRelations[i].to = data.metaRelations[i+1].from
+          } 
+        }
         metaFeaturesFactory.setMetaFeature(data.metaFeatures)
         metaFeaturesFactory.setMetaRelations(data.metaRelations)
         $location.path("/metaFeature");
