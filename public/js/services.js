@@ -44,10 +44,10 @@ angular.module('myApp.services', []).
         callback("Error")
       });
     }
-    this.createSynonyms = function (synonymEr,primaryId,callback){
+    this.createSynonyms = function (synonymEr,primaryId,primaryDictionary,callback){
       $http({
         method: 'POST',
-        params: {synonymEr:synonymEr, primaryId:primaryId},
+        params: {synonymEr:synonymEr, primaryId:primaryId,dictionaryName:primaryDictionary},
         headers: {
           'Access-Control-Allow-Origin':'true'
         },
@@ -172,6 +172,19 @@ angular.module('myApp.services', []).
         method: 'PUT',
         data: {metaFeature:metaFeature},
         url: url+'metaFeature'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+    this.updateMetaRelation = function (metaRelation,callback) {
+      $http({
+        method: 'PUT',
+        data: {metaRelation:metaRelation},
+        url: url+'metaRelation'
       }).
       success(function (data, status, headers, config) {
         callback(null,data)

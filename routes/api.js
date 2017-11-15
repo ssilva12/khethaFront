@@ -48,13 +48,15 @@ exports.upload = function(req, res){
   var keys = Object.keys(worksheet)
   var json = XLSX.utils.sheet_to_json(worksheet);
   var metaId = req.body.meta.id
+  var metaDictionary = req.body.meta.dictionary
+  debugger;
   var responses = [];
   for (var i = 0; i < json.length; i++){
     var obj = json[i];
     request.post({
           headers: {'content-type':'application/json'},
           url:url+'createNoun',
-          form:{er:obj["Name"],dic:obj["Dictionary"],metaId:metaId}
+          form:{er:obj["Name"],dic:obj["Dictionary"],metaId:metaId,metaDictionary:metaDictionary}
       },function(error, response, body){
         responses.push(response);
         if(responses.length == json.length){

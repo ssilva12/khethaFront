@@ -14,5 +14,5 @@ div.row
             input.form-control(type="text", id="fromValue", name="fromValue",ng-model="metaRelation.from") 
         div.form-group
             label(for="toValue", disabled) Hasta
-            input.form-control(type="text", disabled, id="toValue", name="toValue",,ng-model="metaRelation.to")
-        button.btn.btn-success guardar
+            input.form-control(type="text", disabled, id="toValue", name="toValue",ng-model="metaRelation.to")
+        button.btn.btn-success(ng-click="updateMetaRelation(metaRelation)") guardar

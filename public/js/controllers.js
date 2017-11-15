@@ -106,8 +106,8 @@ controller('SetCtrl', function ($scope,$location,termFactory,Dictionary) {
   $scope.primary = termFactory.getPrimary();
   $scope.synonyms = termFactory.getSynonyms();
   $scope.newSyn = termFactory.getCurrent();
-  $scope.createSynonym = function(synonymEr,primaryId){
-    Dictionary.createSynonyms(synonymEr,primaryId, function(error,res){
+  $scope.createSynonym = function(synonymEr,primary){
+    Dictionary.createSynonyms(synonymEr,primary.id,primary.dictionary, function(error,res){
       if (!error){
         $scope.synonyms.push(res.synonym);
       }
@@ -160,7 +160,6 @@ controller('EditCtrl', function ($scope,termFactory,Dictionary) {
   $scope.search = function(name){
       Dictionary.getSynonyms(name,function(error,data){
         if (!error){
-          debugger;
           if(!data.primary){
             $scope.suggested = data.suggested
             $scope.notFound = true
@@ -168,7 +167,6 @@ controller('EditCtrl', function ($scope,termFactory,Dictionary) {
             termFactory.setSynonyms(data.synonyms);
             termFactory.setCurrent($scope.current);
             termFactory.setPrimary(data.primary);
-            //debugger;
             $location.path("/setGrams");
           }        
         }
@@ -192,7 +190,6 @@ controller('CandidatesCtrl', function ($scope,$location,candidateFactory,Diction
     if (!err){
       $scope.candidates=res.candidates
     }else{
-      debugger;
       console.log(err)
     }
   });
@@ -236,6 +233,12 @@ controller('metaFeaturesCtrl', function ($scope,$location,metaFeaturesFactory,Di
   $scope.metaFeature = metaFeaturesFactory.getMetaFeature();
   $scope.metaRelations = metaFeaturesFactory.getMetaRelations();
   $scope.metaRelation = metaFeaturesFactory.getCurrentMetaRelation();
+  if($scope.metaFeature){
+    showMetaFeature($scope.metaFeature.id,function(){
+
+    });
+  }
+  
   Dictionary.getMetaFeatures(function(error,data){
     if(!error){
       $scope.metaFeatures = data.metaFeatures;
@@ -243,6 +246,47 @@ controller('metaFeaturesCtrl', function ($scope,$location,metaFeaturesFactory,Di
   });
   
   $scope.showMetaFeature = function (id){
+    showMetaFeature(id,function(){
+      $location.path("/metaFeature");
+    });
+    
+  }
+
+  $scope.newMetaRelation = function(){
+    $location.path("/newMetaRelation");
+  }
+
+  $scope.saveMetaRelation = function(metaFeature,metaRelation){
+    Dictionary.saveMetaRelation(metaFeature,metaRelation,function(error,data){
+      if(!error){
+        console.log(data);
+        $location.path("/metaFeature");
+      }
+    });
+  }
+  $scope.editMetaRelation = function(metaRelation){
+    metaFeaturesFactory.setCurrentMetaRelation(metaRelation);
+    $location.path("/metaRelation");
+  }
+
+  $scope.updateMetaFeature = function(metaFeature){
+    Dictionary.updateMetaFeature(metaFeature,function(error,data){
+      if(!error){
+        console.log(data);
+      }
+    });
+  }
+
+  $scope.updateMetaRelation = function(metaRelation){
+    Dictionary.updateMetaRelation(metaRelation,function(error,data){
+      if(!error){
+        console.log(data);
+        $location.path("/metaFeature");
+      }
+    });
+  }
+
+  function showMetaFeature(id,callback){
     Dictionary.getMetaFeature(id,function(error,data){
       if(!error){
         Object.keys(data.metaFeatures).forEach(function (key) { 
@@ -262,33 +306,10 @@ controller('metaFeaturesCtrl', function ($scope,$location,metaFeaturesFactory,Di
             data.metaRelations[i].to = data.metaRelations[i+1].from
           } 
         }
-        metaFeaturesFactory.setMetaFeature(data.metaFeatures)
-        metaFeaturesFactory.setMetaRelations(data.metaRelations)
-        $location.path("/metaFeature");
-      }
-    })
-  }
-
-  $scope.newMetaRelation = function(){
-    $location.path("/newMetaRelation");
-  }
-
-  $scope.saveMetaRelation = function(metaFeature,metaRelation){
-    Dictionary.saveMetaRelation(metaFeature,metaRelation,function(error,data){
-      if(!error){
-        console.log(data);
-      }
-    });
-  }
-  $scope.editMetaRelation = function(metaRelation){
-    metaFeaturesFactory.setCurrentMetaRelation(metaRelation);
-    $location.path("/metaRelation");
-  }
-
-  $scope.updateMetaFeature = function(metaFeature){
-    Dictionary.updateMetaFeature(metaFeature,function(error,data){
-      if(!error){
-        console.log(data);
+        metaFeaturesFactory.setMetaFeature(data.metaFeatures);
+        metaFeaturesFactory.setMetaRelations(data.metaRelations);
+        $scope.metaRelations = metaFeaturesFactory.getMetaRelations();
+        callback();
       }
     });
   }
