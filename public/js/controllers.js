@@ -175,11 +175,19 @@ controller('EditCtrl', function ($scope,termFactory,Dictionary) {
 }).
 controller('SearchCtrl', function ($scope,termFactory,Dictionary) {
   termFactory.setCurrent(null);
+  getMeta();
   $scope.current = termFactory.getCurrent();
-  $scope.search = function(er){
-    Dictionary.searchString(er,function(err,res){
+  $scope.search = function(er,dictionary){
+    Dictionary.searchString(er,dictionary,function(err,res){
       $scope.output=res.primary;
     })
+  }
+  function getMeta(){
+    Dictionary.getMetaFeatures(function(error,data){
+      if(!error){
+        $scope.metaFeatures = data.metaFeatures;
+      }
+    });
   }
 }).
 controller('CandidatesCtrl', function ($scope,$location,candidateFactory,Dictionary) {

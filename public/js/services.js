@@ -129,10 +129,10 @@ angular.module('myApp.services', []).
         callback("Error")
       });
     }
-    this.searchString = function (name,callback) {
+    this.searchString = function (name,dictionary,callback) {
       $http({
         method: 'GET',
-        params: {er: name},
+        params: {er: name,dictionary:dictionary},
         url: url+'search_string'
       }).
       success(function (data, status, headers, config) {

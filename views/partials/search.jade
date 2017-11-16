@@ -4,7 +4,10 @@ div(class="col-md-12")
     div.input.form-group
         span.label.black-form Entrada
         input(type="text", name="name",id="name", class="form-control", ng-model="name")
-        button(class="btn btn-default", ng-click="search(name)") Buscar
+    div.input.form-group
+        span.label.black-form Diccionario
+        select(ng-model="meta", ng-options="x.name for x in metaFeatures", class="form-control")
+    button(class="btn btn-default", ng-click="search(name,meta.dictionary)") Buscar
 div(class="col-md-12")
     h1 Salida
     h4 {{output}}
