@@ -30,7 +30,7 @@ exports.uploadMeta = function(req, res){
     request.post({
           headers: {'content-type':'application/json'},
           url:url+'createMetaretionship',
-          form:{er:obj["Name"],dic:obj["Dictionary"],occurrences:obj["Level"]}
+          form:{er:obj["Name"],dic:obj["Dictionary"]}
       },function(error, response, body){
         responses.push(response.body);
         if(responses.length == json.length){
