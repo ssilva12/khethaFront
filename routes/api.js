@@ -13,8 +13,8 @@ exports.name = function (req, res) {
   });
 };
 var http = require('http');
-//var url = 'http://guarded-atoll-31281.herokuapp.com/'
-var url = 'http://localhost:9000/'
+var url = 'http://guarded-atoll-31281.herokuapp.com/'
+//var url = 'http://localhost:9000/'
 
 exports.uploadMeta = function(req, res){
   if(typeof require !== 'undefined') XLSX = require('xlsx');
@@ -25,8 +25,10 @@ exports.uploadMeta = function(req, res){
   var json = XLSX.utils.sheet_to_json(worksheet);
   var responses = [];
   for (var i = 0; i < json.length; i++){
-    var obj = json[i]; 
-    console.log(obj);
+    var obj = json[i];
+    if (obj["Dictionary"] == undefined){
+      obj["Dictionary"] = "null"
+    }
     request.post({
           headers: {'content-type':'application/json'},
           url:url+'createMetaretionship',
