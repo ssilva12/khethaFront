@@ -47,6 +47,7 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
           $scope.suggested = data.suggested
           $scope.notFound = true
         }else{
+          debugger;
           termFactory.setSynonyms(data.synonyms);
           termFactory.setPrimary(data.primary);
           $location.path("/setGrams");
@@ -64,8 +65,8 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
       }
     })
   };
-  var url = 'http://polar-garden-35450.herokuapp.com'
-  //var url = 'http://localhost:3000'
+  //var url = 'http://polar-garden-35450.herokuapp.com'
+  var url = 'http://localhost:3000'
   $scope.uploadFiles = function(file,type) {
     if(type=="primary"){
       var route = "/upload"
@@ -261,6 +262,7 @@ controller('metaFeaturesCtrl', function ($scope,$location,metaFeaturesFactory,Di
   }
 
   $scope.newMetaRelation = function(){
+    metaFeaturesFactory.setCurrentMetaRelation(null);
     $location.path("/newMetaRelation");
   }
 
@@ -278,9 +280,9 @@ controller('metaFeaturesCtrl', function ($scope,$location,metaFeaturesFactory,Di
   }
 
   $scope.updateMetaFeature = function(metaFeature){
-    debugger;
     Dictionary.updateMetaFeature(metaFeature,function(error,data){
       if(!error){
+        metaFeaturesFactory.setMetaFeature(metaFeature);
         console.log(data);
       }
     });
@@ -306,15 +308,22 @@ controller('metaFeaturesCtrl', function ($scope,$location,metaFeaturesFactory,Di
             data.metaFeatures[key] = false;
           }
         });
-        data.metaRelations.sort(function(a, b) {
-          return parseFloat(a.from) - parseFloat(b.from);
-        });
-        for(var i=0;i<data.metaRelations.length;i++){
-          data.metaRelations[i].orderNumber = i;
-          if(i!=(data.metaRelations.length -1) ){
-            data.metaRelations[i].to = data.metaRelations[i+1].from
-          } 
+        if(data.metaRelations[0] != undefined && data.metaRelations[0].from != "null" ){
+          data.metaRelations.sort(function(a, b) {
+            return parseFloat(a.from) - parseFloat(b.from);
+          });
+          for(var i=0;i<data.metaRelations.length;i++){
+            data.metaRelations[i].orderNumber = i;
+            if(i!=(data.metaRelations.length -1) ){
+              data.metaRelations[i].to = data.metaRelations[i+1].from
+            } 
+          }
+        }else{
+          data.metaRelations.sort(function(a, b) {
+            return parseFloat(a.orderNumber) - parseFloat(b.orderNumber);
+          });
         }
+        
         metaFeaturesFactory.setMetaFeature(data.metaFeatures);
         metaFeaturesFactory.setMetaRelations(data.metaRelations);
         $scope.metaRelations = metaFeaturesFactory.getMetaRelations();

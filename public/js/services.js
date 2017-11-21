@@ -8,8 +8,8 @@
 angular.module('myApp.services', []).
   value('version', '0.1')
   .service('Dictionary', function($http) {
-    //var url = "http://localhost:9000/"
-    var url = "http://guarded-atoll-31281.herokuapp.com/"
+    var url = "http://localhost:9000/"
+    //var url = "http://guarded-atoll-31281.herokuapp.com/"
     this.getSynonyms = function (name,callback) {
       $http({
         method: 'GET',
@@ -194,10 +194,13 @@ angular.module('myApp.services', []).
       });
     }
     this.saveMetaRelation = function (metaFeature,metaRelation,callback) {
-      //debugger;
+      if(metaRelation.from == undefined){
+        metaRelation.from = "null"
+      }
       $http({
         method: 'POST',
-        params: {name:metaRelation.name,orderNumber:metaRelation.orderNumber,from:metaRelation.from,id:metaFeature.id},
+        params: {name:metaRelation.name,orderNumber:metaRelation.orderNumber,from:metaRelation.from,id:metaFeature.id,
+        position:metaRelation.orderNumber},
         url: url+'createmetaRelation'
       }).
       success(function (data, status, headers, config) {

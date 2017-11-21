@@ -1,3 +1,4 @@
+{{metaRelation}}
 div.row
     form
         div.form-group
@@ -11,7 +12,7 @@ div.row
             input.form-control(type="text", id="orderNumber", name="orderNumber",ng-model="metaRelation.orderNumber") 
         div.form-group
             label(for="fromValue") Desde
-            input.form-control(type="text", id="fromValue", name="fromValue",ng-model="metaRelation.from") 
+            input.form-control(type="text", ng-disabled="metaFeature.type != 'Mesurable'", id="fromValue", name="fromValue",ng-model="metaRelation.from") 
         div.form-group
             label(for="toValue", disabled) Hasta
             input.form-control(type="text", disabled, id="toValue", name="toValue",ng-model="metaRelation.to")
