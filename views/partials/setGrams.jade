@@ -1,7 +1,7 @@
 div(class="col-md-10")
     div.input.form-group
         span.label.black-form Primario
-        input(type="text", name="name",id="name", class="form-control", ng-model="primary.ir")
+        input(type="text", name="name",id="name", class="form-control", ng-model="primary.er")
 div(class="col-md-1")
     button(ng-click="editGram(primary)") Editar
 div(class="col-md-1")
@@ -23,7 +23,7 @@ div(class="col-md-6 col-md-offset-3 bordered-div")
                 th
             tbody
             tr(ng-repeat = "(key, synonym) in synonyms")
-                td: {{synonym.ir}}
+                td: {{synonym.er}}
                 td: button(ng-click="editGram(synonym)") Editar
                 td: button(ng-click="deleteGram(synonym.id,'synonym')") Borrar
             

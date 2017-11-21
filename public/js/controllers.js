@@ -47,7 +47,6 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
           $scope.suggested = data.suggested
           $scope.notFound = true
         }else{
-          debugger;
           termFactory.setSynonyms(data.synonyms);
           termFactory.setPrimary(data.primary);
           $location.path("/setGrams");
