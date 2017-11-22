@@ -13,8 +13,8 @@ exports.name = function (req, res) {
   });
 };
 var http = require('http');
-//var url = 'http://guarded-atoll-31281.herokuapp.com/'
-var url = 'http://localhost:9000/'
+var url = 'http://guarded-atoll-31281.herokuapp.com/'
+//var url = 'http://localhost:9000/'
 
 exports.uploadMeta = function(req, res){
   if(typeof require !== 'undefined') XLSX = require('xlsx');
