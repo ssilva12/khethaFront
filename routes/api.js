@@ -13,8 +13,8 @@ exports.name = function (req, res) {
   });
 };
 var http = require('http');
-var url = 'http://guarded-atoll-31281.herokuapp.com/'
-//var url = 'http://localhost:9000/'
+//var url = 'http://guarded-atoll-31281.herokuapp.com/'
+var url = 'http://localhost:9000/'
 
 exports.uploadMeta = function(req, res){
   if(typeof require !== 'undefined') XLSX = require('xlsx');
@@ -29,6 +29,9 @@ exports.uploadMeta = function(req, res){
     if (obj["Dictionary"] == undefined){
       obj["Dictionary"] = "null"
     }
+    debugger;
+    var hash = {er:obj["Name"],dic:obj["Dictionary"]}
+    console.log(hash);
     request.post({
           headers: {'content-type':'application/json'},
           url:url+'createMetaretionship',
@@ -55,10 +58,22 @@ exports.upload = function(req, res){
   var responses = [];
   for (var i = 0; i < json.length; i++){
     var obj = json[i];
+    if (obj["Dictionary"] == undefined){
+      obj["Dictionary"] = "null"
+    }
+    if (obj["CountryAcronyms"] == undefined){
+      obj["CountryAcronyms"] = "null"
+    }
+    if (obj["Gps"] == undefined){
+      obj["Gps"] = "null"
+    }
+    debugger
     request.post({
           headers: {'content-type':'application/json'},
           url:url+'createNoun',
-          form:{er:obj["Name"],dic:obj["Dictionary"],metaId:metaId,metaDictionary:metaDictionary}
+          form:{er:obj["Name"],dic:obj["Dictionary"],
+                countryAcronyms:obj["CountryAcronyms"],gps:obj["Gps"],
+                metaId:metaId,metaDictionary:metaDictionary}
       },function(error, response, body){
         responses.push(response);
         if(responses.length == json.length){
