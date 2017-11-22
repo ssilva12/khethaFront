@@ -1,7 +1,15 @@
-div(class="col-md-10")
+div(class="col-md-12")
     div.input.form-group
         span.label.black-form Primario
         input(type="text", name="name",id="name", class="form-control", ng-model="primary.er")
+div(class="col-md-12")
+    div.input.form-group
+        span.label.black-form Gps
+        input(type="text", name="name",id="name", class="form-control", ng-model="primary.gps")
+div(class="col-md-12")
+    div.input.form-group
+        span.label.black-form Acrónimo
+        input(type="text", name="name",id="name", class="form-control", ng-model="primary.countryAcronyms")
 div(class="col-md-1")
     button(ng-click="editGram(primary)") Editar
 div(class="col-md-1")
