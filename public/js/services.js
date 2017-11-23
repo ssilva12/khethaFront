@@ -29,7 +29,6 @@ angular.module('myApp.services', []).
       });
     }
     this.createPrimary = function (name,metaFeature,callback) {
-      debugger;
       $http({
         method: 'POST',
         params: {er:name,dic:metaFeature.dictionary,
