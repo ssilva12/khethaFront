@@ -59,7 +59,7 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
   }
   
   $scope.createPrimary = function(name){
-    Dictionary.createPrimary(name,function(err,data){
+    Dictionary.createPrimary(name,$scope.meta,function(err,data){
       if (!err){
         termFactory.setSynonyms(data.synonyms);
         termFactory.setPrimary(data.primary);
@@ -67,8 +67,8 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
       }
     })
   };
-  var url = 'http://polar-garden-35450.herokuapp.com'
-  //var url = 'http://localhost:3000'
+  //var url = 'http://polar-garden-35450.herokuapp.com'
+  var url = 'http://localhost:3000'
   $scope.uploadFiles = function(file,type) {
     if(type=="primary"){
       var route = "/upload"
@@ -117,9 +117,14 @@ controller('SetCtrl', function ($scope,$location,termFactory,Dictionary) {
     })
   }
   $scope.editGram = function(gram){
-    termFactory.setCurrent(gram)
+    termFactory.setCurrent(gram);
     console.log("le dio a editar")
-    $location.path("/editGram");
+    Dictionary.editNoun(gram, function(error,res){
+       if (!error){
+         console.log(res);
+       }
+    });
+    //$location.path("/editGram");
   }
   $scope.deleteGram = function(synonym,id,type){
     

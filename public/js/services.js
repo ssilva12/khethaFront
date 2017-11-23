@@ -28,10 +28,13 @@ angular.module('myApp.services', []).
         callback("Error")
       });
     }
-    this.createPrimary = function (name,callback) {
+    this.createPrimary = function (name,metaFeature,callback) {
+      debugger;
       $http({
         method: 'POST',
-        params: {er: name},
+        params: {er:name,dic:metaFeature.dictionary,
+                countryAcronyms:"null",gps:"null",
+                metaFeatureId:metaFeature.id,metaDictionary:metaFeature.dictionary},
         headers: {
           'Access-Control-Allow-Origin':'true'
         },
@@ -202,6 +205,19 @@ angular.module('myApp.services', []).
         params: {name:metaRelation.name,orderNumber:metaRelation.orderNumber,from:metaRelation.from,id:metaFeature.id,
         position:metaRelation.orderNumber},
         url: url+'createmetaRelation'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+    this.editNoun = function (noun,callback){
+      $http({
+        method: 'PUT',
+        data: {noun:noun},
+        url: url+'noun'
       }).
       success(function (data, status, headers, config) {
         callback(null,data)

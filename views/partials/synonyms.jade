@@ -12,11 +12,16 @@ div(class="row search-div")
             button(class="btn btn-default", ng-click="search(name)") Buscar
     div(class="col-md-12")      
         div(ng-show="notFound")
-            h2 el termino no existe, ¿desea crearlo como una entrada primaria?
-            div(class="col-md-10")
-                sugeridos {{suggested}}
-            div(class="col-md-2")
+            div.col-md-5
+                h3 el termino no existe, ¿desea crearlo como una entrada primaria?
+            div.col-md-5
+                <select ng-model="meta" ng-options="x.name for x in metaFeatures" class="form-control">
+                </select>  
+            div.col-md-2
                 button(id="createPrimary", class="btn btn-default", ng-click="createPrimary(name)") Crear
+            div(class="col-md-12")
+                sugeridos {{suggested}}
+            
 
 <div class="modal fade" id="myModal" role="dialog">
 <div class="modal-dialog">
