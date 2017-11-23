@@ -49,6 +49,9 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
         }else{
           termFactory.setSynonyms(data.synonyms);
           termFactory.setPrimary(data.primary);
+          var coordenadasGps=data.primary.gps.split(";")
+          data.primary.latitud = coordenadasGps[0];
+          data.primary.longitud = coordenadasGps[1];
           $location.path("/setGrams");
         }        
       }
