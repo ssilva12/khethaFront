@@ -121,8 +121,14 @@ controller('SetCtrl', function ($scope,$location,termFactory,Dictionary) {
     console.log("le dio a editar")
     $location.path("/editGram");
   }
-  $scope.deleteGram = function(id,type){
+  $scope.deleteGram = function(synonym,id,type){
+    
+    var index = $scope.synonyms.indexOf(synonym);
+    if (index > -1) {
+      $scope.synonyms.splice(index, 1);
+    }
     Dictionary.deleteGram(id,type,function(err,res){
+
       console.log(res)
     });
   }

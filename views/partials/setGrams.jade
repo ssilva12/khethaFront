@@ -41,5 +41,5 @@ div(class="col-md-6 col-md-offset-3 bordered-div")
             tr(ng-repeat = "(key, synonym) in synonyms")
                 td: {{synonym.er}}
                 td: button(ng-click="editGram(synonym)") Editar
-                td: button(ng-click="deleteGram(synonym.id,'synonym')") Borrar
+                td: button(ng-click="deleteGram(synonym,synonym.id,'synonym')") Borrar
             
