@@ -149,6 +149,11 @@ controller('EditCtrl', function ($scope,termFactory,Dictionary) {
 .controller('SolveCtrl',function($scope,Dictionary,termFactory,$location){
   $scope.current = termFactory.getCurrent();
   $scope.synonymsSearch = termFactory.getCurrent();
+  Dictionary.getMetaFeatures(function(error,data){
+    if(!error){
+      $scope.metaFeatures = data.metaFeatures;
+    }
+  });
   getSuggested($scope.synonymsSearch);
   $scope.getSuggested = function(name){
     getSuggested(name)
@@ -160,6 +165,17 @@ controller('EditCtrl', function ($scope,termFactory,Dictionary) {
   $scope.editOriginal = function(name){
     document.getElementById("myId").disabled = false;
   }
+
+  $scope.createPrimary = function(name){
+    debugger;
+    Dictionary.createPrimary(name,$scope.meta,function(err,data){
+      if (!err){
+        termFactory.setSynonyms(data.synonyms);
+        termFactory.setPrimary(data.primary);
+        $location.path("/setGrams");
+      }
+    })
+  };
   
   function getSuggested(name){
     Dictionary.getSynonyms(name,function(error,data){
