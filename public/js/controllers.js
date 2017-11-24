@@ -67,8 +67,8 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
       }
     })
   };
-  //var url = 'http://polar-garden-35450.herokuapp.com'
-  var url = 'http://localhost:3000'
+  var url = 'http://polar-garden-35450.herokuapp.com'
+  //var url = 'http://localhost:3000'
   $scope.uploadFiles = function(file,type) {
     if(type=="primary"){
       var route = "/upload"
@@ -148,7 +148,7 @@ controller('EditCtrl', function ($scope,termFactory,Dictionary) {
 })
 .controller('SolveCtrl',function($scope,Dictionary,termFactory,$location){
   $scope.current = termFactory.getCurrent();
-  $scope.synonymsSearch = termFactory.getCurrent();
+  $scope.synonymsSearch = termFactory.getCurrent().name;
   Dictionary.getMetaFeatures(function(error,data){
     if(!error){
       $scope.metaFeatures = data.metaFeatures;
@@ -166,9 +166,9 @@ controller('EditCtrl', function ($scope,termFactory,Dictionary) {
     document.getElementById("myId").disabled = false;
   }
 
-  $scope.createPrimary = function(name){
+  $scope.createPrimary = function(noun){
     debugger;
-    Dictionary.createPrimary(name,$scope.meta,function(err,data){
+    Dictionary.createPrimary(noun.name,noun.dictionary,function(err,data){
       if (!err){
         termFactory.setSynonyms(data.synonyms);
         termFactory.setPrimary(data.primary);
@@ -195,7 +195,7 @@ controller('EditCtrl', function ($scope,termFactory,Dictionary) {
             $scope.notFound = true
           }else{
             termFactory.setSynonyms(data.synonyms);
-            termFactory.setCurrent($scope.current);
+            termFactory.setCurrent($scope.current.name);
             termFactory.setPrimary(data.primary);
             $location.path("/setGrams");
           }        

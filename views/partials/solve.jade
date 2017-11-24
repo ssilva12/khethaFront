@@ -1,13 +1,10 @@
 div(class="form-gorup")  
   div(class="col-md-12")
     label: h4 Entrada
-  div(class="col-md-5")
-    input(type="text",id="myId", disabled="true",class="form-control", ng-model="current")
+  div(class="col-md-10")
+    input(type="text",id="myId", disabled="true",class="form-control", ng-model="current.name")
   div(class="col-md-1")
     button(ng-click="editOriginal()") Editar
-  div(class="col-md-5")
-    <select ng-model="meta" ng-options="x.name for x in metaFeatures" class="form-control">
-    </select> 
   div(class="col-md-1")
     button(ng-click="createPrimary(current)") Crear
 div(class="form-gorup")
