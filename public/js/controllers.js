@@ -10,10 +10,11 @@ controller('MyCtrl1', function ($scope,$http,Dictionary,$location,termFactory) {
   termFactory.setCurrent(null);
   //trae los tickets sin resolver
   getUnresolved();
-  $scope.items=["1","4","7"];
   $scope.getSuggested = function(name){
-    Dictionary.getSynonyms(name,function(error,data){
+    Dictionary.getSynonyms(name,"null",function(error,data){
+      console.log(data);
       if (!error){
+        console.log(data.suggested);
         if(data.suggested){
           $scope.suggested = data.suggested
           $scope.items = data.suggested
@@ -41,7 +42,7 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
   termFactory.setCurrent(null);
   getMeta();
   $scope.search = function(name){
-    Dictionary.getSynonyms(name,function(error,data){
+    Dictionary.getSynonyms(name,"null",function(error,data){
       if (!error){
         if(!data.primary){
           $scope.suggested = data.suggested
@@ -67,8 +68,8 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
       }
     })
   };
-  var url = 'http://polar-garden-35450.herokuapp.com'
-  //var url = 'http://localhost:3000'
+  //var url = 'http://polar-garden-35450.herokuapp.com'
+  var url = 'http://localhost:3000'
   $scope.uploadFiles = function(file,type) {
     if(type=="primary"){
       var route = "/upload"
@@ -154,9 +155,9 @@ controller('EditCtrl', function ($scope,termFactory,Dictionary) {
       $scope.metaFeatures = data.metaFeatures;
     }
   });
-  getSuggested($scope.synonymsSearch);
-  $scope.getSuggested = function(name){
-    getSuggested(name)
+  getSuggested($scope.synonymsSearch,"null");
+  $scope.getSuggested = function(name,dictionary){
+    getSuggested(name,dictionary)
   }
   $scope.selectPrimary = function(name){
     $scope.primary = name;
@@ -167,37 +168,43 @@ controller('EditCtrl', function ($scope,termFactory,Dictionary) {
   }
 
   $scope.createPrimary = function(noun){
-    debugger;
-    Dictionary.createPrimary(noun.name,noun.dictionary,function(err,data){
+    Dictionary.solveAsNoun(noun.id,noun.name,noun.dictionary,function(err,data){
       if (!err){
-        termFactory.setSynonyms(data.synonyms);
-        termFactory.setPrimary(data.primary);
-        $location.path("/setGrams");
+        //termFactory.setSynonyms(data.synonyms);
+        //termFactory.setPrimary(data.primary);
+        $location.path("/unresolved");
       }
     })
   };
   
   function getSuggested(name){
-    Dictionary.getSynonyms(name,function(error,data){
+    Dictionary.getSynonyms(name,$scope.current.dictionary,function(error,data){
+      console.log(name)
       if (!error){
+        console.log(data)
         if(data.suggested){
           $scope.suggested = data.suggested;
           $scope.items = data.suggested;
         }
+        if(data.primary){
+          $scope.suggested = [data.primary];
+          $scope.items = [data.primary];
+        }
       }
     });
   }
-  $scope.search = function(name){
-      Dictionary.getSynonyms(name,function(error,data){
+  $scope.solveAsSynonym = function(id){
+      Dictionary.solveAsSynonym(id,$scope.current.name,$scope.current.dictionary,$scope.current.id,function(error,data){
         if (!error){
           if(!data.primary){
-            $scope.suggested = data.suggested
-            $scope.notFound = true
+            //$scope.suggested = data.suggested
+            //$scope.notFound = true
+            $location.path("/unresolved");
           }else{
-            termFactory.setSynonyms(data.synonyms);
-            termFactory.setCurrent($scope.current.name);
-            termFactory.setPrimary(data.primary);
-            $location.path("/setGrams");
+            //termFactory.setSynonyms(data.synonyms);
+            //termFactory.setCurrent($scope.current.name);
+            //termFactory.setPrimary(data.primary);
+            $location.path("/unresolved");
           }        
         }
       });

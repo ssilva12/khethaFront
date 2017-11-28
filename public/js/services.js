@@ -8,12 +8,15 @@
 angular.module('myApp.services', []).
   value('version', '0.1')
   .service('Dictionary', function($http) {
-    //var url = "http://localhost:9000/"
-    var url = "http://guarded-atoll-31281.herokuapp.com/"
-    this.getSynonyms = function (name,callback) {
+    var url = "http://localhost:9000/"
+    //var url = "http://guarded-atoll-31281.herokuapp.com/"
+    this.getSynonyms = function (name,dictionaryName,callback) {
+      if(dictionaryName == undefined){
+        dictionaryName = "null"
+      }
       $http({
         method: 'GET',
-        params: {er: name},
+        params: {er: name,dictionaryName:dictionaryName},
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -217,6 +220,32 @@ angular.module('myApp.services', []).
         method: 'PUT',
         data: {noun:noun},
         url: url+'noun'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+    this.solveAsNoun = function(id,name,metaFeature,callback){
+      $http({
+        method: 'POST',
+        data: {id:id,name:name,metaFeature:metaFeature},
+        url: url+'solveAsNoun'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+    this.solveAsSynonym = function(nounId,synonymEr,synonymDictionary,featureId,callback){
+      $http({
+        method: 'POST',
+        data: {nounId:nounId,synonymEr:synonymEr,dictionary:synonymDictionary,featureId:featureId},
+        url: url+'solveAsSynonym'
       }).
       success(function (data, status, headers, config) {
         callback(null,data)

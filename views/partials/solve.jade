@@ -16,11 +16,12 @@ div(class="form-gorup")
 div.col-md-12
   h4 Sugerencias
 div(class="col-md-10 col-md-offset-1")
+  {{current}}
   table(class = "table")
     thead
       tr: th Nombre
           th   
     tbody
       tr(ng-repeat="entry in suggested")
-        td: {{entry}}
-        td: button(ng-click="search(entry)") seleccionar
+        td: {{entry.er}}
+        td: button(ng-click="solveAsSynonym(entry.id)") seleccionar
