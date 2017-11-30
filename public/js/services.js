@@ -8,8 +8,8 @@
 angular.module('myApp.services', []).
   value('version', '0.1')
   .service('Dictionary', function($http) {
-    //var url = "http://localhost:9000/"
-    var url = "http://guarded-atoll-31281.herokuapp.com/"
+    var url = "http://localhost:9000/"
+    //var url = "http://guarded-atoll-31281.herokuapp.com/"
     this.getSynonyms = function (name,dictionaryName,callback) {
       if(dictionaryName == undefined){
         dictionaryName = "null"
@@ -246,6 +246,19 @@ angular.module('myApp.services', []).
         method: 'POST',
         data: {nounId:nounId,synonymEr:synonymEr,dictionary:synonymDictionary,featureId:featureId},
         url: url+'solveAsSynonym'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+    this.deleteCandidateFeature = function(feature,callback){
+      $http({
+        method: 'POST',
+        data: {featureId:feature.id},
+        url: url+'deleteCandidateFeature'
       }).
       success(function (data, status, headers, config) {
         callback(null,data)

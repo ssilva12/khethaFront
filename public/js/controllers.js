@@ -29,6 +29,15 @@ controller('MyCtrl1', function ($scope,$http,Dictionary,$location,termFactory) {
     console.log(termFactory.getCurrent());
     $location.path("/solve");
   }
+
+  $scope.discard = function(entry){
+    Dictionary.deleteCandidateFeature(entry,function(error,data){
+      if(!error){
+        console.log("deleted!")
+        getUnresolved();
+      }
+    });
+  }
   function getUnresolved(){
     Dictionary.getUnresolved(function(error,data){
       console.log(data.unresolved)
@@ -68,8 +77,8 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
       }
     })
   };
-  var url = 'http://polar-garden-35450.herokuapp.com'
-  //var url = 'http://localhost:3000'
+  //var url = 'http://polar-garden-35450.herokuapp.com'
+  var url = 'http://localhost:3000'
   $scope.uploadFiles = function(file,type) {
     if(type=="primary"){
       var route = "/upload"
