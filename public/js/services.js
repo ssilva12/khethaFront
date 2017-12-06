@@ -8,15 +8,18 @@
 angular.module('myApp.services', []).
   value('version', '0.1')
   .service('Dictionary', function($http) {
-    //var url = "http://localhost:9000/"
-    var url = "http://guarded-atoll-31281.herokuapp.com/"
-    this.getSynonyms = function (name,dictionaryName,callback) {
+    var url = "http://localhost:9000/"
+    //var url = "http://guarded-atoll-31281.herokuapp.com/"
+    this.getSynonyms = function (name,dictionaryName,acronym,callback) {
       if(dictionaryName == undefined){
         dictionaryName = "null"
       }
+      if(acronym == undefined){
+        acronym = "null"
+      }
       $http({
         method: 'GET',
-        params: {er: name,dictionaryName:dictionaryName},
+        params: {er: name,dictionaryName:dictionaryName,acronym:acronym},
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -31,11 +34,14 @@ angular.module('myApp.services', []).
         callback("Error")
       });
     }
-    this.createPrimary = function (name,metaFeature,callback) {
+    this.createPrimary = function (name,metaFeature,acronym,callback) {
+      if(acronym == undefined || acronym == "" || acronym == " "){
+        acronym = "null"
+      }
       $http({
         method: 'POST',
         params: {er:name,dic:metaFeature.dictionary,
-                countryAcronyms:"null",gps:"null",
+                countryAcronyms:acronym,gps:"null",
                 metaFeatureId:metaFeature.id,metaDictionary:metaFeature.dictionary},
         headers: {
           'Access-Control-Allow-Origin':'true'

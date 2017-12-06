@@ -51,7 +51,11 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
   termFactory.setCurrent(null);
   getMeta();
   $scope.search = function(name){
-    Dictionary.getSynonyms(name,"null",function(error,data){
+    if ($scope.metaRelationSearch == undefined){
+      $scope.metaRelationSearch = {};
+      $scope.metaRelationSearch.dictionary = null;
+    }
+    Dictionary.getSynonyms(name,$scope.metaRelationSearch.dictionary,$scope.acronym,function(error,data){
       if (!error){
         if(!data.primary){
           $scope.suggested = data.suggested
@@ -69,7 +73,7 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
   }
   
   $scope.createPrimary = function(name){
-    Dictionary.createPrimary(name,$scope.meta,function(err,data){
+    Dictionary.createPrimary(name,$scope.meta,$scope.acronym,function(err,data){
       if (!err){
         termFactory.setSynonyms(data.synonyms);
         termFactory.setPrimary(data.primary);
@@ -77,8 +81,8 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
       }
     })
   };
-  var url = 'http://polar-garden-35450.herokuapp.com'
-  //var url = 'http://localhost:3000'
+  //var url = 'http://polar-garden-35450.herokuapp.com'
+  var url = 'http://localhost:3000'
   $scope.uploadFiles = function(file,type) {
     if(type=="primary"){
       var route = "/upload"
@@ -187,7 +191,7 @@ controller('EditCtrl', function ($scope,termFactory,Dictionary) {
   };
   
   function getSuggested(name){
-    Dictionary.getSynonyms(name,$scope.current.dictionary,function(error,data){
+    Dictionary.getSynonyms(name,$scope.current.dictionary,"null",function(error,data){
       console.log(name)
       if (!error){
         console.log(data)

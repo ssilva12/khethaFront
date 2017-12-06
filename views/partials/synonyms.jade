@@ -9,7 +9,13 @@ div(class="row search-div")
         div.input.form-group
             span.label.black-form Nombre
             input(type="text", name="name",id="name", class="form-control", ng-model="name")
-            button(class="btn btn-default", ng-click="search(name)") Buscar
+    div.col-md-6
+        <select ng-model="metaRelationSearch" ng-options="x.name for x in metaFeatures" class="form-control">
+        </select>
+    div.col-md-6
+        input(type="text", name="acronym",id="name", class="form-control", ng-model="acronym")
+    div.col-md-1.col-md-offset-11
+        button(class="btn btn-default", ng-click="search(name)") Buscar
     div(class="col-md-12")      
         div(ng-show="notFound")
             div.col-md-5
