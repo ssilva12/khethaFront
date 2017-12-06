@@ -10,9 +10,11 @@ div(class="row search-div")
             span.label.black-form Nombre
             input(type="text", name="name",id="name", class="form-control", ng-model="name")
     div.col-md-6
+        span.label.black-form Diccionario
         <select ng-model="metaRelationSearch" ng-options="x.name for x in metaFeatures" class="form-control">
         </select>
     div.col-md-6
+        span.label.black-form Acrónimo
         input(type="text", name="acronym",id="name", class="form-control", ng-model="acronym")
     div.col-md-1.col-md-offset-11
         button(class="btn btn-default", ng-click="search(name)") Buscar
