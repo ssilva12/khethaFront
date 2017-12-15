@@ -7,6 +7,11 @@ div(class="form-gorup")
     button(ng-click="editOriginal()") Editar
   div(class="col-md-1")
     button(ng-click="createPrimary(current)") Crear
+div(class="col-md-12", ng-show="current.dictionary == 'SkillName' || current.dictionary == 'JobFunctionName'")
+  input(type='radio', ng-model="current.dictionary",name='dictionary', value='JobFunctionName', ng-checked="current.dictionary == 'JobFunctionName'") 
+  |JobFunctionName
+  input(type='radio', ng-model="current.dictionary",name='dictionary', value='SkillName', ng-checked="current.dictionary == 'SkillName'") 
+  |SkillName
 div(class="form-gorup")
   div.col-md-12
     label: h4 Busqueda de sinonimos
