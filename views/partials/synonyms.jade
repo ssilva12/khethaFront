@@ -28,7 +28,14 @@ div(class="row search-div")
             div.col-md-2
                 button(id="createPrimary", class="btn btn-default", ng-click="createPrimary(name)") Crear
             div(class="col-md-12")
-                sugeridos {{suggested}}
+                table.table
+                    thead
+                        tr: th Noun
+                            th
+                    tbody
+                        tr(ng-repeat="sug in suggested")
+                            td:{{sug.er}}
+                            td: button(ng-click="selectNoun(sug.er)") dele
             
 
 <div class="modal fade" id="myModal" role="dialog">
