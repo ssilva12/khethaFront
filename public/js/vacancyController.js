@@ -7,19 +7,23 @@ controller('vacancyCtrl', function ($scope,$route,Vacancy) {
         Vacancy.createVancancyCandidateRelation(vacancyId,candidateId,relationName,function(error,data){
             if(!error){
                 $scope.vacancies = data.vacancies;
+                getRelations($scope.vacancy.id, $scope.candidate.id)
             }
         });
     }
+
+    $scope.getRelations = function(){
+        if($scope.vacancy && $scope.candidate){
+            getRelations($scope.vacancy.id, $scope.candidate.id)
+        }
+    }
+
+    $scope.validateRelations = function(relation){
+        debugger;
+    }
+
     function getvacancies(){
         Vacancy.getVacancies(function(error,data){
-            if(!error){
-                $scope.vacancies = data.vacancies;
-            }
-        });
-    }
-    
-    function getRelations(vacancyId,candidateId){
-        Vacancy.getRelations(vacancyId,candidateId,function(error,data){
             if(!error){
                 $scope.vacancies = data.vacancies;
             }
@@ -30,6 +34,14 @@ controller('vacancyCtrl', function ($scope,$route,Vacancy) {
         Vacancy.getCandidates(function(error,data){
             if(!error){
                 $scope.candidates = data.candidates;
+            }
+        });
+    }
+
+    function getRelations(vacancyId,candidateId){
+        Vacancy.getRelations(vacancyId,candidateId,function(error,data){
+            if(!error){
+                $scope.relations = data.relations;
             }
         });
     }
