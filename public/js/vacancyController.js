@@ -2,6 +2,14 @@ angular.module('myApp.vacancyCtrl', []).
 controller('vacancyCtrl', function ($scope,$route,Vacancy) {
     getvacancies();
     getCandidates();
+
+    $scope.createVancancyCandidateRelation = function(vacancyId,candidateId,relationName){
+        Vacancy.createVancancyCandidateRelation(vacancyId,candidateId,relationName,function(error,data){
+            if(!error){
+                $scope.vacancies = data.vacancies;
+            }
+        });
+    }
     function getvacancies(){
         Vacancy.getVacancies(function(error,data){
             if(!error){
@@ -10,6 +18,14 @@ controller('vacancyCtrl', function ($scope,$route,Vacancy) {
         });
     }
     
+    function getRelations(vacancyId,candidateId){
+        Vacancy.getRelations(vacancyId,candidateId,function(error,data){
+            if(!error){
+                $scope.vacancies = data.vacancies;
+            }
+        });
+    }
+
     function getCandidates(){
         Vacancy.getCandidates(function(error,data){
             if(!error){
@@ -17,7 +33,7 @@ controller('vacancyCtrl', function ($scope,$route,Vacancy) {
             }
         });
     }
-    
+
     searchCandidates = function(name){
         var dictionaryName = "JobFunctionName"
         Dictionary.getSynonyms(name,$scope.metaRelationSearch.dictionary,$scope.acronym,function(error,data){

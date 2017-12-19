@@ -28,4 +28,31 @@ value('version', '0.1')
             callback("Error")
         });
     } 
+    this.createVancancyCandidateRelation = function(vacancyId,candidateId,relationName,callback){
+        $http({
+            method: 'POST',
+            url: url+'linkJobVancancyCandidate',
+            params: {vacancyId:vacancyId,candidateId:candidateId,relationName:relationName},
+        }).
+        success(function (data, status, headers, config) {
+            callback(null,data)
+        }).
+        error(function (data, status, headers, config) {
+            callback("Error")
+        });
+    }
+    this.getRelations = function(vacancyId,candidateId,relationName,callback){
+        $http({
+            method: 'GET',
+            url: url+'getRelations',
+            params: {vacancyId:vacancyId,candidateId:candidateId,relationName},
+        }).
+        success(function (data, status, headers, config) {
+            callback(null,data)
+        }).
+        error(function (data, status, headers, config) {
+            callback("Error")
+        });
+    }
+    getRelations
 })

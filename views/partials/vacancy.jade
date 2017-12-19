@@ -1,5 +1,15 @@
 div.row
     div.col-md-6
-        p {{vacancies}}
+        select(ng-model="vacancy", ng-options="x.name for x in vacancies", class="form-control")
     div.col-md-6
-        p {{candidates}}
+        select(ng-model="candidate", ng-options="x.name for x in candidates", class="form-control")
+div.row(ng-show = "vacancy && candidate") 
+    div.panel
+        div.col-md-5
+            {{vacancy.name}}
+        div.col-md-2
+            button.btn.btn-info(ng-click="createVancancyCandidateRelation(vacancy.id,candidate.id,'CND_CONCUR')") CND_CONCUR
+            button.btn.btn-info(ng-click="createVancancyCandidateRelation(vacancy.id,candidate.id,'CND_PRESELECTED')") CND_PRESELECTED
+            button.btn.btn-info(ng-click="createVancancyCandidateRelation(vacancy.id,candidate.id,'CND_SELECTED')") CND_SELECTED
+        div.col-md-5
+            {{candidate.name}}
