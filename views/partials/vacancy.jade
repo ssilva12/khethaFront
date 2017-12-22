@@ -8,9 +8,9 @@ div.row(ng-show = "vacancy && candidate")
         div.col-md-5
             {{vacancy.name}}
         div.col-md-2
-            button.btn.btn-info(ng-click="createVancancyCandidateRelation(vacancy.id,candidate.id,'CND_CONCUR')", ng-disabled="relations.indexOf('CND_CONCUR') !=-1") CND_CONCUR
-            button.btn.btn-info(ng-click="createVancancyCandidateRelation(vacancy.id,candidate.id,'CND_PRESELECTED')", ng-disabled="relations.indexOf('CND_PRESELECTED') !=-1 || relations.indexOf('CND_CONCUR') ==-1") CND_PRESELECTED
-            button.btn.btn-info(ng-click="createVancancyCandidateRelation(vacancy.id,candidate.id,'CND_SELECTED')", ng-disabled="relations.indexOf('CND_SELECTED') !=-1 || relations.indexOf('CND_CONCUR') ==-1 || relations.indexOf('CND_PRESELECTED') ==-1") CND_SELECTED
+            button.btn.btn-info(ng-click="createVancancyCandidateRelation(vacancy.id,candidate.id,'CND_CONCUR')", ng-disabled="relations.indexOf('CND_CONCUR') !=-1 && relations.indexOf('CND_PRESELECTED') !=-1", ng-class="createOrDelete('CND_CONCUR')") CND_CONCUR
+            button.btn.btn-info(ng-click="createVancancyCandidateRelation(vacancy.id,candidate.id,'CND_PRESELECTED')", ng-disabled="relations.indexOf('CND_PRESELECTED') !=-1 || relations.indexOf('CND_CONCUR') ==-1", ng-class="createOrDelete('CND_PRESELECTED')") CND_PRESELECTED
+            button.btn.btn-info(ng-click="createVancancyCandidateRelation(vacancy.id,candidate.id,'CND_SELECTED')", ng-disabled="relations.indexOf('CND_SELECTED') !=-1 || relations.indexOf('CND_PRESELECTED') ==-1 || relations.indexOf('CND_CONCUR') ==-1", ng-class="createOrDelete('CND_SELECTED')") CND_SELECTED
             {{relations}}
         div.col-md-5
             {{candidate.name}}

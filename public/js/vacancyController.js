@@ -22,6 +22,14 @@ controller('vacancyCtrl', function ($scope,$route,Vacancy) {
         debugger;
     }
 
+    $scope.createOrDelete = function(relationClass){
+        if ($scope.relations.indexOf(relationClass) !=-1){
+            return 'btn-danger'
+        }else{
+            return 'btn-info'
+        }
+    }
+
     function getvacancies(){
         Vacancy.getVacancies(function(error,data){
             if(!error){
