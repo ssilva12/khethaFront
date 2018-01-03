@@ -1,0 +1,324 @@
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 0px;
+    line-height: 25px;
+    font-weight: 700;
+}
+.form-control {
+    height: 30px;
+    font-size: 1em;
+    line-height: 18px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    border: 1px solid #D5D5D5;
+    background: #F9F9F9;
+}
+.input-group .form-control {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+    padding: 17px 10px; 
+}
+.form-group {
+    margin-bottom: 5px;
+}
+.page-container {
+    background: #192334;
+}
+
+/* LOGO */
+
+.x-navigation.x-navigation-minimized>li.xn-logo>a:first-child {
+    padding: 0px;
+    width: 50px;
+    background-image: url("../img/logo-small.svg");
+}
+
+.x-navigation>li.xn-logo>a:first-child {
+    font-size: 0px;
+    text-indent: -9999px;
+    background: url("../img/logoKhetha.svg") top center no-repeat #EE1F39;
+    background-color: rgb(238, 31, 57);
+    padding: 0px;
+    border-bottom: 0px;
+    color: #FFF;
+    height: 50px;
+}
+
+.x-navigation>li.xn-logo>a:first-child:hover {
+    background-color: #EE1F39;
+}
+
+/* NAVEGACION */
+
+.x-navigation.x-navigation-horizontal {
+    height: 50px;
+    background: #192334;
+}
+
+.x-navigation {
+    background: #192334;
+}
+
+/**/
+
+.profileCandidato {
+    background: #263755;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.profileCandidato .profile-image {
+    float: left;
+    width: 100%;
+    margin: 0px 0px 10px;
+    text-align: center;
+}
+
+.profileCandidato .profile-image img {
+    width: 100px;
+    border: 3px solid #FFF;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.profileCandidato .profile-data {
+    color: #fff;
+    width: 100%;
+    float: left;
+    text-align: center;
+}
+
+.profileCandidato .profile-data h3,
+.profileCandidato .profile-data p {
+    color: #fff;
+    font-weight: 100;
+    margin: 0;
+    padding: 0;
+}
+
+.profile {
+    background: #192334;
+}
+
+.profilecand img {
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+/**/
+
+.x-navigation {
+    background: #192334;
+}
+
+.x-navigation li.active>a .fa,
+.x-navigation li.active>a .glyphicon {
+    color: #EE1F39;
+}
+
+.x-navigation li.active>a {
+    background: #121b2a;
+}
+
+.x-navigation li>a:hover {
+    background: #192334;
+}
+
+.x-navigation li>ul li>a:hover {
+    background: #121b2a;
+    color: #ffffff;
+}
+
+.x-navigation li>ul {
+    background: #20304a;
+}
+
+.x-navigation li>ul li.active>a {
+    background: #121b2a;
+    color: #ffffff;
+}
+
+.x-navigation>li>a.x-navigation-control {
+    background: #EE1F39;
+}
+
+/* */
+
+.form-group {
+    display: block;
+    clear: both;
+    border: 0px solid #fff;
+}
+
+.panel .panel-title {
+    font-size: 2em;
+    font-weight: 400;
+    line-height: 30px;
+    display: block;
+    float: left;
+}
+
+.page-title {
+    float: left;
+    width: 100%;
+    padding: 10px 10px 0 10px;
+}
+
+.txt-grises {
+    color: #999;
+}
+
+.contact-info {
+    float: left;
+    width: 100%;
+}
+
+.contact-info p {
+    line-height: 20px;
+}
+
+.input-group-addon {
+    background-color: #192334;
+    border-color: #121b2a;
+}
+
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
+.open>.dropdown-toggle.btn-default {
+    background-color: #192334;
+    border-color: #121b2a;
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #192334;
+    border-color: #121b2a;
+}
+.btn {
+    padding: 7px 15px;
+    line-height: 20px;
+    font-weight: 600;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+.btn-success {
+    background-color: #95B75D;
+    border-color: #95B75D;
+}
+.file-input-wrapper {
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    z-index: 1;
+}
+.form-horizontal .control-label {
+    font-weight: bold;
+}
+
+/**/
+
+.alert-danger {
+    background-color: #C40000;
+    color: #FFF;
+    border-color: #af4342;
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active,
+.open>.dropdown-toggle.btn-danger {
+    background-color: #C40000;
+    border-color: #a43f3e;
+}
+
+.message-box {
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.message-box.message-box-danger .mb-container {
+    background: rgba(196, 0, 9, 1);
+}
+
+.txt-redAlert {
+    color: rgba(196, 0, 9, 1);
+    font-size: 1em;
+    font-family: Arial;
+}
+
+.message-box.message-box-warning .mb-container {
+    background: rgba(254, 162, 35, 1);
+}
+
+.message-box.message-box-success .mb-container {
+    background: rgba(0, 201, 0, 1);
+}
+
+.message-box.message-box-info .mb-container {
+    background: rgba(0, 80, 217, 1);
+}
+
+.status-disponible {
+    color: rgba(0, 201, 0, 1);
+}
+
+.status-NoDisponible {
+    color: rgba(196, 0, 9, 1);
+}
+
+.status-EnProceso {
+    color: rgba(254, 162, 35, 1);
+}
+
+/**/
+
+.form-control::-moz-placeholder {
+    color: #bababa;
+    opacity: 1;
+}
+
+/* Nestable list */
+
+.dd {
+    max-width: 100%;
+}
+
+.dd-handle {
+	cursor: pointer;
+	height: auto;
+	clear: both;
+}
+.dd-handle h3 {
+	font-size: 1.7em;
+	font-weight: 400;
+	margin-top: 10px;
+}
+.icoLoadfileok {
+	font-size: 6em;
+}
+.dd-item, .dd-empty, .dd-placeholder {
+    display: block;
+    margin: 0 0 10px 0;
+    /* min-height: 20px; */
+}
+/* end nestable list */
