@@ -321,4 +321,131 @@ controller('metaFeaturesCtrl', function ($scope,$location,metaFeaturesFactory,Di
       }
     });
   }
-});
+}).
+controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, frequencyMatrixFactory, frequencyMatrixService, usSpinnerService) {
+  console.log("frequencyMatrixCtrl");
+
+  $scope.employer  = '';
+  $scope.job = '';
+  $scope.vacancy = '';
+  $scope.years = 1;
+  $scope.candidateType = 'C';
+  $scope.minPercentage = 0;
+  $scope.showValue = "f"; // f: frequency, w:weight, p: probability
+  $scope.methaFeatures = [];
+  $scope.featuresModified = [];
+
+  /*
+  var features = frequencyMatrixService.get( { 
+    employer: $scope.employer,
+    job: $scope.job,
+    years: $scope.years,
+    candidateType: $scope.candidateType,
+    minPercentage: $scope.minPercentage
+  }, function(error, data){
+    console.log(data);
+    if (!error) {
+      $scope.methaFeatures = data;
+    }
+  });
+  // */
+
+  let employers = frequencyMatrixService.getEmployers( {}, function(error, data) {
+    console.log(data);
+    if (!error) {
+      $scope.employers = data;
+    }
+  })
+
+  $scope.getJobs = function() {
+    // employerId: $scope.employer }
+    frequencyMatrixService.getJobs( { 
+      employerId: $scope.employer 
+    },
+    function(error, data) {
+      console.log(data);
+      if (!error) {
+        $scope.jobs = data;
+        $scope.job = '';
+        $scope.getVacancies();
+      }
+    });
+  }
+
+  $scope.getVacancies = function() {
+    // employerId: $scope.employer }
+    frequencyMatrixService.getVacancies( { 
+      employerId: $scope.employer,
+      jobId: $scope.job 
+    },
+    function(error, data) {
+      console.log(data);
+      if (!error) {
+        $scope.vacancies = data;
+        $scope.vacancy = '';
+      }
+    });
+  }
+
+  $scope.getMethaFeatures = function() {
+    console.log('Consultar click... ' + $scope.employer + ', ' + $scope.job +
+    ', ' + $scope.years + ', ' + $scope.candidateType + ', ' + $scope.minPercentage);
+
+    $scope.methaFeatures = [];
+
+    frequencyMatrixService.get( { 
+      employer: $scope.employer,
+      job: $scope.job,
+      jobVacancy: $scope.vacancy,
+      years: $scope.years,
+      candidateType: $scope.candidateType,
+      minPercentage: $scope.minPercentage
+    }, function(error, data) {
+      console.log(data);
+      if (!error) {
+        $scope.featuresModified = [];
+        data.forEach(mf => {
+          mf.features.forEach(f => {
+            $scope.featuresModified.push(
+              {
+                methaFeature: mf.name,
+                levelNames: mf.levelNames,
+                totalCount: mf.totalCount,
+                visible: f.count > mf.totalCount * $scope.minPercentage / 100,
+                ...f,
+              }
+            );
+          });
+          $scope.featuresModified
+        })
+        $scope.methaFeatures = data;
+      }
+    });
+  }
+
+  $scope.updateVisible = function() {
+    console.log("perc: " + $scope.minPercentage);
+    $scope.featuresModified.forEach(f => {
+      // console.log('f.count: ' + f.count);
+      // console.log("f.totalCount * $scope.minPercentage: " + f.totalCount * $scope.minPercentage / 100);
+      f.visible = f.count > (f.totalCount * $scope.minPercentage / 100)
+    })
+  }
+
+  $scope.getJobs();
+  $scope.getMethaFeatures();
+  $scope.getVacancies();
+
+  $scope.setShowValue = function(val) {
+    console.log('setShowValue: ' + val);
+    $scope.showValue = val; 
+    $scope.getMethaFeatures();
+  }
+
+  $timeout(function() {
+    usSpinnerService.stop();
+    $scope.match = true;
+  }, 3000); 
+  // $location.path("/frequencyMatrix");
+})
+;

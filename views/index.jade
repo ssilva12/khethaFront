@@ -24,6 +24,9 @@ block body
           li(role="presentation", ng-class="{active: $route.current.activetab == 'jobs'}")
             a(href='jobs') Cargos
 
+          li(role="frequencyMatrix", ng-class="{active: $route.current.activetab == 'frequencyMatrix'}")
+            a(href='frequencyMatrix') Matriz de Frecuencias
+
         div(ng-view)
 
   script(src='js/lib/angular/angular.js')

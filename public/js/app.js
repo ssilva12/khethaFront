@@ -93,6 +93,11 @@ config(function ($routeProvider, $locationProvider) {
       controller: 'metaFeaturesCtrl',
       activetab: 'metaFeatures'
     }).
+    when('/frequencyMatrix', {
+      templateUrl: 'partials/frequencyMatrix',
+      controller: 'frequencyMatrixCtrl',
+      activetab: 'frequencyMatrix'
+    }).
     otherwise({
       redirectTo: '/synonyms'
     });
