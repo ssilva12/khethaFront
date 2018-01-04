@@ -4,19 +4,39 @@ div.row(style="padding-top:20px;")
     div.col-md-3
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#metaModal">Meta Relaciones</button>
 div(class="row search-div")
-    div(class="col-md-6")
+    div(class="col-md-12")
         h1 Buscar
         div.input.form-group
             span.label.black-form Nombre
             input(type="text", name="name",id="name", class="form-control", ng-model="name")
-            button(class="btn btn-default", ng-click="search(name)") Buscar
-    div(class="col-md-6")      
+    div.col-md-6
+        span.label.black-form Diccionario
+        <select ng-model="metaRelationSearch" ng-options="x.name for x in metaFeatures" class="form-control">
+        </select>
+    div.col-md-6
+        span.label.black-form Acrónimo
+        input(type="text", name="acronym",id="name", class="form-control", ng-model="acronym")
+    div.col-md-1.col-md-offset-11
+        button(class="btn btn-default", ng-click="search(name)") Buscar
+    div(class="col-md-12")      
         div(ng-show="notFound")
-            h2 el termino no existe, ¿desea crearlo como una entrada primaria?
-            div(class="col-md-4")
-                sugeridos {{suggested}}
-            div(class="col-md-2")
+            div.col-md-5
+                h3 el termino no existe, ¿desea crearlo como una entrada primaria?
+            div.col-md-5
+                <select ng-model="meta" ng-options="x.name for x in metaFeatures" class="form-control">
+                </select>  
+            div.col-md-2
                 button(id="createPrimary", class="btn btn-default", ng-click="createPrimary(name)") Crear
+            div(class="col-md-12")
+                table.table
+                    thead
+                        tr: th Noun
+                            th
+                    tbody
+                        tr(ng-repeat="sug in suggested")
+                            td:{{sug.er}}
+                            td: button(ng-click="selectNoun(sug.er)") Seleccionar
+            
 
 <div class="modal fade" id="myModal" role="dialog">
 <div class="modal-dialog">

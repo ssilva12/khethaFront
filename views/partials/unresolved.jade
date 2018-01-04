@@ -4,8 +4,11 @@ div
       tr: th Nombre
           th Diccionario
           th
+          th
     tbody
       tr(ng-repeat="task in unresolved")
         td: {{task.name}}
         td {{task.dictionary}}
-        td: button.btn.btn.btn-deffault(ng-click="solve(task.name)") resolver
+        td: button.btn.btn.btn-deffault(ng-click="solve(task)") Resolver
+        td: button.btn.btn.btn-danger(ng-click="discard(task)") Descartar
+        

@@ -90,10 +90,16 @@ angular.module('myApp.services', []).
   .service('Dictionary', function($http) {
     var url = "http://localhost:9000/"
     //var url = "http://guarded-atoll-31281.herokuapp.com/"
-    this.getSynonyms = function (name,callback) {
+    this.getSynonyms = function (name,dictionaryName,acronym,callback) {
+      if(dictionaryName == undefined){
+        dictionaryName = "null"
+      }
+      if(acronym == undefined){
+        acronym = "null"
+      }
       $http({
         method: 'GET',
-        params: {er: name},
+        params: {er: name,dictionaryName:dictionaryName,acronym:acronym},
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -108,10 +114,15 @@ angular.module('myApp.services', []).
         callback("Error")
       });
     }
-    this.createPrimary = function (name,callback) {
+    this.createPrimary = function (name,metaFeature,acronym,callback) {
+      if(acronym == undefined || acronym == "" || acronym == " "){
+        acronym = "null"
+      }
       $http({
         method: 'POST',
-        params: {er: name},
+        params: {er:name,dic:metaFeature.dictionary,
+                countryAcronyms:acronym,gps:"null",
+                metaFeatureId:metaFeature.id,metaDictionary:metaFeature.dictionary},
         headers: {
           'Access-Control-Allow-Origin':'true'
         },
@@ -274,11 +285,66 @@ angular.module('myApp.services', []).
       });
     }
     this.saveMetaRelation = function (metaFeature,metaRelation,callback) {
-      //debugger;
+      if(metaRelation.from == undefined){
+        metaRelation.from = "null"
+      }
       $http({
         method: 'POST',
-        params: {name:metaRelation.name,orderNumber:metaRelation.orderNumber,from:metaRelation.from,id:metaFeature.id},
+        params: {name:metaRelation.name,orderNumber:metaRelation.orderNumber,from:metaRelation.from,id:metaFeature.id,
+        position:metaRelation.orderNumber},
         url: url+'createmetaRelation'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+    this.editNoun = function (noun,callback){
+      $http({
+        method: 'PUT',
+        data: {noun:noun},
+        url: url+'noun'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+    this.solveAsNoun = function(id,name,metaFeature,callback){
+      $http({
+        method: 'POST',
+        data: {id:id,name:name,metaFeature:metaFeature},
+        url: url+'solveAsNoun'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+    this.solveAsSynonym = function(nounId,synonymEr,synonymDictionary,featureId,callback){
+      $http({
+        method: 'POST',
+        data: {nounId:nounId,synonymEr:synonymEr,dictionary:synonymDictionary,featureId:featureId},
+        url: url+'solveAsSynonym'
+      }).
+      success(function (data, status, headers, config) {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+    this.deleteCandidateFeature = function(feature,callback){
+      $http({
+        method: 'POST',
+        data: {featureId:feature.id},
+        url: url+'deleteCandidateFeature'
       }).
       success(function (data, status, headers, config) {
         callback(null,data)

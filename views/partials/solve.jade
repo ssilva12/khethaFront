@@ -1,10 +1,17 @@
 div(class="form-gorup")  
   div(class="col-md-12")
     label: h4 Entrada
-  div(class="col-md-11")
-    input(type="text",id="myId", disabled="true",class="form-control", ng-model="current")
+  div(class="col-md-10")
+    input(type="text",id="myId", disabled="true",class="form-control", ng-model="current.name")
   div(class="col-md-1")
     button(ng-click="editOriginal()") Editar
+  div(class="col-md-1")
+    button(ng-click="createPrimary(current)") Crear
+div(class="col-md-12", ng-show="current.dictionary == 'SkillName' || current.dictionary == 'JobFunctionName'")
+  input(type='radio', ng-model="current.dictionary",name='dictionary', value='JobFunctionName', ng-checked="current.dictionary == 'JobFunctionName'") 
+  |JobFunctionName
+  input(type='radio', ng-model="current.dictionary",name='dictionary', value='SkillName', ng-checked="current.dictionary == 'SkillName'") 
+  |SkillName
 div(class="form-gorup")
   div.col-md-12
     label: h4 Busqueda de sinonimos
@@ -14,13 +21,12 @@ div(class="form-gorup")
 div.col-md-12
   h4 Sugerencias
 div(class="col-md-10 col-md-offset-1")
+  {{current}}
   table(class = "table")
     thead
       tr: th Nombre
-          th Diccionario
           th   
     tbody
       tr(ng-repeat="entry in suggested")
-        td: {{entry}}
-        td {{entry}}  
-        td: button(ng-click="search(entry)") seleccionar
+        td: {{entry.er}}
+        td: button(ng-click="solveAsSynonym(entry.id)") seleccionar

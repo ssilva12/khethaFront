@@ -10,14 +10,14 @@ controller('MyCtrl1', function ($scope,$http,Dictionary,$location,termFactory) {
   termFactory.setCurrent(null);
   //trae los tickets sin resolver
   getUnresolved();
-  $scope.items=["1","4","7"];
   $scope.getSuggested = function(name){
-    Dictionary.getSynonyms(name,function(error,data){
+    Dictionary.getSynonyms(name,"null",function(error,data){
+      console.log(data);
       if (!error){
+        console.log(data.suggested);
         if(data.suggested){
-          $scope.suggested = data.suggested
-          $scope.items = data.suggested
-          console.log(data)
+          $scope.suggested = data.suggested;
+          $scope.items = data.suggested;
         }
       }
     });
@@ -27,6 +27,15 @@ controller('MyCtrl1', function ($scope,$http,Dictionary,$location,termFactory) {
     termFactory.setCurrent(name);
     console.log(termFactory.getCurrent());
     $location.path("/solve");
+  }
+
+  $scope.discard = function(entry){
+    Dictionary.deleteCandidateFeature(entry,function(error,data){
+      if(!error){
+        console.log("deleted!")
+        getUnresolved();
+      }
+    });
   }
   function getUnresolved(){
     Dictionary.getUnresolved(function(error,data){
@@ -41,7 +50,11 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
   termFactory.setCurrent(null);
   getMeta();
   $scope.search = function(name){
-    Dictionary.getSynonyms(name,function(error,data){
+    if ($scope.metaRelationSearch == undefined){
+      $scope.metaRelationSearch = {};
+      $scope.metaRelationSearch.dictionary = null;
+    }
+    Dictionary.getSynonyms(name,$scope.metaRelationSearch.dictionary,$scope.acronym,function(error,data){
       if (!error){
         if(!data.primary){
           $scope.suggested = data.suggested
@@ -49,6 +62,9 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
         }else{
           termFactory.setSynonyms(data.synonyms);
           termFactory.setPrimary(data.primary);
+          var coordenadasGps=data.primary.gps.split(";")
+          data.primary.latitud = coordenadasGps[0];
+          data.primary.longitud = coordenadasGps[1];
           $location.path("/setGrams");
         }        
       }
@@ -56,7 +72,7 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
   }
   
   $scope.createPrimary = function(name){
-    Dictionary.createPrimary(name,function(err,data){
+    Dictionary.createPrimary(name,$scope.meta,$scope.acronym,function(err,data){
       if (!err){
         termFactory.setSynonyms(data.synonyms);
         termFactory.setPrimary(data.primary);
@@ -64,6 +80,10 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
       }
     })
   };
+
+  $scope.selectNoun = function(er){
+    $scope.name = er
+  }
   //var url = 'http://polar-garden-35450.herokuapp.com'
   var url = 'http://localhost:3000'
   $scope.uploadFiles = function(file,type) {
@@ -114,12 +134,23 @@ controller('SetCtrl', function ($scope,$location,termFactory,Dictionary) {
     })
   }
   $scope.editGram = function(gram){
-    termFactory.setCurrent(gram)
+    termFactory.setCurrent(gram);
     console.log("le dio a editar")
-    $location.path("/editGram");
+    Dictionary.editNoun(gram, function(error,res){
+       if (!error){
+         console.log(res);
+       }
+    });
+    //$location.path("/editGram");
   }
-  $scope.deleteGram = function(id,type){
+  $scope.deleteGram = function(synonym,id,type){
+    
+    var index = $scope.synonyms.indexOf(synonym);
+    if (index > -1) {
+      $scope.synonyms.splice(index, 1);
+    }
     Dictionary.deleteGram(id,type,function(err,res){
+
       console.log(res)
     });
   }
@@ -134,10 +165,15 @@ controller('EditCtrl', function ($scope,termFactory,Dictionary) {
 })
 .controller('SolveCtrl',function($scope,Dictionary,termFactory,$location){
   $scope.current = termFactory.getCurrent();
-  $scope.synonymsSearch = termFactory.getCurrent();
-  getSuggested($scope.synonymsSearch);
-  $scope.getSuggested = function(name){
-    getSuggested(name)
+  $scope.synonymsSearch = termFactory.getCurrent().name;
+  Dictionary.getMetaFeatures(function(error,data){
+    if(!error){
+      $scope.metaFeatures = data.metaFeatures;
+    }
+  });
+  getSuggested($scope.synonymsSearch,"null");
+  $scope.getSuggested = function(name,dictionary){
+    getSuggested(name,dictionary)
   }
   $scope.selectPrimary = function(name){
     $scope.primary = name;
@@ -146,28 +182,47 @@ controller('EditCtrl', function ($scope,termFactory,Dictionary) {
   $scope.editOriginal = function(name){
     document.getElementById("myId").disabled = false;
   }
+
+  $scope.createPrimary = function(noun){
+    Dictionary.solveAsNoun(noun.id,noun.name,noun.dictionary,function(err,data){
+      if (!err){
+        debugger;
+        termFactory.setSynonyms(data.synonyms);
+        termFactory.setPrimary(data.primary);
+        termFactory.setCurrent(null);
+        $location.path("/setGrams");
+      }
+    })
+  };
   
   function getSuggested(name){
-    Dictionary.getSynonyms(name,function(error,data){
+    Dictionary.getSynonyms(name,$scope.current.dictionary,"null",function(error,data){
+      console.log(name)
       if (!error){
+        console.log(data)
         if(data.suggested){
           $scope.suggested = data.suggested;
           $scope.items = data.suggested;
         }
+        if(data.primary){
+          $scope.suggested = [data.primary];
+          $scope.items = [data.primary];
+        }
       }
     });
   }
-  $scope.search = function(name){
-      Dictionary.getSynonyms(name,function(error,data){
+  $scope.solveAsSynonym = function(id){
+      Dictionary.solveAsSynonym(id,$scope.current.name,$scope.current.dictionary,$scope.current.id,function(error,data){
         if (!error){
           if(!data.primary){
-            $scope.suggested = data.suggested
-            $scope.notFound = true
+            //$scope.suggested = data.suggested
+            //$scope.notFound = true
+            $location.path("/unresolved");
           }else{
-            termFactory.setSynonyms(data.synonyms);
-            termFactory.setCurrent($scope.current);
-            termFactory.setPrimary(data.primary);
-            $location.path("/setGrams");
+            //termFactory.setSynonyms(data.synonyms);
+            //termFactory.setCurrent($scope.current.name);
+            //termFactory.setPrimary(data.primary);
+            $location.path("/unresolved");
           }        
         }
       });
@@ -261,6 +316,7 @@ controller('metaFeaturesCtrl', function ($scope,$location,metaFeaturesFactory,Di
   }
 
   $scope.newMetaRelation = function(){
+    metaFeaturesFactory.setCurrentMetaRelation(null);
     $location.path("/newMetaRelation");
   }
 
@@ -280,6 +336,7 @@ controller('metaFeaturesCtrl', function ($scope,$location,metaFeaturesFactory,Di
   $scope.updateMetaFeature = function(metaFeature){
     Dictionary.updateMetaFeature(metaFeature,function(error,data){
       if(!error){
+        metaFeaturesFactory.setMetaFeature(metaFeature);
         console.log(data);
       }
     });
@@ -305,15 +362,22 @@ controller('metaFeaturesCtrl', function ($scope,$location,metaFeaturesFactory,Di
             data.metaFeatures[key] = false;
           }
         });
-        data.metaRelations.sort(function(a, b) {
-          return parseFloat(a.from) - parseFloat(b.from);
-        });
-        for(var i=0;i<data.metaRelations.length;i++){
-          data.metaRelations[i].orderNumber = i;
-          if(i!=(data.metaRelations.length -1) ){
-            data.metaRelations[i].to = data.metaRelations[i+1].from
-          } 
+        if(data.metaRelations[0] != undefined && data.metaRelations[0].from != "null" ){
+          data.metaRelations.sort(function(a, b) {
+            return parseFloat(a.from) - parseFloat(b.from);
+          });
+          for(var i=0;i<data.metaRelations.length;i++){
+            data.metaRelations[i].orderNumber = i;
+            if(i!=(data.metaRelations.length -1) ){
+              data.metaRelations[i].to = data.metaRelations[i+1].from
+            } 
+          }
+        }else{
+          data.metaRelations.sort(function(a, b) {
+            return parseFloat(a.orderNumber) - parseFloat(b.orderNumber);
+          });
         }
+        
         metaFeaturesFactory.setMetaFeature(data.metaFeatures);
         metaFeaturesFactory.setMetaRelations(data.metaRelations);
         $scope.metaRelations = metaFeaturesFactory.getMetaRelations();
