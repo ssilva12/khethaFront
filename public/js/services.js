@@ -7,6 +7,86 @@
 // In this case it is a simple value service.
 angular.module('myApp.services', []).
   value('version', '0.1')
+  .service('frequencyMatrixService', function($http) {
+    let url = "http://localhost:9000/"
+
+    this.get = (parameters, callback) => {
+      $http({
+        method: 'GET',
+        url: url+'api/frequencymatrix/',
+        params: parameters
+      }).
+      success((data, status, headers, config) => {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+
+    this.getEmployers = (parameters, callback) => {
+      $http({
+        method: 'GET',
+        url: url+'api/employer/all/'
+      }).
+      success((data, status, headers, config) => {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+
+    this.getJobs = (parameters, callback) => {
+      console.log(parameters);
+      $http({
+        method: 'GET',
+        url: url+'api/job/all/',
+        params: parameters // {user_id: user.id}
+      }).
+      success((data, status, headers, config) => {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+
+    this.getVacancies = (parameters, callback) => {
+      console.log(parameters);
+      $http({
+        method: 'GET',
+        url: url+'api/vacancy/all/',
+        params: parameters
+      }).
+      success((data, status, headers, config) => {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+
+    // this.get
+  })
+  /*
+  .service('EmployerService', function($http) {
+    let url = "http://localhost:9000/"
+    this.get = (parameters, callback) => {
+      $http({
+        method: 'GET',
+        url: url+'api/employer/all/'
+      }).
+      success((data, status, headers, config) => {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+
+  })
+  // */
   .service('Dictionary', function($http) {
     //var url = "http://localhost:9000/"
     var url = "http://guarded-atoll-31281.herokuapp.com/"

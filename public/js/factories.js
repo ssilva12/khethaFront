@@ -84,4 +84,15 @@ angular.module('myApp.factories', []).
             this.currentMetaRelation = currentMetaRelation;
         }
     };
+  }).factory('frequencyMatrixFactory', function() {
+    return {
+        getMetaFeatures : function () {
+            console.log('getting factory meta features...');
+            return(this.MetaFeatures);
+        },
+        setMetaFeatures : function (MetaFeatures) {
+            console.log('factory(frequencyMatrixFactory');
+            this.MetaFeatures = MetaFeatures;
+        },
+    };
   });

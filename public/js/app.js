@@ -96,6 +96,11 @@ config(function ($routeProvider, $locationProvider) {
       controller: 'metaFeaturesCtrl',
       activetab: 'metaFeatures'
     }).
+    when('/frequencyMatrix', {
+      templateUrl: 'partials/frequencyMatrix',
+      controller: 'frequencyMatrixCtrl',
+      activetab: 'frequencyMatrix'
+    }).
     when('/vacancy', {
       templateUrl: 'partials/vacancy',
       controller: 'vacancyCtrl',
