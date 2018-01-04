@@ -5,6 +5,7 @@
 angular.module('myApp', [
   'myApp.controllers',
   'myApp.vacancyCtrl',
+  'myApp.candidatesCtrl',
   'myApp.filters',
   'myApp.services',
   'myApp.vacancyService',
@@ -100,8 +101,16 @@ config(function ($routeProvider, $locationProvider) {
       controller: 'vacancyCtrl',
       activetab: 'vacancies'
     }).
+    when('/detail', {
+      templateUrl: 'partials/candidateDetail',
+      controller: 'candidatesController'
+    }).
+    when('/detail/:id', {
+      templateUrl: 'partials/candidateDetail',
+      controller: 'candidatesController'
+    }).
     otherwise({
-      redirectTo: '/synonyms'
+      redirectTo: '/detail'
     });
 
   $locationProvider.html5Mode(true);
