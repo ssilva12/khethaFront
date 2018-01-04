@@ -29,7 +29,6 @@ exports.uploadMeta = function(req, res){
     if (obj["Dictionary"] == undefined){
       obj["Dictionary"] = "null"
     }
-    debugger;
     var hash = {er:obj["Name"],dic:obj["Dictionary"]}
     console.log(hash);
     request.post({
@@ -53,8 +52,7 @@ exports.upload = function(req, res){
   var keys = Object.keys(worksheet)
   var json = XLSX.utils.sheet_to_json(worksheet);
   var metaId = req.body.meta.id
-  var metaDictionary = req.body.meta.dictionary
-  debugger;
+  var metaDictionary = req.body.meta.dictionary;
   var responses = [];
   for (var i = 0; i < json.length; i++){
     var obj = json[i];
@@ -67,7 +65,6 @@ exports.upload = function(req, res){
     if (obj["Gps"] == undefined){
       obj["Gps"] = "null"
     }
-    debugger
     request.post({
           headers: {'content-type':'application/json'},
           url:url+'createNoun',
