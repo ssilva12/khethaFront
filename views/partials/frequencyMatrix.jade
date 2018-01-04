@@ -30,7 +30,7 @@ div.row
                 option(value="P") Preseleccionados
                 option(value="S") Seleccionados
         div.col-md-4
-            span Porcentaje de ocurrencias (%) 
+            span Filtro por porcentaje de ocurrencias (%) 
             input(type="text", name="", style="width:50px", ng-model="minPercentage", ng-change="updateVisible()")
         div.col-md-12
             br
@@ -70,7 +70,7 @@ div.row
                  tr(ng-repeat="feature in featuresModified | orderBy : ['methaFeature', 'name']", ng-show="feature.visible") 
                     td {{ feature.methaFeature }}
                     td {{ feature.name }}
-                    
+
                     td(title="MR: {{feature.levelNames[0]}}\r\nFrecuencia: {{ feature.frequency[0] | number:0 }}\r\nFrecuencia Corregida: {{ feature.frequencyCorrected[0] | number:2 }}\r\nPeso: {{ feature.weight[0] | number:2 }}\r\nPeso Inferido: {{ feature.weightInferred[0] | number:2 }}\r\nProbabilidad: {{ feature.probability[0] | number:2 }}")
                         div(ng-show="showValue == 'f' && feature.frequency[0] > 0") {{ feature.frequency[0] | number:0 }}
                         div(ng-show="showValue == 'w' && feature.weightInferred[0] > 0") {{ feature.weightInferred[0] | number:2 }}
