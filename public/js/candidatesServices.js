@@ -1,4 +1,4 @@
-angular.module('myApp.candidatesCtrl', [])
+angular.module('myApp.candidatesServices', [])
     .factory('candidatesServices', function ($http) {
 
         var candidatesServices = {};
