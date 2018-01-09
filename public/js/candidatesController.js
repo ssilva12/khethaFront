@@ -1,4 +1,44 @@
 angular.module('myApp.candidatesCtrl', []).
+directive("select2", function ($timeout, $parse) {
+    return {
+        restrict: 'AC',
+        require: 'ngModel',
+        link: function (scope, element, attrs) {
+            $timeout(function () {
+                element.select2();
+                element.select2Initialized = true;
+            });
+
+            var refreshSelect = function () {
+                if (!element.select2Initialized) return;
+                $timeout(function () {
+                    element.trigger('change');
+                });
+            };
+
+            var recreateSelect = function () {
+                if (!element.select2Initialized) return;
+                $timeout(function () {
+                    element.select2('destroy');
+                    element.select2();
+                });
+            };
+
+            scope.$watch(attrs.ngModel, refreshSelect);
+
+            if (attrs.ngOptions) {
+                var list = attrs.ngOptions.match(/ in ([^ ]*)/)[1];
+                // watch for option list change
+                scope.$watch(list, recreateSelect);
+            }
+
+            if (attrs.ngDisabled) {
+                scope.$watch(attrs.ngDisabled, refreshSelect);
+            }
+
+        }
+    };
+}).
 controller('candidatesController', function ($scope, $routeParams) {
     //Variables globales
     $scope.variablesGlobales = {};
@@ -25,12 +65,33 @@ controller('candidatesController', function ($scope, $routeParams) {
         value: 4,
         label: "No disponible"
     }];
+    $scope.variablesGlobales.poblacion = [{
+        value: 1,
+        label: "Norte"
+    }, {
+        value: 2,
+        label: "Centro"
+    }, {
+        value: 3,
+        label: "Sur"
+    }];
+    $scope.variablesGlobales.paises = [{
+        value: 1,
+        label: "Colombia"
+    }, {
+        value: 2,
+        label: "España"
+    }, {
+        value: 3,
+        label: "EEUU"
+    }];
     //Fin variables globales
 
     $scope.user = {};
 
     $scope.cargarCandidato = function () {
         //Variables que se deben cargar mediante servicios
+        $scope.user.edit = false;
         $scope.user.name = "Jaime Enrique Garcia Sanchez";
         $scope.user.title = "Ingeniero de sistemas";
         $scope.user.id = "1234567890";
@@ -49,27 +110,36 @@ controller('candidatesController', function ($scope, $routeParams) {
         $scope.user.lat = "-7.12345678!90";
         $scope.user.desde = "10/12/2006";
         $scope.user.ultimaAct = "23/06/2010";
+        $scope.user.archivoCargado = false;
+        $scope.user.nombreArchivo = "";
+        $scope.user.file = null;
         $scope.user.categorias = ["Desarrollador", "Ingeniero", "Web", "C#", "RPA", "UIPath", "ASP.Net", "Javascript", "SQLServer", "MongoDB", "MySQL", "AngularJS"];
         $scope.user.estudios = [{
+                id: "1",
                 centroEducativo: "Centro de educación el recreo",
                 grado: "Bachiller",
                 titulo: "Bachiller academico",
                 pais: "Colombia",
-                fechaFin: "02/12/2007"
+                fechaFin: "02/12/2007",
+                edit: false
             },
             {
+                id: "2",
                 centroEducativo: "Fundación universitaria tecnologico comfenalco",
                 grado: "Pregrado",
                 titulo: "Tecnólogo en sistemas de información",
                 pais: "Colombia",
-                fechaFin: "01/12/2010"
+                fechaFin: "01/12/2010",
+                edit: false
             },
             {
+                id: "3",
                 centroEducativo: "Fundación universitaria tecnologico comfenalco",
                 grado: "Pregrado",
                 titulo: "Ingeniero de sistemas",
                 pais: "Colombia",
-                fechaFin: "02/12/2012"
+                fechaFin: "02/12/2012",
+                edit: false
             }
         ];
         $scope.user.experiencia = [{
@@ -78,21 +148,24 @@ controller('candidatesController', function ($scope, $routeParams) {
             fecha: "noviembre 2014 - noviembre de 2016",
             caracteristicas: "",
             funciones: "Programador asp.net",
-            meses: "24"
+            meses: "24",
+            edit: false
         }, {
             empresa: "Evolution sc sas",
             cargo: "Desarrollador",
             fecha: "noviembre 2016 - noviembre de 2017",
             caracteristicas: "",
             funciones: "Programador y soporte tecnico",
-            meses: "12"
+            meses: "12",
+            edit: false
         }, {
             empresa: "IG Services",
             cargo: "Ingeniero de desarrollo",
             fecha: "noviembre de 2017 - actualidad",
             caracteristicas: "",
             funciones: "Desarrollador IPA, desarrollador Web",
-            meses: "1"
+            meses: "1",
+            edit: false
         }];
         $scope.user.skills = [{
                 habilidad: "Angular",
@@ -175,34 +248,57 @@ controller('candidatesController', function ($scope, $routeParams) {
     };
     init();
 
-    $scope.toggleAutoSearch = 'none';
-    $scope.searchText = '';
-    $scope.searchData = null;
-    $scope.initiateAutoSearch = function () {
-        $scope.toggleAutoSearch = 'visible';
-        angular.forEach($scope.variablesGlobales.estados, function (estado) {
-            if (estado.toLowerCase().indexOf(string.toLowerCase()) >= 0) {
-                $scope.searchData = estado;
-            }
-        });
+    $scope.isLoaded = false;
+    $scope.selected;
+
+    $scope.eliminarEstudio = function (estudio) {
+        var index = $scope.user.estudios.indexOf(estudio);
+        $scope.user.estudios.splice(index, 1);
     };
 
-    $scope.selectedSearchResult = function (input) {
-        $scope.searchText = input;
-        $scope.toggleAutoSearch = 'none';
+    $scope.agregarEstudio = function () {
+        var estudio = {
+            id: "",
+            centroEducativo: "",
+            grado: "",
+            titulo: "",
+            pais: "",
+            fechaFin: "",
+            edit: true
+        };
+        $scope.user.estudios.push(estudio);
     };
-    // $scope.autocompletar = function (string) {
-    //     var output = [];
-    //     angular.forEach($scope.variablesGlobales.estados, function (estado) {
-    //         if (estado.toLowerCase().indexOf(string.toLowerCase()) >= 0) {
-    //             output.push(estado);
-    //         }
-    //     });
-    //     $scope.filterEstado = estado;
-    // }
 
-    // $scope.fillTextbox = function (string) {
-    //     $scope.estado = string;
-    //     $scope.filterEstado = null;
-    // }
+    $scope.agregarExperiencia = function () {
+        var experiencia = {
+            empresa: "",
+            cargo: "",
+            fecha: "",
+            caracteristicas: "",
+            funciones: "",
+            meses: "",
+            edit: true
+        };
+        $scope.user.experiencia.push(experiencia);
+    };
+
+    $scope.eliminarExperiencia = function (experiencia) {
+        var index = $scope.user.experiencia.indexOf(experiencia);
+        $scope.user.experiencia.splice(index, 1);
+    };
+
+    $scope.uploadFile = function (files) {
+        var fd = new FormData();
+        fd.append("file", files[0]);
+
+        var reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onload = function () {
+            var resultado = candidatesServices.uploadFile(reader.result);
+            resultado.then(function (result) {});
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    };
 });

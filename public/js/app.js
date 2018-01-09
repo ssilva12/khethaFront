@@ -114,8 +114,12 @@ config(function ($routeProvider, $locationProvider) {
       templateUrl: 'partials/candidateDetail',
       controller: 'candidatesController'
     }).
+    when('/candidateslist', {
+      templateUrl: 'partials/candidateList',
+      controller: 'candidatesListController'
+    }).
     otherwise({
-      redirectTo: '/detail'
+      redirectTo: '/candidateslist'
     });
 
   $locationProvider.html5Mode(true);
