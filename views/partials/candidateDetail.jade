@@ -26,8 +26,9 @@ div(class="page-content-wrap")
                         div(class="col-md-3 col-xs-3")
                             ul(class="panel-controls")
                                 li()
-                                    a(href="#", class="panel-edit")
-                                        span(class="fa fa-pencil")
+                                    a(class="panel-edit", ng-click="user.edit = !user.edit")
+                                        span(class="fa fa-pencil", ng-hide="user.edit")
+                                        span(class="fa fa-save", ng-show="user.edit")
                 div(class="panel-body")
                     div(class="text-center profilecand", id="user_image")
                         img(src="assets/images/users/user2.jpg", class="img-thumbnail")
@@ -77,52 +78,58 @@ div(class="page-content-wrap")
                     div(class="form-group clearfix")   
                         label(class="col-md-3 control-label") Nombre Completo:
                         div(class="col-md-9")
-                            input(type="text", class="form-control", placeholder="", ng-model="user.name")
+                            input(type="text", class="form-control", placeholder="", ng-model="user.name", ng-readonly="!user.edit")
                     div(class="form-group clearfix")
                         label(class="col-md-3 control-label") Sexo:
-                        div(class="col-md-9")
-                            select(style="height: 36px; padding: 0px 10px !important", class="form-control",data-ng-model="user.sexo", data-ng-options="sexo.value as sexo.label for sexo in variablesGlobales.sexo")
-                            //- input(type="text", class="form-control", placeholder="", ng-model="user.sexo")
+                        //-select(style="height: 36px; padding: 0px 10px !important", class="form-control",data-ng-model="user.sexo", data-ng-options="sexo.value as sexo.label for sexo in variablesGlobales.sexo")
+                        div(class="col-md-9").
+                                <select class="form-control" select2="" name="sexo" data-ng-model="user.sexo" ng-options="c.label as c.label for c in variablesGlobales.sexo" ng-disabled="!user.edit">
+                                    <option value="">Seleccione</option>
+                                </select>
                     div(class="form-group clearfix")
                         label(class="col-md-3 control-label") Estatus:
                         div(class="col-md-9")
                             div(class="input-group")
-                                span(class="input-group-btn ")
+                                span(class="input-group-btn")
                                     button(class="btn btn-default", type="button")
                                         i(class="fa fa-circle status-disponible")
-                                select(style="height: 36px; padding: 0px 10px !important", class="form-control",data-ng-model="user.estado", data-ng-options="estado.value as estado.label for estado in variablesGlobales.estados")
+                                select(class="form-control", select2="", name="estado", data-ng-model="user.estado", ng-options="estado.value as estado.label for estado in variablesGlobales.estados", ng-disabled="!user.edit")
+                                    option(value="") Seleccione
                     div(class="form-group clearfix")
                         label(class="col-md-3 control-label") Número de identificación:
                         div(class="col-md-9")
-                            input(type="text", class="form-control", placeholder="", ng-model="user.numeroId")
+                            input(type="text", class="form-control", placeholder="", ng-model="user.numeroId", ng-readonly="!user.edit")
                     div(class="form-group clearfix")
                         label(class="col-md-3 control-label") Teléfono:
                         div(class="col-md-9")
-                            input(type="text", class="form-control", placeholder="", ng-model="user.telefono")
+                            input(type="text", class="form-control", placeholder="", ng-model="user.telefono", ng-readonly="!user.edit")
                     div(class="form-group clearfix")
                         label(class="col-md-3 control-label") E-mail:
                         div(class="col-md-9")
-                            input(type="text", class="form-control", placeholder="", ng-model="user.email")
+                            input(type="email", class="form-control", placeholder="", ng-model="user.email", ng-readonly="!user.edit")
                     div(class="form-group clearfix")
                         label(class="col-md-3 control-label") Dirección:
                         div(class="col-md-9")
-                            input(type="text", class="form-control", placeholder="", ng-model="user.direccion")                    
+                            input(type="text", class="form-control", placeholder="", ng-model="user.direccion", ng-readonly="!user.edit")                    
                     div(class="form-group clearfix")
                         label(class="col-md-3 control-label") Población:
                         div(class="col-md-9")
-                            input(type="text", class="form-control", placeholder="", ng-model="user.ciudad")
+                            select(class="form-control", select2="", name="ciudad", data-ng-model="user.ciudad", ng-options="ciudad.value as ciudad.label for ciudad in variablesGlobales.poblacion", ng-disabled="!user.edit")
+                                    option(value="") Seleccione
                     div(class="form-group clearfix")
                         label(class="col-md-3 control-label") Código postal:
                         div(class="col-md-9")
-                            input(type="text", class="form-control", placeholder="", ng-model="user.codigopostal")
+                            input(type="text", class="form-control", placeholder="", ng-model="user.codigopostal", ng-readonly="!user.edit")
                     div(class="form-group clearfix")
                         label(class="col-md-3 control-label") Pais:
                         div(class="col-md-9")
-                            input(type="text", class="form-control", placeholder="", ng-model="user.pais")
+                            select(class="form-control", select2="", name="pais", data-ng-model="user.pais", ng-options="pais.value as pais.label for pais in variablesGlobales.paises", ng-disabled="!user.edit")
+                                    option(value="") Seleccione
                     div(class="form-group clearfix")
                         label(class="col-md-3 control-label") Nacionalidad:
                         div(class="col-md-9")
-                            input(type="text", class="form-control", placeholder="", ng-model="user.nacionalidad")
+                            select(class="form-control", select2="", name="nacionalidad", data-ng-model="user.nacionalidad", ng-options="nacionalidad.value as nacionalidad.label for nacionalidad in variablesGlobales.paises", ng-disabled="!user.edit")
+                                    option(value="") Seleccione
             //- END PANEL WITH STATIC CONTROLS
         div(class="col-md-3")
             //- START PANEL WITH STATIC CONTROLS
@@ -168,7 +175,7 @@ div(class="page-content-wrap")
                 div(class="panel-body")
                     div(class="form-group")
                         div(class="col-md-12")
-                            button(type="button", class="btn btn-primary pull-right") Agregar
+                            button(type="button", class="btn btn-primary pull-right", ng-click="agregarEstudio()") Agregar
                     div(class="form-group")
                         div(class="col-md-12")
                             div(class="dd", id="nestable")
@@ -182,35 +189,43 @@ div(class="page-content-wrap")
                                                         div(class="col-md-1")
                                                             label(for="") Centro Educativo
                                                         div(class="col-md-3")
-                                                            p(ng-bind="estudio.centroEducativo")
+                                                            p(ng-bind="estudio.centroEducativo", ng-hide="estudio.edit")
+                                                            input(ng-model="estudio.centroEducativo", type="text", class="form-control", ng-show="estudio.edit")
                                                         div(class="col-md-1")
                                                             label(for="") Grado
                                                         div(class="col-md-2")
-                                                            p(ng-bind="estudio.grado")
+                                                            p(ng-bind="estudio.grado", ng-hide="estudio.edit")
+                                                            input(ng-model="estudio.grado", type="text", class="form-control", ng-show="estudio.edit")
                                                         div(class="col-md-1")
                                                             label(for="") Titulo
                                                         div(class="col-md-3")
-                                                            p(ng-bind="estudio.titulo")
+                                                            p(ng-bind="estudio.titulo", ng-hide="estudio.edit")
+                                                            input(ng-model="estudio.titulo", type="text", class="form-control", ng-show="estudio.edit")
                                                     div(class="form-group")
                                                         div(class="col-md-1")
                                                             label(for="") País
                                                         div(class="col-md-3")
-                                                            p(ng-bind="estudio.pais")
+                                                            p(ng-bind="estudio.pais", ng-hide="estudio.edit")
+                                                            div(class="col-md-12", ng-show="estudio.edit")
+                                                                select(class="form-control", select2="", data-ng-model="estudio.pais", ng-options="pais.value as pais.label for pais in variablesGlobales.paises")
+                                                                    option(value="") Seleccione
                                                         div(class="col-md-1")
                                                             label(for="") Fecha Fin
                                                         div(class="col-md-3")
-                                                            p(ng-bind="estudio.fechaFin")
+                                                            p(ng-bind="estudio.fechaFin", ng-hide="estudio.edit")
+                                                            input(ng-model="estudio.fechaFin", type="date", class="form-control", ng-show="estudio.edit")
                                                 div(class="col-md-2")
                                                     ul(class="panel-controls")
                                                         li()
-                                                            a(href="#", class="panel-fullscreen")
-                                                                span(class="fa fa-pencil")
+                                                            a(class="panel-fullscreen", ng-click="estudio.edit = !estudio.edit")
+                                                                span(class="fa fa-pencil", ng-hide="estudio.edit")
+                                                                span(class="fa fa-save", ng-show="estudio.edit")
                                                         li()
-                                                            a(href="#", class="panel-remove")
+                                                            a(class="panel-remove", ng-click="eliminarEstudio(estudio)")
                                                                 span(class="fa fa-times")
                     div(class="form-group")
                         div(class="col-md-12")
-                            button(type="button", class="btn btn-primary pull-right") Agregar
+                            button(type="button", class="btn btn-primary pull-right", ng-click="agregarEstudio()") Agregar
     div(class="row", id="ExperienciaTrabajo")
         div(class="col-md-12")
             div(class="panel panel-default")
@@ -219,7 +234,7 @@ div(class="page-content-wrap")
                 div(class="panel-body")
                     div(class="form-group")
                         div(class="col-md-12")
-                            button(type="button", class="btn btn-primary pull-right") Agregar
+                            button(type="button", class="btn btn-primary pull-right", ng-click="agregarExperiencia()") Agregar
                     div(class="form-group")
                         div(class="col-md-12")
                             div(class="dd", id="nestable")
@@ -233,35 +248,41 @@ div(class="page-content-wrap")
                                                         div(class="col-md-1")
                                                             label(for="") Cargo:
                                                         div(class="col-md-3")
-                                                            p(ng-bind="exp.cargo")
+                                                            p(ng-bind="exp.cargo", ng-hide="exp.edit")
+                                                            input(ng-model="exp.cargo", type="text", class="form-control", ng-show="exp.edit")
                                                         div(class="col-md-1")
                                                             label(for="") Fecha:
                                                         div(class="col-md-2")
-                                                            p(ng-bind="exp.fecha")
+                                                            p(ng-bind="exp.fecha", ng-hide="exp.edit")
+                                                            input(ng-model="exp.fecha", type="text", class="form-control", ng-show="exp.edit")
                                                         div(class="col-md-2")
                                                             label(for="") Características:
                                                         div(class="col-md-3")
-                                                            p(ng-bind="exp.caracteristicas")
+                                                            p(ng-bind="exp.caracteristicas", ng-hide="exp.edit")
+                                                            input(ng-model="exp.caracteristicas", type="text", class="form-control", ng-show="exp.edit")
                                                     div(class="form-group")
                                                         div(class="col-md-1")
                                                             label(for="") Funciones:
                                                         div(class="col-md-3")
-                                                            p(ng-bind="exp.funciones")
+                                                            p(ng-bind="exp.funciones", ng-hide="exp.edit")
+                                                            input(ng-model="exp.funciones", type="text", class="form-control", ng-show="exp.edit")
                                                         div(class="col-md-1")
                                                             label(for="") Meses:
                                                         div(class="col-md-3")
-                                                            p(ng-bind="exp.meses")
+                                                            p(ng-bind="exp.meses", ng-hide="exp.edit")
+                                                            input(ng-model="exp.meses", type="text", class="form-control", ng-show="exp.edit")
                                                 div(class="col-md-2")
                                                     ul(class="panel-controls")
                                                         li()
-                                                            a(href="#", class="panel-fullscreen")
-                                                                span(class="fa fa-pencil")
+                                                            a(class="panel-fullscreen", ng-click="exp.edit = !exp.edit")
+                                                                span(class="fa fa-pencil", ng-hide="exp.edit")
+                                                                span(class="fa fa-save", ng-show="exp.edit")
                                                         li()
-                                                            a(href="#", class="panel-remove")
+                                                            a(class="panel-remove", ng-click="eliminarExperiencia(exp)")
                                                                 span(class="fa fa-times")
                     div(class="form-group")
                         div(class="col-md-12")
-                            button(type="button", class="btn btn-primary pull-right") Agregar
+                            button(type="button", class="btn btn-primary pull-right", ng-click="agregarExperiencia()") Agregar
     div(class="row", id="habilidades")
         div(class="col-md-6")
             div(class="panel panel-default")
@@ -272,16 +293,16 @@ div(class="page-content-wrap")
                         div(class="form-group")
                             label(class="col-md-2 col-xs-12 control-label") Archivos
                             div(class="col-md-9 col-xs-12")
-                                a(class="file-input-wrapper btn btn-default fileinput btn-primary ")
-                                    span() Buscar archivo
-                                    input(type="file", class="fileinput btn-primary", name="filename", id="filename", title="Buscar archivo")
-                                span(class="help-block") Tipos de archivo: DOC, DOCX, PDF, XLS, XLSX
+                                label(class="file-input-wrapper btn btn-default fileinput btn-primary")
+                                    span(class="custom-file-control") Buscar archivo
+                                    input(type="file", id="file", class="custom-file-input", accept="application/pdf", onchange="angular.element(this).scope().uploadFile(this.files)")
+                                span(class="help-block") Tipo de archivo: PDF
                         div(class="form-group")
                             div(class="col-md-2 text-center")
                                 span(class="fa fa-file-word-o icoLoadfileok text-center")
                             div(class="col-md-9")
-                                h3(class="text-success") Archivo Cargado
-                                p() Hoja de vida de: John Mario Doe M.docx
+                                h3(class="text-success", ng-show="user.archivoCargado") Archivo Cargado
+                                p() Hoja de vida de: {{user.nombreArchivo}}
         div(class="col-md-6")
             div(class="panel panel-default")
                 div(class="panel-heading")

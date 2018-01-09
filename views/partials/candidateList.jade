@@ -1,0 +1,87 @@
+//- PAGE TITLE
+div(class="page-title")
+    h2() Lista de candidatos
+        span(class="txt-grises", ng-bind="lista.cantidad")
+//- END PAGE TITLE
+//- PAGE CONTENT WRAPPER
+div(class="page-content-wrap")
+    div(class="row")
+        div(class="col-md-12")
+            div(class="alert alert-danger", role="alert", style="display: none")
+                button(type="button", class="close", data-dismiss="alert")
+                    span(aria-hidden="true") x
+                    span(class="sr-only") Close
+                strong() Importante!
+                span() &nbsp;Aqui se podrán visualizar todos los mensajes de alerta según las acciones que estemos efectuando en la pantalla.
+            div(class="col-md-12")
+                div(class="panel panel-default")
+                    div(class="panel-body")
+                        p() Usa la búsqueda para encontrar candidatos. Puede buscar por: nombre, dirección, teléfono o usa la búsqueda avanzada.
+                        form(class="form-horizontal")
+                            div(class="form-group")
+                                div(class="col-md-9")
+                                    div(class="input-group")
+                                        div(class="input-group-addon")
+                                            span(class="fa fa-search")
+                                        input(class="form-control", placeholder="¿A quién estás buscando?", type="text")
+                                        div(class="input-group-btn")
+                                            button(class="btn btn-primary mb-control", data-box="#message-box-success") Buscar
+                                div(class="col-md-3")
+                                    button(class="btn btn-default btn-block mb-control", data-box="#message-box-info")
+                                        span(class="fa fa-plus")
+                                        span() Búsqueda Avanzada
+        //- CANDIDATOS
+        div(class="row")
+            div(class="col-md-3", ng-repeat="candidato in candidatos")
+                //- CONTACT ITEM
+                div(class="panel panel-default")
+                    div(class="panel-body profileCandidato")
+                        div(class="profile-image")
+                            img(src="assets/images/users/avatar.jpg", alt="John Doe")
+                        div(class="profile-data")
+                            h3(class="profile-data-name") John Mario Gómez Jaramillo
+                            p(class="profile-data-title") Web Developer / Administrator
+                    div(class="panel-body")
+                        div(class="contact-info")
+                            p()
+                                strong() Estatus:
+                                span() En proceso de selección
+                            p()
+                                strong() Nº Identificación:
+                                span() #0987654321
+                            p()
+                                strong() Teléfono:
+                                span() (+1 57_) 345 67 89
+                            p()
+                                strong() E-Mail:
+                                a(href="#") JMarioDoeM@mail.com
+        //- FIN CANDIDATOS
+        div(class="row")
+            div(class="col-md-9")
+                ul(class="pagination pagination-sm")
+                    li()
+                        a(href="#") «
+                    li()
+                        a(href="#") 1
+                    li()
+                        a(href="#") 2
+                    li()
+                        a(href="#") 3
+                    li()
+                        a(href="#") 4
+                    li()
+                        a(href="#") 5
+                    li()
+                        a(href="#") 6
+                    li()
+                        a(href="#") 7
+                    li(class="active")
+                        a(href="#") 8
+                    li(class="disabled")
+                        a(href="#") »
+            div(class="col-md-3")
+                button(class="btn btn-default btn-block")
+                    i(class="fa fa-user-plus", aria-hidden="true")
+                    span() Crear nuevo candidato
+        div(class="row")
+            div(class="col-md-12") &nbsp;

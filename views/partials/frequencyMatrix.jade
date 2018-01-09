@@ -39,6 +39,7 @@ div.row
             input(type="button", value="Frecuencia", ng-click="setShowValue('f')") 
             input(type="button", value="Peso", ng-click="setShowValue('w')") 
             input(type="button", value="Probabilidad", ng-click="setShowValue('p')") 
+            span &nbsp; &nbsp; Total candidatos: {{ featuresModified[0].totalCount }}
             br
             br
         br
@@ -67,8 +68,8 @@ div.row
                     th Discarded
                     th Mandatory
              tbody
-                 tr(ng-repeat="feature in featuresModified | orderBy : ['methaFeature', 'name']", ng-show="feature.visible") 
-                    td {{ feature.methaFeature }}
+                tr(ng-repeat="feature in featuresModified | orderBy : ['methaFeatureOrder', 'methaFeature', 'name']", ng-show="feature.visible", class="mf_tr_{{feature.methaFeatureId}}", ng-class="$index % 2 == 0 ? 'evenMf' : 'oddMf'") 
+                    td(class="mf_name") {{ feature.methaFeature }}
                     td {{ feature.name }}
 
                     td(title="MR: {{feature.levelNames[0]}}\r\nFrecuencia: {{ feature.frequency[0] | number:0 }}\r\nFrecuencia Corregida: {{ feature.frequencyCorrected[0] | number:2 }}\r\nPeso: {{ feature.weight[0] | number:2 }}\r\nPeso Inferido: {{ feature.weightInferred[0] | number:2 }}\r\nProbabilidad: {{ feature.probability[0] | number:2 }}")

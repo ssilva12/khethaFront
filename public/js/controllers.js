@@ -367,14 +367,14 @@ controller('metaFeaturesCtrl', function ($scope,$location,metaFeaturesFactory,Di
             return parseFloat(a.from) - parseFloat(b.from);
           });
           for(var i=0;i<data.metaRelations.length;i++){
-            data.metaRelations[i].orderNumber = i;
+            data.metaRelations[i].Number = i;
             if(i!=(data.metaRelations.length -1) ){
               data.metaRelations[i].to = data.metaRelations[i+1].from
             } 
           }
         }else{
           data.metaRelations.sort(function(a, b) {
-            return parseFloat(a.orderNumber) - parseFloat(b.orderNumber);
+            return parseFloat(a.Number) - parseFloat(b.Number);
           });
         }
         
@@ -472,6 +472,8 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, frequen
           mf.features.forEach(f => {
             $scope.featuresModified.push(
               {
+                methaFeatureId: mf.id,
+                methaFeatureOrder: mf.order,
                 methaFeature: mf.name,
                 levelNames: mf.levelNames,
                 totalCount: mf.totalCount,
@@ -481,8 +483,26 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, frequen
             );
           });
           $scope.featuresModified
-        })
+        });
         $scope.methaFeatures = data;
+
+        var handleRows = function() {
+          var flagColor = 0;
+          var backColors = ['#f1f1f1', '#d1d1d1'];
+          $scope.methaFeatures.sort(function(obj1, obj2) {
+            return parseInt(obj1.id) - parseInt(obj2.id)
+          }).forEach(mf => {
+            let rows = $('.mf_tr_' + mf.id);
+            rows.attr('bgcolor', backColors[flagColor]);
+            flagColor = (flagColor === 0 ? 1 : 0);
+            let tds = $(rows).find('td.mf_name');
+            $(tds[0]).attr('rowspan', mf.features.length);
+            for(var i = 1; i < tds.length; i++) {
+              $(tds[i]).remove();
+            }
+          });
+        };
+        $timeout(handleRows, 0);        
       }
     });
   }
