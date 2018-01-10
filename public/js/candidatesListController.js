@@ -1,4 +1,4 @@
-angular.module('myApp.candidatesListCtrl', ['ui.bootstrap']).
+angular.module('myApp.candidatesListCtrl', ['ui.bootstrap', ]).
 filter('startFrom', function () {
     return function (input, start) {
         if (input) {
@@ -8,7 +8,7 @@ filter('startFrom', function () {
         return [];
     };
 }).
-controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'filterFilter', function ($scope, candidatesServices, $location, filterFilter) {
+controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'filterFilter', 'Mensaje', function ($scope, candidatesServices, $location, filterFilter, Mensaje) {
     $scope.lista = {};
     $scope.lista.filtro = "";
     $scope.lista.candidatos = [];
@@ -17,7 +17,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
     allData.then(function (result) {
         $scope.lista.candidatos = result.candidates;
         $scope.lista.cantidad = " (" + result.candidates.length + " candidatos)";
-
+        
         $scope.search = {
             name: $scope.lista.filtro
         };
