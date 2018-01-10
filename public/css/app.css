@@ -45,7 +45,8 @@
   padding-top: 10px; 
 }
 
-.search-div{
+.modal-backdrop{
+  display: none;
 }
 
 .top-bar{
