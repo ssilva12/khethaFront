@@ -1,4 +1,4 @@
-angular.module('myApp.candidatesCtrl', []).
+angular.module('myApp.candidatesController', []).
 directive("select2", function ($timeout, $parse) {
     return {
         restrict: 'AC',
@@ -39,7 +39,7 @@ directive("select2", function ($timeout, $parse) {
         }
     };
 }).
-controller('candidatesController', function ($scope, $routeParams) {
+controller('candidatesController', function ($scope, $routeParams,candidatesServices) {
     //Variables globales
     $scope.variablesGlobales = {};
     $scope.variablesGlobales.sexo = [{
@@ -290,12 +290,12 @@ controller('candidatesController', function ($scope, $routeParams) {
     $scope.uploadFile = function (files) {
         var fd = new FormData();
         fd.append("file", files[0]);
-
+        debugger;
         var reader = new FileReader();
         reader.readAsDataURL(files[0]);
         reader.onload = function () {
-            var resultado = candidatesServices.uploadFile(reader.result);
-            resultado.then(function (result) {});
+            var resultado = candidatesServices.uploadFile(files[0]);
+           
         };
         reader.onerror = function (error) {
             console.log('Error: ', error);

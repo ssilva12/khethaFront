@@ -2,31 +2,21 @@ angular.module('myApp.candidatesServices', [])
     .factory('candidatesServices', function ($http) {
 
         var candidatesServices = {};
-
+        //var url = "http://localhost:9000/"
+        var url = "http://guarded-atoll-31281.herokuapp.com/"
         candidatesServices.uploadFile = function (file) {
-            var data = {
-                file: file
-            };
-
-            var Datos = $http({
-                    url: 'http://polar-garden-35450.herokuapp.com/uploadCv',
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Access-Control-Allow-Origin": "*",
-                        "Access-Control-Allow-Methods": "POST",
-                        "Access-Control-Allow-Headers": "X-Requested-With"
-                    },
-                    method: "POST",
-                    data: {
-                        'file': file
-                    }
-                })
-                .then(function (res) {
-                    return res.data.metaFeatures;
-                }, function (error) {
-                    return error;
-                });
-            return Datos;
+            var fd = new FormData();
+            fd.append('curriculum', file);
+            var uploadUrl = url+'uploadCv';
+            //debugger;
+            $http.post(uploadUrl, fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            })
+            .success(function(){
+            })
+            .error(function(){
+            });
         };
 
         candidatesServices.getAll = function () {

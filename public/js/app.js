@@ -6,6 +6,7 @@ angular.module('myApp', [
   'myApp.controllers',
   'myApp.vacancyCtrl',
   'myApp.candidatesCtrl',
+  'myApp.candidatesController',
   'myApp.candidatesServices',
   'myApp.filters',
   'myApp.services',
