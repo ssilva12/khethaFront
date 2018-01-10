@@ -1,50 +1,5 @@
-<<<<<<< HEAD
 angular.module('myApp.candidatesCtrl', []).
-controller('candidatesController', function ($scope, candidatesServices, $routeParams) {
-=======
-angular.module('myApp.candidatesController', []).
-directive("select2", function ($timeout, $parse) {
-    return {
-        restrict: 'AC',
-        require: 'ngModel',
-        link: function (scope, element, attrs) {
-            $timeout(function () {
-                element.select2();
-                element.select2Initialized = true;
-            });
-
-            var refreshSelect = function () {
-                if (!element.select2Initialized) return;
-                $timeout(function () {
-                    element.trigger('change');
-                });
-            };
-
-            var recreateSelect = function () {
-                if (!element.select2Initialized) return;
-                $timeout(function () {
-                    element.select2('destroy');
-                    element.select2();
-                });
-            };
-
-            scope.$watch(attrs.ngModel, refreshSelect);
-
-            if (attrs.ngOptions) {
-                var list = attrs.ngOptions.match(/ in ([^ ]*)/)[1];
-                // watch for option list change
-                scope.$watch(list, recreateSelect);
-            }
-
-            if (attrs.ngDisabled) {
-                scope.$watch(attrs.ngDisabled, refreshSelect);
-            }
-
-        }
-    };
-}).
 controller('candidatesController', function ($scope, $routeParams,candidatesServices) {
->>>>>>> c1abbf26e7fff5e96fc647adbe15191f89d7db58
     //Variables globales
     $scope.variablesGlobales = {};
     $scope.variablesGlobales.sexo = [{
@@ -299,7 +254,6 @@ controller('candidatesController', function ($scope, $routeParams,candidatesServ
         $scope.user.experiencia.splice(index, 1);
     };
 
-<<<<<<< HEAD
     // $scope.uploadFile = function (files) {
     //     var fd = new FormData();
     //     fd.append("file", files[0]);
@@ -314,20 +268,4 @@ controller('candidatesController', function ($scope, $routeParams,candidatesServ
     //         console.log('Error: ', error);
     //     };
     // };
-=======
-    $scope.uploadFile = function (files) {
-        var fd = new FormData();
-        fd.append("file", files[0]);
-        debugger;
-        var reader = new FileReader();
-        reader.readAsDataURL(files[0]);
-        reader.onload = function () {
-            var resultado = candidatesServices.uploadFile(files[0]);
-           
-        };
-        reader.onerror = function (error) {
-            console.log('Error: ', error);
-        };
-    };
->>>>>>> c1abbf26e7fff5e96fc647adbe15191f89d7db58
 });
