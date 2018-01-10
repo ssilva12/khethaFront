@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 angular.module('myApp.candidatesCtrl', []).
+controller('candidatesController', function ($scope, candidatesServices, $routeParams) {
+=======
+angular.module('myApp.candidatesController', []).
 directive("select2", function ($timeout, $parse) {
     return {
         restrict: 'AC',
@@ -39,7 +43,8 @@ directive("select2", function ($timeout, $parse) {
         }
     };
 }).
-controller('candidatesController', function ($scope, $routeParams) {
+controller('candidatesController', function ($scope, $routeParams,candidatesServices) {
+>>>>>>> c1abbf26e7fff5e96fc647adbe15191f89d7db58
     //Variables globales
     $scope.variablesGlobales = {};
     $scope.variablesGlobales.sexo = [{
@@ -88,8 +93,14 @@ controller('candidatesController', function ($scope, $routeParams) {
     //Fin variables globales
 
     $scope.user = {};
+    $scope.user2 = {};
 
-    $scope.cargarCandidato = function () {
+    $scope.cargarCandidato = function (id) {
+        var allData = candidatesServices.getById(id);
+        allData.then(function (result) {
+            console.log(result);
+        });
+
         //Variables que se deben cargar mediante servicios
         $scope.user.edit = false;
         $scope.user.name = "Jaime Enrique Garcia Sanchez";
@@ -242,8 +253,9 @@ controller('candidatesController', function ($scope, $routeParams) {
     };
 
     var init = function () {
+        $scope.user.edit = true;
         if ($routeParams.id != null) {
-            $scope.cargarCandidato();
+            $scope.cargarCandidato($routeParams.id);
         }
     };
     init();
@@ -287,18 +299,35 @@ controller('candidatesController', function ($scope, $routeParams) {
         $scope.user.experiencia.splice(index, 1);
     };
 
+<<<<<<< HEAD
+    // $scope.uploadFile = function (files) {
+    //     var fd = new FormData();
+    //     fd.append("file", files[0]);
+
+    //     var reader = new FileReader();
+    //     reader.readAsDataURL(files[0]);
+    //     reader.onload = function () {
+    //         var resultado = candidatesServices.uploadFile(reader.result);
+    //         resultado.then(function (result) {});
+    //     };
+    //     reader.onerror = function (error) {
+    //         console.log('Error: ', error);
+    //     };
+    // };
+=======
     $scope.uploadFile = function (files) {
         var fd = new FormData();
         fd.append("file", files[0]);
-
+        debugger;
         var reader = new FileReader();
         reader.readAsDataURL(files[0]);
         reader.onload = function () {
-            var resultado = candidatesServices.uploadFile(reader.result);
-            resultado.then(function (result) {});
+            var resultado = candidatesServices.uploadFile(files[0]);
+           
         };
         reader.onerror = function (error) {
             console.log('Error: ', error);
         };
     };
+>>>>>>> c1abbf26e7fff5e96fc647adbe15191f89d7db58
 });

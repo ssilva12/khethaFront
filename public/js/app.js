@@ -5,8 +5,14 @@
 angular.module('myApp', [
   'myApp.controllers',
   'myApp.vacancyCtrl',
+<<<<<<< HEAD
+=======
   'myApp.candidatesCtrl',
+  'myApp.candidatesController',
+>>>>>>> c1abbf26e7fff5e96fc647adbe15191f89d7db58
   'myApp.candidatesServices',
+  'myApp.candidatesCtrl',
+  'myApp.candidatesListCtrl',
   'myApp.filters',
   'myApp.services',
   'myApp.vacancyService',
