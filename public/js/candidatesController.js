@@ -254,18 +254,18 @@ controller('candidatesController', function ($scope, $routeParams,candidatesServ
         $scope.user.experiencia.splice(index, 1);
     };
 
-    // $scope.uploadFile = function (files) {
-    //     var fd = new FormData();
-    //     fd.append("file", files[0]);
+    $scope.uploadFile = function (files) {
+        var fd = new FormData();
+        fd.append("file", files[0]);
 
-    //     var reader = new FileReader();
-    //     reader.readAsDataURL(files[0]);
-    //     reader.onload = function () {
-    //         var resultado = candidatesServices.uploadFile(reader.result);
-    //         resultado.then(function (result) {});
-    //     };
-    //     reader.onerror = function (error) {
-    //         console.log('Error: ', error);
-    //     };
-    // };
+        var reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onload = function () {
+            var resultado = candidatesServices.uploadFile(files[0]);
+            resultado.then(function (result) {});
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    };
 });
