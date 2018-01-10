@@ -23,7 +23,7 @@ div(class="page-content-wrap")
                                     div(class="input-group")
                                         div(class="input-group-addon")
                                             span(class="fa fa-search")
-                                        input(class="form-control", placeholder="¿A quién estás buscando?", type="text")
+                                        input(class="form-control", placeholder="¿A quién estás buscando?", type="text", ng-model="search.name")
                                         div(class="input-group-btn")
                                             button(class="btn btn-primary mb-control", data-box="#message-box-success") Buscar
                                 div(class="col-md-3")
@@ -32,14 +32,14 @@ div(class="page-content-wrap")
                                         span() Búsqueda Avanzada
         //- CANDIDATOS
         div(class="row")
-            div(class="col-md-3", ng-repeat="candidato in candidatos")
+            div(class="col-md-3", ng-repeat="candidato in filtered = lista.candidatos | filter : search | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit")
                 //- CONTACT ITEM
-                div(class="panel panel-default")
+                div(class="panel panel-default", ng-click="buscarDetalle(candidato.id)", style="cursor: pointer;")
                     div(class="panel-body profileCandidato")
                         div(class="profile-image")
                             img(src="assets/images/users/avatar.jpg", alt="John Doe")
                         div(class="profile-data")
-                            h3(class="profile-data-name") John Mario Gómez Jaramillo
+                            h3(class="profile-data-name") {{candidato.name}}
                             p(class="profile-data-title") Web Developer / Administrator
                     div(class="panel-body")
                         div(class="contact-info")
@@ -58,29 +58,9 @@ div(class="page-content-wrap")
         //- FIN CANDIDATOS
         div(class="row")
             div(class="col-md-9")
-                ul(class="pagination pagination-sm")
-                    li()
-                        a(href="#") «
-                    li()
-                        a(href="#") 1
-                    li()
-                        a(href="#") 2
-                    li()
-                        a(href="#") 3
-                    li()
-                        a(href="#") 4
-                    li()
-                        a(href="#") 5
-                    li()
-                        a(href="#") 6
-                    li()
-                        a(href="#") 7
-                    li(class="active")
-                        a(href="#") 8
-                    li(class="disabled")
-                        a(href="#") »
+                pagination(class="pagination pagination-sm",page="currentPage", max-size="noOfPages", total-items="totalItems", items-per-page="entryLimit")
             div(class="col-md-3")
-                button(class="btn btn-default btn-block")
+                button(ng-click="crearNuevo()", class="btn btn-default btn-block")
                     i(class="fa fa-user-plus", aria-hidden="true")
                     span() Crear nuevo candidato
         div(class="row")
