@@ -1,7 +1,10 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 angular.module('myApp.candidatesCtrl', []).
 controller('candidatesController', function ($scope, candidatesServices, $routeParams) {
 =======
+=======
+>>>>>>> c1abbf26e7fff5e96fc647adbe15191f89d7db58
 angular.module('myApp.candidatesController', []).
 directive("select2", function ($timeout, $parse) {
     return {
@@ -44,6 +47,9 @@ directive("select2", function ($timeout, $parse) {
     };
 }).
 controller('candidatesController', function ($scope, $routeParams,candidatesServices) {
+<<<<<<< HEAD
+>>>>>>> c1abbf26e7fff5e96fc647adbe15191f89d7db58
+=======
 >>>>>>> c1abbf26e7fff5e96fc647adbe15191f89d7db58
     //Variables globales
     $scope.variablesGlobales = {};

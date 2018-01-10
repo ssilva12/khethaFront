@@ -9,6 +9,9 @@ angular.module('myApp', [
 =======
   'myApp.candidatesCtrl',
   'myApp.candidatesController',
+<<<<<<< HEAD
+>>>>>>> c1abbf26e7fff5e96fc647adbe15191f89d7db58
+=======
 >>>>>>> c1abbf26e7fff5e96fc647adbe15191f89d7db58
   'myApp.candidatesServices',
   'myApp.candidatesCtrl',
