@@ -51,9 +51,10 @@ controller('candidatesController', function ($scope, $routeParams,candidatesServ
     $scope.user2 = {};
 
     $scope.cargarCandidato = function (id) {
-        var allData = candidatesServices.getById(id);
-        allData.then(function (result) {
-            console.log(result);
+        var allData = candidatesServices.getById(id,function(error,result){
+            if (!error){
+                console.log(result);
+            }
         });
 
         //Variables que se deben cargar mediante servicios

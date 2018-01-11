@@ -2,8 +2,8 @@ angular.module('myApp.candidatesServices', [])
     .factory('candidatesServices', function ($http) {
 
         var candidatesServices = {};
-        //var url = "http://localhost:9000/"
-        var url = "http://guarded-atoll-31281.herokuapp.com/"
+        var url = "http://localhost:9000/"
+        //var url = "http://guarded-atoll-31281.herokuapp.com/"
         candidatesServices.uploadFile = function (file) {
             var fd = new FormData();
             fd.append('curriculum', file);
@@ -34,22 +34,19 @@ angular.module('myApp.candidatesServices', [])
             });
             return Datos;
         };
-
-        candidatesServices.getById = function (Id) {
-            var Datos = $http.get('http://guarded-atoll-31281.herokuapp.com/candidate?id=' + Id, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Methods": "GET",
-                    "Access-Control-Allow-Headers": "X-Requested-With"
-                }
-            }).then(function (res) {
-                return res.data;
-            }, function (error) {
-                return error;
+        candidatesServices.getById = function (id,callback) {
+            $http({
+                method: 'GET',
+                params: {id: id},
+                url: url+'candidate'
+            }).
+            success(function (data, status, headers, config) {
+                callback(null,data)
+            }).
+            error(function (data, status, headers, config) {
+                callback("Error")
             });
-            return Datos;
-        };
+            }
 
         return candidatesServices;
     });
