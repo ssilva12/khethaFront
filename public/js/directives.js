@@ -14,7 +14,9 @@ directive("select2", function ($timeout, $parse) {
     require: 'ngModel',
     link: function (scope, element, attrs) {
       $timeout(function () {
-        element.select2();
+        element.select2({
+          tags: true
+        });
         element.select2Initialized = true;
       });
 
@@ -29,7 +31,9 @@ directive("select2", function ($timeout, $parse) {
         if (!element.select2Initialized) return;
         $timeout(function () {
           element.select2('destroy');
-          element.select2();
+          element.select2({
+            tags: true
+          });
         });
       };
 

@@ -2,6 +2,7 @@ angular.module('myApp.candidatesCtrl', []).
 controller('candidatesController', ['$scope', '$routeParams', 'candidatesServices', 'Mensaje', function ($scope, $routeParams, candidatesServices, Mensaje) {
     //Variables globales
     $scope.variablesGlobales = {};
+    $scope.variablesGlobales.expandir = false;
     $scope.variablesGlobales.sexo = [{
         value: 1,
         label: "Femenino"
@@ -63,7 +64,6 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                     }
                 }
                 //Datos faltantes
-                $scope.usuario.edit = false;
                 $scope.usuario.candidateInfo.title = "xxxxxxxxxxxxxx";
                 $scope.usuario.candidateInfo.username = "xxxxxxxxxx";
                 $scope.usuario.candidateInfo.sex = "";
@@ -129,7 +129,6 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     };
 
     var init = function () {
-        $scope.usuario.edit = true;
         if ($routeParams.id != null) {
             $scope.cargarCandidato($routeParams.id);
         } else {
@@ -145,9 +144,6 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
         }
     };
     init();
-
-    $scope.isLoaded = false;
-    $scope.selected;
 
     $scope.eliminarEstudio = function (estudio) {
         var index = $scope.usuario.estudios.indexOf(estudio);
