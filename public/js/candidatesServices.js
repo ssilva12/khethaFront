@@ -89,11 +89,12 @@ angular.module('myApp.candidatesServices', [])
 
         candidatesServices.updateInformation = function (candidateInfo, callback) {
             $http({
-                method: 'GET',
+                method: 'PUT',
                 params: {
                     id: candidateInfo
                 },
-                url: URL.URL_REST_SERVICE + 'candidate'
+                url: URL.URL_REST_SERVICE + 'candidate',
+                contenttype: "application/json"
             }).
             success(function (data, status, headers, config) {
                 Result.error = false;
