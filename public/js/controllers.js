@@ -84,8 +84,8 @@ controller('SynonymsCtrl', function ($scope,$location,Dictionary,termFactory,Upl
   $scope.selectNoun = function(er){
     $scope.name = er
   }
-  //var url = 'http://polar-garden-35450.herokuapp.com'
-  var url = 'http://localhost:3000'
+  var url = 'http://polar-garden-35450.herokuapp.com'
+  //var url = 'http://localhost:3000'
   $scope.uploadFiles = function(file,type) {
     if(type=="primary"){
       var route = "/upload"
