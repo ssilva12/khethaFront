@@ -54,6 +54,14 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
             if (!result.error) {
                 console.log(result.data);
                 $scope.usuario = result.data;
+                if ($scope.usuario.candidateInfo.gps != null) {
+                    var coordenadas = [];
+                    coordenadas = $scope.usuario.candidateInfo.gps.split(';');
+                    if (coordenadas.length == 2) {
+                        $scope.usuario.candidateInfo.long = coordenadas[0];
+                        $scope.usuario.candidateInfo.lat = coordenadas[1];
+                    }
+                }
                 //Datos faltantes
                 $scope.usuario.edit = false;
                 $scope.usuario.candidateInfo.title = "xxxxxxxxxxxxxx";
@@ -65,8 +73,8 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 $scope.usuario.candidateInfo.codigoPostal = "xxxx";
                 $scope.usuario.candidateInfo.pais = "";
                 $scope.usuario.candidateInfo.nacionalidad = "";
-                $scope.usuario.candidateInfo.long = "xxxxxxxxx";
-                $scope.usuario.candidateInfo.lat = "yyyyyyyy";
+
+
                 $scope.usuario.candidateInfo.desde = "xx/xx/xxxx";
                 $scope.usuario.candidateInfo.ultimaAct = "xx/xx/xxxx";
                 $scope.usuario.experiencia = [{
@@ -93,11 +101,11 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                     hablado: "xx",
                     escrito: "xx"
                 }];
-                $scope.usuario.skills = [{
-                    nombre: "xxxxxxxxxxxxxx",
-                    meses: "xx",
-                    fechaFin: "xx/xx/xxxx"
-                }];
+                // $scope.usuario.skills = [{
+                //     nombre: "xxxxxxxxxxxxxx",
+                //     meses: "xx",
+                //     fechaFin: "xx/xx/xxxx"
+                // }];
                 $scope.usuario.caracteristicas = [{
                     nombre: "",
                     valor: ""
@@ -233,7 +241,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
 
     $scope.agregarSkill = function () {
         var skill = {
-            nombre: "",
+            name: "",
             meses: "",
             fechaFin: "",
             edit: true
@@ -272,5 +280,16 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
             edit: true
         };
         $scope.usuario.caracteristicasPsicologicas.push(caracteristica);
+    };
+
+    $scope.actualizarCandidato = function () {
+
+        var allData = candidatesServices.updateInformation($scope.usuario.candidateInfo, function (result) {
+            if (!result.error) {
+                Mensaje.Mostrar("success", result.message);
+            } else {
+                Mensaje.Mostrar("error", result.message);
+            }
+        });
     };
 }]);

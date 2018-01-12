@@ -78,7 +78,7 @@ div(class="page-content-wrap")
                     div(class="form-group clearfix")   
                         label(class="col-md-3 control-label") Nombre Completo:
                         div(class="col-md-9")
-                            input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.name", ng-readonly="!usuario.edit")
+                            input(type="text", class="form-control validate[required]", placeholder="", ng-model="usuario.candidateInfo.name", ng-readonly="!usuario.edit", ng-required="usuario.candidateInfo.name")
                     div(class="form-group clearfix")
                         label(class="col-md-3 control-label") Sexo:
                         //-select(style="height: 36px; padding: 0px 10px !important", class="form-control",data-ng-model="user.sexo", data-ng-options="sexo.value as sexo.label for sexo in variablesGlobales.sexo")
@@ -189,13 +189,17 @@ div(class="page-content-wrap")
                                                             label(for="") Estudio
                                                         div(class="col-md-9")
                                                             p(ng-bind="estudio.estudio", ng-hide="estudio.edit")
-                                                            input(ng-model="estudio.estudio", type="text", class="form-control", ng-show="estudio.edit")
+                                                            div(style="width:100%", ng-show="estudio.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="estudio", data-ng-model="estudio.estudio", ng-options="estudio.value as estudio.label for estudio in variablesGlobales.estudios", ng-disabled="!estudio.edit")
+                                                                    option(value="") Seleccione
                                                     div(class="form-group")
                                                         div(class="col-md-3")
                                                             label(for="") Grado
                                                         div(class="col-md-9")
                                                             p(ng-bind="estudio.grado", ng-hide="estudio.edit")
-                                                            input(ng-model="estudio.grado", type="text", class="form-control", ng-show="estudio.edit")
+                                                            div(style="width:100%", ng-show="estudio.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="estudio", data-ng-model="estudio.grado", ng-options="grado.value as grado.label for grado in variablesGlobales.grados", ng-disabled="!estudio.edit")
+                                                                    option(value="") Seleccione
                                                     div(class="form-group")    
                                                         div(class="col-md-3")
                                                             label(for="") Fecha de terminación
@@ -207,7 +211,9 @@ div(class="page-content-wrap")
                                                             label(for="") Pais
                                                         div(class="col-md-9")
                                                             p(ng-bind="estudio.pais", ng-hide="estudio.edit")
-                                                            input(ng-model="estudio.pais", type="text", class="form-control", ng-show="estudio.edit")
+                                                            div(style="width:100%", ng-show="estudio.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="pais", data-ng-model="estudio.pais", ng-options="pais.value as pais.label for pais in variablesGlobales.paises", ng-disabled="!estudio.edit")
+                                                                    option(value="") Seleccione
                                                 div(class="col-md-3")
                                                     ul(class="panel-controls")
                                                         li()
@@ -241,13 +247,17 @@ div(class="page-content-wrap")
                                                             label(for="") Nombre
                                                         div(class="col-md-9")
                                                             p(ng-bind="estudio.jobName", ng-hide="estudio.edit")
-                                                            input(ng-model="estudio.jobName", type="text", class="form-control", ng-show="estudio.edit")
+                                                            div(style="width:100%", ng-show="estudio.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="centroEducativo", data-ng-model="estudio.jobName", ng-options="centro.value as centro.label for centro in variablesGlobales.centrosEducativos", ng-disabled="!estudio.edit")
+                                                                    option(value="") Seleccione
                                                     div(class="form-group")
                                                         div(class="col-md-3")
                                                             label(for="") Pais
                                                         div(class="col-md-9")
                                                             p(ng-bind="estudio.pais", ng-hide="estudio.edit")
-                                                            input(ng-model="estudio.pais", type="text", class="form-control", ng-show="estudio.edit")
+                                                            div(style="width:100%", ng-show="estudio.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="pais", data-ng-model="estudio.pais", ng-options="pais.value as pais.label for pais in variablesGlobales.paises", ng-disabled="!estudio.edit")
+                                                                    option(value="") Seleccione
                                                 div(class="col-md-3")
                                                     ul(class="panel-controls")
                                                         li()
@@ -281,13 +291,17 @@ div(class="page-content-wrap")
                                                             label(for="") Estudio
                                                         div(class="col-md-9")
                                                             p(ng-bind="estudio.estudio", ng-hide="estudio.edit")
-                                                            input(ng-model="estudio.estudio", type="text", class="form-control", ng-show="estudio.edit")
+                                                            div(style="width:100%", ng-show="estudio.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="estudio", data-ng-model="estudio.estudio", ng-options="estudio.value as estudio.label for estudio in variablesGlobales.estudios", ng-disabled="!estudio.edit")
+                                                                    option(value="") Seleccione
                                                     div(class="form-group")
                                                         div(class="col-md-3")
                                                             label(for="") Pais
                                                         div(class="col-md-9")
                                                             p(ng-bind="estudio.pais", ng-hide="estudio.edit")
-                                                            input(ng-model="estudio.pais", type="text", class="form-control", ng-show="estudio.edit")
+                                                            div(style="width:100%", ng-show="estudio.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="pais", data-ng-model="estudio.pais", ng-options="pais.value as pais.label for pais in variablesGlobales.paises", ng-disabled="!estudio.edit")
+                                                                    option(value="") Seleccione
                                                 div(class="col-md-3")
                                                     ul(class="panel-controls")
                                                         li()
@@ -300,7 +314,7 @@ div(class="page-content-wrap")
                     div(class="form-group")
                         div(class="col-md-12")
                             button(type="button", class="btn btn-primary pull-right", ng-click="agregarCertificado()") Agregar
-    div(class="row")
+        //-div(class="row")
         div(class="col-md-6")
             div(class="panel panel-default")
                 div(class="panel-heading")
@@ -322,7 +336,9 @@ div(class="page-content-wrap")
                                                             label(for="") Trabajo
                                                         div(class="col-md-9")
                                                             p(ng-bind="exp.job", ng-hide="exp.edit")
-                                                            input(ng-model="exp.job", type="text", class="form-control", ng-show="exp.edit")
+                                                            div(style="width:100%", ng-show="exp.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="job", data-ng-model="exp.job", ng-options="job.value as job.label for job in variablesGlobales.jobs", ng-disabled="!exp.edit")
+                                                                    option(value="") Seleccione
                                                     div(class="form-group")
                                                         div(class="col-md-3")
                                                             label(for="") Fecha
@@ -393,7 +409,7 @@ div(class="page-content-wrap")
                     div(class="form-group")
                         div(class="col-md-12")
                             button(type="button", class="btn btn-primary pull-right", ng-click="agregarEmpleador()") Agregar
-    div(class="row")
+        //-div(class="row")
         div(class="col-md-6")
             div(class="panel panel-default")
                 div(class="panel-heading")
@@ -416,6 +432,9 @@ div(class="page-content-wrap")
                                                         div(class="col-md-9")
                                                             p(ng-bind="idioma.nombre", ng-hide="idioma.edit")
                                                             input(ng-model="idioma.nombre", type="text", class="form-control", ng-show="idioma.edit")
+                                                            div(style="width:100%", ng-show="idioma.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="idioma", data-ng-model="idioma.idioma", ng-options="idioma.value as idioma.label for idioma in variablesGlobales.idiomas", ng-disabled="!idioma.edit")
+                                                                    option(value="") Seleccione
                                                     div(class="form-group")
                                                         div(class="col-md-3")
                                                             label(for="") Leido
@@ -465,8 +484,10 @@ div(class="page-content-wrap")
                                                     div(class="col-md-3")
                                                         label(for="") Habilidad
                                                     div(class="col-md-9")
-                                                        p(ng-bind="skill.nombre", ng-hide="skill.edit")
-                                                        input(ng-model="skill.nombre", type="text", class="form-control", ng-show="skill.edit")
+                                                        p(ng-bind="skill.name", ng-hide="skill.edit")
+                                                        div(style="width:100%", ng-show="skill.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="job", data-ng-model="skill.name", ng-options="skill.value as skill.label for skill in variablesGlobales.skills", ng-disabled="!skill.edit")
+                                                                    option(value="") Seleccione
                                                 div(class="form-group")
                                                     div(class="col-md-3")
                                                         label(for="") Meses
@@ -491,7 +512,7 @@ div(class="page-content-wrap")
                     div(class="form-group")
                         div(class="col-md-12")
                             button(type="button", class="btn btn-primary pull-right", ng-click="agregarSkill()") Agregar
-    div(class="row")
+        //-div(class="row")
         div(class="col-md-6")
             div(class="panel panel-default")
                 div(class="panel-heading")
@@ -513,7 +534,9 @@ div(class="page-content-wrap")
                                                             label(for="") Caracteristica
                                                         div(class="col-md-9")
                                                             p(ng-bind="caracteristica.nombre", ng-hide="caracteristica.edit")
-                                                            input(ng-model="caracteristica.nombre", type="text", class="form-control", ng-show="caracteristica.edit")
+                                                            div(style="width:100%", ng-show="caracteristica.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="caracteristica", data-ng-model="caracteristica.nombre", ng-options="caracteristica.value as caracteristica.label for caracteristica in variablesGlobales.caracteristicas", ng-disabled="!caracteristica.edit")
+                                                                    option(value="") Seleccione
                                                     div(class="form-group")
                                                         div(class="col-md-3")
                                                             label(for="") Valor
@@ -553,7 +576,9 @@ div(class="page-content-wrap")
                                                             label(for="") Caracteristica
                                                         div(class="col-md-9")
                                                             p(ng-bind="caracteristica.nombre", ng-hide="caracteristica.edit")
-                                                            input(ng-model="caracteristica.nombre", type="text", class="form-control", ng-show="caracteristica.edit")
+                                                            div(style="width:100%", ng-show="caracteristica.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="caracteristica", data-ng-model="caracteristica.nombre", ng-options="caracteristica.value as caracteristica.label for caracteristica in variablesGlobales.caracteristicasPsicologicas", ng-disabled="!caracteristica.edit")
+                                                                    option(value="") Seleccione
                                                     div(class="form-group")
                                                         div(class="col-md-3")
                                                             label(for="") Valor
@@ -572,8 +597,8 @@ div(class="page-content-wrap")
                     div(class="form-group")
                         div(class="col-md-12")
                             button(type="button", class="btn btn-primary pull-right", ng-click="agregarCaracteristicaPsicologica()") Agregar
-    div(class="row")
-            div(class="col-md-6")
+        //-div(class="row")
+        div(class="col-md-6")
                 div(class="panel panel-default")
                     div(class="panel-heading")
                         h3(class="panel-title") Cargos a los que se ha postulado
