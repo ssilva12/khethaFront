@@ -1,6 +1,7 @@
 extends layout
 
 block body
+  toast()
   //- START PAGE CONTAINER
   div(class="page-container page-navigation-top-fixed")
     div(class="page-sidebar page-sidebar-fixed scroll")
@@ -65,7 +66,7 @@ block body
                 span(class="fa fa-lock")
                 span() Lock Screen
             li()
-              a(href="#", class="mb-control", data-box="#mb-signout") 
+              a(class="mb-control", data-box="#mb-signout") 
                 span(class="fa fa-sign-out") 
                 span() Sign Out
         li(class="xn-icon-button pull-right")
@@ -184,10 +185,13 @@ block body
   script(type='text/javascript', src='js/plugins/icheck/icheck.min.js')
   script(type="text/javascript", src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js")
   script(type='text/javascript', src='js/plugins/noty/jquery.noty.js')
-  script(type='text/javascript', src='js/plugins/noty/layouts/topCenter.js')
-  script(type='text/javascript', src='js/plugins/noty/layouts/topLeft.js')
   script(type='text/javascript', src='js/plugins/noty/layouts/topRight.js')
+  script(type='text/javascript', src='js/plugins/noty/layouts/topCenter.js')
+  script(type='text/javascript', src='js/plugins/noty/layouts/center.js')
+  script(type='text/javascript', src='js/plugins/noty/layouts/top.js')
+  script(type='text/javascript', src='js/plugins/noty/layouts/inline.js')
   script(type='text/javascript', src='js/plugins/noty/themes/default.js')
+  script(type='text/javascript', src='js/plugins/noty/promise.js')
   script(type="text/javascript", src="js/plugins.js")
   script(src='js/lib/angular/angular.js')
   script(type="text/javascript", src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js")
@@ -205,5 +209,6 @@ block body
   script(src='js/filters.js')
   script(src='js/directives.js')
   script(src='js/factories.js')
+  script(src='js/constant.js')
   script(src='js/lib/ng-file-upload.min.js')
   script(src='js/lib/angular-spinner.min.js')

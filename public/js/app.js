@@ -13,6 +13,7 @@ angular.module('myApp', [
   'myApp.vacancyService',
   'myApp.directives',
   'myApp.factories',
+  'myApp.constant',
   'ngFileUpload',
   'angularSpinner'
 ]).
