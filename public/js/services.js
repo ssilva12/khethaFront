@@ -8,8 +8,8 @@
 angular.module('myApp.services', []).
   value('version', '0.1')
   .service('frequencyMatrixService', function($http) {
-    //var url = "http://localhost:9000/"
-    var url = "http://guarded-atoll-31281.herokuapp.com/"
+    var url = "http://localhost:9000/"
+    // var url = "http://guarded-atoll-31281.herokuapp.com/"
 
     this.get = (parameters, callback) => {
       $http({
@@ -28,7 +28,7 @@ angular.module('myApp.services', []).
     this.getEmployers = (parameters, callback) => {
       $http({
         method: 'GET',
-        url: url+'api/employer/all/'
+        url: url+'api/employer/all/',
       }).
       success((data, status, headers, config) => {
         callback(null,data)
@@ -68,15 +68,12 @@ angular.module('myApp.services', []).
       });
     }
 
-    // this.get
-  })
-  /*
-  .service('EmployerService', function($http) {
-    let url = "http://localhost:9000/"
-    this.get = (parameters, callback) => {
+    this.setFeatureWeight = (parameters, callback) => {
+      console.log(parameters);
       $http({
         method: 'GET',
-        url: url+'api/employer/all/'
+        url: url+'api/frequencymatrix/feature-weight/',
+        params: parameters
       }).
       success((data, status, headers, config) => {
         callback(null,data)
@@ -87,10 +84,9 @@ angular.module('myApp.services', []).
     }
 
   })
-  // */
   .service('Dictionary', function($http) {
-    //var url = "http://localhost:9000/"
-    var url = "http://guarded-atoll-31281.herokuapp.com/"
+    var url = "http://localhost:9000/"
+    // var url = "http://guarded-atoll-31281.herokuapp.com/"
     this.getSynonyms = function (name,dictionaryName,acronym,callback) {
       if(dictionaryName == undefined){
         dictionaryName = "null"

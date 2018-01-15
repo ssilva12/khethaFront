@@ -2,8 +2,8 @@ angular.module('myApp.candidatesServices', [])
     .factory('candidatesServices', function ($http) {
 
         var candidatesServices = {};
-        //var url = "http://localhost:9000/"
-        var url = "http://guarded-atoll-31281.herokuapp.com/"
+        var url = "http://localhost:9000/"
+        // var url = "http://guarded-atoll-31281.herokuapp.com/"
         candidatesServices.uploadFile = function (file) {
             var fd = new FormData();
             fd.append('curriculum', file);
