@@ -7,12 +7,22 @@ div(class="page-title")
 div(class="page-content-wrap")
     div(class="row")
         div(class="col-md-12")
-            div(class="alert alert-danger", role="alert", style="display: none")
-                button(type="button", class="close", data-dismiss="alert")
-                    span(aria-hidden="true") x
-                    span(class="sr-only") Close
-                strong() Importante!
-                span() &nbsp;Aqui se podrán visualizar todos los mensajes de alerta según las acciones que estemos efectuando en la pantalla.
+            div(class="col-md-12")
+                div(class="panel panel-default")
+                        div(class="panel-body")
+                            p() Creación de candidatos.
+                            form(class="form-horizontal")
+                                div(class="form-group")
+                                    div(class="col-md-9")
+                                        div(class="input-group")
+                                            label(class="file-input-wrapper btn btn-default fileinput btn-primary")
+                                                span() Buscar archivo
+                                                input(type="file", id="file", accept="image/pdf", class="custom-file-input", onchange="angular.element(this).scope().uploadFile(this.files)")
+                                            span(class="help-block") Tipos de archivo: PDF
+                                    div(class="col-md-3")
+                                        button(ng-click="crearNuevo()", class="btn btn-default btn-block")
+                                            i(class="fa fa-user-plus", aria-hidden="true")
+                                            span() Crear nuevo candidato
             div(class="col-md-12")
                 div(class="panel panel-default")
                     div(class="panel-body")

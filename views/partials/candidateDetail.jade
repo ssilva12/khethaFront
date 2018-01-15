@@ -14,161 +14,167 @@ div(class="page-content-wrap")
                 strong() Importante!
                 span() &nbsp;Aqui se podrán visualizar todos los mensajes de alerta según las acciones que estemos efectuando en la pantalla.
     //- CANDIDATOS
-    div(class="row")
-        div(class="col-md-3")
-            //- START PANEL WITH STATIC CONTROLS
-            div(class="panel panel-default")
-                div(class="panel-heading")
-                    div(class="form-group")
-                        div(class="col-md-9 col-xs-9")
-                            h3(class="profile-data-name", ng-bind="usuario.candidateInfo.name")
-                            div(class="profile-data-title", ng-bind="usuario.candidateInfo.title")
-                        div(class="col-md-3 col-xs-3")
-                            ul(class="panel-controls")
-                                li()
-                                    a(class="panel-edit", ng-click="usuario.edit = !usuario.edit")
-                                        span(class="fa fa-pencil", ng-hide="usuario.edit")
-                                        span(class="fa fa-save", ng-show="usuario.edit")
-                                li()
-                                    a(class="panel-edit", ng-click="actualizarCandidato()")
-                                        |Editar
-                div(class="panel-body")
-                    div(class="text-center profilecand", id="user_image")
-                        img(src="assets/images/users/user2.jpg", class="img-thumbnail")
-                    br()
-                    div(class="form-group")
-                        div(class="col-md-4 col-xs-4")
-                            label(for="") #ID
-                        div(class="col-md-8 col-xs-8")
-                            p(ng-bind="usuario.candidateInfo.id")
-                    div(class="form-group")
-                        div(class="col-md-4 col-xs-4")
-                            label(for="") UserName
-                        div(class="col-md-8 col-xs-8")
-                            p(ng-bind="usuario.candidateInfo.username")
-                    div(class="form-group")
-                        div(div class="col-md-4 col-xs-4")
-                            label(for="") Email
-                        div(class="col-md-8 col-xs-8")
-                            p()
-                                a(href="#", ng-bind="usuario.candidateInfo.email")
-            //- END PANEL WITH STATIC CONTROLS
-        div(class="col-md-6")
-            //- START PANEL WITH STATIC CONTROLS
-            div(class="panel panel-default")
-                div(class="panel-heading")
-                    h3(class="panel-title") Ficha del candidato
-                    ul(class="panel-controls")
-                        li()
-                            a(href="#", class="panel-fullscreen")
-                                span(class="fa fa-expand")
-                        li(class="dropdown")
-                            a(href="#", class="dropdown-toggle", data-toggle="dropdown")
-                                span(class="fa fa-cog")
-                            ul(class="dropdown-menu")
-                                li()
-                                    a(href="#", class="panel-collapse")
-                                        span(span class="fa fa-angle-down")
-                                        span() Collapse
-                                li()
-                                    a(href="#", class="panel-refresh")
-                                        span(class="fa fa-refresh")
-                                        span() Refresh
-                        li()
-                            a(href="#", class="panel-remove")
-                                span(class="fa fa-times")
-                div(class="panel-body")
-                    div(class="form-group clearfix")   
-                        label(class="col-md-3 control-label") Nombre Completo:
-                        div(class="col-md-9")
-                            input(type="text", class="form-control validate[required]", placeholder="", ng-model="usuario.candidateInfo.name", ng-readonly="!usuario.edit", ng-required="usuario.candidateInfo.name")
-                    div(class="form-group clearfix")
-                        label(class="col-md-3 control-label") Sexo:
-                        //-select(style="height: 36px; padding: 0px 10px !important", class="form-control",data-ng-model="user.sexo", data-ng-options="sexo.value as sexo.label for sexo in variablesGlobales.sexo")
-                        div(class="col-md-9").
-                                <select class="form-control" select2="" name="sexo" data-ng-model="usuario.candidateInfo.sex" ng-options="c.label as c.label for c in variablesGlobales.sexo" ng-disabled="!usuario.edit">
-                                    <option value="">Seleccione</option>
-                                </select>
-                    div(class="form-group clearfix")
-                        label(class="col-md-3 control-label") Estatus:
-                        div(class="col-md-9")
-                            div(class="input-group")
-                                span(class="input-group-btn")
-                                    button(class="btn btn-default", type="button")
-                                        i(class="fa fa-circle status-disponible")
-                                select(class="form-control", select2="", name="estado", data-ng-model="usuario.candidateInfo.status", ng-options="estado.value as estado.label for estado in variablesGlobales.estados", ng-disabled="!usuario.edit")
-                                    option(value="") Seleccione
-                    div(class="form-group clearfix")
-                        label(class="col-md-3 control-label") Número de identificación:
-                        div(class="col-md-9")
-                            input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.idNumber", ng-readonly="!usuario.edit")
-                    div(class="form-group clearfix")
-                        label(class="col-md-3 control-label") Teléfono:
-                        div(class="col-md-9")
-                            input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.formattedNumber", ng-readonly="!usuario.edit")
-                    div(class="form-group clearfix")
-                        label(class="col-md-3 control-label") E-mail:
-                        div(class="col-md-9")
-                            input(type="email", class="form-control", placeholder="", ng-model="usuario.candidateInfo.email", ng-readonly="!usuario.edit")
-                    div(class="form-group clearfix")
-                        label(class="col-md-3 control-label") Dirección:
-                        div(class="col-md-9")
-                            input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.addressLine", ng-readonly="!usuario.edit")                    
-                    div(class="form-group clearfix")
-                        label(class="col-md-3 control-label") Población:
-                        div(class="col-md-9")
-                            select(class="form-control", select2="", name="ciudad", data-ng-model="usuario.candidateInfo.poblacion", ng-options="ciudad.value as ciudad.label for ciudad in variablesGlobales.poblacion", ng-disabled="!usuario.edit")
-                                    option(value="") Seleccione
-                    div(class="form-group clearfix")
-                        label(class="col-md-3 control-label") Código postal:
-                        div(class="col-md-9")
-                            input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.codigoPostal", ng-readonly="!usuario.edit")
-                    div(class="form-group clearfix")
-                        label(class="col-md-3 control-label") Pais:
-                        div(class="col-md-9")
-                            select(class="form-control", select2="", name="pais", data-ng-model="usuario.candidateInfo.pais", ng-options="pais.value as pais.label for pais in variablesGlobales.paises", ng-disabled="!usuario.edit")
-                                    option(value="") Seleccione
-                    div(class="form-group clearfix")
-                        label(class="col-md-3 control-label") Nacionalidad:
-                        div(class="col-md-9")
-                            select(class="form-control", select2="", name="nacionalidad", data-ng-model="usuario.candidateInfo.nacionalidad", ng-options="nacionalidad.value as nacionalidad.label for nacionalidad in variablesGlobales.paises", ng-disabled="!usuario.edit")
-                                    option(value="") Seleccione
-            //- END PANEL WITH STATIC CONTROLS
-        div(class="col-md-3")
-            //- START PANEL WITH STATIC CONTROLS
-            div(class="panel panel-default")
-                div(class="panel-heading")
-                    h3(class="panel-title") Información Adicional
-                div(class="panel-body")
-                    h4(class="txt-redAlert") Esta información no se puede editar
-                    div(class="form-group")
-                        div(class="col-md-12")
-                            label(for="") Coordenadas GPS
-                        div(class="col-md-12")
-                            p.
-                                &nbsp; &nbsp;<strong>Long:</strong> {{usuario.candidateInfo.long}}
-                            p.
-                                &nbsp; &nbsp;<strong>Lat:</strong> {{usuario.candidateInfo.lat}}
-                    div(class="form-group")
-                        div(class="col-md-4 col-xs-4")
-                            label(for="") Desde
-                        div(class="col-md-8 col-xs-8")
-                            p(ng-bind="usuario.candidateInfo.desde")
-                    div(class="form-group")
-                        div(class="col-md-4 col-xs-4")
-                            label(for="") Última Actualización
-                        div(class="col-md-8 col-xs-8")
-                            p(ng-bind="usuario.candidateInfo.ultimaAct")
-            //- END PANEL WITH STATIC CONTROLS
-            div(class="panel panel-default", style="display:none;")
-                div(class="panel-heading")
-                    h3(class="panel-title") Categorias del candidato
-                div(class="panel-body")
-                    ul(class="list-tags")
-                        li(ng-repeat="categoria in user.categorias")
-                            a(href="#")
-                                span(class="fa fa-tag")
-                                span(ng-bind="categoria")
+    form(name="formCandidato", novalidate)
+        div(class="row")
+            div(class="col-md-3",style="display:none;")
+                //- START PANEL WITH STATIC CONTROLS
+                div(class="panel panel-default")
+                    div(class="panel-heading")
+                        div(class="form-group")
+                            div(class="col-md-9 col-xs-9")
+                                h3(class="profile-data-name", ng-bind="usuario.candidateInfo.name")
+                                div(class="profile-data-title", ng-bind="usuario.candidateInfo.title")
+                            div(class="col-md-3 col-xs-3")
+                                ul(class="panel-controls")
+                                    li()
+                                        a(class="panel-edit", ng-click="usuario.edit = !usuario.edit")
+                                            span(class="fa fa-pencil", ng-hide="usuario.edit")
+                                            span(class="fa fa-save", ng-show="usuario.edit", ng-click="actualizarCandidato()")
+                    div(class="panel-body")
+                        div(class="text-center profilecand", id="user_image")
+                            img(src="assets/images/users/user2.jpg", class="img-thumbnail")
+                        br()
+                        div(class="form-group")
+                            div(class="col-md-4 col-xs-4")
+                                label(for="") #ID
+                            div(class="col-md-8 col-xs-8")
+                                p(ng-bind="usuario.candidateInfo.id")
+                        div(class="form-group")
+                            div(class="col-md-4 col-xs-4")
+                                label(for="") UserName
+                            div(class="col-md-8 col-xs-8")
+                                p(ng-bind="usuario.candidateInfo.username")
+                        div(class="form-group")
+                            div(div class="col-md-4 col-xs-4")
+                                label(for="") Email
+                            div(class="col-md-8 col-xs-8")
+                                p()
+                                    a(href="#", ng-bind="usuario.candidateInfo.email")
+                //- END PANEL WITH STATIC CONTROLS
+            div(class="col-md-9", ng-class="{'col-md-12': variablesGlobales.expandir,'col-md-9' : !variablesGlobales.expandir}")
+                //- START PANEL WITH STATIC CONTROLS
+                div(class="panel panel-default")
+                    div(class="panel-heading")
+                        h3(class="panel-title") Ficha del candidato
+                        ul(class="panel-controls")
+                            li()
+                                a(class="panel-fullscreen", ng-click="variablesGlobales.expandir= !variablesGlobales.expandir")
+                                    span(class="fa fa-expand")
+                            li(class="dropdown", style="display:none;")
+                                a(href="#", class="dropdown-toggle", data-toggle="dropdown")
+                                    span(class="fa fa-cog")
+                                ul(class="dropdown-menu")
+                                    li()
+                                        a(href="#", class="panel-collapse")
+                                            span(span class="fa fa-angle-down")
+                                            span() Collapse
+                                    li()
+                                        a(href="#", class="panel-refresh")
+                                            span(class="fa fa-refresh")
+                                            span() Refresh
+                            li()
+                                a(class="panel-remove", style="display:none;")
+                                    span(class="fa fa-times")
+                    div(class="panel-body")
+                        div(class="form-group clearfix", ng-class="{ 'has-error' : formCandidato.nombre.$invalid && !formCandidato.nombre.$pristine }")   
+                            label(class="col-md-3 control-label") Nombre Completo:
+                            div(class="col-md-9")
+                                input(name="nombre", type="text", class="form-control", ng-model="usuario.candidateInfo.name", required="") 
+                                //-p(ng-show="formCandidato.nombre.$invalid", class="help-block") Nombre requerido. 
+                        div(class="form-group clearfix")
+                            label(class="col-md-3 control-label") Sexo:
+                            //-select(style="height: 36px; padding: 0px 10px !important", class="form-control",data-ng-model="user.sexo", data-ng-options="sexo.value as sexo.label for sexo in variablesGlobales.sexo")
+                            div(class="col-md-9").
+                                    <select class="form-control" select2="", name="sexo" data-ng-model="usuario.candidateInfo.sex" >
+                                        <option value="">Seleccione</option>
+                                        <option ng-repeat="c in variablesGlobales.sexo" value="c.value">{{c.label}}</option>
+                                    </select>
+                        div(class="form-group clearfix")
+                            label(class="col-md-3 control-label") Estatus:
+                            div(class="col-md-9")
+                                div(class="input-group")
+                                    span(class="input-group-btn")
+                                        button(class="btn btn-default", type="button")
+                                            i(class="fa fa-circle status-disponible")
+                                    select(class="form-control", select2="", name="estado", data-ng-model="usuario.candidateInfo.status")
+                                        option(value="") Seleccione
+                                        option(ng-repeat="estado in variablesGlobales.estados", value="estado.value") {{estado.label}}
+                        div(class="form-group clearfix")
+                            label(class="col-md-3 control-label") Número de identificación:
+                            div(class="col-md-9")
+                                input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.idNumber")
+                        div(class="form-group clearfix")
+                            label(class="col-md-3 control-label") Teléfono:
+                            div(class="col-md-9")
+                                input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.formattedNumber")
+                        div(class="form-group clearfix", ng-class="{ 'has-error' : formCandidato.email.$invalid && !formCandidato.email.$pristine }")
+                            label(class="col-md-3 control-label") E-mail:
+                            div(class="col-md-9")
+                                input(name="email", type="email", class="form-control", placeholder="", ng-model="usuario.candidateInfo.email")
+                        div(class="form-group clearfix")
+                            label(class="col-md-3 control-label") Dirección:
+                            div(class="col-md-9")
+                                input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.addressLine")                    
+                        div(class="form-group clearfix")
+                            label(class="col-md-3 control-label") Población:
+                            div(class="col-md-9")
+                                select(class="form-control", select2="", name="ciudad", data-ng-model="usuario.candidateInfo.poblacion", ng-options="ciudad.value as ciudad.label for ciudad in variablesGlobales.poblacion")
+                                        option(value="") Seleccione
+                        div(class="form-group clearfix")
+                            label(class="col-md-3 control-label") Código postal:
+                            div(class="col-md-9")
+                                input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.codigoPostal")
+                        div(class="form-group clearfix")
+                            label(class="col-md-3 control-label") Pais:
+                            div(class="col-md-9")
+                                select(class="form-control", select2="", name="pais", data-ng-model="usuario.candidateInfo.pais", ng-options="pais.value as pais.label for pais in variablesGlobales.paises")
+                                        option(value="") Seleccione
+                        div(class="form-group clearfix")
+                            label(class="col-md-3 control-label") Nacionalidad:
+                            div(class="col-md-9")
+                                select(class="form-control", select2="", name="nacionalidad", data-ng-model="usuario.candidateInfo.nacionalidad", ng-options="nacionalidad.value as nacionalidad.label for nacionalidad in variablesGlobales.paises")
+                                        option(value="") Seleccione
+                        div(class="form-group")
+                            div(class="col-md-12")
+                                button(type="button", class="btn btn-primary pull-right", ng-click="actualizarCandidato()") 
+                                    li(class="fa fa-save")
+                                    span() Guardar
+                //- END PANEL WITH STATIC CONTROLS
+            div(class="col-md-3")
+                //- START PANEL WITH STATIC CONTROLS
+                div(class="panel panel-default")
+                    div(class="panel-heading")
+                        h3(class="panel-title") Información Adicional
+                    div(class="panel-body")
+                        h4(class="txt-redAlert") Esta información no se puede editar
+                        div(class="form-group")
+                            div(class="col-md-12")
+                                label(for="") Coordenadas GPS
+                            div(class="col-md-12")
+                                p.
+                                    &nbsp; &nbsp;<strong>Long:</strong> {{usuario.candidateInfo.long}}
+                                p.
+                                    &nbsp; &nbsp;<strong>Lat:</strong> {{usuario.candidateInfo.lat}}
+                        div(class="form-group")
+                            div(class="col-md-4 col-xs-4")
+                                label(for="") Desde
+                            div(class="col-md-8 col-xs-8")
+                                p(ng-bind="usuario.candidateInfo.desde")
+                        div(class="form-group")
+                            div(class="col-md-4 col-xs-4")
+                                label(for="") Última Actualización
+                            div(class="col-md-8 col-xs-8")
+                                p(ng-bind="usuario.candidateInfo.ultimaAct")
+                //- END PANEL WITH STATIC CONTROLS
+                div(class="panel panel-default", style="display:none;")
+                    div(class="panel-heading")
+                        h3(class="panel-title") Categorias del candidato
+                    div(class="panel-body")
+                        ul(class="list-tags")
+                            li(ng-repeat="categoria in user.categorias")
+                                a(href="#")
+                                    span(class="fa fa-tag")
+                                    span(ng-bind="categoria")
     //- FIN CANDIDATOS
     div(class="row")
         div(class="col-md-6")
@@ -193,8 +199,9 @@ div(class="page-content-wrap")
                                                         div(class="col-md-9")
                                                             p(ng-bind="estudio.estudio", ng-hide="estudio.edit")
                                                             div(style="width:100%", ng-show="estudio.edit")
-                                                                select(style="width:100%",class="form-control", select2="", name="estudio", data-ng-model="estudio.estudio", ng-options="estudio.value as estudio.label for estudio in variablesGlobales.estudios", ng-disabled="!estudio.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="estudio", data-ng-model="estudio.estudio", ng-disabled="!estudio.edit")
                                                                     option(value="") Seleccione
+                                                                    option(ng-repeat="estudio in variablesGlobales.estudios", value="estudio.value") {{estudio.label}}
                                                     div(class="form-group")
                                                         div(class="col-md-3")
                                                             label(for="") Grado
@@ -251,8 +258,9 @@ div(class="page-content-wrap")
                                                         div(class="col-md-9")
                                                             p(ng-bind="estudio.jobName", ng-hide="estudio.edit")
                                                             div(style="width:100%", ng-show="estudio.edit")
-                                                                select(style="width:100%",class="form-control", select2="", name="centroEducativo", data-ng-model="estudio.jobName", ng-options="centro.value as centro.label for centro in variablesGlobales.centrosEducativos", ng-disabled="!estudio.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="centroEducativo", data-ng-model="estudio.jobName", ng-disabled="!estudio.edit")
                                                                     option(value="") Seleccione
+                                                                    option(ng-repeat="centro in variablesGlobales.centrosEducativos", value="centro.value") {{centro.label}}
                                                     div(class="form-group")
                                                         div(class="col-md-3")
                                                             label(for="") Pais
@@ -295,8 +303,9 @@ div(class="page-content-wrap")
                                                         div(class="col-md-9")
                                                             p(ng-bind="estudio.estudio", ng-hide="estudio.edit")
                                                             div(style="width:100%", ng-show="estudio.edit")
-                                                                select(style="width:100%",class="form-control", select2="", name="estudio", data-ng-model="estudio.estudio", ng-options="estudio.value as estudio.label for estudio in variablesGlobales.estudios", ng-disabled="!estudio.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="estudio", data-ng-model="estudio.estudio", ng-disabled="!estudio.edit")
                                                                     option(value="") Seleccione
+                                                                    option(ng-repeat="estudio in variablesGlobales.estudios", value="estudio.value") {{estudio.label}}
                                                     div(class="form-group")
                                                         div(class="col-md-3")
                                                             label(for="") Pais
@@ -340,8 +349,9 @@ div(class="page-content-wrap")
                                                         div(class="col-md-9")
                                                             p(ng-bind="exp.job", ng-hide="exp.edit")
                                                             div(style="width:100%", ng-show="exp.edit")
-                                                                select(style="width:100%",class="form-control", select2="", name="job", data-ng-model="exp.job", ng-options="job.value as job.label for job in variablesGlobales.jobs", ng-disabled="!exp.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="job", data-ng-model="exp.job", ng-disabled="!exp.edit")
                                                                     option(value="") Seleccione
+                                                                    option(ng-repeat="job in variablesGlobales.jobs", value="job.value") {{job.label}}
                                                     div(class="form-group")
                                                         div(class="col-md-3")
                                                             label(for="") Fecha
@@ -434,7 +444,6 @@ div(class="page-content-wrap")
                                                             label(for="") Idioma
                                                         div(class="col-md-9")
                                                             p(ng-bind="idioma.nombre", ng-hide="idioma.edit")
-                                                            input(ng-model="idioma.nombre", type="text", class="form-control", ng-show="idioma.edit")
                                                             div(style="width:100%", ng-show="idioma.edit")
                                                                 select(style="width:100%",class="form-control", select2="", name="idioma", data-ng-model="idioma.idioma", ng-options="idioma.value as idioma.label for idioma in variablesGlobales.idiomas", ng-disabled="!idioma.edit")
                                                                     option(value="") Seleccione
@@ -489,8 +498,9 @@ div(class="page-content-wrap")
                                                     div(class="col-md-9")
                                                         p(ng-bind="skill.name", ng-hide="skill.edit")
                                                         div(style="width:100%", ng-show="skill.edit")
-                                                                select(style="width:100%",class="form-control", select2="", name="job", data-ng-model="skill.name", ng-options="skill.value as skill.label for skill in variablesGlobales.skills", ng-disabled="!skill.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="skill", data-ng-model="skill.name", ng-disabled="!skill.edit")
                                                                     option(value="") Seleccione
+                                                                    option(ng-repeat="skill in variablesGlobales.skills", value="skill.value") {{skill.label}}
                                                 div(class="form-group")
                                                     div(class="col-md-3")
                                                         label(for="") Meses
@@ -538,8 +548,9 @@ div(class="page-content-wrap")
                                                         div(class="col-md-9")
                                                             p(ng-bind="caracteristica.nombre", ng-hide="caracteristica.edit")
                                                             div(style="width:100%", ng-show="caracteristica.edit")
-                                                                select(style="width:100%",class="form-control", select2="", name="caracteristica", data-ng-model="caracteristica.nombre", ng-options="caracteristica.value as caracteristica.label for caracteristica in variablesGlobales.caracteristicas", ng-disabled="!caracteristica.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="caracteristica", data-ng-model="caracteristica.nombre", ng-disabled="!caracteristica.edit")
                                                                     option(value="") Seleccione
+                                                                    option(ng-repeat="caracteristica in variablesGlobales.caracteristicas", value="caracteristica.value") {{caracteristica.label}}
                                                     div(class="form-group")
                                                         div(class="col-md-3")
                                                             label(for="") Valor
@@ -580,8 +591,9 @@ div(class="page-content-wrap")
                                                         div(class="col-md-9")
                                                             p(ng-bind="caracteristica.nombre", ng-hide="caracteristica.edit")
                                                             div(style="width:100%", ng-show="caracteristica.edit")
-                                                                select(style="width:100%",class="form-control", select2="", name="caracteristica", data-ng-model="caracteristica.nombre", ng-options="caracteristica.value as caracteristica.label for caracteristica in variablesGlobales.caracteristicasPsicologicas", ng-disabled="!caracteristica.edit")
+                                                                select(style="width:100%",class="form-control", select2="", name="caracteristica", data-ng-model="caracteristica.nombre", ng-disabled="!caracteristica.edit")
                                                                     option(value="") Seleccione
+                                                                    option(ng-repeat="caracteristica in variablesGlobales.caracteristicasPsicologicas", value="caracteristica.value") {{caracteristica.label}}
                                                     div(class="form-group")
                                                         div(class="col-md-3")
                                                             label(for="") Valor
