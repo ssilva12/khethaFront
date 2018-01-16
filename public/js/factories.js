@@ -99,7 +99,7 @@ value('version', '0.1')
             },
         };
     })
-    .factory('Mensaje', function () {
+    .factory('Mensaje', ['$rootScope', function ($rootScope) {
         var Mensaje = {}
 
         Mensaje.Mostrar = function (tipo, mensaje) {
@@ -110,6 +110,13 @@ value('version', '0.1')
             });
             n.show();
         };
+
+        Mensaje.Alerta = function (tipo, titulo, mensaje) {
+            $rootScope.open = true;
+            $rootScope.title = titulo;
+            $rootScope.message = mensaje;
+            $rootScope.type = (tipo == null || tipo == undefined) ? 'alert' : tipo;
+        }
 
         Mensaje.Confirmacion = function (mensaje, aceptar, cancelar) {
             var n = noty({
@@ -137,4 +144,4 @@ value('version', '0.1')
             n.show();
         };
         return Mensaje;
-    });
+    }]);

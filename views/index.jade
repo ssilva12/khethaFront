@@ -20,35 +20,34 @@ block body
               div(class="profile-data-title") Analista de Selección
         li(class="xn-title") 
           span() Candidatos
-        ul()
-          li(class="active")
-            a(href="#/candidateslist") 
-              i(class="fa fa-users", aria-hidden="true") 
-              span() &nbsp;Lista de candidatos
-          li()
-            a(href="#/detail") 
-              i(class="fa fa-user-plus", aria-hidden="true") 
-              span() &nbsp;Crear candidato
-          li()
-            a(href="#/synonyms") 
-              i(class="fa fa-user-plus", aria-hidden="true") 
-              span() &nbsp;Sinónimos
-          li()
-            a(href="#/metaFeatures") 
-              i(class="fa fa-user-plus", aria-hidden="true") 
-              span() &nbsp;Meta caracteristicas
-          li()
-            a(href="#/unresolved") 
-              i(class="fa fa-user-plus", aria-hidden="true") 
-              span() &nbsp;Sin resolver
-          li()
-            a(href="#/vacancy") 
-              i(class="fa fa-user-plus", aria-hidden="true") 
-              span() &nbsp;Vacantes
-          li()
-            a(href="#/frequencyMatrix") 
-              i(class="fa fa-user-plus", aria-hidden="true") 
-              span() &nbsp;Matrices de frecuencia         
+        li()
+          a(href="#/candidateslist") 
+            i(class="fa fa-users", aria-hidden="true") 
+            span(class="xn-text") &nbsp;Lista de candidatos
+        li()
+          a(href="#/detail") 
+            i(class="fa fa-user-plus", aria-hidden="true") 
+            span(class="xn-text") &nbsp;Crear candidato
+        li()
+          a(href="#/synonyms") 
+            i(class="fa fa-copy", aria-hidden="true") 
+            span(class="xn-text") &nbsp;Sinónimos
+        li()
+          a(href="#/metaFeatures") 
+            i(class="fa fa-tag", aria-hidden="true") 
+            span(class="xn-text") &nbsp;Meta caracteristicas
+        li()
+          a(href="#/unresolved") 
+            i(class="fa fa-exclamation-triangle", aria-hidden="true") 
+            span(class="xn-text") &nbsp;Sin resolver
+        li()
+          a(href="#/vacancy") 
+            i(class="fa fa-briefcase", aria-hidden="true") 
+            span(class="xn-text") &nbsp;Vacantes
+        li()
+          a(href="#/frequencyMatrix") 
+            i(class="fa fa-th", aria-hidden="true") 
+            span(class="xn-text") &nbsp;Matrices de frecuencia         
     div(class="page-content")
       ul(class="x-navigation x-navigation-horizontal x-navigation-panel")
         li(class="xn-icon-button")
@@ -69,7 +68,7 @@ block body
               a(class="mb-control", data-box="#mb-signout") 
                 span(class="fa fa-sign-out") 
                 span() Sign Out
-        li(class="xn-icon-button pull-right")
+        li(class="xn-icon-button pull-right", style="display:none;")
           a(href="#")
             span(class="fa fa-comments")
           div(class="informer informer-danger") 4
@@ -103,7 +102,7 @@ block body
                 p() I want my money back!
             div(class="panel-footer text-center")
               a(href="pages-messages.html") Show all messages
-        li(class="xn-icon-button pull-right")
+        li(class="xn-icon-button pull-right", style="display:none;")
           a(href="#")
             span(class="fa fa-tasks")
           div(class="informer informer-warning") 3
@@ -138,7 +137,7 @@ block body
                 small(class="text-success") Done
             div(class="panel-footer text-center")
               a(href="pages-tasks.html") Show all tasks   
-        li(class="xn-icon-button pull-right")
+        li(class="xn-icon-button pull-right", style="display:none;")
           a(href="#")
             span(class="flag flag-gb")
           ul(class="xn-drop-left xn-drop-white animated zoomIn")
@@ -157,7 +156,7 @@ block body
         li()
           a(href="#") Inicio
         li()
-          a(href="#") Lista de candidatos
+          a(href="#") {{activePageName}}
       //- END BREADCRUMB
       div(class="row")
         div(ng-view)
@@ -178,6 +177,16 @@ block body
           div(class="pull-right")
             a(href="pages-login.html", class="btn btn-success btn-lg") Yes
             button(class="btn btn-default btn-lg mb-control-close") No
+  div(class="message-box animated fadeIn", ng-class="{'open': open,'message-box-success' : type == 'success','message-box-danger' : type == 'error','message-box-warning' : type == 'warning','message-box-info' : type == 'info'}")
+    div(class="mb-container")
+      div(class="mb-middle")
+        div(class="mb-title")
+          span(class="fa fa-check")
+          span() {{title}}
+        div(class="mb-content")
+          p() {{message}}
+        div(class="mb-footer")
+          button(class="btn btn-default btn-lg pull-right mb-control-close", ng-click="open = false;") Close
   //- END MESSAGE BOX
   script(type="text/javascript", src="js/plugins/jquery/jquery.min.js")
   script(type="text/javascript", src="js/plugins/jquery/jquery-ui.min.js")

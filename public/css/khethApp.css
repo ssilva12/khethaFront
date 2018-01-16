@@ -257,7 +257,7 @@ label {
 }
 
 .message-box.message-box-danger .mb-container {
-    background: rgba(196, 0, 9, 1);
+    background: rgba(182, 70, 69, 0.9);
 }
 
 .txt-redAlert {
@@ -267,15 +267,15 @@ label {
 }
 
 .message-box.message-box-warning .mb-container {
-    background: rgba(254, 162, 35, 1);
+    background: rgba(254, 162, 35, 0.9);
 }
 
 .message-box.message-box-success .mb-container {
-    background: rgba(0, 201, 0, 1);
+    background: rgba(149, 183, 93, 0.9);
 }
 
 .message-box.message-box-info .mb-container {
-    background: rgba(0, 80, 217, 1);
+    background: rgba(63, 186, 228, 0.9);
 }
 
 .status-disponible {

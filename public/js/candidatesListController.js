@@ -34,7 +34,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
                 $scope.currentPage = 1;
             }, true);
         } else {
-            Mensaje.Mostrar("error", result.message);
+            Mensaje.Alerta("error",'Error', result.message);
         }
     });
 

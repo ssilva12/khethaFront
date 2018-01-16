@@ -37,41 +37,76 @@ div(class="page-content-wrap")
                                         div(class="input-group-btn")
                                             button(class="btn btn-primary mb-control", data-box="#message-box-success") Buscar
                                 div(class="col-md-3")
-                                    button(class="btn btn-default btn-block mb-control", data-box="#message-box-info")
+                                    button(class="btn btn-default btn-block mb-control", ng-click="busquedaAvanzada = !busquedaAvanzada")
                                         span(class="fa fa-plus")
                                         span() Búsqueda Avanzada
+                            div(class="form-group", ng-show="busquedaAvanzada")
+                                div(class="row")
+                                    div(class="col-sm-1") 
+                                        label(for="") Sexo
+                                    div(class="col-sm-3")
+                                        select(style="width:100%",class="form-control", select2="", name="sexo", ng-options="sexo.value as sexo.label for sexo in variablesGlobales.sexo")
+                                            option(value="") Seleccione
+                                    div(class="col-sm-1") 
+                                        label(for="") Estatus
+                                    div(class="col-sm-3")
+                                        select(style="width:100%",class="form-control", select2="", name="estatus", ng-options="estado.value as estado.label for estado in variablesGlobales.estados")
+                                            option(value="") Seleccione
+                                    div(class="col-sm-1") 
+                                        label(for="") Población
+                                    div(class="col-sm-3")
+                                        select(style="width:100%",class="form-control", select2="", name="poblacion", ng-options="poblacion.value as poblacion.label for poblacion in variablesGlobales.poblacion")
+                                            option(value="") Seleccione
+                                    div(class="col-sm-1") 
+                                        label(for="") Pais
+                                    div(class="col-sm-3")
+                                        select(style="width:100%",class="form-control", select2="", name="pais", ng-options="pais.value as pais.label for pais in variablesGlobales.paises")
+                                            option(value="") Seleccione
+                                    div(class="col-sm-1") 
+                                        label(for="") Skill
+                                    div(class="col-sm-3")
+                                        select(style="width:100%",class="form-control", select2="", name="skill", ng-options="skill.value as skill.label for skill in variablesGlobales.skills")
+                                            option(value="") Seleccione
+                                    div(class="col-sm-1") 
+                                        label(for="") Caracteristicas
+                                    div(class="col-sm-3")
+                                        select(style="width:100%",class="form-control", select2="", name="caracteristica", ng-options="caracteristica.value as caracteristica.label for caracteristica in variablesGlobales.caracteristicas")
+                                            option(value="") Seleccione
+
         //- CANDIDATOS
         div(class="row")
-            div(class="col-md-3", ng-repeat="candidato in filtered = lista.candidatos | filter : search | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit")
-                //- CONTACT ITEM
-                div(class="panel panel-default", ng-click="buscarDetalle(candidato.id)", style="cursor: pointer;")
-                    div(class="panel-body profileCandidato")
-                        div(class="profile-image")
-                            img(src="assets/images/users/avatar.jpg", alt="John Doe")
-                        div(class="profile-data")
-                            h3(class="profile-data-name") {{candidato.name}}
-                            p(class="profile-data-title") Web Developer / Administrator
-                    div(class="panel-body")
-                        div(class="contact-info")
-                            p()
-                                strong() Estatus:
-                                span() En proceso de selección
-                            p()
-                                strong() Nº Identificación:
-                                span() #0987654321
-                            p()
-                                strong() Teléfono:
-                                span() (+1 57_) 345 67 89
-                            p()
-                                strong() E-Mail:
-                                a(href="#") JMarioDoeM@mail.com
+            div(class="col-sm-12")
+                div(class="col-md-3", ng-repeat="candidato in filtered = lista.candidatos | filter : search | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit")
+                    //- CONTACT ITEM
+                    div(class="panel panel-default", ng-click="buscarDetalle(candidato.id)", style="cursor: pointer;")
+                        div(class="panel-body profileCandidato")
+                            div(class="profile-image")
+                                img(src="assets/images/users/avatar.jpg", alt="John Doe")
+                            div(class="profile-data")
+                                h3(class="profile-data-name") {{candidato.name}}
+                                p(class="profile-data-title") Web Developer / Administrator
+                        div(class="panel-body")
+                            div(class="contact-info")
+                                p()
+                                    strong() Estatus:
+                                    span() En proceso de selección
+                                p()
+                                    strong() Nº Identificación:
+                                    span() #0987654321
+                                p()
+                                    strong() Teléfono:
+                                    span() (+1 57_) 345 67 89
+                                p()
+                                    strong() E-Mail:
+                                    a(href="#") JMarioDoeM@mail.com
         //- FIN CANDIDATOS
         div(class="row")
-            div(class="col-md-9")
-                pagination(class="pagination pagination-sm",page="currentPage", max-size="noOfPages", total-items="totalItems", items-per-page="entryLimit")
-            div(class="col-md-3")
-                button(ng-click="crearNuevo()", class="btn btn-default btn-block")
-                    i(class="fa fa-user-plus", aria-hidden="true")
-                    span() Crear nuevo candidato
+            div(class="col-sm-12")
+                div(class="col-md-9")
+                    pagination(class="pagination pagination-sm",page="currentPage", max-size="noOfPages", total-items="totalItems", items-per-page="entryLimit")
+                div(class="col-md-3")
+                    button(ng-click="crearNuevo()", class="btn btn-default btn-block")
+                        i(class="fa fa-user-plus", aria-hidden="true")
+                        span() Crear nuevo candidato
         div(class="row")
             div(class="col-md-12") &nbsp;

@@ -3,6 +3,47 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     //Variables globales
     $scope.variablesGlobales = {};
     $scope.variablesGlobales.expandir = false;
+    $scope.variablesGlobales.metafeatures = [{
+        value: 1,
+        name: "estudios",
+        label: "Estudios del candidato"
+    }, {
+        value: 2,
+        name: "centros",
+        label: "Centros educativos"
+    }, {
+        value: 3,
+        name: "certificaciones",
+        label: "Certificaciones"
+    }, {
+        value: 4,
+        name: "experiencias",
+        label: "Experiencias"
+    }, {
+        value: 5,
+        name: "empleadores",
+        label: "Empleadores"
+    }, {
+        value: 6,
+        name: "idiomas",
+        label: "Idiomas"
+    }, {
+        value: 7,
+        name: "skills",
+        label: "Habilidades/Skills"
+    }, {
+        value: 8,
+        name: "caracteristicas",
+        label: "Características"
+    }, {
+        value: 9,
+        name: "caracteristicaspsicologicas",
+        label: "Características psicológicas"
+    }, {
+        value: 10,
+        name: "cargos",
+        label: "Cargos a los que se ha postulado"
+    }];
     $scope.variablesGlobales.sexo = [{
         value: 1,
         label: "Femenino"
@@ -123,7 +164,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 }];
                 //fin datos faltantes
             } else {
-                Mensaje.Mostrar("error", result.message);
+                Mensaje.Alerta("error", result.message);
             }
         });
     };
@@ -238,8 +279,8 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     $scope.agregarSkill = function () {
         var skill = {
             name: "",
-            meses: "",
-            fechaFin: "",
+            value: "",
+            lastDate: "",
             edit: true
         };
         $scope.usuario.skills.push(skill);
@@ -278,14 +319,52 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
         $scope.usuario.caracteristicasPsicologicas.push(caracteristica);
     };
 
+    //INICIO ACTUALIZACIONES DE DATOS
     $scope.actualizarCandidato = function () {
 
         var allData = candidatesServices.updateInformation($scope.usuario.candidateInfo, function (result) {
             if (!result.error) {
-                Mensaje.Mostrar("success", result.message);
+                Mensaje.Alerta("success",'OK', result.message);
             } else {
-                Mensaje.Mostrar("error", result.message);
+                Mensaje.Alerta("warning",'Error', result.message);
             }
         });
     };
+
+    $scope.actualizarEstudios = function (estudio) {
+
+    }
+
+    $scope.actualizarCentroEducativo = function (centro) {
+
+    }
+
+    $scope.actualizarCertificacion = function (certificacion) {
+
+    }
+
+    $scope.actualizarExperiencia = function (experiencia) {
+
+    }
+
+    $scope.actualizarEmpleador = function (empleador) {
+
+    }
+
+    $scope.actualizarIdioma = function (idioma) {
+
+    }
+
+    $scope.actualizarSkill = function (skill) {
+
+    }
+
+    $scope.actualizarCaracteristica = function (caracteristica) {
+
+    }
+
+    $scope.actualizarCaracteristicaPsicologica = function (caracteristica) {
+
+    }
+    //FIN ACTUALIZACION DE DATOS
 }]);
