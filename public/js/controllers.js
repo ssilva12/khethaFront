@@ -395,24 +395,14 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, frequen
   $scope.years = 1;
   $scope.candidateType = 'C';
   $scope.minPercentage = 0;
-  $scope.showValue = "f"; // f: frequency, w:weight, p: probability
+  $scope.showValue = "w"; // f: frequency, w:weight, p: probability
   $scope.methaFeatures = [];
   $scope.featuresModified = [];
 
-  /*
-  var features = frequencyMatrixService.get( { 
-    employer: $scope.employer,
-    job: $scope.job,
-    years: $scope.years,
-    candidateType: $scope.candidateType,
-    minPercentage: $scope.minPercentage
-  }, function(error, data){
-    console.log(data);
-    if (!error) {
-      $scope.methaFeatures = data;
-    }
-  });
-  // */
+  $scope.featureEdit = undefined;
+  $scope.weightIndexEdit = undefined;
+  $scope.weightPopupEdit = '';
+  $scope.methaRelationEdit = '';
 
   let employers = frequencyMatrixService.getEmployers( {}, function(error, data) {
     console.log(data);
@@ -469,12 +459,14 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, frequen
       if (!error) {
         $scope.featuresModified = [];
         data.forEach(mf => {
+          // console.log(mf);
           mf.features.forEach(f => {
             $scope.featuresModified.push(
               {
                 methaFeatureId: mf.id,
                 methaFeatureOrder: mf.order,
                 methaFeature: mf.name,
+                methaRelationIds: mf.methaRelationIds,
                 levelNames: mf.levelNames,
                 totalCount: mf.totalCount,
                 visible: f.count > mf.totalCount * $scope.minPercentage / 100,
@@ -525,6 +517,38 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, frequen
     $scope.showValue = val; 
     $scope.getMethaFeatures();
   }
+
+  $scope.editWeight = function(featureId, weightIndex) {
+    $scope.featureEdit = $scope.featuresModified.filter(f => f.id === featureId)[0];
+    $scope.weightIndexEdit = weightIndex;
+    $scope.weightPopupEdit = $scope.featureEdit.weight[weightIndex].toFixed(2);
+    $scope.methaRelationEdit = $scope.featureEdit.levelNames[$scope.weightIndexEdit];
+    console.log($scope.featureEdit);
+  };
+
+  $scope.saveWeight = function () {
+    let featureId = $scope.featureEdit.featureIds[$scope.weightIndexEdit];
+    console.log('feauter Id real');
+    console.log(featureId);
+    frequencyMatrixService.setFeatureWeight( {
+      entityId: $scope.featureEdit.entityId,
+      methaFeatureId: $scope.featureEdit.methaFeatureId,
+      methaRelationId: $scope.featureEdit.methaRelationIds[$scope.weightIndexEdit],
+      featureId: featureId, // $scope.featureEdit.featureIds[$scope.weightIndexEdit],
+      featureType: $scope.featureEdit.type,
+      nameId: $scope.featureEdit.nameId,
+      weight: $scope.weightPopupEdit, // $scope.featureEdit.weight[$scope.weightIndexEdit],
+    }, function(error, data) {
+      console.log(data);
+      if (!error) {
+        $scope.featureEdit.weight[$scope.weightIndexEdit] = $scope.weightPopupEdit;
+        // $scope.methaRelationEdit = $scope.featureEdit.levelNames[$scope.weightIndexEdit];
+        // $scope.featuresModified = [];
+        // $scope.methaFeatures = data;
+      }
+    });
+    // return false;
+  };
 
   $timeout(function() {
     usSpinnerService.stop();
