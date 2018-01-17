@@ -316,7 +316,6 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
 
     //INICIO ACTUALIZACIONES DE DATOS
     $scope.actualizarCandidato = function () {
-
         var allData = candidatesServices.updateInformation($scope.usuario, function (result) {
             if (!result.error) {
                 Mensaje.Alerta("success",'OK', result.message);
