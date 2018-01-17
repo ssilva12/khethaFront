@@ -2,8 +2,6 @@ angular.module('myApp.candidatesServices', [])
     .factory('candidatesServices', ['$http', 'URL', function ($http, URL) {
 
         var candidatesServices = {};
-        // var url = "http://localhost:9000/"
-        var url = "http://guarded-atoll-31281.herokuapp.com/"
 
         var Result = {};
         Result.error = false;
@@ -88,13 +86,13 @@ angular.module('myApp.candidatesServices', [])
                 Result.data = data;
                 callback(Result);
             });
-        }
+        };
 
         candidatesServices.updateInformation = function (usuario, callback) {
             $http({
                 method: 'PUT',
-                params: {
-                    candidateInfo: usuario
+                data: {
+                    candidateInfo: usuario.candidateInfo
                 },
                 url: URL.URL_REST_SERVICE + 'candidate',
                 headers: {
@@ -125,7 +123,44 @@ angular.module('myApp.candidatesServices', [])
                 Result.data = data;
                 callback(Result);
             });
-        }
+        };
+
+        candidatesServices.updateFeature = function (feature, callback) {
+            $http({
+                method: 'PUT',
+                data: {
+                    featureInfo: feature
+                },
+                url: URL.URL_REST_SERVICE + 'feature',
+                headers: {
+                    'Content-Type': "application/json"
+                }
+            }).
+            success(function (data, status, headers, config) {
+                Result.error = false;
+                Result.status = status;
+                Result.message = "OK";
+                Result.data = data;
+                callback(Result);
+            }).
+            error(function (data, status, headers, config) {
+                Result.error = true;
+                Result.status = status;
+                switch (status) {
+                    case 404:
+                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'feature).';
+                        break;
+                    case 500:
+                        Result.message = "Error en el servicio.";
+                        break;
+                    default:
+                        Result.message = data;
+                        break;
+                }
+                Result.data = data;
+                callback(Result);
+            });
+        };
 
         return candidatesServices;
     }]);
