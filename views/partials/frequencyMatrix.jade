@@ -65,7 +65,7 @@ div.row
                     th MR10
                     th MR11
                     th MR12
-                    th Count
+                    th Prob
                     th Discarded
                     th Mandatory
             tbody
@@ -75,90 +75,90 @@ div.row
 
                     td(title="MR: {{feature.levelNames[0]}}\r\nFrecuencia: {{ feature.frequency[0] | number:0 }}\r\nFrecuencia Corregida: {{ feature.frequencyCorrected[0] | number:2 }}\r\nPeso: {{ feature.weight[0] | number:2 }}\r\nPeso Inferido: {{ feature.weightInferred[0] | number:2 }}\r\nProbabilidad: {{ feature.probability[0] | number:2 }}")
                         div(ng-show="showValue == 'f' && feature.frequency[0] > 0") {{ feature.frequency[0] | number:0 }}
-                        div(ng-show="showValue == 'w' && feature.weight[0] >= 0") {{ feature.weight[0] | number:2 }}&nbsp;
-                            span(class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 0)")
-                                i(class="glyphicon glyphicon-edit")
-                        div(ng-show="showValue == 'wi' && feature.weightInferred[0] > 0") {{ feature.weightInferred[0] | number:2 }}&nbsp;
+                        span(ng-show="showValue == 'w' && feature.weight[0] > 0") {{ feature.weight[0] }}&nbsp;
+                        span(ng-show="showValue == 'w'", class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 0)")
+                            i(class="glyphicon glyphicon-edit")
+                        div(ng-show="showValue == 'wi' && feature.weightInferred[0] > 0") {{ feature.weightInferred[0] }}&nbsp;
                         div(ng-show="showValue == 'p' && feature.probability[0] > 0") {{ feature.probability[0] | number:2 }}
                     td(title="MR: {{feature.levelNames[1]}}\r\nFrecuencia: {{ feature.frequency[1] | number:0 }}\r\nFrecuencia Corregida: {{ feature.frequencyCorrected[1] | number:2 }}\r\nPeso: {{ feature.weight[1] | number:2 }}\r\nPeso Inferido: {{ feature.weightInferred[1] | number:2 }}\r\nProbabilidad: {{ feature.probability[1] | number:2 }}") 
                         div(ng-show="showValue == 'f' && feature.frequency[1] > 0") {{ feature.frequency[1] | number:0 }}
-                        div(ng-show="showValue == 'w' && feature.weight[1] >= 0") {{ feature.weight[1] | number:2 }}&nbsp;
-                            span(class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 1)")
-                                i(class="glyphicon glyphicon-edit")
-                        div(ng-show="showValue == 'wi' && feature.weightInferred[1] > 0") {{ feature.weightInferred[1] | number:2 }}
+                        span(ng-show="showValue == 'w' && feature.weight[1] > 0") {{ feature.weight[1] }}&nbsp;
+                        span(ng-show="showValue == 'w'", class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 1)")
+                            i(class="glyphicon glyphicon-edit")
+                        div(ng-show="showValue == 'wi' && feature.weightInferred[1] > 0") {{ feature.weightInferred[1] }}
                         div(ng-show="showValue == 'p' && feature.probability[1] > 0") {{ feature.probability[1] | number:2 }}
                     td(title="MR: {{feature.levelNames[2]}}\r\nFrecuencia: {{ feature.frequency[2] | number:0 }}\r\nFrecuencia Corregida: {{ feature.frequencyCorrected[2] | number:2 }}\r\nPeso: {{ feature.weight[2] | number:2 }}\r\nPeso Inferido: {{ feature.weightInferred[2] | number:2 }}\r\nProbabilidad: {{ feature.probability[2] | number:2 }}") 
                         div(ng-show="showValue == 'f' && feature.frequency[2] > 0") {{ feature.frequency[2] | number:0 }}
-                        div(ng-show="showValue == 'w' && feature.weight[2] >= 0") {{ feature.weight[2] | number:2 }}&nbsp;
-                            span(class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 2)")
-                                i(class="glyphicon glyphicon-edit")
-                        div(ng-show="showValue == 'wi' && feature.weightInferred[2] > 0") {{ feature.weightInferred[2] | number:2 }}
+                        span(ng-show="showValue == 'w' && feature.weight[2] > 0") {{ feature.weight[2] }}&nbsp;
+                        span(ng-show="showValue == 'w'", class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 2)")
+                            i(class="glyphicon glyphicon-edit")
+                        div(ng-show="showValue == 'wi' && feature.weightInferred[2] > 0") {{ feature.weightInferred[2] }}
                         div(ng-show="showValue == 'p' && feature.probability[2] > 0") {{ feature.probability[2] | number:2 }}
                     td(title="MR: {{feature.levelNames[3]}}\r\nFrecuencia: {{ feature.frequency[3] | number:0 }}\r\nFrecuencia Corregida: {{ feature.frequencyCorrected[3] | number:2 }}\r\nPeso: {{ feature.weight[3] | number:2 }}\r\nPeso Inferido: {{ feature.weightInferred[3] | number:2 }}\r\nProbabilidad: {{ feature.probability[3] | number:2 }}") 
                         div(ng-show="showValue == 'f' && feature.frequency[3] > 0") {{ feature.frequency[3] | number:0 }}
-                        div(ng-show="showValue == 'w' && feature.weight[3] >= 0") {{ feature.weight[3] | number:2 }}&nbsp;
-                            span(class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 3)")
-                                i(class="glyphicon glyphicon-edit")
-                        div(ng-show="showValue == 'wi' && feature.weightInferred[3] > 0") {{ feature.weightInferred[3] | number:2 }}
+                        span(ng-show="showValue == 'w' && feature.weight[3] > 0") {{ feature.weight[3] }}&nbsp;
+                        span(ng-show="showValue == 'w'", class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 3)")
+                            i(class="glyphicon glyphicon-edit")
+                        div(ng-show="showValue == 'wi' && feature.weightInferred[3] > 0") {{ feature.weightInferred[3] }}
                         div(ng-show="showValue == 'p' && feature.probability[3] > 0") {{ feature.probability[3] | number:2 }}
                     td(title="MR: {{feature.levelNames[4]}}\r\nFrecuencia: {{ feature.frequency[4] | number:0 }}\r\nFrecuencia Corregida: {{ feature.frequencyCorrected[4] | number:2 }}\r\nPeso: {{ feature.weight[4] | number:2 }}\r\nPeso Inferido: {{ feature.weightInferred[4] | number:2 }}\r\nProbabilidad: {{ feature.probability[4] | number:2 }}") 
                         div(ng-show="showValue == 'f' && feature.frequency[4] > 0") {{ feature.frequency[4] | number:0 }}
-                        div(ng-show="showValue == 'w' && feature.weight[4] >= 0") {{ feature.weight[4] | number:2 }}&nbsp;
-                            span(class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 4)")
-                                i(class="glyphicon glyphicon-edit")
-                        div(ng-show="showValue == 'wi' && feature.weightInferred[4] > 0") {{ feature.weightInferred[4] | number:2 }}
+                        span(ng-show="showValue == 'w' && feature.weight[4] > 0") {{ feature.weight[4] }}&nbsp;
+                        span(ng-show="showValue == 'w'", class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 4)")
+                            i(class="glyphicon glyphicon-edit")
+                        div(ng-show="showValue == 'wi' && feature.weightInferred[4] > 0") {{ feature.weightInferred[4] }}
                         div(ng-show="showValue == 'p' && feature.probability[4] > 0") {{ feature.probability[4] | number:2 }}
                     td(title="MR: {{feature.levelNames[5]}}\r\nFrecuencia: {{ feature.frequency[5] | number:0 }}\r\nFrecuencia Corregida: {{ feature.frequencyCorrected[5] | number:2 }}\r\nPeso: {{ feature.weight[5] | number:2 }}\r\nPeso Inferido: {{ feature.weightInferred[5] | number:2 }}\r\nProbabilidad: {{ feature.probability[5] | number:2 }}") 
                         div(ng-show="showValue == 'f' && feature.frequency[5] > 0") {{ feature.frequency[5] | number:0 }}
-                        div(ng-show="showValue == 'w' && feature.weight[5] >= 0") {{ feature.weight[5] | number:2 }}&nbsp;
-                            span(class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 5)")
-                                i(class="glyphicon glyphicon-edit")
-                        div(ng-show="showValue == 'wi' && feature.weightInferred[5] > 0") {{ feature.weightInferred[5] | number:2 }}
+                        span(ng-show="showValue == 'w' && feature.weight[5] > 0") {{ feature.weight[5] }}&nbsp;
+                        span(ng-show="showValue == 'w'", class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 5)")
+                            i(class="glyphicon glyphicon-edit")
+                        div(ng-show="showValue == 'wi' && feature.weightInferred[5] > 0") {{ feature.weightInferred[5] }}
                         div(ng-show="showValue == 'p' && feature.probability[5] > 0") {{ feature.probability[5] | number:2 }}
                     td(title="MR: {{feature.levelNames[6]}}\r\nFrecuencia: {{ feature.frequency[6] | number:0 }}\r\nFrecuencia Corregida: {{ feature.frequencyCorrected[6] | number:2 }}\r\nPeso: {{ feature.weight[6] | number:2 }}\r\nPeso Inferido: {{ feature.weightInferred[6] | number:2 }}\r\nProbabilidad: {{ feature.probability[6] | number:2 }}") 
                         div(ng-show="showValue == 'f' && feature.frequency[6] > 0") {{ feature.frequency[6] | number:0 }}
-                        div(ng-show="showValue == 'w' && feature.weight[6] >= 0") {{ feature.weight[6] | number:2 }}&nbsp;
-                            span(class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 6)")
-                                i(class="glyphicon glyphicon-edit")
-                        div(ng-show="showValue == 'wi' && feature.weightInferred[6] > 0") {{ feature.weightInferred[6] | number:2 }}
+                        span(ng-show="showValue == 'w' && feature.weight[6] > 0") {{ feature.weight[6] }}&nbsp;
+                        span(ng-show="showValue == 'w'", class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 6)")
+                            i(class="glyphicon glyphicon-edit")
+                        div(ng-show="showValue == 'wi' && feature.weightInferred[6] > 0") {{ feature.weightInferred[6] }}
                         div(ng-show="showValue == 'p' && feature.probability[6] > 0") {{ feature.probability[6] | number:2 }}
                     td(title="MR: {{feature.levelNames[7]}}\r\nFrecuencia: {{ feature.frequency[7] | number:0 }}\r\nFrecuencia Corregida: {{ feature.frequencyCorrected[7] | number:2 }}\r\nPeso: {{ feature.weight[7] | number:2 }}\r\nPeso Inferido: {{ feature.weightInferred[7] | number:2 }}\r\nProbabilidad: {{ feature.probability[7] | number:2 }}") 
                         div(ng-show="showValue == 'f' && feature.frequency[7] > 0") {{ feature.frequency[7] | number:0 }}
-                        div(ng-show="showValue == 'w' && feature.weight[7] >= 0") {{ feature.weight[7] | number:2 }}&nbsp;
-                            span(class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 7)")
-                                i(class="glyphicon glyphicon-edit")
-                        div(ng-show="showValue == 'w' && feature.weightInferred[7] > 0") {{ feature.weightInferred[7] | number:2 }}
+                        span(ng-show="showValue == 'w' && feature.weight[7] > 0") {{ feature.weight[7] }}&nbsp;
+                        span(ng-show="showValue == 'w'", class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 7)")
+                            i(class="glyphicon glyphicon-edit")
+                        div(ng-show="showValue == 'w' && feature.weightInferred[7] > 0") {{ feature.weightInferred[7] }}
                         div(ng-show="showValue == 'p' && feature.probability[7] > 0") {{ feature.probability[7] | number:2 }}
                     td(title="MR: {{feature.levelNames[8]}}\r\nFrecuencia: {{ feature.frequency[8] | number:0 }}\r\nFrecuencia Corregida: {{ feature.frequencyCorrected[8] | number:2 }}\r\nPeso: {{ feature.weight[8] | number:2 }}\r\nPeso Inferido: {{ feature.weightInferred[8] | number:2 }}\r\nProbabilidad: {{ feature.probability[8] | number:2 }}") 
                         div(ng-show="showValue == 'f' && feature.frequency[8] > 0") {{ feature.frequency[8] | number:0 }}
-                        div(ng-show="showValue == 'w' && feature.weight[8] >= 0") {{ feature.weight[8] | number:2 }}&nbsp;
-                            span(class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 8)")
-                                i(class="glyphicon glyphicon-edit")
-                        div(ng-show="showValue == 'wi' && feature.weightInferred[8] > 0") {{ feature.weightInferred[8] | number:2 }}
+                        span(ng-show="showValue == 'w' && feature.weight[8] > 0") {{ feature.weight[8] }}&nbsp;
+                        span(ng-show="showValue == 'w'", class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 8)")
+                            i(class="glyphicon glyphicon-edit")
+                        div(ng-show="showValue == 'wi' && feature.weightInferred[8] > 0") {{ feature.weightInferred[8] }}
                         div(ng-show="showValue == 'p' && feature.probability[8] > 0") {{ feature.probability[8] | number:2 }}
                     td(title="MR: {{feature.levelNames[9]}}\r\nFrecuencia: {{ feature.frequency[9] | number:0 }}\r\nFrecuencia Corregida: {{ feature.frequencyCorrected[9] | number:2 }}\r\nPeso: {{ feature.weight[9] | number:2 }}\r\nPeso Inferido: {{ feature.weightInferred[9] | number:2 }}\r\nProbabilidad: {{ feature.probability[9] | number:2 }}") 
                         div(ng-show="showValue == 'f' && feature.frequency[9] > 0") {{ feature.frequency[9] | number:0 }}
-                        div(ng-show="showValue == 'w' && feature.weight[9] >= 0") {{ feature.weight[9] | number:2 }}&nbsp;
-                            span(class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 9)")
-                                i(class="glyphicon glyphicon-edit")
-                        div(ng-show="showValue == 'wi' && feature.weightInferred[9] > 0") {{ feature.weightInferred[9] | number:2 }}
+                        span(ng-show="showValue == 'w' && feature.weight[9] > 0") {{ feature.weight[9] }}&nbsp;
+                        span(ng-show="showValue == 'w'", class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 9)")
+                            i(class="glyphicon glyphicon-edit")
+                        div(ng-show="showValue == 'wi' && feature.weightInferred[9] > 0") {{ feature.weightInferred[9] }}
                         div(ng-show="showValue == 'p' && feature.probability[9] > 0") {{ feature.probability[9] | number:2 }}
                     td(title="MR: {{feature.levelNames[10]}}\r\nFrecuencia: {{ feature.frequency[10] | number:0 }}\r\nFrecuencia Corregida: {{ feature.frequencyCorrected[10] | number:2 }}\r\nPeso: {{ feature.weight[10] | number:2 }}\r\nPeso Inferido: {{ feature.weightInferred[10] | number:2 }}\r\nProbabilidad: {{ feature.probability[10] | number:2 }}") 
                         div(ng-show="showValue == 'f' && feature.frequency[10] > 0") {{ feature.frequency[10] | number:0 }}
-                        div(ng-show="showValue == 'w' && feature.weight[10] >= 0") {{ feature.weight[10] | number:2 }}&nbsp;
-                            span(class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 10)")
-                                i(class="glyphicon glyphicon-edit")
-                        div(ng-show="showValue == 'wi' && feature.weightInferred[10] > 0") {{ feature.weightInferred[10] | number:2 }}
+                        span(ng-show="showValue == 'w' && feature.weight[10] > 0") {{ feature.weight[10] }}&nbsp;
+                        span(ng-show="showValue == 'w'", class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 10)")
+                            i(class="glyphicon glyphicon-edit")
+                        div(ng-show="showValue == 'wi' && feature.weightInferred[10] > 0") {{ feature.weightInferred[10] }}
                         div(ng-show="showValue == 'p' && feature.probability[10] > 0") {{ feature.probability[10] | number:2 }}
                     td(title="MR: {{feature.levelNames[11]}}\r\nFrecuencia: {{ feature.frequency[11] | number:0 }}\r\nFrecuencia Corregida: {{ feature.frequencyCorrected[11] | number:2 }}\r\nPeso: {{ feature.weight[11] | number:2 }}\r\nPeso Inferido: {{ feature.weightInferred[11] | number:2 }}\r\nProbabilidad: {{ feature.probability[11] | number:2 }}") 
                         div(ng-show="showValue == 'f' && feature.frequency[11] > 0") {{ feature.frequency[11] | number:0 }}
-                        div(ng-show="showValue == 'w' && feature.weight[11] >= 0") {{ feature.weight[11] | number:2 }}&nbsp;
-                            span(class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 11)")
-                                i(class="glyphicon glyphicon-edit")
-                        div(ng-show="showValue == 'wi' && feature.weightInferred[11] > 0") {{ feature.weightInferred[11] | number:2 }}
+                        span(ng-show="showValue == 'w' && feature.weight[11] > 0") {{ feature.weight[11] }}&nbsp;
+                        span(ng-show="showValue == 'w'", class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(feature.id, 11)")
+                            i(class="glyphicon glyphicon-edit")
+                        div(ng-show="showValue == 'wi' && feature.weightInferred[11] > 0") {{ feature.weightInferred[11] }}
                         div(ng-show="showValue == 'p' && feature.probability[11] > 0") {{ feature.probability[11] | number:2 }}
 
-                    td {{ feature.count }}
+                    td {{ feature.featureProbability | number:2 }}
                     td {{ feature.discarded }}
                     td {{ feature.mandatory }}
 
