@@ -5,7 +5,7 @@ block body
   //- START PAGE CONTAINER
   div(class="page-container page-navigation-top-fixed")
     div(class="page-sidebar page-sidebar-fixed scroll")
-      ul(class="x-navigation")
+      ul(class="x-navigation", active-tab="")
         li(class="xn-logo")
           a(href="index.html") KHETHA
           a(href="#", class="x-navigation-control")
@@ -20,32 +20,32 @@ block body
               div(class="profile-data-title") Analista de Selección
         li(class="xn-title") 
           span() Candidatos
-        li()
-          a(href="#/candidateslist") 
+        li(ng-class="{'active' : activeId == 'candidateList'}")
+          a(href="/candidateslist") 
             i(class="fa fa-users", aria-hidden="true") 
             span(class="xn-text") &nbsp;Lista de candidatos
-        li()
-          a(href="#/detail") 
+        li(ng-class="{'active' : activeId == 'candidateDetail'}")
+          a(href="/detail") 
             i(class="fa fa-user-plus", aria-hidden="true") 
             span(class="xn-text") &nbsp;Crear candidato
         li()
-          a(href="#/synonyms") 
+          a(href="/synonyms") 
             i(class="fa fa-copy", aria-hidden="true") 
             span(class="xn-text") &nbsp;Sinónimos
         li()
-          a(href="#/metaFeatures") 
+          a(href="/metaFeatures") 
             i(class="fa fa-tag", aria-hidden="true") 
             span(class="xn-text") &nbsp;Meta caracteristicas
         li()
-          a(href="#/unresolved") 
+          a(href="/unresolved") 
             i(class="fa fa-exclamation-triangle", aria-hidden="true") 
             span(class="xn-text") &nbsp;Sin resolver
         li()
-          a(href="#/vacancy") 
+          a(href="/vacancy") 
             i(class="fa fa-briefcase", aria-hidden="true") 
             span(class="xn-text") &nbsp;Vacantes
         li()
-          a(href="#/frequencyMatrix") 
+          a(href="/frequencyMatrix") 
             i(class="fa fa-th", aria-hidden="true") 
             span(class="xn-text") &nbsp;Matrices de frecuencia         
     div(class="page-content")

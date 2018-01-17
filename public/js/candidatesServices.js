@@ -90,14 +90,16 @@ angular.module('myApp.candidatesServices', [])
             });
         }
 
-        candidatesServices.updateInformation = function (candidateInfo, callback) {
+        candidatesServices.updateInformation = function (usuario, callback) {
             $http({
                 method: 'PUT',
                 params: {
-                    id: candidateInfo
+                    candidateInfo: usuario
                 },
                 url: URL.URL_REST_SERVICE + 'candidate',
-                contenttype: "application/json"
+                headers: {
+                    'Content-Type': "application/json"
+                }
             }).
             success(function (data, status, headers, config) {
                 Result.error = false;
@@ -117,7 +119,7 @@ angular.module('myApp.candidatesServices', [])
                         Result.message = "Error en el servicio.";
                         break;
                     default:
-                        Result.message = "Error.";
+                        Result.message = data;
                         break;
                 }
                 Result.data = data;
