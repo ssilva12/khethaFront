@@ -26,14 +26,26 @@ angular.module('myApp.services', []).
     }
 
     this.getEmployers = (parameters, callback) => {
+      console.log('test get employers...');
       $http({
         method: 'GET',
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+          // 'Access-Control-Allow-Origin': 'true', // '*',
+          // 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          // 'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
+        },
         url: url+'api/employer/all/',
       }).
       success((data, status, headers, config) => {
         callback(null,data)
       }).
       error(function (data, status, headers, config) {
+        console.log('error');
+        console.log(status);
+        console.log(data);
+        console.log(headers);
+        console.log(config);
         callback("Error")
       });
     }
@@ -43,6 +55,11 @@ angular.module('myApp.services', []).
       $http({
         method: 'GET',
         url: url+'api/job/all/',
+        headers: {
+          'Access-Control-Allow-Origin': '*', // 'true', // '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
+        },
         params: parameters // {user_id: user.id}
       }).
       success((data, status, headers, config) => {
@@ -87,6 +104,7 @@ angular.module('myApp.services', []).
   .service('Dictionary', function($http) {
     // var url = "http://localhost:9000/"
     var url = "http://guarded-atoll-31281.herokuapp.com/"
+
     this.getSynonyms = function (name,dictionaryName,acronym,callback) {
       if(dictionaryName == undefined){
         dictionaryName = "null"
@@ -126,9 +144,11 @@ angular.module('myApp.services', []).
         url: url+'createPrimary'
       }).
       success(function (data, status, headers, config) {
+          console.log(data)
         callback(null,data)
       }).
       error(function (data, status, headers, config) {
+          console.log(data)
         callback("Error")
       });
     }
@@ -142,6 +162,10 @@ angular.module('myApp.services', []).
         url: url+'createSynonyms'
       }).
       success(function (data, status, headers, config) {
+          console.log(data)
+          if (data.synonym.error) {
+              alert(data.synonym.error)
+          }
         callback(null,data)
       }).
       error(function (data, status, headers, config) {

@@ -1,5 +1,6 @@
 angular.module('myApp.candidatesListCtrl', ['ui.bootstrap']).
-controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'filterFilter', 'Mensaje', function ($scope, candidatesServices, $location, filterFilter, Mensaje) {
+controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'filterFilter', 'Mensaje', '$rootScope', function ($scope, candidatesServices, $location, filterFilter, Mensaje, $rootScope) {
+    $rootScope.activeId == 'candidateList';
     $scope.lista = {};
     $scope.lista.filtro = "";
     $scope.lista.candidatos = [];
@@ -34,7 +35,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
                 $scope.currentPage = 1;
             }, true);
         } else {
-            Mensaje.Alerta("error",'Error', result.message);
+            Mensaje.Alerta("error", 'Error', result.message);
         }
     });
 
