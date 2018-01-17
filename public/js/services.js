@@ -8,8 +8,8 @@
 angular.module('myApp.services', []).
   value('version', '0.1')
   .service('frequencyMatrixService', function($http) {
-    var url = "http://localhost:9000/"
-    // var url = "http://guarded-atoll-31281.herokuapp.com/"
+    // var url = "http://localhost:9000/"
+    var url = "http://guarded-atoll-31281.herokuapp.com/"
 
     this.get = (parameters, callback) => {
       $http({
@@ -102,8 +102,9 @@ angular.module('myApp.services', []).
 
   })
   .service('Dictionary', function($http) {
-    var url = "http://localhost:9000/"
-    // var url = "http://guarded-atoll-31281.herokuapp.com/"
+    // var url = "http://localhost:9000/"
+    var url = "http://guarded-atoll-31281.herokuapp.com/"
+
     this.getSynonyms = function (name,dictionaryName,acronym,callback) {
       if(dictionaryName == undefined){
         dictionaryName = "null"
@@ -143,9 +144,11 @@ angular.module('myApp.services', []).
         url: url+'createPrimary'
       }).
       success(function (data, status, headers, config) {
+          console.log(data)
         callback(null,data)
       }).
       error(function (data, status, headers, config) {
+          console.log(data)
         callback("Error")
       });
     }
@@ -159,6 +162,10 @@ angular.module('myApp.services', []).
         url: url+'createSynonyms'
       }).
       success(function (data, status, headers, config) {
+          console.log(data)
+          if (data.synonym.error) {
+              alert(data.synonym.error)
+          }
         callback(null,data)
       }).
       error(function (data, status, headers, config) {

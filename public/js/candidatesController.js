@@ -118,12 +118,12 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
 
                 $scope.usuario.candidateInfo.desde = "xx/xx/xxxx";
                 $scope.usuario.candidateInfo.ultimaAct = "xx/xx/xxxx";
-                $scope.usuario.experiencia = [{
-                    job: "xxxxxxxxxx",
-                    fecha: "xx/xx/xxxx",
-                    meses: "xx",
-                    edit: false
-                }];
+                // $scope.usuario.experiencia = [{
+                //     job: "xxxxxxxxxx",
+                //     fecha: "xx/xx/xxxx",
+                //     meses: "xx",
+                //     edit: false
+                // }];
                 $scope.usuario.estudios = [{
                     estudio: "xxxxxxxxxxxxxx",
                     grado: "xxxxxxxxx",
@@ -136,12 +136,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                     pais: "",
                     edit: false
                 }];
-                $scope.usuario.idiomas = [{
-                    nombre: "xxxxxxxxxx",
-                    leido: "xx",
-                    hablado: "xx",
-                    escrito: "xx"
-                }];
+                
                 // $scope.usuario.skills = [{
                 //     nombre: "xxxxxxxxxxxxxx",
                 //     meses: "xx",
@@ -175,10 +170,10 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
         } else {
             $scope.usuario.jobs = [];
             $scope.usuario.schooling = [];
-            $scope.usuario.experiencia = [];
+            $scope.usuario.jobFunctions = [];
             $scope.usuario.estudios = [];
             $scope.usuario.estudiosCertificaciones = [];
-            $scope.usuario.idiomas = [];
+            $scope.usuario.languages = [];
             $scope.usuario.skills = [];
             $scope.usuario.caracteristicas = [];
             $scope.usuario.caracteristicasPsicologicas = [];
@@ -209,7 +204,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
 
     $scope.agregarCentroEstudio = function () {
         var estudio = {
-            jobName: "",
+            educationalCenterName: "",
             pais: "",
             edit: true
         };
@@ -232,9 +227,9 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
 
     $scope.agregarExperiencia = function () {
         var experiencia = {
-            job: "",
-            fecha: "",
-            meses: "",
+            name: "",
+            lastDate: "",
+            value: "",
             edit: true
         };
         $scope.usuario.experiencia.push(experiencia);
@@ -267,7 +262,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
 
     $scope.agregarIdioma = function () {
         var idioma = {
-            nombre: "",
+            lenguageName: "",
             leido: "",
             hablado: "",
             escrito: "",
@@ -322,11 +317,11 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     //INICIO ACTUALIZACIONES DE DATOS
     $scope.actualizarCandidato = function () {
 
-        var allData = candidatesServices.updateInformation($scope.usuario.candidateInfo, function (result) {
+        var allData = candidatesServices.updateInformation($scope.usuario, function (result) {
             if (!result.error) {
                 Mensaje.Alerta("success",'OK', result.message);
             } else {
-                Mensaje.Alerta("warning",'Error', result.message);
+                Mensaje.Alerta("error",'Error', result.message);
             }
         });
     };
