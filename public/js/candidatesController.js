@@ -136,7 +136,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                     pais: "",
                     edit: false
                 }];
-                
+
                 // $scope.usuario.skills = [{
                 //     nombre: "xxxxxxxxxxxxxx",
                 //     meses: "xx",
@@ -316,18 +316,28 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
 
     //INICIO ACTUALIZACIONES DE DATOS
     $scope.actualizarCandidato = function () {
+        if ($scope.usuario.candidateInfo.userId != null || $scope.usuario.candidateInfo.userId != undefined) {
+            var allData = candidatesServices.updateInformation($scope.usuario, function (result) {
+                if (!result.error) {
+                    Mensaje.Alerta("success", 'OK', result.message);
+                } else {
+                    Mensaje.Alerta("error", 'Error', result.message);
+                }
+            });
+        } else {
+            //guardar nuevo
+        }
 
-        var allData = candidatesServices.updateInformation($scope.usuario, function (result) {
-            if (!result.error) {
-                Mensaje.Alerta("success",'OK', result.message);
-            } else {
-                Mensaje.Alerta("error",'Error', result.message);
-            }
-        });
     };
 
     $scope.actualizarEstudios = function (estudio) {
-
+        var allData = candidatesServices.updateFeature(estudio, function (result) {
+            if (!result.error) {
+                Mensaje.Alerta("success", 'OK', result.message);
+            } else {
+                Mensaje.Alerta("error", 'Error', result.message);
+            }
+        });
     }
 
     $scope.actualizarCentroEducativo = function (centro) {
