@@ -124,19 +124,19 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 //     meses: "xx",
                 //     edit: false
                 // }];
-                $scope.usuario.estudios = [{
-                    estudio: "xxxxxxxxxxxxxx",
-                    grado: "xxxxxxxxx",
-                    fechaTerminacion: "xx/xx/xxxx",
-                    pais: "",
-                    edit: false
-                }];
+                // $scope.usuario.estudios = [{
+                //     estudio: "xxxxxxxxxxxxxx",
+                //     grado: "xxxxxxxxx",
+                //     fechaTerminacion: "xx/xx/xxxx",
+                //     pais: "",
+                //     edit: false
+                // }];
                 $scope.usuario.estudiosCertificaciones = [{
                     estudio: "xxxxxxxxxxxxxxx",
                     pais: "",
                     edit: false
                 }];
-                
+
                 // $scope.usuario.skills = [{
                 //     nombre: "xxxxxxxxxxxxxx",
                 //     meses: "xx",
@@ -188,7 +188,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
 
     $scope.agregarEstudio = function () {
         var estudio = {
-            estudio: "",
+            studyName: "",
             grado: "",
             fechaTerminacion: "",
             pais: "",
@@ -316,50 +316,64 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
 
     //INICIO ACTUALIZACIONES DE DATOS
     $scope.actualizarCandidato = function () {
+        if ($scope.usuario.candidateInfo.userId != null || $scope.usuario.candidateInfo.userId != undefined) {
+            var allData = candidatesServices.updateInformation($scope.usuario, function (result) {
+                if (!result.error) {
+                    Mensaje.Alerta("success", 'OK', result.message);
+                } else {
+                    Mensaje.Alerta("error", 'Error', result.message);
+                }
+            });
+        } else {
+            //guardar nuevo
+        }
 
-        var allData = candidatesServices.updateInformation($scope.usuario, function (result) {
-            if (!result.error) {
-                Mensaje.Alerta("success",'OK', result.message);
-            } else {
-                Mensaje.Alerta("error",'Error', result.message);
-            }
-        });
     };
 
-    $scope.actualizarEstudios = function (estudio) {
+    $scope.actualizarFeature = function (data) {
+        var allData = candidatesServices.updateFeature(data, function (result) {
+            if (!result.error) {
+                Mensaje.Alerta("success", 'OK', result.message);
+            } else {
+                Mensaje.Alerta("error", 'Error', result.message);
+            }
+        });
+    }
 
+    $scope.actualizarEstudios = function (estudio) {
+        $scope.actualizarFeature(estudio);
     }
 
     $scope.actualizarCentroEducativo = function (centro) {
-
+        $scope.actualizarFeature(centro);
     }
 
     $scope.actualizarCertificacion = function (certificacion) {
-
+        $scope.actualizarFeature(certificacion);
     }
 
     $scope.actualizarExperiencia = function (experiencia) {
-
+        $scope.actualizarFeature(experiencia);
     }
 
     $scope.actualizarEmpleador = function (empleador) {
-
+        $scope.actualizarFeature(empleador);
     }
 
     $scope.actualizarIdioma = function (idioma) {
-
+        $scope.actualizarFeature(idioma);
     }
 
     $scope.actualizarSkill = function (skill) {
-
+        $scope.actualizarFeature(skill);
     }
 
     $scope.actualizarCaracteristica = function (caracteristica) {
-
+        $scope.actualizarFeature(caracteristica);
     }
 
     $scope.actualizarCaracteristicaPsicologica = function (caracteristica) {
-
+        $scope.actualizarFeature(caracteristica);
     }
     //FIN ACTUALIZACION DE DATOS
 }]);

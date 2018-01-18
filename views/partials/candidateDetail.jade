@@ -109,7 +109,7 @@ div(class="page-content-wrap")
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") Población:
                                         div(class="col-md-9")
-                                            select(class="form-control", select2="", name="ciudad", data-ng-model="usuario.candidateInfo.poblacion", ng-options="ciudad.value as ciudad.label for ciudad in variablesGlobales.poblacion")
+                                            select(class="form-control", select2="", name="ciudad", data-ng-model="usuario.candidateInfo.cityName", ng-options="ciudad.value as ciudad.label for ciudad in variablesGlobales.poblacion")
                                                     option(value="") Seleccione
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") Código postal:
@@ -201,7 +201,7 @@ div(class="page-content-wrap")
                                                 span() Agregar
                                     div(class="form-group")
                                         div(class="row", style="display: flex; flex-wrap: wrap;")
-                                            div(class="col-md-6", ng-repeat="estudio in usuario.estudios")
+                                            div(class="col-md-6", ng-repeat="estudio in usuario.studies")
                                                 div(class="dd", id="nestable")
                                                     ol(class="dd-list")
                                                         li(class="dd-item", data-id="1")
@@ -212,9 +212,9 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Estudio
                                                                             div(class="col-md-9")
-                                                                                p(ng-bind="estudio.estudio", ng-hide="estudio.edit")
+                                                                                p(ng-bind="estudio.studyName", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    select(style="width:100%",class="form-control", select2="", name="estudio", data-ng-model="estudio.estudio", ng-disabled="!estudio.edit", required="")
+                                                                                    select(style="width:100%",class="form-control", select2="", name="estudio", data-ng-model="estudio.studyName", ng-disabled="!estudio.edit", required="")
                                                                                         option(value="") Seleccione
                                                                                         option(ng-repeat="estudio in variablesGlobales.estudios", value="estudio.value") {{estudio.label}}
                                                                         div(class="form-group")
