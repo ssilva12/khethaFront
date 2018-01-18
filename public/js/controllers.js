@@ -521,7 +521,7 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, frequen
   $scope.editWeight = function(featureId, weightIndex) {
     $scope.featureEdit = $scope.featuresModified.filter(f => f.id === featureId)[0];
     $scope.weightIndexEdit = weightIndex;
-    $scope.weightPopupEdit = $scope.featureEdit.weight[weightIndex].toFixed(2);
+    $scope.weightPopupEdit = $scope.featureEdit.weight[weightIndex]; // .toFixed(0);
     $scope.methaRelationEdit = $scope.featureEdit.levelNames[$scope.weightIndexEdit];
     console.log($scope.featureEdit);
   };
