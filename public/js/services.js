@@ -29,12 +29,6 @@ angular.module('myApp.services', []).
       console.log('test get employers...');
       $http({
         method: 'GET',
-        headers: {
-          'Access-Control-Allow-Origin': '*'
-          // 'Access-Control-Allow-Origin': 'true', // '*',
-          // 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-          // 'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
-        },
         url: url+'api/employer/all/',
       }).
       success((data, status, headers, config) => {

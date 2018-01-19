@@ -477,36 +477,69 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, frequen
           $scope.featuresModified
         });
         $scope.methaFeatures = data;
-
-        var handleRows = function() {
-          var flagColor = 0;
-          var backColors = ['#f1f1f1', '#d1d1d1'];
-          $scope.methaFeatures.sort(function(obj1, obj2) {
-            return parseInt(obj1.id) - parseInt(obj2.id)
-          }).forEach(mf => {
-            let rows = $('.mf_tr_' + mf.id);
-            rows.attr('bgcolor', backColors[flagColor]);
-            flagColor = (flagColor === 0 ? 1 : 0);
-            let tds = $(rows).find('td.mf_name');
-            $(tds[0]).attr('rowspan', mf.features.length);
-            for(var i = 1; i < tds.length; i++) {
-              $(tds[i]).remove();
-            }
-          });
-        };
-        $timeout(handleRows, 0);        
+        
+        $scope.updateVisible();
+        // $timeout($scope.handleRows(), 0);        
       }
     });
   }
 
   $scope.updateVisible = function() {
     console.log("perc: " + $scope.minPercentage);
+    // $(rows).find('td.mf_name').attr('rowspan', 1);
     $scope.featuresModified.forEach(f => {
       // console.log('f.count: ' + f.count);
       // console.log("f.totalCount * $scope.minPercentage: " + f.totalCount * $scope.minPercentage / 100);
       f.visible = f.count > (f.totalCount * $scope.minPercentage / 100)
     })
+
+    var handleRows = function() {
+      var flagColor = 0;
+      var backColors = ['#f1f1f1', '#d1d1d1'];
+      $scope.methaFeatures.sort(function(obj1, obj2) {
+        return parseInt(obj1.id) - parseInt(obj2.id)
+      }).forEach(mf => {
+        let rows = $('.mf_tr_' + mf.id);
+        rows.attr('bgcolor', backColors[flagColor]);
+        flagColor = (flagColor === 0 ? 1 : 0);
+        
+        let tdsAll = $(rows).find('td.mf_name');
+        tdsAll.attr('rowspan', 1);
+        tdsAll.show();
+        let tds = $(rows).find('td.mf_name:visible');
+        // console.log('tds length: ' + tds.length);
+        $(tds[0]).attr('rowspan', tds.length); // mf.features.length);
+        for(var i = 1; i < tds.length; i++) {
+          $(tds[i]).hide();//.remove();
+        }
+      });
+    };
+
+    $timeout(handleRows, 0);  
+    // $scope.handleRows();
   }
+
+  $scope.handleRows2 = function() {
+    var flagColor = 0;
+    var backColors = ['#f1f1f1', '#d1d1d1'];
+    $scope.methaFeatures.sort(function(obj1, obj2) {
+      return parseInt(obj1.id) - parseInt(obj2.id)
+    }).forEach(mf => {
+      let rows = $('.mf_tr_' + mf.id);
+      rows.attr('bgcolor', backColors[flagColor]);
+      flagColor = (flagColor === 0 ? 1 : 0);
+      
+      let tdsAll = $(rows).find('td.mf_name');
+      tdsAll.attr('rowspan', 1);
+      tdsAll.show();
+      let tds = $(rows).find('td.mf_name:visible');
+      $(tds[0]).attr('rowspan', tds.length); // mf.features.length);
+      for(var i = 1; i < tds.length; i++) {
+        // $(tds[i]).attr('rowspan', 1);
+        $(tds[i]).hide();//.remove();
+      }
+    });
+  };
 
   $scope.getJobs();
   $scope.getMethaFeatures();
@@ -541,7 +574,9 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, frequen
     }, function(error, data) {
       console.log(data);
       if (!error) {
-        $scope.featureEdit.weight[$scope.weightIndexEdit] = $scope.weightPopupEdit;
+        $scope.getMethaFeatures();
+        // $scope.featureEdit.weight[$scope.weightIndexEdit] = $scope.weightPopupEdit;
+
         // $scope.methaRelationEdit = $scope.featureEdit.levelNames[$scope.weightIndexEdit];
         // $scope.featuresModified = [];
         // $scope.methaFeatures = data;
