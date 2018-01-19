@@ -15,7 +15,8 @@ angular.module('myApp', [
   'myApp.factories',
   'myApp.constant',
   'ngFileUpload',
-  'angularSpinner'
+  'angularSpinner',
+  'ngRoute'
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.

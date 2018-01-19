@@ -1,5 +1,5 @@
-angular.module('myApp.candidatesCtrl', []).
-controller('candidatesController', ['$scope', '$routeParams', 'candidatesServices', 'Mensaje', function ($scope, $routeParams, candidatesServices, Mensaje) {
+angular.module('myApp.candidatesCtrl', ['ui.select']).
+controller('candidatesController', ['$scope', '$routeParams', 'candidatesServices', 'Mensaje', 'Dictionary', function ($scope, $routeParams, candidatesServices, Mensaje, Dictionary) {
     //Variables globales
     $scope.variablesGlobales = {};
     $scope.variablesGlobales.expandir = false;
@@ -182,8 +182,8 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     init();
 
     $scope.eliminarEstudio = function (estudio) {
-        var index = $scope.usuario.estudios.indexOf(estudio);
-        $scope.usuario.estudios.splice(index, 1);
+        var index = $scope.usuario.studies.indexOf(estudio);
+        $scope.usuario.studies.splice(index, 1);
     };
 
     $scope.agregarEstudio = function () {
@@ -194,7 +194,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
             pais: "",
             edit: true
         };
-        $scope.usuario.estudios.push(estudio);
+        $scope.usuario.studies.push(estudio);
     };
 
     $scope.eliminarCentroEstudio = function (estudio) {
@@ -376,4 +376,16 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
         $scope.actualizarFeature(caracteristica);
     }
     //FIN ACTUALIZACION DE DATOS
+    $scope.estudios = [];
+    $scope.getEstudios = function () {
+        var data = Dictionary.getSynonyms("estudio", 'StudiesName', null, function (error, result) {
+            if (!error) {
+                return result.suggested;
+            } else {
+                Mensaje.Alerta("error", 'Error', '');
+                return [];
+            }
+        });
+
+    };
 }]);

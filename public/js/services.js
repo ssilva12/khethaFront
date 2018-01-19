@@ -6,22 +6,21 @@
 // Demonstrate how to register services
 // In this case it is a simple value service.
 angular.module('myApp.services', []).
-  value('version', '0.1')
-  .service('frequencyMatrixService', function($http) {
+value('version', '0.1')
+  .service('frequencyMatrixService', function ($http) {
     // var url = "http://localhost:9000/"
     var url = "http://guarded-atoll-31281.herokuapp.com/"
 
     this.get = (parameters, callback) => {
       $http({
         method: 'GET',
-        url: url+'api/frequencymatrix/',
+        url: url + 'api/frequencymatrix/',
         params: parameters
       }).
-      success((data, status, headers, config) => {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        callback("Error");
       });
     }
 
@@ -29,23 +28,16 @@ angular.module('myApp.services', []).
       console.log('test get employers...');
       $http({
         method: 'GET',
-        headers: {
-          'Access-Control-Allow-Origin': '*'
-          // 'Access-Control-Allow-Origin': 'true', // '*',
-          // 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-          // 'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
-        },
-        url: url+'api/employer/all/',
+        url: url + 'api/employer/all/',
       }).
-      success((data, status, headers, config) => {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
         console.log('error');
-        console.log(status);
-        console.log(data);
-        console.log(headers);
-        console.log(config);
+        console.log(response.status);
+        console.log(response.data);
+        console.log(response.headers);
+        console.log(response.config);
         callback("Error")
       });
     }
@@ -54,7 +46,7 @@ angular.module('myApp.services', []).
       console.log(parameters);
       $http({
         method: 'GET',
-        url: url+'api/job/all/',
+        url: url + 'api/job/all/',
         headers: {
           'Access-Control-Allow-Origin': '*', // 'true', // '*',
           'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -62,11 +54,10 @@ angular.module('myApp.services', []).
         },
         params: parameters // {user_id: user.id}
       }).
-      success((data, status, headers, config) => {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        callback("Error");
       });
     }
 
@@ -74,14 +65,13 @@ angular.module('myApp.services', []).
       console.log(parameters);
       $http({
         method: 'GET',
-        url: url+'api/vacancy/all/',
+        url: url + 'api/vacancy/all/',
         params: parameters
       }).
-      success((data, status, headers, config) => {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        callback("Error");
       });
     }
 
@@ -89,289 +79,333 @@ angular.module('myApp.services', []).
       console.log(parameters);
       $http({
         method: 'GET',
-        url: url+'api/frequencymatrix/feature-weight/',
+        url: url + 'api/frequencymatrix/feature-weight/',
         params: parameters
       }).
-      success((data, status, headers, config) => {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        callback("Error");
       });
     }
 
   })
-  .service('Dictionary', function($http) {
+  .service('Dictionary', function ($http) {
     // var url = "http://localhost:9000/"
     var url = "http://guarded-atoll-31281.herokuapp.com/"
 
-    this.getSynonyms = function (name,dictionaryName,acronym,callback) {
-      if(dictionaryName == undefined){
+    this.getSynonyms = function (name, dictionaryName, acronym, callback) {
+      if (dictionaryName == undefined) {
         dictionaryName = "null"
       }
-      if(acronym == undefined){
+      if (acronym == undefined) {
         acronym = "null"
       }
       $http({
         method: 'GET',
-        params: {er: name,dictionaryName:dictionaryName,acronym:acronym},
+        params: {
+          er: name,
+          dictionaryName: dictionaryName,
+          acronym: acronym
+        },
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
           'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
         },
-        url: url+'search'
+        url: url + 'search'
       }).
-      success(function (data, status, headers, config) {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        callback("Error");
       });
     }
-    this.createPrimary = function (name,metaFeature,acronym,callback) {
-      if(acronym == undefined || acronym == "" || acronym == " "){
+    this.createPrimary = function (name, metaFeature, acronym, callback) {
+      if (acronym == undefined || acronym == "" || acronym == " ") {
         acronym = "null"
       }
       $http({
         method: 'POST',
-        params: {er:name,dic:metaFeature.dictionary,
-                countryAcronyms:acronym,gps:"null",
-                metaFeatureId:metaFeature.id,metaDictionary:metaFeature.dictionary},
-        headers: {
-          'Access-Control-Allow-Origin':'true'
+        params: {
+          er: name,
+          dic: metaFeature.dictionary,
+          countryAcronyms: acronym,
+          gps: "null",
+          metaFeatureId: metaFeature.id,
+          metaDictionary: metaFeature.dictionary
         },
-        url: url+'createPrimary'
+        headers: {
+          'Access-Control-Allow-Origin': 'true'
+        },
+        url: url + 'createPrimary'
       }).
-      success(function (data, status, headers, config) {
-          console.log(data)
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-          console.log(data)
-        callback("Error")
+      then(function onSuccess(response) {
+        console.log(response.data);
+        callback(null, response.data);
+      }, function onError(response) {
+        console.log(response.data);
+        callback("Error");
       });
     }
-    this.createSynonyms = function (synonymEr,primaryId,primaryDictionary,callback){
+    this.createSynonyms = function (synonymEr, primaryId, primaryDictionary, callback) {
       $http({
         method: 'POST',
-        params: {synonymEr:synonymEr, primaryId:primaryId,dictionaryName:primaryDictionary},
-        headers: {
-          'Access-Control-Allow-Origin':'true'
+        params: {
+          synonymEr: synonymEr,
+          primaryId: primaryId,
+          dictionaryName: primaryDictionary
         },
-        url: url+'createSynonyms'
+        headers: {
+          'Access-Control-Allow-Origin': 'true'
+        },
+        url: url + 'createSynonyms'
       }).
-      success(function (data, status, headers, config) {
-          console.log(data)
-          if (data.synonym.error) {
-              alert(data.synonym.error)
-          }
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        console.log(responsedata)
+        if (response.data.synonym.error) {
+          alert(response.data.synonym.error)
+        }
+        callback(null, response.data)
+      }, function onError(response) {
+        callback("Error");
       });
     }
-    this.updateGram = function(er,id,callback){
+    this.updateGram = function (er, id, callback) {
       $http({
         method: 'PUT',
-        params: {er:er, id:id},
-        headers: {
-          'Access-Control-Allow-Origin':'true'
+        params: {
+          er: er,
+          id: id
         },
-        url: url+'grams'
+        headers: {
+          'Access-Control-Allow-Origin': 'true'
+        },
+        url: url + 'grams'
       }).
-      success(function (data, status, headers, config) {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        console.log(response.data);
+        callback("Error");
       });
     }
-    this.deleteGram = function(id,type,callback){
+    this.deleteGram = function (id, type, callback) {
       $http({
         method: 'DELETE',
-        params: {id:id,gramType:type},
-        headers: {
-          'Access-Control-Allow-Origin':'true'
+        params: {
+          id: id,
+          gramType: type
         },
-        url: url+'grams'
+        headers: {
+          'Access-Control-Allow-Origin': 'true'
+        },
+        url: url + 'grams'
       }).
-      success(function (data, status, headers, config) {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        console.log(response.data);
+        callback("Error");
       });
     }
-    this.getUnresolved = function(callback){
+    this.getUnresolved = function (callback) {
       $http({
         method: 'GET',
-        url: url+'unresolved'
+        url: url + 'unresolved'
       }).
-      success(function (data, status, headers, config) {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        console.log(response.data);
+        callback("Error");
       });
     }
-    this.getMetaFeatures = function(callback){
+    this.getMetaFeatures = function (callback) {
       $http({
         method: 'GET',
-        url: url+'getMetaFeatures'
+        url: url + 'getMetaFeatures'
       }).
-      success(function (data, status, headers, config) {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        console.log(response.data);
+        callback("Error");
       });
     }
-    this.getMetaFeature = function(id,callback){
+    this.getMetaFeature = function (id, callback) {
       $http({
-        params: {id: id},
+        params: {
+          id: id
+        },
         method: 'GET',
-        url: url+'getMetaFeature'
+        url: url + 'getMetaFeature'
       }).
-      success(function (data, status, headers, config) {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        console.log(response.data);
+        callback("Error");
       });
     }
-    this.searchString = function (name,dictionary,callback) {
+    this.searchString = function (name, dictionary, callback) {
       $http({
         method: 'GET',
-        params: {er: name,dictionary:dictionary},
-        url: url+'search_string'
+        params: {
+          er: name,
+          dictionary: dictionary
+        },
+        url: url + 'search_string'
       }).
-      success(function (data, status, headers, config) {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        console.log(response.data);
+        callback("Error");
       });
     }
     this.getCandidates = function (callback) {
       $http({
         method: 'GET',
-        url: url+'candidates'
+        url: url + 'candidates'
       }).
-      success(function (data, status, headers, config) {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        console.log(response.data);
+        callback("Error");
       });
     }
-    this.getCandidate = function (id,callback) {
+    this.getCandidate = function (id, callback) {
       $http({
         method: 'GET',
-        params: {id: id},
-        url: url+'candidate'
+        params: {
+          id: id
+        },
+        url: url + 'candidate'
       }).
-      success(function (data, status, headers, config) {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        console.log(response.data);
+        callback("Error");
       });
     }
-    this.updateMetaFeature = function (metaFeature,callback) {
+    this.updateMetaFeature = function (metaFeature, callback) {
       $http({
         method: 'PUT',
-        data: {metaFeature:metaFeature},
-        url: url+'metaFeature'
+        data: {
+          metaFeature: metaFeature
+        },
+        url: url + 'metaFeature'
       }).
-      success(function (data, status, headers, config) {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        console.log(response.data);
+        callback("Error");
       });
     }
-    this.updateMetaRelation = function (metaRelation,callback) {
+    this.updateMetaRelation = function (metaRelation, callback) {
       $http({
         method: 'PUT',
-        data: {metaRelation:metaRelation},
-        url: url+'metaRelation'
+        data: {
+          metaRelation: metaRelation
+        },
+        url: url + 'metaRelation'
       }).
-      success(function (data, status, headers, config) {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        console.log(response.data);
+        callback("Error");
       });
     }
-    this.saveMetaRelation = function (metaFeature,metaRelation,callback) {
-      if(metaRelation.from == undefined){
+    this.saveMetaRelation = function (metaFeature, metaRelation, callback) {
+      if (metaRelation.from == undefined) {
         metaRelation.from = "null"
       }
       $http({
         method: 'POST',
-        params: {name:metaRelation.name,orderNumber:metaRelation.orderNumber,from:metaRelation.from,id:metaFeature.id,
-        position:metaRelation.orderNumber},
-        url: url+'createmetaRelation'
+        params: {
+          name: metaRelation.name,
+          orderNumber: metaRelation.orderNumber,
+          from: metaRelation.from,
+          id: metaFeature.id,
+          position: metaRelation.orderNumber
+        },
+        url: url + 'createmetaRelation'
       }).
-      success(function (data, status, headers, config) {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        console.log(response.data);
+        callback("Error");
       });
     }
-    this.editNoun = function (noun,callback){
+    this.editNoun = function (noun, callback) {
       $http({
         method: 'PUT',
-        data: {noun:noun},
-        url: url+'noun'
+        data: {
+          noun: noun
+        },
+        url: url + 'noun'
       }).
-      success(function (data, status, headers, config) {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        console.log(response.data);
+        callback("Error");
       });
     }
-    this.solveAsNoun = function(id,name,metaFeature,callback){
+    this.solveAsNoun = function (id, name, metaFeature, callback) {
       $http({
         method: 'POST',
-        data: {id:id,name:name,metaFeature:metaFeature},
-        url: url+'solveAsNoun'
+        data: {
+          id: id,
+          name: name,
+          metaFeature: metaFeature
+        },
+        url: url + 'solveAsNoun'
       }).
-      success(function (data, status, headers, config) {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        console.log(response.data);
+        callback("Error");
       });
     }
-    this.solveAsSynonym = function(nounId,synonymEr,synonymDictionary,featureId,callback){
+    this.solveAsSynonym = function (nounId, synonymEr, synonymDictionary, featureId, callback) {
       $http({
         method: 'POST',
-        data: {nounId:nounId,synonymEr:synonymEr,dictionary:synonymDictionary,featureId:featureId},
-        url: url+'solveAsSynonym'
+        data: {
+          nounId: nounId,
+          synonymEr: synonymEr,
+          dictionary: synonymDictionary,
+          featureId: featureId
+        },
+        url: url + 'solveAsSynonym'
       }).
-      success(function (data, status, headers, config) {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        console.log(response.data);
+        callback("Error");
       });
     }
-    this.deleteCandidateFeature = function(feature,callback){
+    this.deleteCandidateFeature = function (feature, callback) {
       $http({
         method: 'POST',
-        data: {featureId:feature.id},
-        url: url+'deleteCandidateFeature'
+        data: {
+          featureId: feature.id
+        },
+        url: url + 'deleteCandidateFeature'
       }).
-      success(function (data, status, headers, config) {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        console.log(response.data);
+        callback("Error");
       });
     }
   });
