@@ -28,16 +28,15 @@ angular.module('myApp.candidatesServices', [])
                 method: 'GET',
                 url: URL.URL_REST_SERVICE + 'getCandidates'
             }).
-            success(function (data, status, headers, config) {
+            then(function onSuccess(response) {
                 Result.error = false;
-                Result.status = status;
+                Result.status = response.status;
                 Result.message = "OK";
-                Result.data = data;
+                Result.data = response.data;
                 callback(Result);
-            }).
-            error(function (data, status, headers, config) {
+            }, function onError(response) {
                 Result.error = true;
-                Result.status = status;
+                Result.status = reponse.status;
                 switch (status) {
                     case 404:
                         Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
@@ -49,7 +48,7 @@ angular.module('myApp.candidatesServices', [])
                         Result.message = "Error.";
                         break;
                 }
-                Result.data = data;
+                Result.data = reponse.data;
                 callback(Result);
             });
         };
@@ -62,19 +61,18 @@ angular.module('myApp.candidatesServices', [])
                 },
                 url: URL.URL_REST_SERVICE + 'candidate'
             }).
-            success(function (data, status, headers, config) {
+            then(function onSuccess(response) {
                 Result.error = false;
-                Result.status = status;
+                Result.status = response.status;
                 Result.message = "OK";
-                Result.data = data;
+                Result.data = response.data;
                 callback(Result);
-            }).
-            error(function (data, status, headers, config) {
+            }, function onError(response) {
                 Result.error = true;
-                Result.status = status;
+                Result.status = reponse.status;
                 switch (status) {
                     case 404:
-                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'candidate).';
+                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
                         break;
                     case 500:
                         Result.message = "Error en el servicio.";
@@ -83,7 +81,7 @@ angular.module('myApp.candidatesServices', [])
                         Result.message = "Error.";
                         break;
                 }
-                Result.data = data;
+                Result.data = reponse.data;
                 callback(Result);
             });
         };
@@ -99,28 +97,27 @@ angular.module('myApp.candidatesServices', [])
                     'Content-Type': "application/json"
                 }
             }).
-            success(function (data, status, headers, config) {
+            then(function onSuccess(response) {
                 Result.error = false;
-                Result.status = status;
+                Result.status = response.status;
                 Result.message = "OK";
-                Result.data = data;
+                Result.data = response.data;
                 callback(Result);
-            }).
-            error(function (data, status, headers, config) {
+            }, function onError(response) {
                 Result.error = true;
-                Result.status = status;
+                Result.status = reponse.status;
                 switch (status) {
                     case 404:
-                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'candidate).';
+                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
                         break;
                     case 500:
                         Result.message = "Error en el servicio.";
                         break;
                     default:
-                        Result.message = data;
+                        Result.message = "Error.";
                         break;
                 }
-                Result.data = data;
+                Result.data = reponse.data;
                 callback(Result);
             });
         };
@@ -136,28 +133,27 @@ angular.module('myApp.candidatesServices', [])
                     'Content-Type': "application/json"
                 }
             }).
-            success(function (data, status, headers, config) {
+            then(function onSuccess(response) {
                 Result.error = false;
-                Result.status = status;
+                Result.status = response.status;
                 Result.message = "OK";
-                Result.data = data;
+                Result.data = response.data;
                 callback(Result);
-            }).
-            error(function (data, status, headers, config) {
+            }, function onError(response) {
                 Result.error = true;
-                Result.status = status;
+                Result.status = reponse.status;
                 switch (status) {
                     case 404:
-                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'feature).';
+                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
                         break;
                     case 500:
                         Result.message = "Error en el servicio.";
                         break;
                     default:
-                        Result.message = data;
+                        Result.message = "Error.";
                         break;
                 }
-                Result.data = data;
+                Result.data = reponse.data;
                 callback(Result);
             });
         };
