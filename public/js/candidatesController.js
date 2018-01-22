@@ -111,9 +111,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 $scope.usuario.candidateInfo.status = "";
                 $scope.usuario.candidateInfo.idNumber = "xxxxxxxxxx";
                 $scope.usuario.candidateInfo.poblacion = "";
-                $scope.usuario.candidateInfo.codigoPostal = "xxxx";
                 $scope.usuario.candidateInfo.pais = "";
-                $scope.usuario.candidateInfo.nacionalidad = "";
 
 
                 $scope.usuario.candidateInfo.desde = "xx/xx/xxxx";
