@@ -386,4 +386,18 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
         });
 
     };
+
+    $scope.people = [];
+    $scope.localSearch = function (str) {
+        var matches = [];
+        var data = Dictionary.getSynonyms(str, 'null', 'null', function (error, result) {
+            if (!error) {
+                $scope.people = result.suggested;
+            } else {
+                Mensaje.Alerta("error", 'Error', '');
+                $scope.people = [];
+            }
+        });
+    };
+
 }]);

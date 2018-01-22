@@ -210,10 +210,16 @@ div(class="page-content-wrap")
                                                                                 label(for="") Estudio
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.studyName", ng-hide="estudio.edit")
-                                                                                div(style="width:100%", ng-show="estudio.edit")                                                                                    
-                                                                                    select(eventoKeyPress="getEstudios()",style="width:100%",class="form-control", select2="", name="estudio", data-ng-model="estudio.studyName", ng-disabled="!estudio.edit", required="")
-                                                                                        option(value="") Seleccione
-                                                                                        option(ng-repeat="estudio in estudios", value="estudio.value") {{estudio.studyName}}
+                                                                                div(style="width:100%", ng-show="estudio.edit")
+                                                                                    input(class="form-control", list="browsers", name="browser",ng-change="localSearch(estudio.studyName)", ng-model="estudio.studyName")
+                                                                                    datalist(id="browsers")
+                                                                                        option(ng-repeat="estudio in people") {{estudio.er}}
+                                                                                    //- select(style="width:100%",class="form-control", name="estudio", data-ng-model="estudio.studyName", ng-disabled="!estudio.edit", required="")
+                                                                                    //-     option(value="") Seleccione
+                                                                                    //-     option(ng-repeat="estudio in estudios", value="estudio.value") {{estudio.studyName}}                                                                                    
+                                                                                //- select(eventoKeyPress="getEstudios()",style="width:100%",class="form-control", select2="", name="estudio", data-ng-model="estudio.studyName", ng-disabled="!estudio.edit", required="")
+                                                                                //-     option(value="") Seleccione
+                                                                                //-     option(ng-repeat="estudio in estudios", value="estudio.value") {{estudio.studyName}}
                                                                         div(class="form-group")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Grado
