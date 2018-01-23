@@ -1,5 +1,5 @@
 angular.module('myApp.candidatesListCtrl', ['ui.bootstrap']).
-controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'filterFilter', 'Mensaje', '$rootScope', function ($scope, candidatesServices, $location, filterFilter, Mensaje, $rootScope) {
+    controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'filterFilter', 'Mensaje', '$rootScope', 'Dictionary', function ($scope, candidatesServices, $location, filterFilter, Mensaje, $rootScope, Dictionary) {
     $rootScope.activeId == 'candidateList';
     $scope.lista = {};
     $scope.lista.filtro = "";
@@ -47,4 +47,16 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
         $location.path('/detail/');
     };
 
+    $scope.data = [];
+    $scope.autocompletarInput = function (string, tipo) {
+        var data = Dictionary.getSynonyms(string, tipo, 'null', function (error, result) {
+            if (!error) {
+                $scope.data = result.suggested;
+            } else {
+                Mensaje.Alerta("error", 'Error', '');
+                $scope.data = [];
+            }
+        });
+
+    };
 }]);

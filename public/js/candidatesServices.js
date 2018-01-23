@@ -122,6 +122,42 @@ angular.module('myApp.candidatesServices', [])
             });
         };
 
+        candidatesServices.createCandidate = function (usuario, callback) {
+            $http({
+                method: 'POST',
+                data: {
+                    candidateInfo: usuario.candidateInfo
+                },
+                url: URL.URL_REST_SERVICE + 'candidate',
+                headers: {
+                    'Content-Type': "application/json"
+                }
+            }).
+            then(function onSuccess(response) {
+                Result.error = false;
+                Result.status = response.status;
+                Result.message = "OK";
+                Result.data = response.data;
+                callback(Result);
+            }, function onError(response) {
+                Result.error = true;
+                Result.status = reponse.status;
+                switch (status) {
+                    case 404:
+                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
+                        break;
+                    case 500:
+                        Result.message = "Error en el servicio.";
+                        break;
+                    default:
+                        Result.message = "Error.";
+                        break;
+                }
+                Result.data = reponse.data;
+                callback(Result);
+            });
+        };
+
         candidatesServices.updateFeature = function (feature, callback) {
             $http({
                 method: 'PUT',
@@ -132,6 +168,43 @@ angular.module('myApp.candidatesServices', [])
                 headers: {
                     'Content-Type': "application/json"
                 }
+            }).
+            then(function onSuccess(response) {
+                Result.error = false;
+                Result.status = response.status;
+                Result.message = "OK";
+                Result.data = response.data;
+                callback(Result);
+            }, function onError(response) {
+                Result.error = true;
+                Result.status = reponse.status;
+                switch (status) {
+                    case 404:
+                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
+                        break;
+                    case 500:
+                        Result.message = "Error en el servicio.";
+                        break;
+                    default:
+                        Result.message = "Error.";
+                        break;
+                }
+                Result.data = reponse.data;
+                callback(Result);
+            });
+        };
+
+        candidatesServices.search = function (datos, callback) {
+            var object = {};
+            if (datos.hasOwnProperty("countryName")) {
+                object.push({
+                    "countryName": datos.countryName
+                });
+            }
+            $http({
+                method: 'GET',
+                params: object,
+                url: URL.URL_REST_SERVICE + 'candidate'
             }).
             then(function onSuccess(response) {
                 Result.error = false;

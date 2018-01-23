@@ -70,9 +70,9 @@ div(class="page-content-wrap")
                                     div(class="form-group clearfix", ng-class="{ 'has-error' : formCandidato.nombre.$invalid && !formCandidato.nombre.$pristine }")   
                                         label(class="col-md-3 control-label") Nombre Completo:
                                         div(class="col-md-9")
-                                            input(class="form-control", list="browsers", name="browser",ng-change="localSearch(usuario.candidateInfo.name)", ng-model="usuario.candidateInfo.name")
-                                                datalist(id="browsers")
-                                                    option(ng-repeat="estudio in people") {{usuario.candidateInfo.name}}
+                                            input(class="form-control", list="candidatos", name="candidatos", ng-change="autocompletarInput(usuario.candidateInfo.name,'Name')", ng-model="usuario.candidateInfo.name")
+                                            datalist(id="candidatos")
+                                                option(ng-repeat="persona in data") {{persona.er}}
                                             //-input(name="nombre", type="text", class="form-control", ng-model="usuario.candidateInfo.name", required="") 
                                             //-p(ng-show="formCandidato.nombre.$invalid", class="help-block") Nombre requerido. 
                                     div(class="form-group clearfix")
@@ -120,11 +120,17 @@ div(class="page-content-wrap")
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") Pais:
                                         div(class="col-md-9")
-                                            input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.country")
+                                            //- input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.country")
+                                            input(class="form-control", list="pais", name="pais", ng-change="autocompletarInput(usuario.candidateInfo.country,'CountryName')", ng-model="usuario.candidateInfo.country")
+                                            datalist(id="pais")
+                                                option(ng-repeat="pais in data") {{pais.er}}
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") Nacionalidad:
                                         div(class="col-md-9")
-                                            input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.nationality")
+                                            //- input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.nationality")
+                                            input(class="form-control", list="nacionalidad", name="nacionalidad", ng-change="autocompletarInput(usuario.candidateInfo.nationality,'CountryName')", ng-model="usuario.candidateInfo.nationality")
+                                            datalist(id="nacionalidad")
+                                                option(ng-repeat="nacionalidad in data") {{nacionalidad.er}}
                                     div(class="form-group")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="formCandidato.$valid && actualizarCandidato()") 
@@ -171,28 +177,12 @@ div(class="page-content-wrap")
                 div(class="col-sm-12")
                     div(class="panel panel-default nav-tabs-vertical")
                         ul(class="nav nav-tabs")
-                            li(class="active", style="border-bottom: 1px solid #ddd;")
-                                a(data-toggle="tab", data-target="#tab1") Estudios del candidato
+                            li(style="border-bottom: 1px solid #ddd;", ng-repeat="item in usuario.metaFeatures | orderBy : '-oredr'")
+                                a(data-toggle="tab", ng-attr-data-target="{{ '#tab' + item.id }}") {{item.name}}
                             li(style="border-bottom: 1px solid #ddd;")
-                                a(data-toggle="tab", data-target="#tab2") Centros educativos
-                            li(style="border-bottom: 1px solid #ddd;")
-                                a(data-toggle="tab", data-target="#tab3") Certificaciones
-                            li(style="border-bottom: 1px solid #ddd;")
-                                a(data-toggle="tab", data-target="#tab4") Experiencias
-                            li(style="border-bottom: 1px solid #ddd;")
-                                a(data-toggle="tab", data-target="#tab5") Empleadores
-                            li(style="border-bottom: 1px solid #ddd;")
-                                a(data-toggle="tab", data-target="#tab6") Idiomas
-                            li(style="border-bottom: 1px solid #ddd;")
-                                a(data-toggle="tab", data-target="#tab7") Habilidades/Skills
-                            li(style="border-bottom: 1px solid #ddd;")
-                                a(data-toggle="tab", data-target="#tab8") Características
-                            li(style="border-bottom: 1px solid #ddd;")
-                                a(data-toggle="tab", data-target="#tab9") Características psicológicas
-                            li(style="border-bottom: 1px solid #ddd;")
-                                a(data-toggle="tab", data-target="#tab10") Cargos a los que se ha postulado
+                                a(data-toggle="tab", data-target="#tabPostulaciones") Cargos a los que se ha postulado
                         div(class="tab-content", style="min-height:100vh; border-left: 1px solid #ddd;")
-                            div(id="tab1", class="tab-pane fade in active")
+                            div(id="tab6397", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-12")
@@ -214,23 +204,18 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.studyName", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    input(class="form-control", list="browsers", name="browser",ng-change="localSearch(estudio.studyName)", ng-model="estudio.studyName")
-                                                                                    datalist(id="browsers")
-                                                                                        option(ng-repeat="estudio in people") {{estudio.er}}
-                                                                                    //- select(style="width:100%",class="form-control", name="estudio", data-ng-model="estudio.studyName", ng-disabled="!estudio.edit", required="")
-                                                                                    //-     option(value="") Seleccione
-                                                                                    //-     option(ng-repeat="estudio in estudios", value="estudio.value") {{estudio.studyName}}                                                                                    
-                                                                                //- select(eventoKeyPress="getEstudios()",style="width:100%",class="form-control", select2="", name="estudio", data-ng-model="estudio.studyName", ng-disabled="!estudio.edit", required="")
-                                                                                //-     option(value="") Seleccione
-                                                                                //-     option(ng-repeat="estudio in estudios", value="estudio.value") {{estudio.studyName}}
+                                                                                    input(class="form-control", ng-attr-list="{{ 'estudioNombre' + $index }}", ng-attr-name="{{ 'estudioNombre' + $index }}", ng-change="autocompletarInput(estudio.studyName,'studiesName')", ng-model="estudio.studyName")
+                                                                                    datalist(ng-attr-id="{{ 'estudioNombre' + $index }}")
+                                                                                        option(ng-repeat="estudio in data") {{estudio.er}}
                                                                         div(class="form-group")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Grado
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.degree", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    select(style="width:100%",class="form-control", select2="", name="estudio", data-ng-model="estudio.degree", ng-options="grado.value as grado.label for grado in variablesGlobales.grados", ng-disabled="!estudio.edit")
-                                                                                        option(value="") Seleccione
+                                                                                    input(class="form-control", ng-attr-list="{{ 'estudioGrado' + $index }}", ng-attr-name="{{ 'estudioGrado' + $index }}", ng-change="autocompletarInput(estudio.degree,undefined)", ng-model="estudio.degre")
+                                                                                    datalist(ng-attr-id="{{ 'estudioGrado' + $index }}")
+                                                                                        option(ng-repeat="estudio in data") {{estudio.er}}
                                                                         div(class="form-group")    
                                                                             div(class="col-md-3")
                                                                                 label(for="") Fecha de terminación
@@ -243,8 +228,9 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.pais", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    select(style="width:100%",class="form-control", select2="", name="pais", data-ng-model="estudio.pais", ng-options="pais.value as pais.label for pais in variablesGlobales.paises", ng-disabled="!estudio.edit")
-                                                                                        option(value="") Seleccione
+                                                                                    input(class="form-control", ng-attr-list="{{ 'estudioPais' + $index }}", ng-attr-name="{{ 'estudioPais' + $index }}", ng-change="autocompletarInput(estudio.pais,'CountryName')", ng-model="estudio.pais")
+                                                                                    datalist(ng-attr-id="{{ 'estudioPais' + $index }}")
+                                                                                        option(ng-repeat="estudio in data") {{estudio.er}}
                                                                     div(class="col-md-3")
                                                                         ul(class="panel-controls")
                                                                             li()
@@ -259,7 +245,7 @@ div(class="page-content-wrap")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="agregarEstudio()") 
                                                 li(class="fa fa-plus")
                                                 span() Agregar
-                            div(id="tab2", class="tab-pane fade")
+                            div(id="tab6366", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-12")
@@ -281,17 +267,18 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.educationalCenterName", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    select(style="width:100%",class="form-control", select2="", name="centroEducativo", data-ng-model="estudio.educationalCenterName", ng-disabled="!estudio.edit")
-                                                                                        option(value="") Seleccione
-                                                                                        option(ng-repeat="centro in variablesGlobales.centrosEducativos", value="centro.value") {{centro.label}}
+                                                                                    input(class="form-control", ng-attr-list="{{ 'centroNombre' + $index }}", ng-attr-name="{{ 'centroNombre' + $index }}", ng-change="autocompletarInput(estudio.educationalCenterName,'EducationalCenterName')", ng-model="estudio.educationalCenterName")
+                                                                                    datalist(ng-attr-id="{{ 'centroNombre' + $index }}")
+                                                                                        option(ng-repeat="item in data") {{item.er}}
                                                                         div(class="form-group")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Pais
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.pais", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    select(style="width:100%",class="form-control", select2="", name="pais", data-ng-model="estudio.pais", ng-options="pais.value as pais.label for pais in variablesGlobales.paises", ng-disabled="!estudio.edit")
-                                                                                        option(value="") Seleccione
+                                                                                    input(class="form-control", ng-attr-list="{{ 'centroPais' + $index }}", ng-attr-name="{{ 'centroPais' + $index }}", ng-change="autocompletarInput(estudio.pais,'CountryName')", ng-model="estudio.pais")
+                                                                                    datalist(ng-attr-id="{{ 'centroPais' + $index }}")
+                                                                                        option(ng-repeat="item in data") {{item.er}}                                                                                    
                                                                     div(class="col-md-3")
                                                                         ul(class="panel-controls")
                                                                             li()
@@ -306,7 +293,7 @@ div(class="page-content-wrap")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="agregarCentroEstudio()") 
                                                 li(class="fa fa-plus")
                                                 span() Agregar
-                            div(id="tab3", class="tab-pane fade")
+                            div(id="tab6370", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-12")
@@ -328,17 +315,18 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.estudio", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    select(style="width:100%",class="form-control", select2="", name="estudio", data-ng-model="estudio.estudio", ng-disabled="!estudio.edit")
-                                                                                        option(value="") Seleccione
-                                                                                        option(ng-repeat="estudio in variablesGlobales.estudios", value="estudio.value") {{estudio.label}}
+                                                                                    input(class="form-control", ng-attr-list="{{ 'certificadoNombre' + $index }}", ng-attr-name="{{ 'certificadoNombre' + $index }}", ng-change="autocompletarInput(estudio.estudio,'CertificateName')", ng-model="estudio.estudio")
+                                                                                    datalist(ng-attr-id="{{ 'certificadoNombre' + $index }}")
+                                                                                        option(ng-repeat="item in data") {{item.er}}
                                                                         div(class="form-group")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Pais
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.pais", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    select(style="width:100%",class="form-control", select2="", name="pais", data-ng-model="estudio.pais", ng-options="pais.value as pais.label for pais in variablesGlobales.paises", ng-disabled="!estudio.edit")
-                                                                                        option(value="") Seleccione
+                                                                                    input(class="form-control", ng-attr-list="{{ 'certificadoPais' + $index }}", ng-attr-name="{{ 'certificadoPais' + $index }}", ng-change="autocompletarInput(estudio.pais,'CountryName')", ng-model="estudio.pais")
+                                                                                    datalist(ng-attr-id="{{ 'certificadoPais' + $index }}")
+                                                                                        option(ng-repeat="item in data") {{item.er}}
                                                                     div(class="col-md-3")
                                                                         ul(class="panel-controls")
                                                                             li()
@@ -353,7 +341,7 @@ div(class="page-content-wrap")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="agregarCertificado()") 
                                                 li(class="fa fa-plus")
                                                 span() Agregar
-                            div(id="tab4", class="tab-pane fade")
+                            div(id="tab6373", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-12")
@@ -375,9 +363,9 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="exp.name", ng-hide="exp.edit")
                                                                                 div(style="width:100%", ng-show="exp.edit")
-                                                                                    select(style="width:100%",class="form-control", select2="", name="job", data-ng-model="exp.name", ng-disabled="!exp.edit")
-                                                                                        option(value="") Seleccione
-                                                                                        option(ng-repeat="job in variablesGlobales.jobs", value="job.value") {{job.label}}
+                                                                                    input(class="form-control", ng-attr-list="{{ 'experienciaNombre' + $index }}", ng-attr-name="{{ 'experienciaNombre' + $index }}", ng-change="autocompletarInput(exp.name,'JobFunctionName')", ng-model="exp.name")
+                                                                                    datalist(ng-attr-id="{{ 'experienciaNombre' + $index }}")
+                                                                                        option(ng-repeat="item in data") {{item.er}}                                                                                    
                                                                         div(class="form-group")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Fecha
@@ -404,7 +392,7 @@ div(class="page-content-wrap")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="agregarExperiencia()") 
                                                 li(class="fa fa-plus")
                                                 span() Agregar
-                            div(id="tab5", class="tab-pane fade")
+                            div(id="tab6369", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-12")
@@ -425,7 +413,9 @@ div(class="page-content-wrap")
                                                                                 label(for="") Nombre
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="exp.jobName", ng-hide="exp.edit")
-                                                                                input(ng-model="exp.jobName", type="text", class="form-control", ng-show="exp.edit")
+                                                                                input(class="form-control", ng-attr-list="{{ 'empleadorNombre' + $index }}", ng-attr-name="{{ 'empleadorNombre' + $index }}", ng-change="autocompletarInput(exp.jobName,'EmployerName')", ng-model="exp.jobName", ng-show="exp.edit")
+                                                                                    datalist(ng-attr-id="{{ 'empleadorNombre' + $index }}")
+                                                                                        option(ng-repeat="item in data") {{item.er}}
                                                                         div(class="form-group")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Fecha
@@ -452,7 +442,7 @@ div(class="page-content-wrap")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="agregarEmpleador()") 
                                                 li(class="fa fa-plus")
                                                 span() Agregar
-                            div(id="tab6", class="tab-pane fade")
+                            div(id="tab6371", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-12")
@@ -474,8 +464,9 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="idioma.lenguageName", ng-hide="idioma.edit")
                                                                                 div(style="width:100%", ng-show="idioma.edit")
-                                                                                    select(style="width:100%",class="form-control", select2="", name="idioma", data-ng-model="idioma.lenguageName", ng-options="idioma.value as idioma.label for idioma in variablesGlobales.idiomas", ng-disabled="!idioma.edit")
-                                                                                        option(value="") Seleccione
+                                                                                    input(class="form-control", ng-attr-list="{{ 'idiomaNombre' + $index }}", ng-attr-name="{{ 'idiomaNombre' + $index }}", ng-change="autocompletarInput(idioma.lenguageName,'LanguageName')", ng-model="idioma.lenguageName")
+                                                                                    datalist(ng-attr-id="{{ 'idiomaNombre' + $index }}")
+                                                                                        option(ng-repeat="item in data") {{item.er}}
                                                                         div(class="form-group")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Leido
@@ -508,7 +499,7 @@ div(class="page-content-wrap")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="agregarIdioma()") 
                                                 li(class="fa fa-plus")
                                                 span() Agregar
-                            div(id="tab7", class="tab-pane fade")
+                            div(id="tab6394", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-12")
@@ -530,9 +521,9 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="skill.name", ng-hide="skill.edit")
                                                                                 div(style="width:100%", ng-show="skill.edit")
-                                                                                        select(style="width:100%",class="form-control", select2="", name="skill", data-ng-model="skill.name", ng-disabled="!skill.edit")
-                                                                                            option(value="") Seleccione
-                                                                                            option(ng-repeat="skill in variablesGlobales.skills", value="skill.value") {{skill.label}}
+                                                                                    input(class="form-control", ng-attr-list="{{ 'skillNombre' + $index }}", ng-attr-name="{{ 'skillNombre' + $index }}", ng-change="autocompletarInput(skill.name,'SkillName')", ng-model="skill.name")
+                                                                                    datalist(ng-attr-id="{{ 'skillNombre' + $index }}")
+                                                                                        option(ng-repeat="item in data") {{item.er}}
                                                                         div(class="form-group")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Meses
@@ -559,7 +550,7 @@ div(class="page-content-wrap")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="agregarSkill()") 
                                                 li(class="fa fa-plus")
                                                 span() Agregar 
-                            div(id="tab8", class="tab-pane fade")
+                            div(id="tab6373", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-12")
@@ -581,9 +572,9 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="caracteristica.nombre", ng-hide="caracteristica.edit")
                                                                                 div(style="width:100%", ng-show="caracteristica.edit")
-                                                                                    select(style="width:100%",class="form-control", select2="", name="caracteristica", data-ng-model="caracteristica.nombre", ng-disabled="!caracteristica.edit")
-                                                                                        option(value="") Seleccione
-                                                                                        option(ng-repeat="caracteristica in variablesGlobales.caracteristicas", value="caracteristica.value") {{caracteristica.label}}
+                                                                                    input(class="form-control", ng-attr-list="{{ 'caracteristicaNombre' + $index }}", ng-attr-name="{{ 'caracteristicaNombre' + $index }}", ng-change="autocompletarInput(caracteristica.nombre,undefined)", ng-model="caracteristica.nombre")
+                                                                                    datalist(ng-attr-id="{{ 'caracteristicaNombre' + $index }}")
+                                                                                        option(ng-repeat="item in data") {{item.er}}
                                                                         div(class="form-group")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Valor
@@ -604,7 +595,7 @@ div(class="page-content-wrap")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="agregarCaracteristica()") 
                                                 li(class="fa fa-plus")
                                                 span() Agregar
-                            div(id="tab9", class="tab-pane fade")
+                            div(id="tab6424", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-12")
@@ -626,9 +617,9 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="caracteristica.nombre", ng-hide="caracteristica.edit")
                                                                                 div(style="width:100%", ng-show="caracteristica.edit")
-                                                                                    select(style="width:100%",class="form-control", select2="", name="caracteristica", data-ng-model="caracteristica.nombre", ng-disabled="!caracteristica.edit")
-                                                                                        option(value="") Seleccione
-                                                                                        option(ng-repeat="caracteristica in variablesGlobales.caracteristicasPsicologicas", value="caracteristica.value") {{caracteristica.label}}
+                                                                                    input(class="form-control", ng-attr-list="{{ 'caracteristicasPsicologicasNombre' + $index }}", ng-attr-name="{{ 'caracteristicasPsicologicasNombre' + $index }}", ng-change="autocompletarInput(caracteristica.nombre,'PsychologicalCharacteristicsName')", ng-model="caracteristica.nombre")
+                                                                                    datalist(ng-attr-id="{{ 'caracteristicasPsicologicasNombre' + $index }}")
+                                                                                        option(ng-repeat="item in data") {{item.er}}
                                                                         div(class="form-group")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Valor
@@ -649,7 +640,7 @@ div(class="page-content-wrap")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="agregarCaracteristicaPsicologica()") 
                                                 li(class="fa fa-plus")
                                                 span() Agregar
-                            div(id="tab10", class="tab-pane fade")
+                            div(id="tabPostulaciones", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="row", style="display: flex; flex-wrap: wrap;")
