@@ -70,7 +70,10 @@ div(class="page-content-wrap")
                                     div(class="form-group clearfix", ng-class="{ 'has-error' : formCandidato.nombre.$invalid && !formCandidato.nombre.$pristine }")   
                                         label(class="col-md-3 control-label") Nombre Completo:
                                         div(class="col-md-9")
-                                            input(name="nombre", type="text", class="form-control", ng-model="usuario.candidateInfo.name", required="") 
+                                            input(class="form-control", list="browsers", name="browser",ng-change="localSearch(usuario.candidateInfo.name)", ng-model="usuario.candidateInfo.name")
+                                                datalist(id="browsers")
+                                                    option(ng-repeat="estudio in people") {{usuario.candidateInfo.name}}
+                                            //-input(name="nombre", type="text", class="form-control", ng-model="usuario.candidateInfo.name", required="") 
                                             //-p(ng-show="formCandidato.nombre.$invalid", class="help-block") Nombre requerido. 
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") Sexo:
@@ -224,9 +227,9 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Grado
                                                                             div(class="col-md-9")
-                                                                                p(ng-bind="estudio.grado", ng-hide="estudio.edit")
+                                                                                p(ng-bind="estudio.degree", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    select(style="width:100%",class="form-control", select2="", name="estudio", data-ng-model="estudio.grado", ng-options="grado.value as grado.label for grado in variablesGlobales.grados", ng-disabled="!estudio.edit")
+                                                                                    select(style="width:100%",class="form-control", select2="", name="estudio", data-ng-model="estudio.degree", ng-options="grado.value as grado.label for grado in variablesGlobales.grados", ng-disabled="!estudio.edit")
                                                                                         option(value="") Seleccione
                                                                         div(class="form-group")    
                                                                             div(class="col-md-3")
