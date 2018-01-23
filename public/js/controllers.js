@@ -386,7 +386,7 @@ controller('metaFeaturesCtrl', function ($scope,$location,metaFeaturesFactory,Di
     });
   }
 }).
-controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, frequencyMatrixFactory, frequencyMatrixService, usSpinnerService) {
+controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compile, frequencyMatrixFactory, frequencyMatrixService, usSpinnerService) {
   console.log("frequencyMatrixCtrl");
 
   $scope.employer  = '';
@@ -398,6 +398,10 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, frequen
   $scope.showValue = "w"; // f: frequency, w:weight, p: probability
   $scope.methaFeatures = [];
   $scope.featuresModified = [];
+  $scope.currentMethaFeatureId = '';
+  $scope.currentMethaFeatureName = '';
+  $scope.currentMethaFeatureFirstMethaRelationId = '';
+  $scope.currentFeatureNames = [];
 
   $scope.featureEdit = undefined;
   $scope.weightIndexEdit = undefined;
@@ -412,6 +416,7 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, frequen
   })
 
   $scope.getJobs = function() {
+    console.log('controller getJobs');
     // employerId: $scope.employer }
     frequencyMatrixService.getJobs( { 
       employerId: $scope.employer 
@@ -457,31 +462,75 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, frequen
     }, function(error, data) {
       console.log(data);
       if (!error) {
-        $scope.featuresModified = [];
-        data.forEach(mf => {
-          // console.log(mf);
-          mf.features.forEach(f => {
-            $scope.featuresModified.push(
-              {
-                methaFeatureId: mf.id,
-                methaFeatureOrder: mf.order,
-                methaFeature: mf.name,
-                methaRelationIds: mf.methaRelationIds,
-                levelNames: mf.levelNames,
-                totalCount: mf.totalCount,
-                visible: f.count > mf.totalCount * $scope.minPercentage / 100,
-                ...f,
-              }
-            );
-          });
-          $scope.featuresModified
-        });
         $scope.methaFeatures = data;
-        
-        $scope.updateVisible();
-        // $timeout($scope.handleRows(), 0);        
+        $scope.refreshMatrix();
       }
     });
+  }
+
+  $scope.refreshMatrix = function() {
+    $scope.featuresModified = [];
+    $scope.methaFeatures.forEach(mf => {
+      // console.log(mf);
+      mf.features.forEach(f => {
+        let featureModified = {
+          methaFeatureId: mf.id,
+          methaFeatureOrder: mf.order,
+          methaFeature: mf.name,
+          methaRelationIds: mf.methaRelationIds,
+          levelNames: mf.levelNames,
+          totalCount: mf.totalCount,
+          visible: f.count > mf.totalCount * $scope.minPercentage / 100,
+          tdClass: [],
+          tdTitle: [],
+          tdContent: [],
+          tdEditWeight: [],
+          ...f,
+        };
+
+        for(var i = 0; i < featureModified.levelNames.length; i++) {
+          featureModified.tdClass[i] = !featureModified.isWeightInferred[i] && featureModified.levelNames[i] ? 'weightSetted' : '';
+          featureModified.tdTitle[i] = 'MR: ' + featureModified.levelNames[i] + '\r\nFrecuencia: ' + featureModified.frequency[i] + 
+            '\r\nFrecuencia Corregida: ' + featureModified.frequencyCorrected[i].toFixed(2) + '\r\nPeso establecido: ' + featureModified.weightSetted[i] +
+            '\r\nPeso Inferido: ' + featureModified.weightInferred[i] + '\r\nProbabilidad: ' + featureModified.probability[i].toFixed(2);
+          featureModified.tdContent[i] = '';
+          featureModified.tdEditWeight[i] = false;
+        }
+
+        if ($scope.showValue === 'f') {
+          for(var i = 0; i < featureModified.frequency.length; i++) {
+            featureModified.tdContent[i] = featureModified.frequency[i] > 0 ? featureModified.frequency[i] : '';
+          }
+        } else if ($scope.showValue === 'w') {
+          for(var i = 0; i < featureModified.levelNames.length; i++) {
+            if (featureModified.levelNames[i]) {
+              featureModified.tdContent[i] = featureModified.isWeightInferred[i] ? featureModified.weightInferred[i] : featureModified.weightSetted[i];
+              featureModified.tdEditWeight[i] = true;
+                // '<span class="editWeight" data-toggle="modal" data-target="#modalWeight" ng-click="editWeight(' + featureModified.id + ', 0)">' +
+                // ' <i class="glyphicon glyphicon-edit"></i>' +
+                // '</span>';
+            }
+          }
+        } else if ($scope.showValue === 'ws') {
+          for(var i = 0; i < featureModified.weightSetted.length; i++) {
+            featureModified.tdContent[i] = featureModified.levelNames[i] && featureModified.weightSetted[i] > 0 ? 
+            featureModified.weightSetted[i] : '';
+          }
+        } else if ($scope.showValue === 'p') {
+          for(var i = 0; i < featureModified.probability.length; i++) {
+            featureModified.tdContent[i] = featureModified.levelNames[i] && featureModified.probability[i] > 0 ? 
+              featureModified.probability[i].toFixed(2) : '';
+          }
+        }
+          
+        $scope.featuresModified.push(featureModified);
+      });
+      //console.log('features refreshed');
+      //$scope.featuresModified
+    });
+    
+    $scope.updateVisible();
+    // $timeout($scope.handleRows(), 0);        
   }
 
   $scope.updateVisible = function() {
@@ -490,12 +539,13 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, frequen
     $scope.featuresModified.forEach(f => {
       // console.log('f.count: ' + f.count);
       // console.log("f.totalCount * $scope.minPercentage: " + f.totalCount * $scope.minPercentage / 100);
-      f.visible = f.count > (f.totalCount * $scope.minPercentage / 100)
+      f.visible = f.count >= (f.totalCount * $scope.minPercentage / 100)
     })
 
     var handleRows = function() {
       var flagColor = 0;
       var backColors = ['#f1f1f1', '#d1d1d1'];
+      $('tr.addFeatureButton').remove();
       $scope.methaFeatures.sort(function(obj1, obj2) {
         return parseInt(obj1.id) - parseInt(obj2.id)
       }).forEach(mf => {
@@ -508,10 +558,17 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, frequen
         tdsAll.show();
         let tds = $(rows).find('td.mf_name:visible');
         // console.log('tds length: ' + tds.length);
-        $(tds[0]).attr('rowspan', tds.length); // mf.features.length);
+        $(tds[0]).attr('rowspan', tds.length + 1); // mf.features.length);
         for(var i = 1; i < tds.length; i++) {
           $(tds[i]).hide();//.remove();
         }
+
+        // var el = $compile( "<test text='n'></test>" )( $scope );
+        let addButton = $compile('<tr class="addFeatureButton" bgcolor="' + $(rows[0]).attr('bgcolor') +'"><td colspan="16">' +
+          '<input type="button" value="+" ng-click="showAddFeature(' + mf.id + ')" data-toggle="modal", data-target="#modalAddFeature",> ' +
+          '</td></tr>')($scope);
+        $(rows[rows.length - 1]).after(addButton);
+
       });
     };
 
@@ -519,42 +576,24 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, frequen
     // $scope.handleRows();
   }
 
-  $scope.handleRows2 = function() {
-    var flagColor = 0;
-    var backColors = ['#f1f1f1', '#d1d1d1'];
-    $scope.methaFeatures.sort(function(obj1, obj2) {
-      return parseInt(obj1.id) - parseInt(obj2.id)
-    }).forEach(mf => {
-      let rows = $('.mf_tr_' + mf.id);
-      rows.attr('bgcolor', backColors[flagColor]);
-      flagColor = (flagColor === 0 ? 1 : 0);
-      
-      let tdsAll = $(rows).find('td.mf_name');
-      tdsAll.attr('rowspan', 1);
-      tdsAll.show();
-      let tds = $(rows).find('td.mf_name:visible');
-      $(tds[0]).attr('rowspan', tds.length); // mf.features.length);
-      for(var i = 1; i < tds.length; i++) {
-        // $(tds[i]).attr('rowspan', 1);
-        $(tds[i]).hide();//.remove();
-      }
-    });
-  };
-
   $scope.getJobs();
   $scope.getMethaFeatures();
   $scope.getVacancies();
 
   $scope.setShowValue = function(val) {
     console.log('setShowValue: ' + val);
-    $scope.showValue = val; 
-    $scope.getMethaFeatures();
+    $scope.showValue = val;
+    $scope.refreshMatrix();
+    // $scope.getMethaFeatures();
   }
 
   $scope.editWeight = function(featureId, weightIndex) {
     $scope.featureEdit = $scope.featuresModified.filter(f => f.id === featureId)[0];
+    console.log('feature edit');
+    console.log($scope.featureEdit);
     $scope.weightIndexEdit = weightIndex;
-    $scope.weightPopupEdit = $scope.featureEdit.weight[weightIndex]; // .toFixed(0);
+    $scope.weightPopupEdit = $scope.featureEdit.isWeightInferred[weightIndex] ? 
+      $scope.featureEdit.weightInferred[weightIndex] : $scope.featureEdit.weightSetted[weightIndex]; // .toFixed(0);
     $scope.methaRelationEdit = $scope.featureEdit.levelNames[$scope.weightIndexEdit];
     console.log($scope.featureEdit);
   };
@@ -570,20 +609,88 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, frequen
       featureId: featureId, // $scope.featureEdit.featureIds[$scope.weightIndexEdit],
       featureType: $scope.featureEdit.type,
       nameId: $scope.featureEdit.nameId,
-      weight: $scope.weightPopupEdit, // $scope.featureEdit.weight[$scope.weightIndexEdit],
+      weight: $scope.weightPopupEdit,
     }, function(error, data) {
       console.log(data);
       if (!error) {
         $scope.getMethaFeatures();
-        // $scope.featureEdit.weight[$scope.weightIndexEdit] = $scope.weightPopupEdit;
-
-        // $scope.methaRelationEdit = $scope.featureEdit.levelNames[$scope.weightIndexEdit];
-        // $scope.featuresModified = [];
-        // $scope.methaFeatures = data;
       }
     });
     // return false;
   };
+
+  $scope.showAddFeature = function(methaFeatureId) {
+    $scope.addFeatureError = '';
+    $scope.featureToAdd = '';
+    let mf = $scope.methaFeatures.filter(mf => mf.id === methaFeatureId.toString())[0];
+    console.log('add mf: ' + methaFeatureId);
+    console.log(mf.dictionary)
+    console.log(mf);
+    $scope.currentMethaFeatureId = methaFeatureId;
+    $scope.currentMethaFeatureName = mf.name;
+    $scope.currentMethaFeatureFirstMethaRelationId = mf.methaRelationIds[0];
+    // console.log($scope.methaFeatures);
+    //*
+    frequencyMatrixService.getFeatureNames( { 
+      dictionary: mf.dictionary,
+    },
+    function(error, data) {
+      console.log(data);
+      if (!error) {
+        // let names = mf.featuresMap.map(f => f.name);
+        let names = [];
+        for (var fm in mf.featuresMap) {
+          console.log(fm);
+          console.log(fm.name);
+          names.push(fm);
+        }
+        console.log(names);
+        $scope.currentFeatureNames = data.filter(f => $.inArray(f.name, names) < 0);
+        console.log('$scope.currentFeatureNames');
+        console.log($scope.currentFeatureNames);
+      }
+    });
+  }
+
+  $scope.addFeature = function() {
+    $scope.addFeatureError = '';
+    if (!$scope.featureToAdd) {
+      $scope.addFeatureError = 'Seleccione una característica.';
+      return;
+    }
+
+    let entityId = '';
+    let featureType = '';
+    if ($scope.vacancy !== '') {
+      entityId = $scope.vacancy;
+      featureType = 'vf';
+    } else if ($scope.job !== '') {
+      entityId = $scope.job;
+      featureType = 'jf';
+    } else if ($scope.employer !== '') {
+      entityId = $scope.employer;
+      featureType = 'ef';
+    } else {
+      $scope.addFeatureError = 'Seleccione un empleador, un oficio o una vacante.'
+      return;
+    }
+
+    frequencyMatrixService.addFeature( {
+      entityId,
+      methaFeatureId: $scope.currentMethaFeatureId,
+      methaRelationId: $scope.currentMethaFeatureFirstMethaRelationId,
+      featureType,
+      nameId: $scope.featureToAdd,
+    },
+    function(error, data) {
+      console.log(data);
+      if (!error) {
+        $('#modalAddFeature').modal('toggle'); // .modal("hide");
+        $scope.getMethaFeatures();
+        // console.log('$scope.currentFeatureNames');
+      }
+    });
+  }
 
   $timeout(function() {
     usSpinnerService.stop();

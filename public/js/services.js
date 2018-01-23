@@ -8,8 +8,8 @@
 angular.module('myApp.services', []).
   value('version', '0.1')
   .service('frequencyMatrixService', function($http) {
-    // var url = "http://localhost:9000/"
-    var url = "http://guarded-atoll-31281.herokuapp.com/"
+    var url = "http://localhost:9000/"
+    // var url = "http://guarded-atoll-31281.herokuapp.com/"
 
     this.get = (parameters, callback) => {
       $http({
@@ -79,11 +79,41 @@ angular.module('myApp.services', []).
       });
     }
 
+    this.getFeatureNames = (parameters, callback) => {
+      console.log(parameters);
+      $http({
+        method: 'GET',
+        url: url+'api/frequencymatrix/feature-names/',
+        params: parameters
+      }).
+      success((data, status, headers, config) => {
+        callback(null, data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+
     this.setFeatureWeight = (parameters, callback) => {
       console.log(parameters);
       $http({
         method: 'GET',
         url: url+'api/frequencymatrix/feature-weight/',
+        params: parameters
+      }).
+      success((data, status, headers, config) => {
+        callback(null,data)
+      }).
+      error(function (data, status, headers, config) {
+        callback("Error")
+      });
+    }
+
+    this.addFeature = (parameters, callback) => {
+      console.log(parameters);
+      $http({
+        method: 'GET',
+        url: url+'api/frequencymatrix/feature-add/',
         params: parameters
       }).
       success((data, status, headers, config) => {

@@ -15,7 +15,8 @@ angular.module('myApp', [
   'myApp.factories',
   'myApp.constant',
   'ngFileUpload',
-  'angularSpinner'
+  'angularSpinner',
+  'ngSanitize'
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.
