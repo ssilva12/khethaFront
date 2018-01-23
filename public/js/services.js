@@ -82,11 +82,10 @@ angular.module('myApp.services', []).
         url: url+'api/frequencymatrix/feature-names/',
         params: parameters
       }).
-      success((data, status, headers, config) => {
-        callback(null, data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        callback("Error");
       });
     }
 
@@ -111,11 +110,10 @@ angular.module('myApp.services', []).
         url: url+'api/frequencymatrix/feature-add/',
         params: parameters
       }).
-      success((data, status, headers, config) => {
-        callback(null,data)
-      }).
-      error(function (data, status, headers, config) {
-        callback("Error")
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        callback("Error");
       });
     }
 
