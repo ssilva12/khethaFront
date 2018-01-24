@@ -35,7 +35,7 @@ div(class="page-content-wrap")
                                             span(class="fa fa-search")
                                         input(class="form-control", placeholder="¿A quién estás buscando?", type="text", ng-model="search.name")
                                         div(class="input-group-btn")
-                                            button(class="btn btn-primary mb-control", data-box="#message-box-success",ng-click="advSearch(country,status,skill,jobFunction,jobs)") Buscar
+                                            button(class="btn btn-primary mb-control", data-box="#message-box-success",ng-click="advSearch(country,status,skill,jobFunction,jobs)", ng-hide="busquedaAvanzada") Buscar
                                 div(class="col-md-3")
                                     button(class="btn btn-default btn-block mb-control", ng-click="busquedaAvanzada = !busquedaAvanzada")
                                         span(class="fa fa-plus")
@@ -46,9 +46,9 @@ div(class="page-content-wrap")
                                         div(class="col-sm-1") 
                                             label(for="") Pais
                                         div(class="col-sm-3")
-                                            input(class="form-control", list="browsers", name="browser",ng-change="autocompletarInput(country,'CountryName')", ng-model="country")
+                                            input(class="form-control", list="browsers", name="browser",ng-change="autocompletarInput(country,'CountryName','dataPais')", ng-model="country")
                                             datalist(id="browsers")
-                                                option(ng-repeat="estudio in data",value="{{estudio.er}}") {{estudio.er}}                                                        
+                                                option(ng-repeat="estudio in dataPais",value="{{estudio.er}}") {{estudio.er}}                                                        
                                         div(class="col-sm-1") 
                                             label(for="") Estatus
                                         div(class="col-sm-3")
@@ -57,22 +57,22 @@ div(class="page-content-wrap")
                                         div(class="col-sm-1") 
                                             label(for="") Skill
                                         div(class="col-sm-3")
-                                            input(class="form-control", list="skill", name="skill", ng-change="autocompletarInput(skill,'SkillName')", ng-model="skill")
+                                            input(class="form-control", list="skill", name="skill", ng-change="autocompletarInput(skill,'SkillName','dataSkills')", ng-model="skill")
                                             datalist(id="skill")
-                                                option(ng-repeat="skill in data") {{skill.er}} 
+                                                option(ng-repeat="skill in dataSkills") {{skill.er}} 
                                     div(class="row")
                                         div(class="col-sm-1") 
                                             label(for="") Job/Function
                                         div(class="col-sm-3")
-                                            input(class="form-control", list="jobFunction", name="jobFunction", ng-change="autocompletarInput(jobFunction,'JobFunctionName')", ng-model="jobFunction")
+                                            input(class="form-control", list="jobFunction", name="jobFunction", ng-change="autocompletarInput(jobFunction,'JobFunctionName','dataJobFuncion')", ng-model="jobFunction")
                                             datalist(id="jobFunction")
-                                                option(ng-repeat="jobFunction in data") {{jobFunction.er}} 
+                                                option(ng-repeat="jobFunction in dataJobFuncion") {{jobFunction.er}} 
                                         div(class="col-sm-1") 
                                             label(for="") Jobs
                                         div(class="col-sm-3")
-                                            input(class="form-control", list="job", name="job", ng-change="autocompletarInput(job,'JobName')", ng-model="job")
+                                            input(class="form-control", list="job", name="job", ng-change="autocompletarInput(job,'JobName','dataJob')", ng-model="job")
                                             datalist(id="job")
-                                                option(ng-repeat="job in data") {{job.er}} 
+                                                option(ng-repeat="job in dataJob") {{job.er}} 
                                     div(class="row")
                                         div(class="col-sm-12")
                                             button(class="btn btn-primary mb-control pull-right", data-box="#message-box-success") Buscar

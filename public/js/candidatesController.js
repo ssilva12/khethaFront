@@ -1,5 +1,5 @@
 angular.module('myApp.candidatesCtrl', ['ui.select']).
-controller('candidatesController', ['$scope', '$routeParams', 'candidatesServices', 'Mensaje', 'Dictionary', function ($scope, $routeParams, candidatesServices, Mensaje, Dictionary) {
+    controller('candidatesController', ['$scope', '$routeParams', 'candidatesServices', 'Mensaje', 'Dictionary', '$parse', function ($scope, $routeParams, candidatesServices, Mensaje, Dictionary, $parse) {
     //Variables globales
     $scope.variablesGlobales = {};
     $scope.variablesGlobales.expandir = false;
@@ -381,15 +381,24 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     }
     //FIN ACTUALIZACION DE DATOS
     $scope.data = [];
-    $scope.autocompletarInput = function (string, tipo) {
+    $scope.autocompletarInput = function (string, tipo, datos) {
+        var model = $parse(datos);
         var data = Dictionary.getSynonyms(string, tipo, 'null', function (error, result) {
             if (!error) {
-                $scope.data = result.suggested;
+                console.log(result)
+                if (result.primary) {
+                    console.log("como primario")
+                    //$scope.data = [result.primary];
+                    model.assign($scope, [result.primary]);
+                } else {
+                    //$scope.data = result.suggested;
+                    model.assign($scope, result.suggested);
+                }
             } else {
                 Mensaje.Alerta("error", 'Error', '');
-                $scope.data = [];
+                //$scope.data = [];
+                model.assign($scope, []);
             }
         });
-
     };
 }]);
