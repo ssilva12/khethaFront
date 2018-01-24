@@ -83,10 +83,17 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
     $scope.autocompletarInput = function (string, tipo) {
         var data = Dictionary.getSynonyms(string, tipo, 'null', function (error, result) {
             if (!error) {
-                $scope.data = result.suggested;
+                console.log(result)
+                if(result.primary){
+                    console.log("como primario")
+                    $scope.data = [result.primary];
+                }else{
+                    $scope.data = result.suggested;
+                }
             } else {
                 Mensaje.Alerta("error", 'Error', '');
                 $scope.data = [];
+                console.log("aqui")
             }
         });
 

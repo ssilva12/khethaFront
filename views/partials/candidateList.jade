@@ -46,9 +46,9 @@ div(class="page-content-wrap")
                                         div(class="col-sm-1") 
                                             label(for="") Pais
                                         div(class="col-sm-3")
-                                            input(class="form-control", list="browsers", name="browser",ng-change="localSearch(country)", ng-model="country")
+                                            input(class="form-control", list="browsers", name="browser",ng-change="autocompletarInput(country,'CountryName')", ng-model="country")
                                             datalist(id="browsers")
-                                                option(ng-repeat="estudio in people",value="{{estudio.er}}") {{estudio.er}}                                                        
+                                                option(ng-repeat="estudio in data",value="{{estudio.er}}") {{estudio.er}}                                                        
                                         div(class="col-sm-1") 
                                             label(for="") Estatus
                                         div(class="col-sm-3")
