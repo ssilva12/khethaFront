@@ -62,6 +62,7 @@ angular.module('myApp.candidatesServices', [])
                 url: URL.URL_REST_SERVICE + 'candidate'
             }).
             then(function onSuccess(response) {
+                debugger;
                 Result.error = false;
                 Result.status = response.status;
                 Result.message = "OK";
@@ -157,6 +158,39 @@ angular.module('myApp.candidatesServices', [])
                 callback(Result);
             });
         };
+
+        candidatesServices.advSearch = function(country,status,skill,jobFunction,jobs,callback){
+            $http({
+                method: 'GET',
+                params: {
+                    country:country,status:status,skill:skill,jobFunction:jobFunction,jobs:jobs
+                },
+                url: URL.URL_REST_SERVICE + 'advSearch'
+            }).
+            then(function onSuccess(response) {
+                Result.error = false;
+                Result.status = response.status;
+                Result.message = "OK";
+                Result.data = response.data;
+                callback(Result);
+            }, function onError(response) {
+                Result.error = true;
+                Result.status = reponse.status;
+                switch (status) {
+                    case 404:
+                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
+                        break;
+                    case 500:
+                        Result.message = "Error en el servicio.";
+                        break;
+                    default:
+                        Result.message = "Error.";
+                        break;
+                }
+                Result.data = reponse.data;
+                callback(Result);
+            });
+        }
 
         return candidatesServices;
     }]);

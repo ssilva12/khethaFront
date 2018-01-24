@@ -1,5 +1,5 @@
 angular.module('myApp.candidatesListCtrl', ['ui.bootstrap']).
-controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'filterFilter', 'Mensaje', '$rootScope', function ($scope, candidatesServices, $location, filterFilter, Mensaje, $rootScope) {
+controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'filterFilter', 'Mensaje','$rootScope', 'Dictionary', function ($scope, candidatesServices, $location, filterFilter, Mensaje, $rootScope,Dictionary) {
     $rootScope.activeId == 'candidateList';
     $scope.lista = {};
     $scope.lista.filtro = "";
@@ -47,4 +47,35 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
         $location.path('/detail/');
     };
 
+    $scope.people = [];
+    $scope.localSearch = function (str) {
+        var matches = [];
+        var data = Dictionary.getSynonyms(str, 'null', 'null', function (error, result) {
+            if (!error) {
+                if(result.prymary){
+                    $scope.people = [result.primary];
+                    console.log($scope.people)
+                }else{
+                    $scope.people = result.suggested;
+                    console.log($scope.people)
+                }
+            } else {
+                Mensaje.Alerta("error", 'Error', '');
+                $scope.people = [];
+                console.log("aqui")
+            }
+        });
+    };
+
+    $scope.advSearch = function(country,status,skill,jobFunction,jobs){
+        candidatesServices.advSearch(String(country),String(status),String(skill),String(jobFunction),String(jobs),function(result){
+            if (!result.error) {
+                debugger;
+                Mensaje.Alerta("success", 'OK', result.message);
+            } else {
+                debugger;
+                Mensaje.Alerta("error", 'Error', result.message);
+            }
+        })
+    }
 }]);

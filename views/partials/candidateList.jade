@@ -35,7 +35,7 @@ div(class="page-content-wrap")
                                             span(class="fa fa-search")
                                         input(class="form-control", placeholder="¿A quién estás buscando?", type="text", ng-model="search.name")
                                         div(class="input-group-btn")
-                                            button(class="btn btn-primary mb-control", data-box="#message-box-success") Buscar
+                                            button(class="btn btn-primary mb-control", data-box="#message-box-success",ng-click="advSearch(country,status,skill,jobFunction,jobs)") Buscar
                                 div(class="col-md-3")
                                     button(class="btn btn-default btn-block mb-control", ng-click="busquedaAvanzada = !busquedaAvanzada")
                                         span(class="fa fa-plus")
@@ -46,27 +46,28 @@ div(class="page-content-wrap")
                                         div(class="col-sm-1") 
                                             label(for="") Pais
                                         div(class="col-sm-3")
-                                            select(style="width:100%",class="form-control", select2="", name="pais", ng-model="pais")
-                                                option(value="") Seleccione
+                                            input(class="form-control", list="browsers", name="browser",ng-change="localSearch(country)", ng-model="country")
+                                            datalist(id="browsers")
+                                                option(ng-repeat="estudio in people",value="{{estudio.er}}") {{estudio.er}}                                                        
                                         div(class="col-sm-1") 
                                             label(for="") Estatus
                                         div(class="col-sm-3")
-                                            select(style="width:100%",class="form-control", select2="", name="estatus", ng-model="pais")
+                                            select(style="width:100%",class="form-control", select2="", name="estatus", ng-model="status")
                                                 option(value="") Seleccione
                                         div(class="col-sm-1") 
                                             label(for="") Skill
                                         div(class="col-sm-3")
-                                            select(style="width:100%",class="form-control", select2="", name="skill", ng-model="pais")
+                                            select(style="width:100%",class="form-control", select2="", name="skill", ng-model="skill")
                                                 option(value="") Seleccione
                                     div(class="row")
                                         div(class="col-sm-1") 
                                             label(for="") Job/Function
                                         div(class="col-sm-3")
-                                            input(type="text", name="caracteristica",class="form-control", ng-model="pais")
+                                            input(type="text", name="caracteristica",class="form-control", ng-model="jobFunction")
                                         div(class="col-sm-1") 
                                             label(for="") Jobs
                                         div(class="col-sm-3")
-                                            input(type="text", name="job",class="form-control", ng-model="pais")    
+                                            input(type="text", name="job",class="form-control", ng-model="jobs")    
         //- CANDIDATOS
         div(class="row")
             div(class="col-sm-12")

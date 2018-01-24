@@ -389,6 +389,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
 
     $scope.people = [];
     $scope.localSearch = function (str) {
+        console.log(str)
         var matches = [];
         var data = Dictionary.getSynonyms(str, 'null', 'null', function (error, result) {
             if (!error) {
@@ -399,5 +400,18 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
             }
         });
     };
+
+    $scope.advSearch = function(country,status,skill,jobFunction,jobs){
+        debugger;
+        candidatesServices.advSearch(country,status,skill,jobFunction,jobs,function(result){
+            if (!result.error) {
+                debugger;
+                Mensaje.Alerta("success", 'OK', result.message);
+            } else {
+                debugger;
+                Mensaje.Alerta("error", 'Error', result.message);
+            }
+        })
+    }
 
 }]);
