@@ -169,7 +169,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
             $scope.usuario.jobs = [];
             $scope.usuario.schooling = [];
             $scope.usuario.jobFunctions = [];
-            $scope.usuario.estudios = [];
+            $scope.usuario.studies = [];
             $scope.usuario.estudiosCertificaciones = [];
             $scope.usuario.languages = [];
             $scope.usuario.skills = [];
@@ -323,7 +323,13 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 }
             });
         } else {
-            //guardar nuevo
+            var allData = candidatesServices.createCandidate($scope.usuario, function (result) {
+                if (!result.error) {
+                    Mensaje.Alerta("success", 'OK', result.message);
+                } else {
+                    Mensaje.Alerta("error", 'Error', result.message);
+                }
+            });
         }
 
     };
@@ -374,44 +380,16 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
         $scope.actualizarFeature(caracteristica);
     }
     //FIN ACTUALIZACION DE DATOS
-    $scope.estudios = [];
-    $scope.getEstudios = function () {
-        var data = Dictionary.getSynonyms("estudio", 'StudiesName', null, function (error, result) {
+    $scope.data = [];
+    $scope.autocompletarInput = function (string, tipo) {
+        var data = Dictionary.getSynonyms(string, tipo, 'null', function (error, result) {
             if (!error) {
-                return result.suggested;
+                $scope.data = result.suggested;
             } else {
                 Mensaje.Alerta("error", 'Error', '');
-                return [];
+                $scope.data = [];
             }
         });
 
     };
-
-    $scope.people = [];
-    $scope.localSearch = function (str) {
-        console.log(str)
-        var matches = [];
-        var data = Dictionary.getSynonyms(str, 'null', 'null', function (error, result) {
-            if (!error) {
-                $scope.people = result.suggested;
-            } else {
-                Mensaje.Alerta("error", 'Error', '');
-                $scope.people = [];
-            }
-        });
-    };
-
-    $scope.advSearch = function(country,status,skill,jobFunction,jobs){
-        debugger;
-        candidatesServices.advSearch(country,status,skill,jobFunction,jobs,function(result){
-            if (!result.error) {
-                debugger;
-                Mensaje.Alerta("success", 'OK', result.message);
-            } else {
-                debugger;
-                Mensaje.Alerta("error", 'Error', result.message);
-            }
-        })
-    }
-
 }]);

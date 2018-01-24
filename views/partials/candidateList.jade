@@ -57,17 +57,25 @@ div(class="page-content-wrap")
                                         div(class="col-sm-1") 
                                             label(for="") Skill
                                         div(class="col-sm-3")
-                                            select(style="width:100%",class="form-control", select2="", name="skill", ng-model="skill")
-                                                option(value="") Seleccione
+                                            input(class="form-control", list="skill", name="skill", ng-change="autocompletarInput(skill,'SkillName')", ng-model="skill")
+                                            datalist(id="skill")
+                                                option(ng-repeat="skill in data") {{skill.er}} 
                                     div(class="row")
                                         div(class="col-sm-1") 
                                             label(for="") Job/Function
                                         div(class="col-sm-3")
-                                            input(type="text", name="caracteristica",class="form-control", ng-model="jobFunction")
+                                            input(class="form-control", list="jobFunction", name="jobFunction", ng-change="autocompletarInput(jobFunction,'JobFunctionName')", ng-model="jobFunction")
+                                            datalist(id="jobFunction")
+                                                option(ng-repeat="jobFunction in data") {{jobFunction.er}} 
                                         div(class="col-sm-1") 
                                             label(for="") Jobs
                                         div(class="col-sm-3")
-                                            input(type="text", name="job",class="form-control", ng-model="jobs")    
+                                            input(class="form-control", list="job", name="job", ng-change="autocompletarInput(job,'JobName')", ng-model="job")
+                                            datalist(id="job")
+                                                option(ng-repeat="job in data") {{job.er}} 
+                                    div(class="row")
+                                        div(class="col-sm-12")
+                                            button(class="btn btn-primary mb-control pull-right", data-box="#message-box-success") Buscar
         //- CANDIDATOS
         div(class="row")
             div(class="col-sm-12")

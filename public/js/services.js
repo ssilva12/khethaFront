@@ -6,8 +6,8 @@
 // Demonstrate how to register services
 // In this case it is a simple value service.
 angular.module('myApp.services', []).
-value('version', '0.1')
-  .service('frequencyMatrixService', function ($http) {
+  value('version', '0.1')
+  .service('frequencyMatrixService', function($http) {
     // var url = "http://localhost:9000/"
     var url = "http://guarded-atoll-31281.herokuapp.com/"
 
@@ -75,11 +75,39 @@ value('version', '0.1')
       });
     }
 
+    this.getFeatureNames = (parameters, callback) => {
+      console.log(parameters);
+      $http({
+        method: 'GET',
+        url: url+'api/frequencymatrix/feature-names/',
+        params: parameters
+      }).
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        callback("Error");
+      });
+    }
+
     this.setFeatureWeight = (parameters, callback) => {
       console.log(parameters);
       $http({
         method: 'GET',
         url: url + 'api/frequencymatrix/feature-weight/',
+        params: parameters
+      }).
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        callback("Error");
+      });
+    }
+
+    this.addFeature = (parameters, callback) => {
+      console.log(parameters);
+      $http({
+        method: 'GET',
+        url: url+'api/frequencymatrix/feature-add/',
         params: parameters
       }).
       then(function onSuccess(response) {
