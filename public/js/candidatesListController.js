@@ -1,5 +1,5 @@
 angular.module('myApp.candidatesListCtrl', ['ui.bootstrap']).
-controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'filterFilter', 'Mensaje','$rootScope', 'Dictionary', function ($scope, candidatesServices, $location, filterFilter, Mensaje, $rootScope,Dictionary) {
+controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'filterFilter', 'Mensaje', '$rootScope', 'Dictionary', '$parse', function ($scope, candidatesServices, $location, filterFilter, Mensaje, $rootScope, Dictionary, $parse) {
 
     $rootScope.activeId == 'candidateList';
     $scope.lista = {};
@@ -53,10 +53,10 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
         var matches = [];
         var data = Dictionary.getSynonyms(str, 'null', 'null', function (error, result) {
             if (!error) {
-                if(result.prymary){
+                if (result.prymary) {
                     $scope.people = [result.primary];
                     console.log($scope.people)
-                }else{
+                } else {
                     $scope.people = result.suggested;
                     console.log($scope.people)
                 }
@@ -68,8 +68,8 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
         });
     };
 
-    $scope.advSearch = function(country,status,skill,jobFunction,jobs){
-        candidatesServices.advSearch(String(country),String(status),String(skill),String(jobFunction),String(jobs),function(result){
+    $scope.advSearch = function (country, status, skill, jobFunction, jobs) {
+        candidatesServices.advSearch(String(country), String(status), String(skill), String(jobFunction), String(jobs), function (result) {
             if (!result.error) {
                 debugger;
                 Mensaje.Alerta("success", 'OK', result.message);
@@ -80,22 +80,24 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
         })
     }
     $scope.data = [];
-    $scope.autocompletarInput = function (string, tipo) {
+    $scope.autocompletarInput = function (string, tipo, datos) {
+        var model = $parse(datos);
         var data = Dictionary.getSynonyms(string, tipo, 'null', function (error, result) {
             if (!error) {
                 console.log(result)
-                if(result.primary){
+                if (result.primary) {
                     console.log("como primario")
-                    $scope.data = [result.primary];
-                }else{
-                    $scope.data = result.suggested;
+                    //$scope.data = [result.primary];
+                    model.assign($scope, [result.primary]);
+                } else {
+                    //$scope.data = result.suggested;
+                    model.assign($scope, result.suggested);
                 }
             } else {
                 Mensaje.Alerta("error", 'Error', '');
-                $scope.data = [];
-                console.log("aqui")
+                //$scope.data = [];
+                model.assign($scope, []);
             }
         });
-
     };
 }]);
