@@ -112,7 +112,10 @@ div(class="page-content-wrap")
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") Población:
                                         div(class="col-md-9")
-                                            input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.cityName")                            
+                                            input(class="form-control", list="cities", name="city", ng-change="autocompletarInput(usuario.candidateInfo.cityName,'CityName')", ng-model="usuario.candidateInfo.cityName")
+                                            datalist(id="cities")
+                                                option(ng-repeat="city in data") {{city.er}}
+                                            //-input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.cityName")                            
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") Código postal:
                                         div(class="col-md-9")
