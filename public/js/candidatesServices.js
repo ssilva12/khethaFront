@@ -18,9 +18,30 @@ angular.module('myApp.candidatesServices', [])
                     headers: {
                         'Content-Type': undefined
                     }
-                })
-                .success(function () {})
-                .error(function () {});
+                }).
+                then(function onSuccess(response) {
+                Result.error = false;
+                Result.status = response.status;
+                Result.message = "OK";
+                Result.data = response.data;
+                //callback(Result);
+            }, function onError(response) {
+                Result.error = true;
+                Result.status = reponse.status;
+                switch (status) {
+                    case 404:
+                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
+                        break;
+                    case 500:
+                        Result.message = "Error en el servicio.";
+                        break;
+                    default:
+                        Result.message = "Error.";
+                        break;
+                }
+                Result.data = reponse.data;
+                //callback(Result);
+            });
         };
 
         candidatesServices.getAll = function (callback) {

@@ -118,4 +118,19 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
             }
         });
     };
+
+    $scope.uploadFile = function (files) {
+        var fd = new FormData();
+        fd.append("file", files[0]);
+        var reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onload = function () {
+            var resultado = candidatesServices.uploadFile(files[0]);
+           
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    };
+
 }]);
