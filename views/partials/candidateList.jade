@@ -75,7 +75,7 @@ div(class="page-content-wrap")
                                                 option(ng-repeat="job in dataJob") {{job.er}} 
                                     div(class="row")
                                         div(class="col-sm-12")
-                                            button(class="btn btn-primary mb-control pull-right", data-box="#message-box-success") Buscar
+                                            button(class="btn btn-primary mb-control pull-right",ng-click="advSearch(country,status,skill,jobFunction,jobs)", data-box="#message-box-success") Buscar
         //- CANDIDATOS
         div(class="row")
             div(class="col-sm-12")

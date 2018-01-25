@@ -156,7 +156,7 @@ block body
         li()
           a(href="#") Inicio
         li()
-          a(href="#") {{activePageName}}
+          a(ng-bind="title")
       //- END BREADCRUMB
       div(class="row")
         div(ng-view)

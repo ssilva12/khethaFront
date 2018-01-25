@@ -71,10 +71,28 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
     $scope.advSearch = function (country, status, skill, jobFunction, jobs) {
         candidatesServices.advSearch(String(country), String(status), String(skill), String(jobFunction), String(jobs), function (result) {
             if (!result.error) {
-                debugger;
-                Mensaje.Alerta("success", 'OK', result.message);
+                $scope.lista.candidatos = result.data.candidates;
+                $scope.lista.cantidad = " (" + result.data.candidates.length + " candidatos)";
+
+                $scope.search = {
+                    name: $scope.lista.filtro
+                };
+
+                $scope.resetFilters = function () {
+                    $scope.lista.filtro = "";
+                    $scope.search = {
+                        name: $scope.lista.filtro
+                    };
+                };
+
+                // pagination controls
+                $scope.currentPage = 1;
+                $scope.totalItems = $scope.lista.candidatos.length;
+                $scope.entryLimit = 12; // items per page
+                $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
+                $scope.lista.candidatos = result.data.candidates;
             } else {
-                debugger;
+                $scope.lista.candidatos = [];
                 Mensaje.Alerta("error", 'Error', result.message);
             }
         })
