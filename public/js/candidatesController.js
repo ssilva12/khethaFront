@@ -388,16 +388,16 @@ angular.module('myApp.candidatesCtrl', ['ui.select']).
                 console.log(result)
                 if (result.primary) {
                     console.log("como primario")
-                    //$scope.data = [result.primary];
-                    model.assign($scope, [result.primary]);
+                    $scope.data = [result.primary];
+                    //model.assign($scope, [result.primary]);
                 } else {
-                    //$scope.data = result.suggested;
-                    model.assign($scope, result.suggested);
+                    $scope.data = result.suggested;
+                    //model.assign($scope, result.suggested);
                 }
             } else {
                 Mensaje.Alerta("error", 'Error', '');
-                //$scope.data = [];
-                model.assign($scope, []);
+                $scope.data = [];
+                //model.assign($scope, []);
             }
         });
     };
