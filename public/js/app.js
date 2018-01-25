@@ -112,14 +112,17 @@ config(function ($routeProvider, $locationProvider) {
     activetab: 'vacancies'
   }).
   when('/detail', {
+    title: "Candidato",
     templateUrl: 'partials/candidateDetail',
     controller: 'candidatesController'
   }).
   when('/detail/:id', {
+    title: "Candidato",
     templateUrl: 'partials/candidateDetail',
     controller: 'candidatesController'
   }).
   when('/candidateslist', {
+    title: "Lista de candidatos",
     templateUrl: 'partials/candidateList',
     controller: 'candidatesListController'
   }).
@@ -128,4 +131,8 @@ config(function ($routeProvider, $locationProvider) {
   });
 
   $locationProvider.html5Mode(true);
-});
+}).run(['$location', '$rootScope', function ($location, $rootScope) {
+  $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+    $rootScope.title = current.$$route.title;
+  });
+}]);
