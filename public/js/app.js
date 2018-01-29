@@ -5,6 +5,7 @@
 angular.module('myApp', [
     'myApp.controllers',
     'myApp.vacancyCtrl',
+    'myApp.vacancyController',
     'myApp.vacancyListCtrl',
     'myApp.candidatesServices',
     'myApp.candidatesCtrl',
@@ -117,9 +118,14 @@ config(function ($routeProvider, $locationProvider) {
         controller: 'vacancyCtrl',
         title: "Vacante"
     }).
-    when('/vacancy/:id', {
-        templateUrl: 'partials/vacancy',
-        controller: 'vacancyCtrl',
+    when('/vacancyDetail', {
+        templateUrl: 'partials/vacancyDetail',
+        controller: 'vacancyDetailController',
+        title: "Vacante"
+    }).
+    when('/vacancyDetail/:id', {
+        templateUrl: 'partials/vacancyDetail',
+        controller: 'vacancyDetailController',
         title: "Vacante"
     }).
     when('/detail', {

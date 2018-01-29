@@ -131,7 +131,7 @@ body {
 }
 
 .page-container .page-content {
-    min-height: 100%;
+    min-height: 100vh;
     margin-left: 220px;
     background: #f5f5f5 url('../img/bg.png') left top repeat;
     position: relative;

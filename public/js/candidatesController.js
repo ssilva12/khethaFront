@@ -335,13 +335,23 @@ angular.module('myApp.candidatesCtrl', ['ui.select']).
     };
 
     $scope.actualizarFeature = function (data) {
-        var allData = candidatesServices.updateFeature(data, function (result) {
-            if (!result.error) {
-                Mensaje.Alerta("success", 'OK', result.message);
-            } else {
-                Mensaje.Alerta("error", 'Error', result.message);
-            }
-        });
+        if (data.id != null && data.id != undefined) {
+            var allData = candidatesServices.updateFeature(data, function (result) {
+                if (!result.error) {
+                    Mensaje.Alerta("success", 'OK', result.message);
+                } else {
+                    Mensaje.Alerta("error", 'Error', result.message);
+                }
+            });
+        } else {
+            var allData = candidatesServices.createFeature($scope.usuario.candidateInfo.id, data, function (result) {
+                if (!result.error) {
+                    Mensaje.Alerta("success", 'OK', result.message);
+                } else {
+                    Mensaje.Alerta("error", 'Error', result.message);
+                }
+            });
+        }
     }
 
     $scope.actualizarEstudios = function (estudio) {
@@ -388,16 +398,16 @@ angular.module('myApp.candidatesCtrl', ['ui.select']).
                 console.log(result)
                 if (result.primary) {
                     console.log("como primario")
-                    $scope.data = [result.primary];
-                    //model.assign($scope, [result.primary]);
+                    //$scope.data = [result.primary];
+                    model.assign($scope, [result.primary]);
                 } else {
-                    $scope.data = result.suggested;
-                    //model.assign($scope, result.suggested);
+                    //$scope.data = result.suggested;
+                    model.assign($scope, result.suggested);
                 }
             } else {
                 Mensaje.Alerta("error", 'Error', '');
-                $scope.data = [];
-                //model.assign($scope, []);
+                //$scope.data = [];
+                model.assign($scope, []);
             }
         });
     };

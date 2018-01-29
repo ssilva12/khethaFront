@@ -39,11 +39,11 @@ controller('vacancyListController', ['$scope', '$location', 'filterFilter', 'Men
     });
 
     $scope.crearNuevo = function () {
-        $location.path('/vacancy/');
+        $location.path('/vacancyDetail/');
     };
 
     $scope.buscarDetalle = function (id) {
-        $location.path('/vacancy/' + id);
+        $location.path('/vacancyDetail/' + id);
     };
 
 }]);

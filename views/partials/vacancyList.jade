@@ -43,7 +43,8 @@ div(class="page-content-wrap")
                                         table(class="table table-bordered")
                                             thead()
                                                 tr()
-                                                    td(class="col-md-1")                                                         
+                                                    td(class="col-md-1") 
+                                                        h4() Fecha
                                                     td(class="col-md-4") 
                                                         h4() Vacante
                                                     td(class="col-md-3") 
@@ -52,22 +53,22 @@ div(class="page-content-wrap")
                                                         h4() Estatus
                                                     td(class="col-md-2") 
                                                         h4() Analista
-                                                    td(class="col-md-1") 
-                                                        h4() Fecha
+                                                    td(class="col-md-1")
                                             tbody()
                                                 tr(ng-repeat="vacante in filtered = lista.vacantes | filter : search | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit")
+                                                    td() {{vacante.fromDate}}
+                                                    td() 
+                                                        label() {{vacante.name}}
+                                                    td() {{vacante.employer}}
+                                                    td() {{vacante.status}}
+                                                    td() Jaime enrique garcia sanchez
                                                     td() 
                                                         div(class="btn-group")
                                                             button(class="btn btn-default btn-condensed", ng-click="buscarDetalle(vacante.id)")
                                                                 span(class="fa fa-pencil")
                                                             button(class="btn btn-default btn-condensed")
                                                                 span(class="fa fa-copy")
-                                                    td() 
-                                                        label() {{vacante.name}}
-                                                    td() {{vacante.employer}}
-                                                    td() {{vacante.status}}
-                                                    td() Jaime enrique garcia sanchez
-                                                    td() {{vacante.fromDate}}
+                                                    
                             div(class="row")
                                 div(class="col-sm-12")
                                     pagination(class="pagination pagination-sm",page="currentPage", max-size="noOfPages", total-items="totalItems", items-per-page="entryLimit")

@@ -1,0 +1,80 @@
+//- PAGE TITLE
+div(class="page-title")
+    h2() Vacante
+//- END PAGE TITLE
+//- PAGE CONTENT WRAPPER
+div(class="page-content-wrap")
+    div(class="row")
+        div(class="col-md-12")
+            //-INICIO
+            div(class="row")
+                div(class="col-md-12")
+                    div(class="panel panel-default")
+                        div(class="panel-body")
+                            form(class="form-horizontal")
+                                div(class="col-md-1") 
+                                    label() Empleador
+                                div(class="col-md-5")
+                                    input(type="text", class="form-control", list="empleador", name="empleador")
+                                    datalist(id="empleador")
+                                                option(ng-repeat="empleador in dataEmpleadores") {{empleador.er}}
+                                div(class="col-md-1") 
+                                    label() Oficio
+                                div(class="col-md-5")
+                                    input(type="text", class="form-control", list="oficio", name="oficio")
+                                    datalist(id="oficio")
+                                                option(ng-repeat="oficio in dataOficio") {{oficio.er}}
+            div(class="row")
+                div(class="col-md-12")
+                    div(class="panel panel-default")
+                        div(class="panel-body")
+                            form(class="form-horizontal")
+                                div(class="panel panel-default nav-tabs-vertical")
+                                    ul(class="nav nav-tabs")
+                                        li(style="border-bottom: 1px solid #ddd;")
+                                            a(data-toggle="tab", data-target="#tab1") Información
+                                    div(class="tab-content", style="min-height:100vh; border-left: 1px solid #ddd;")
+                                        div(id="tab1", class="tab-pane fade")
+                                            div(class="panel-body")
+                                                div(class="row")
+                                                    div(class="col-md-2")
+                                                        label() Código
+                                                    div(class="col-md-4")
+                                                        input(type='text', class="form-control")
+                                                    div(class="col-md-2")
+                                                        label() Número de vacantes
+                                                    div(class="col-md-4")
+                                                        input(type='text', class="form-control")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
