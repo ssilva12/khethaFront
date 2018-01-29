@@ -8,8 +8,8 @@
 angular.module('myApp.services', []).
   value('version', '0.1')
   .service('frequencyMatrixService', function($http) {
-    // var url = "http://localhost:9000/"
-    var url = "http://guarded-atoll-31281.herokuapp.com/"
+    var url = "http://localhost:9000/"
+    // var url = "http://guarded-atoll-31281.herokuapp.com/"
 
     this.get = (parameters, callback) => {
       $http({
@@ -108,6 +108,20 @@ angular.module('myApp.services', []).
       $http({
         method: 'GET',
         url: url+'api/frequencymatrix/feature-add/',
+        params: parameters
+      }).
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        callback("Error");
+      });
+    }
+
+    this.setFeatureDiscarded = (parameters, callback) => {
+      console.log(parameters);
+      $http({
+        method: 'GET',
+        url: url + 'api/frequencymatrix/feature-discarded/',
         params: parameters
       }).
       then(function onSuccess(response) {
