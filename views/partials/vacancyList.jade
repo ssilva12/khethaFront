@@ -1,0 +1,89 @@
+//- PAGE TITLE
+div(class="page-title")
+    h2() Lista de vacantes
+        span(class="txt-grises", ng-bind="lista.cantidad")
+//- END PAGE TITLE
+//- PAGE CONTENT WRAPPER
+div(class="page-content-wrap")
+    div(class="row")
+        div(class="col-md-12")
+            //-INICIO
+            div(class="row")
+                div(class="col-md-12")
+                    div(class="panel panel-default")
+                        div(class="panel-body")
+                            p() Usa la búsqueda para encontrar vacantes
+                            form(class="form-horizontal")
+                                div(class="form-group")
+                                    div(class="col-md-8")
+                                        div(class="input-group")
+                                            div(class="input-group-addon")
+                                                span(class="fa fa-search")
+                                            input(class="form-control", placeholder="¿Que estás buscando?", type="text", ng-model="search.name")
+                                            div(class="input-group-btn")
+                                                button(class="btn btn-primary mb-control", data-box="#message-box-success", ng-hide="busquedaAvanzada") Buscar
+                                    div(class="col-md-2")
+                                        button(class="btn btn-default btn-block mb-control", ng-click="busquedaAvanzada = !busquedaAvanzada")
+                                            span(class="fa fa-search")
+                                            span() Búsqueda Avanzada
+                                    div(class="col-md-2")
+                                        button(class="btn btn-default btn-block mb-control", ng-click="crearNuevo()")
+                                            span(class="fa fa-plus")
+                                            span() Crear vacante
+                                div(class="form-group", ng-show="busquedaAvanzada")
+                                    div(class="dd-handle clearfix")
+                                        div(class="row")
+            div(class="row")
+                div(class="col-md-12")
+                    div(class="panel panel-default")
+                        div(class="panel-body")
+                            div(class="row")
+                                div(class="col-sm-12")
+                                    div(class="table-responsive")
+                                        table(class="table table-bordered")
+                                            thead()
+                                                tr()
+                                                    td(class="col-md-1")                                                         
+                                                    td(class="col-md-4") 
+                                                        h4() Vacante
+                                                    td(class="col-md-3") 
+                                                        h4() Empleador
+                                                    td(class="col-md-1") 
+                                                        h4() Estatus
+                                                    td(class="col-md-2") 
+                                                        h4() Analista
+                                                    td(class="col-md-1") 
+                                                        h4() Fecha
+                                            tbody()
+                                                tr(ng-repeat="vacante in filtered = lista.vacantes | filter : search | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit")
+                                                    td() 
+                                                        div(class="btn-group")
+                                                            button(class="btn btn-default btn-condensed", ng-click="buscarDetalle(vacante.id)")
+                                                                span(class="fa fa-pencil")
+                                                            button(class="btn btn-default btn-condensed")
+                                                                span(class="fa fa-copy")
+                                                    td() 
+                                                        label() {{vacante.name}}
+                                                    td() {{vacante.employer}}
+                                                    td() {{vacante.status}}
+                                                    td() Jaime enrique garcia sanchez
+                                                    td() {{vacante.fromDate}}
+                            div(class="row")
+                                div(class="col-sm-12")
+                                    pagination(class="pagination pagination-sm",page="currentPage", max-size="noOfPages", total-items="totalItems", items-per-page="entryLimit")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
