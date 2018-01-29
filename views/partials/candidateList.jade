@@ -42,11 +42,11 @@ div(class="page-content-wrap")
                                         span() Búsqueda Avanzada
                             div(class="form-group", ng-show="busquedaAvanzada")
                                 div(class="dd-handle clearfix")
-                                    div(class="row")
+                                    div(class="row row-space")
                                         div(class="col-sm-1") 
                                             label(for="") Pais
                                         div(class="col-sm-3")
-                                            input(class="form-control", list="browsers", name="browser",ng-change="autocompletarInput(country,'CountryName','dataPais')", ng-model="country")
+                                            input(class="form-control", list="browsers", name="browser",ng-model-options="{ debounce: 1000 }",ng-change="autocompletarInput(country,'CountryName','dataPais')", ng-model="country")
                                             datalist(id="browsers")
                                                 option(ng-repeat="estudio in dataPais",value="{{estudio.er}}") {{estudio.er}}                                                        
                                         div(class="col-sm-1") 
@@ -57,20 +57,20 @@ div(class="page-content-wrap")
                                         div(class="col-sm-1") 
                                             label(for="") Skill
                                         div(class="col-sm-3")
-                                            input(class="form-control", list="skill", name="skill", ng-change="autocompletarInput(skill,'SkillName','dataSkills')", ng-model="skill")
+                                            input(class="form-control", list="skill", name="skill",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(skill,'SkillName','dataSkills')", ng-model="skill")
                                             datalist(id="skill")
                                                 option(ng-repeat="skill in dataSkills") {{skill.er}} 
-                                    div(class="row")
+                                    div(class="row row-space")
                                         div(class="col-sm-1") 
                                             label(for="") Job/Function
                                         div(class="col-sm-3")
-                                            input(class="form-control", list="jobFunction", name="jobFunction", ng-change="autocompletarInput(jobFunction,'JobFunctionName','dataJobFuncion')", ng-model="jobFunction")
+                                            input(class="form-control", list="jobFunction", name="jobFunction",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(jobFunction,'JobFunctionName','dataJobFuncion')", ng-model="jobFunction")
                                             datalist(id="jobFunction")
                                                 option(ng-repeat="jobFunction in dataJobFuncion") {{jobFunction.er}} 
                                         div(class="col-sm-1") 
                                             label(for="") Jobs
                                         div(class="col-sm-3")
-                                            input(class="form-control", list="job", name="job", ng-change="autocompletarInput(job,'JobName','dataJob')", ng-model="job")
+                                            input(class="form-control", list="job", name="job",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(job,'JobName','dataJob')", ng-model="job")
                                             datalist(id="job")
                                                 option(ng-repeat="job in dataJob") {{job.er}} 
                                     div(class="row")

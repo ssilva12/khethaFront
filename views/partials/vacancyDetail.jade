@@ -33,10 +33,12 @@ div(class="page-content-wrap")
                                     ul(class="nav nav-tabs")
                                         li(style="border-bottom: 1px solid #ddd;")
                                             a(data-toggle="tab", data-target="#tab1") Información
+                                        li(style="border-bottom: 1px solid #ddd;")
+                                            a(data-toggle="tab", data-target="#tab2") Metha-Características
                                     div(class="tab-content", style="min-height:100vh; border-left: 1px solid #ddd;")
                                         div(id="tab1", class="tab-pane fade")
                                             div(class="panel-body")
-                                                div(class="row")
+                                                div(class="row row-space")
                                                     div(class="col-md-2")
                                                         label() Código
                                                     div(class="col-md-4")
@@ -45,6 +47,107 @@ div(class="page-content-wrap")
                                                         label() Número de vacantes
                                                     div(class="col-md-4")
                                                         input(type='text', class="form-control")
+                                                div(class="row row-space")
+                                                    div(class="col-md-2")
+                                                        label() Estatus
+                                                    div(class="col-sm-4")
+                                                        input(type='text', class="form-control")
+                                                    div(class="col-md-2")
+                                                        label() Fecha de inicio
+                                                    div(class="col-md-4")
+                                                        input(type='text', class="form-control")
+                                                div(class="row row-space")
+                                                    div(class="col-md-2")
+                                                        label() Fecha fin
+                                                    div(class="col-sm-4")
+                                                        input(type='text', class="form-control")
+                                                    div(class="col-md-2")
+                                                        label() Salario previsto
+                                                    div(class="col-md-4")
+                                                        input(type='text', class="form-control")
+                                                div(class="row row-space")
+                                                    div(class="col-md-2")
+                                                        label() Dirección
+                                                    div(class="col-sm-4")
+                                                        input(type='text', class="form-control")
+                                                    div(class="col-md-2")
+                                                        label() Población
+                                                    div(class="col-md-4")
+                                                        input(type='text', class="form-control")
+                                                div(class="row row-space")
+                                                    div(class="col-md-2")
+                                                        label() Código postal
+                                                    div(class="col-sm-4")
+                                                        input(type='text', class="form-control")
+                                                    div(class="col-md-2")
+                                                        label() País
+                                                    div(class="col-md-4")
+                                                        input(type='text', class="form-control")
+                                                div(class="row row-space")
+                                                    div(class="col-md-2")
+                                                        label() Cargo
+                                                    div(class="col-sm-4")
+                                                        input(type='text', class="form-control")
+                                                    div(class="col-md-2")
+                                                        label() Analista
+                                                    div(class="col-md-4")
+                                                        input(type='text', class="form-control")
+                                                div(class="row row-space")
+                                                    div(class="col-md-2")
+                                                        label() Persona de contacto
+                                                    div(class="col-sm-4")
+                                                        input(type='text', class="form-control")
+                                                    div(class="col-md-2")
+                                                        label() Probabilidad condicional
+                                                    div(class="col-md-4")
+                                                        input(type='text', class="form-control")
+                                                div(class="row row-space")
+                                                    div(class="col-md-2")
+                                                        label() Coordenadas GPS
+                                                    div(class="col-sm-4")
+                                                        input(type='text', class="form-control")
+                                                    div(class="col-md-2")
+                                                        label() Última actualización
+                                                    div(class="col-md-4")
+                                                        input(type='text', class="form-control")
+                                        div(id="tab2", class="tab-pane fade")
+                                            div(class="panel-body")
+                                                script(type="text/ng-template", id="home")
+                                                    div(ng-include="", src="'partials/synonyms'")
+                                                //- ng-incluse(src="partials/synonyms")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
