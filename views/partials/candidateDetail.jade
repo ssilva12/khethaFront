@@ -274,7 +274,15 @@ div(class="page-content-wrap")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
                                                                                     input(class="form-control", ng-attr-list="{{ 'centroPais' + $index }}", ng-attr-name="{{ 'centroPais' + $index }}", ng-change="autocompletarInput(estudio.pais,'CountryName','dataEstudioPais')", ng-model="estudio.pais")
                                                                                     datalist(ng-attr-id="{{ 'centroPais' + $index }}")
-                                                                                        option(ng-repeat="item in dataEstudioPais") {{item.er}}                                                                                    
+                                                                                        option(ng-repeat="item in dataEstudioPais") {{item.er}}
+                                                                        div(class="form-group")
+                                                                            div(class="col-md-3")
+                                                                                label(for="") Meta Relación
+                                                                            div(class="col-md-9")
+                                                                                p(ng-bind="estudio.pais", ng-hide="estudio.edit")
+                                                                                div(style="width:100%", ng-show="estudio.edit")
+                                                                                    select(id="estudioMr", name="estudioMr", class="form-control")  
+                                                                                        option(value="0") Unike                                                                                 
                                                                     div(class="col-md-3")
                                                                         ul(class="panel-controls")
                                                                             li()
