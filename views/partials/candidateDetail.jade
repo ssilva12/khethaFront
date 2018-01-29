@@ -124,9 +124,9 @@ div(class="page-content-wrap")
                                         label(class="col-md-3 control-label") Pais:
                                         div(class="col-md-9")
                                             //- input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.country")
-                                            input(class="form-control", list="pais", name="pais", ng-change="autocompletarInput(usuario.candidateInfo.country,'CountryName','dataPais')", ng-model="usuario.candidateInfo.country")
+                                            input(class="form-control", list="pais", name="pais", ng-change="autocompletarInput(usuario.candidateInfo.country,'CountryName')", ng-model="usuario.candidateInfo.country")
                                             datalist(id="pais")
-                                                option(ng-repeat="pais in dataPais") {{pais.er}}                                    
+                                                option(ng-repeat="pais in data") {{pais.er}}                                    
                                     div(class="form-group")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="formCandidato.$valid && actualizarCandidato()") 

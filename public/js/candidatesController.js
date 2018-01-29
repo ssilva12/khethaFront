@@ -314,7 +314,7 @@ angular.module('myApp.candidatesCtrl', ['ui.select']).
 
     //INICIO ACTUALIZACIONES DE DATOS
     $scope.actualizarCandidato = function () {
-        if ($scope.usuario.candidateInfo.userId != null || $scope.usuario.candidateInfo.userId != undefined) {
+        if ($scope.usuario.candidateInfo.id != null || $scope.usuario.candidateInfo.id != undefined) {
             var allData = candidatesServices.updateInformation($scope.usuario, function (result) {
                 if (!result.error) {
                     Mensaje.Alerta("success", 'OK', result.message);
