@@ -35,6 +35,10 @@ div(class="page-content-wrap")
                                             a(data-toggle="tab", data-target="#tab1") Información
                                         li(style="border-bottom: 1px solid #ddd;")
                                             a(data-toggle="tab", data-target="#tab2") Metha-Características
+                                        li(style="border-bottom: 1px solid #ddd;")
+                                            a(data-toggle="tab", data-target="#tab3") Matriz de caracterización
+                                        li(style="border-bottom: 1px solid #ddd;")
+                                            a(data-toggle="tab", data-target="#tab4") Lista de preselección
                                     div(class="tab-content", style="min-height:100vh; border-left: 1px solid #ddd;")
                                         div(id="tab1", class="tab-pane fade")
                                             div(class="panel-body")
@@ -112,9 +116,50 @@ div(class="page-content-wrap")
                                                         input(type='text', class="form-control")
                                         div(id="tab2", class="tab-pane fade")
                                             div(class="panel-body")
-                                                script(type="text/ng-template", id="home")
-                                                    div(ng-include="", src="'partials/synonyms'")
-                                                //- ng-incluse(src="partials/synonyms")
+                                        div(id="tab3", class="tab-pane fade")
+                                            div(class="panel-body")
+                                        div(id="tab4", class="tab-pane fade")
+                                            div(class="panel-body")
+                                                div(class="row row-space")
+                                                    div(class="col-md-8") 
+                                                        div(class="input-group")
+                                                            div(class="input-group-addon")
+                                                                span(class="fa fa-search")
+                                                            input(class="form-control", placeholder="busqueda de candidatos", type="text")
+                                                    div(class="col-md-2") 
+                                                        button(class="btn btn-default btn-block mb-control")
+                                                            span(class="fa fa-plus")
+                                                            span() Agregar
+                                                    div(class="col-md-2") 
+                                                        button(class="btn btn-default btn-block mb-control")
+                                                            span(class="fa fa-cloud-upload")
+                                                            span() Importar CV
+                                                div(class="row")
+                                                    div(class="col-md-8") 
+                                                    div(class="col-md-4") 
+                                                            button(class="btn btn-default btn-block mb-control", data-toggle="modal", data-target="#myModal", data-backdrop="true")
+                                                                span(class="fa fa-search")
+                                                                span() Busqueda avanzada
+            
+            
+            
+            
+            
+            
+            
+            
+            //- Ventana busqueda avanzada
+            div(id="myModal", class="modal fade", role="dialog")
+                div(class="modal-dialog modal-lg")
+                    div(class="modal-content") 
+                        div(class="modal-header")
+                            button(type="button", class="close", data-dismiss="modal") &times;
+                            h4(class="modal-title") Modal Header
+                        div(class="modal-body")
+                        div(class="modal-footer")
+                            button(type="button", class="btn btn-default", data-dismiss="modal") Cerrar
+
+                                               
 
 
 
