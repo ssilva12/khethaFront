@@ -64,7 +64,8 @@ div(class="page-content-wrap")
                                         div(class="col-sm-1") 
                                             label(for="") Job/Function
                                         div(class="col-sm-3")
-                                            input(class="form-control", list="jobFunction", name="jobFunction",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(jobFunction,'JobFunctionName','dataJobFuncion')", ng-model="jobFunction")
+                                            input(class="form-control", autocomplete="off",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(jobFunction,'JobFunctionName','dataJobFuncion')", ng-model="jobFunction")
+                                            input(list="jobFunction")
                                             datalist(id="jobFunction")
                                                 option(ng-repeat="jobFunction in dataJobFuncion") {{jobFunction.er}} 
                                         div(class="col-sm-1") 
