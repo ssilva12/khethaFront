@@ -321,4 +321,8 @@ label {
     margin: 0 0 10px 0;
     /* min-height: 20px; */
 }
+
+.row-space{
+    margin-bottom: 10px;
+}
 /* end nestable list */

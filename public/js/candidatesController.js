@@ -334,50 +334,61 @@ angular.module('myApp.candidatesCtrl', ['ui.select']).
 
     };
 
-    $scope.actualizarFeature = function (data) {
-        var allData = candidatesServices.updateFeature(data, function (result) {
-            if (!result.error) {
-                Mensaje.Alerta("success", 'OK', result.message);
-            } else {
-                Mensaje.Alerta("error", 'Error', result.message);
-            }
-        });
+    $scope.actualizarFeature = function (data,dictionary) {
+        if (data.id != null && data.id != undefined) {
+            var allData = candidatesServices.updateFeature(data, function (result) {
+                if (!result.error) {
+                    Mensaje.Alerta("success", 'OK', result.message);
+                } else {
+                    Mensaje.Alerta("error", 'Error', result.message);
+                }
+            });
+        } else {
+            data.dictionary = dictionary
+            var allData = candidatesServices.createFeature($scope.usuario.candidateInfo.id, data, function (result) {
+                if (!result.error) {
+                    Mensaje.Alerta("success", 'OK', result.message);
+                } else {
+                    Mensaje.Alerta("error", 'Error', result.message);
+                }
+            });
+        }
     }
 
     $scope.actualizarEstudios = function (estudio) {
-        $scope.actualizarFeature(estudio);
+        $scope.actualizarFeature(estudio,"StudiesName");
     }
 
     $scope.actualizarCentroEducativo = function (centro) {
-        $scope.actualizarFeature(centro);
+        $scope.actualizarFeature(centro,"EducationalCenterName");
     }
 
     $scope.actualizarCertificacion = function (certificacion) {
-        $scope.actualizarFeature(certificacion);
+        $scope.actualizarFeature(certificacion,"CertificateName");
     }
 
     $scope.actualizarExperiencia = function (experiencia) {
-        $scope.actualizarFeature(experiencia);
+        $scope.actualizarFeature(experiencia,"JobFunctionName");
     }
 
     $scope.actualizarEmpleador = function (empleador) {
-        $scope.actualizarFeature(empleador);
+        $scope.actualizarFeature(empleador,"EmployerName");
     }
 
     $scope.actualizarIdioma = function (idioma) {
-        $scope.actualizarFeature(idioma);
+        $scope.actualizarFeature(idioma,"LanguageName");
     }
 
     $scope.actualizarSkill = function (skill) {
-        $scope.actualizarFeature(skill);
+        $scope.actualizarFeature(skill,"SkillName");
     }
 
     $scope.actualizarCaracteristica = function (caracteristica) {
-        $scope.actualizarFeature(caracteristica);
+        $scope.actualizarFeature(caracteristica,"");
     }
 
     $scope.actualizarCaracteristicaPsicologica = function (caracteristica) {
-        $scope.actualizarFeature(caracteristica);
+        $scope.actualizarFeature(caracteristica,"PsychologicalCharacteristicsName");
     }
     //FIN ACTUALIZACION DE DATOS
     $scope.data = [];
@@ -388,16 +399,16 @@ angular.module('myApp.candidatesCtrl', ['ui.select']).
                 console.log(result)
                 if (result.primary) {
                     console.log("como primario")
-                    $scope.data = [result.primary];
-                    //model.assign($scope, [result.primary]);
+                    //$scope.data = [result.primary];
+                    model.assign($scope, [result.primary]);
                 } else {
-                    $scope.data = result.suggested;
-                    //model.assign($scope, result.suggested);
+                    //$scope.data = result.suggested;
+                    model.assign($scope, result.suggested);
                 }
             } else {
                 Mensaje.Alerta("error", 'Error', '');
-                $scope.data = [];
-                //model.assign($scope, []);
+                //$scope.data = [];
+                model.assign($scope, []);
             }
         });
     };
