@@ -117,6 +117,20 @@ angular.module('myApp.services', []).
       });
     }
 
+    this.setFeatureDiscarded = (parameters, callback) => {
+      console.log(parameters);
+      $http({
+        method: 'GET',
+        url: url + 'api/frequencymatrix/feature-discarded/',
+        params: parameters
+      }).
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        callback("Error");
+      });
+    }
+
   })
   .service('Dictionary', function ($http) {
     var url = "http://localhost:9000/"

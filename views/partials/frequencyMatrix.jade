@@ -120,7 +120,9 @@ div.row
                     td
                         span(ng-show="showValue != 'p'") {{ feature.count }}
                         span(ng-show="showValue == 'p'") {{ feature.featureProbability | number:2 }}
-                    td {{ feature.discarded }}
+                    td
+                        input(ng-show="!feature.discarded", type="button", value="{{ feature.discarded }}", ng-click="showDiscarded(feature.id, feature.discarded)", data-toggle="modal", data-target="#modalDiscarded")
+                        span(ng-show="feature.discarded") {{ feature.discarded }}
                     td {{ feature.mandatory }}                  
                 
 
@@ -135,7 +137,8 @@ div.row
             .mb-footer
                 button.btn.btn-default.btn-lg.pull-right.mb-control-close Close
 
-.modal.fade(id="modalWeight", role="dialog")
+// .fade
+.modal(id="modalWeight", role="dialog") 
     .modal-dialog(role="document")
         .modal-content
             .modal-header
@@ -152,7 +155,7 @@ div.row
                 button.btn.btn-default(type="button", data-dismiss="modal") Cancelar                        
                 button.btn.btn-primary(type="button", ng-click="saveWeight()", data-dismiss="modal") Guardar
                 
-.modal.fade(id="modalAddFeature", role="dialog")
+.modal(id="modalAddFeature", role="dialog")
     .modal-dialog(role="document")
         .modal-content
             .modal-header
@@ -170,3 +173,20 @@ div.row
             .modal-footer
                 button.btn.btn-default(type="button", data-dismiss="modal") Cancelar                        
                 button.btn.btn-primary(type="button", ng-click="addFeature()") Guardar
+
+.modal(id="modalDiscarded", role="dialog")
+    .modal-dialog(role="document")
+        .modal-content
+            .modal-header
+                button.close(type="button", data-dismiss="modal")
+                    span(aria-hidden="true") &times;
+                    span.sr-only Close
+                h4.modal-title Modificar discarded
+            .modal-body
+                div Metha feature: {{ featureEdit.methaFeature }}, Feature: {{ featureEdit.name }}
+                div Cambiar discarded a: {{ !featureEdit.discarded }}
+                div.alert.alert-danger(ng-show="editDiscardedError") {{ editDiscardedError }}
+            .modal-footer
+                button.btn.btn-default(type="button", data-dismiss="modal") Cancelar                        
+                button.btn.btn-primary(type="button", ng-click="saveDiscarded()") Confirmar
+

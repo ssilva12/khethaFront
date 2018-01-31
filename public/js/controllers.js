@@ -402,6 +402,7 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
   $scope.currentMethaFeatureName = '';
   $scope.currentMethaFeatureFirstMethaRelationId = '';
   $scope.currentFeatureNames = [];
+  $scope.currentDiscarded = false;
 
   $scope.featureEdit = undefined;
   $scope.weightIndexEdit = undefined;
@@ -505,7 +506,7 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
           for(var i = 0; i < featureModified.levelNames.length; i++) {
             if (featureModified.levelNames[i]) {
               featureModified.tdContent[i] = featureModified.isWeightInferred[i] ? featureModified.weightInferred[i] : featureModified.weightSetted[i];
-              featureModified.tdEditWeight[i] = true;
+              // featureModified.tdEditWeight[i] = true;
                 // '<span class="editWeight" data-toggle="modal" data-target="#modalWeight" ng-click="editWeight(' + featureModified.id + ', 0)">' +
                 // ' <i class="glyphicon glyphicon-edit"></i>' +
                 // '</span>';
@@ -513,8 +514,20 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
           }
         } else if ($scope.showValue === 'ws') {
           for(var i = 0; i < featureModified.weightSetted.length; i++) {
-            featureModified.tdContent[i] = featureModified.levelNames[i] && featureModified.weightSetted[i] > 0 ? 
-            featureModified.weightSetted[i] : '';
+            if (featureModified.levelNames[i]) {
+              featureModified.tdContent[i] = featureModified.weightSetted[i] > 0 ? featureModified.weightSetted[i] : '';
+
+              /*
+              featureModified.tdContent[i] = $compile((featureModified.weightSetted[i] > 0 ? featureModified.weightSetted[i] : '') +
+                '<span class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(' +
+                  featureModified.id + ', ' + i + ')">' + 
+                  '<i class="glyphicon glyphicon-edit"></i>' +
+                '</span>');
+              // $(rows[rows.length - 1]).after(addButton);
+              // */
+
+              featureModified.tdEditWeight[i] = true;
+            }
           }
         } else if ($scope.showValue === 'p') {
           for(var i = 0; i < featureModified.probability.length; i++) {
@@ -692,6 +705,73 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
     });
   }
 
+  // *
+  // $scope.currentDiscarded
+  $scope.showDiscarded = function(featureId, discarded) {
+    $scope.featureEdit = $scope.featuresModified.filter(f => f.id === featureId)[0];
+    console.log('feature discarded');
+    console.log(discarded);
+  }
+
+  $scope.saveDiscarded = function() {
+    frequencyMatrixService.setFeatureDiscarded ( { 
+      entityId: $scope.featureEdit.entityId,
+      methaFeatureId: $scope.featureEdit.methaFeatureId,
+      featureId: $scope.featureEdit.id,
+      featureType: $scope.featureEdit.type,
+      nameId: $scope.featureEdit.nameId,
+      discarded: !$scope.discarded,
+    },
+    function(error, data) {
+      console.log(data);
+      if (!error) {
+        $('#modalDiscarded').modal('toggle');
+        $scope.getMethaFeatures();
+      }
+    });
+  }
+
+  $scope.addFeature = function() {
+    $scope.addFeatureError = '';
+    if (!$scope.featureToAdd) {
+      $scope.addFeatureError = 'Seleccione una característica.';
+      return;
+    }
+
+    let entityId = '';
+    let featureType = '';
+    if ($scope.vacancy !== '') {
+      entityId = $scope.vacancy;
+      featureType = 'vf';
+    } else if ($scope.job !== '') {
+      entityId = $scope.job;
+      featureType = 'jf';
+    } else if ($scope.employer !== '') {
+      entityId = $scope.employer;
+      featureType = 'ef';
+    } else {
+      $scope.addFeatureError = 'Seleccione un empleador, un oficio o una vacante.'
+      return;
+    }
+
+    frequencyMatrixService.addFeature( {
+      entityId,
+      methaFeatureId: $scope.currentMethaFeatureId,
+      methaRelationId: $scope.currentMethaFeatureFirstMethaRelationId,
+      featureType,
+      nameId: $scope.featureToAdd,
+    },
+    function(error, data) {
+      console.log(data);
+      if (!error) {
+        $('#modalAddFeature').modal('toggle'); // .modal("hide");
+        $scope.getMethaFeatures();
+        // console.log('$scope.currentFeatureNames');
+      }
+    });
+  }
+  // */
+  
   $timeout(function() {
     usSpinnerService.stop();
     $scope.match = true;
