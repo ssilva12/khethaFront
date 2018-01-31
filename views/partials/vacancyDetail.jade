@@ -15,16 +15,16 @@ div(class="page-content-wrap")
                                 div(class="col-md-1") 
                                     label() Empleador
                                 div(class="col-md-5")
-                                    input(type="text", class="form-control", list="empleador", name="empleador")
+                                    input(type="text", class="form-control", list="empleador", name="empleador", ng-model="empleador")
                                     datalist(id="empleador")
                                                 option(ng-repeat="empleador in dataEmpleadores") {{empleador.er}}
                                 div(class="col-md-1") 
                                     label() Oficio
                                 div(class="col-md-5")
-                                    input(type="text", class="form-control", list="oficio", name="oficio")
+                                    input(type="text", class="form-control", list="oficio", name="oficio", ng-model="oficio")
                                     datalist(id="oficio")
                                                 option(ng-repeat="oficio in dataOficio") {{oficio.er}}
-            div(class="row")
+            div(class="row", ng-if="oficio && empleador")
                 div(class="col-md-12")
                     div(class="panel panel-default")
                         div(class="panel-body")

@@ -1,5 +1,5 @@
 angular.module('myApp.candidatesCtrl', ['ui.select']).
-    controller('candidatesController', ['$scope', '$routeParams', 'candidatesServices', 'Mensaje', 'Dictionary', '$parse', function ($scope, $routeParams, candidatesServices, Mensaje, Dictionary, $parse) {
+controller('candidatesController', ['$scope', '$routeParams', 'candidatesServices', 'Mensaje', 'Dictionary', '$parse', '$timeout', function ($scope, $routeParams, candidatesServices, Mensaje, Dictionary, $parse, $timeout) {
     //Variables globales
     $scope.variablesGlobales = {};
     $scope.variablesGlobales.expandir = false;
@@ -334,7 +334,7 @@ angular.module('myApp.candidatesCtrl', ['ui.select']).
 
     };
 
-    $scope.actualizarFeature = function (data,dictionary) {
+    $scope.actualizarFeature = function (data, dictionary) {
         if (data.id != null && data.id != undefined) {
             var allData = candidatesServices.updateFeature(data, function (result) {
                 if (!result.error) {
@@ -356,39 +356,39 @@ angular.module('myApp.candidatesCtrl', ['ui.select']).
     }
 
     $scope.actualizarEstudios = function (estudio) {
-        $scope.actualizarFeature(estudio,"StudiesName");
+        $scope.actualizarFeature(estudio, "StudiesName");
     }
 
     $scope.actualizarCentroEducativo = function (centro) {
-        $scope.actualizarFeature(centro,"EducationalCenterName");
+        $scope.actualizarFeature(centro, "EducationalCenterName");
     }
 
     $scope.actualizarCertificacion = function (certificacion) {
-        $scope.actualizarFeature(certificacion,"CertificateName");
+        $scope.actualizarFeature(certificacion, "CertificateName");
     }
 
     $scope.actualizarExperiencia = function (experiencia) {
-        $scope.actualizarFeature(experiencia,"JobFunctionName");
+        $scope.actualizarFeature(experiencia, "JobFunctionName");
     }
 
     $scope.actualizarEmpleador = function (empleador) {
-        $scope.actualizarFeature(empleador,"EmployerName");
+        $scope.actualizarFeature(empleador, "EmployerName");
     }
 
     $scope.actualizarIdioma = function (idioma) {
-        $scope.actualizarFeature(idioma,"LanguageName");
+        $scope.actualizarFeature(idioma, "LanguageName");
     }
 
     $scope.actualizarSkill = function (skill) {
-        $scope.actualizarFeature(skill,"SkillName");
+        $scope.actualizarFeature(skill, "SkillName");
     }
 
     $scope.actualizarCaracteristica = function (caracteristica) {
-        $scope.actualizarFeature(caracteristica,"");
+        $scope.actualizarFeature(caracteristica, "");
     }
 
     $scope.actualizarCaracteristicaPsicologica = function (caracteristica) {
-        $scope.actualizarFeature(caracteristica,"PsychologicalCharacteristicsName");
+        $scope.actualizarFeature(caracteristica, "PsychologicalCharacteristicsName");
     }
     //FIN ACTUALIZACION DE DATOS
     $scope.data = [];
@@ -412,4 +412,14 @@ angular.module('myApp.candidatesCtrl', ['ui.select']).
             }
         });
     };
+
+    //EVENTOS AUTOCOMPLETAR
+    $scope.onFocus = function (variable, index) {
+        $parse(variable + index).assign($scope, true);
+    }
+    $scope.onBlur = function (variable, index) {
+        $timeout(function () {
+            $parse(variable + index).assign($scope, false);
+        }, 125);
+    }
 }]);

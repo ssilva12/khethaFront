@@ -70,11 +70,9 @@ div(class="page-content-wrap")
                                     div(class="form-group clearfix", ng-class="{ 'has-error' : formCandidato.nombre.$invalid && !formCandidato.nombre.$pristine }")   
                                         label(class="col-md-3 control-label") Nombre Completo:
                                         div(class="col-md-9")
-                                            input(class="form-control", list="candidatos", name="candidatos",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.name,'Name','dataName')", ng-model="usuario.candidateInfo.name")
-                                            datalist(id="candidatos")
-                                                option(ng-repeat="persona in dataName") {{persona.er}}
-                                            //-input(name="nombre", type="text", class="form-control", ng-model="usuario.candidateInfo.name", required="") 
-                                            //-p(ng-show="formCandidato.nombre.$invalid", class="help-block") Nombre requerido. 
+                                            input(class="form-control",ng-focus="onFocus('NombreVisible',1)",ng-blur="onBlur('NombreVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.name,'Name','dataName')", ng-model="usuario.candidateInfo.name")
+                                            ul(ng-show="{{ 'NombreVisible' + 1 }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                li(class="list-group-item",ng-click="usuario.candidateInfo.name = persona.er", ng-repeat="persona in dataName") {{persona.er}}
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") Sexo:
                                         //-select(style="height: 36px; padding: 0px 10px !important", class="form-control",data-ng-model="user.sexo", data-ng-options="sexo.value as sexo.label for sexo in variablesGlobales.sexo")
@@ -112,10 +110,9 @@ div(class="page-content-wrap")
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") Población:
                                         div(class="col-md-9")
-                                            input(class="form-control", list="cities", name="city",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.cityName,'CityName')", ng-model="usuario.candidateInfo.cityName")
-                                            datalist(id="cities")
-                                                option(ng-repeat="city in data") {{city.er}}
-                                            //-input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.cityName")                            
+                                            input(class="form-control",ng-focus="onFocus('poblacionVisible',1)",ng-blur="onBlur('poblacionVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.cityName,'CityName','dataCity')", ng-model="usuario.candidateInfo.cityName")
+                                            ul(ng-show="{{ 'poblacionVisible' + 1 }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                li(class="list-group-item",ng-click="usuario.candidateInfo.cityName = city.er", ng-repeat="city in dataCity") {{city.er}}
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") Código postal:
                                         div(class="col-md-9")
@@ -123,10 +120,9 @@ div(class="page-content-wrap")
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") País:
                                         div(class="col-md-9")
-                                            //- input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.country")
-                                            input(class="form-control", list="pais", name="pais",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.country,'CountryName')", ng-model="usuario.candidateInfo.country")
-                                            datalist(id="pais")
-                                                option(ng-repeat="pais in data") {{pais.er}}                                    
+                                            input(class="form-control",ng-focus="onFocus('paisVisible',1)",ng-blur="onBlur('paisVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.country,'CountryName','dataPais')", ng-model="usuario.candidateInfo.country")
+                                            ul(ng-show="{{ 'paisVisible' + 1 }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                li(class="list-group-item",ng-click="usuario.candidateInfo.country = pais.er", ng-repeat="pais in dataPais") {{pais.er}}
                                     div(class="form-group")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="formCandidato.$valid && actualizarCandidato()") 
@@ -200,9 +196,9 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.studyName", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    input(class="form-control", ng-attr-list="{{ 'estudioNombre' + $index }}", ng-attr-name="{{ 'estudioNombre' + $index }}",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.studyName,'studiesName')", ng-model="estudio.studyName")
-                                                                                    datalist(ng-attr-id="{{ 'estudioNombre' + $index }}")
-                                                                                        option(ng-repeat="estudio in data") {{estudio.er}}                                                                        
+                                                                                    input(class="form-control",ng-focus="onFocus('estudioNombre',$index)",ng-blur="onBlur('estudioNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.studyName,'studiesName','dataEstudio')", ng-model="estudio.studyName")
+                                                                                    ul(ng-show="{{ 'estudioNombre' + $index }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                                                        li(class="list-group-item",ng-click="estudio.studyName = estudio.er", ng-repeat="estudio in dataEstudio") {{estudio.er}}  
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Grado
@@ -229,9 +225,9 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.pais", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    input(class="form-control", ng-attr-list="{{ 'estudioPais' + $index }}", ng-attr-name="{{ 'estudioPais' + $index }}",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.pais,'CountryName')", ng-model="estudio.pais")
-                                                                                    datalist(ng-attr-id="{{ 'estudioPais' + $index }}")
-                                                                                        option(ng-repeat="estudio in data") {{estudio.er}}
+                                                                                    input(class="form-control",ng-focus="onFocus('estudioPais',$index)",ng-blur="onBlur('estudioPais',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.pais,'CountryName','dataEstudioPais')", ng-model="estudio.pais")
+                                                                                    ul(ng-show="{{ 'estudioPais' + $index }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                                                        li(class="list-group-item",ng-click="estudio.pais = estudio.er", ng-repeat="estudio in dataEstudioPais") {{estudio.er}}
                                                                     div(class="col-md-3")
                                                                         ul(class="panel-controls")
                                                                             li()
@@ -266,20 +262,20 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Nombre
                                                                             div(class="col-md-9")
-                                                                                p(ng-bind="estudio.educationalCenterName", ng-hide="estudio.edit")
+                                                                                p(ng-bind="estudio.name", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    input(class="form-control", ng-attr-list="{{ 'centroNombre' + $index }}", ng-attr-name="{{ 'centroNombre' + $index }}",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.educationalCenterName,'EducationalCenterName','dataEstudioName')", ng-model="estudio.educationalCenterName")
-                                                                                    datalist(ng-attr-id="{{ 'centroNombre' + $index }}")
-                                                                                        option(ng-repeat="item in dataEstudioName") {{item.er}}
+                                                                                    input(class="form-control",ng-focus="onFocus('centroNombre',$index)",ng-blur="onBlur('centroNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.name,'EducationalCenterName','dataEstudioName')", ng-model="estudio.name")
+                                                                                    ul(ng-show="{{ 'centroNombre' + $index }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                                                        li(class="list-group-item",ng-click="estudio.name = item.er", ng-repeat="item in dataEstudioName") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") País
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.pais", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    input(class="form-control", ng-attr-list="{{ 'centroPais' + $index }}", ng-attr-name="{{ 'centroPais' + $index }}",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.pais,'CountryName','dataEstudioPais')", ng-model="estudio.pais")
-                                                                                    datalist(ng-attr-id="{{ 'centroPais' + $index }}")
-                                                                                        option(ng-repeat="item in dataEstudioPais") {{item.er}}
+                                                                                    input(class="form-control",ng-focus="onFocus('centroPais',$index)",ng-blur="onBlur('centroPais',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.pais,'CountryName','dataEstudioPais')", ng-model="estudio.pais")
+                                                                                    ul(ng-show="{{ 'centroPais' + $index }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                                                        li(class="list-group-item",ng-click="estudio.pais = item.er", ng-repeat="item in dataEstudioPais") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Meta Relación
@@ -324,18 +320,18 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.estudio", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    input(class="form-control", ng-attr-list="{{ 'certificadoNombre' + $index }}", ng-attr-name="{{ 'certificadoNombre' + $index }}",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.estudio,'CertificateName','dataCertificadoEstudio')", ng-model="estudio.estudio")
-                                                                                    datalist(ng-attr-id="{{ 'certificadoNombre' + $index }}")
-                                                                                        option(ng-repeat="item in dataCertificadoEstudio") {{item.er}}
+                                                                                    input(class="form-control",ng-focus="onFocus('certificadoNombre',$index)",ng-blur="onBlur('certificadoNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.estudio,'CertificateName','dataCertificadoEstudio')", ng-model="estudio.estudio")
+                                                                                    ul(ng-show="{{ 'certificadoNombre' + $index }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                                                        li(class="list-group-item",ng-click="estudio.estudio = item.er", ng-repeat="item in dataCertificadoEstudio") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") País
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.pais", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    input(class="form-control", ng-attr-list="{{ 'certificadoPais' + $index }}", ng-attr-name="{{ 'certificadoPais' + $index }}",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.pais,'CountryName','dataCertificadoPais')", ng-model="estudio.pais")
-                                                                                    datalist(ng-attr-id="{{ 'certificadoPais' + $index }}")
-                                                                                        option(ng-repeat="item in dataCertificadoPais") {{item.er}}
+                                                                                    input(class="form-control",ng-focus="onFocus('certificadoPais',$index)",ng-blur="onBlur('certificadoPais',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.pais,'CountryName','dataCertificadoPais')", ng-model="estudio.pais")
+                                                                                    ul(ng-show="{{ 'certificadoPais' + $index }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                                                        li(class="list-group-item",ng-click="estudio.pais = item.er", ng-repeat="item in dataCertificadoPais") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Meta Relación
@@ -380,9 +376,9 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="exp.name", ng-hide="exp.edit")
                                                                                 div(style="width:100%", ng-show="exp.edit")
-                                                                                    input(class="form-control", ng-attr-list="{{ 'experienciaNombre' + $index }}", ng-attr-name="{{ 'experienciaNombre' + $index }}",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(exp.name,'JobFunctionName','dataExperienciaNombre')", ng-model="exp.name")
-                                                                                    datalist(ng-attr-id="{{ 'experienciaNombre' + $index }}")
-                                                                                        option(ng-repeat="item in dataExperienciaNombre") {{item.er}}                                                                                    
+                                                                                    input(class="form-control",ng-focus="onFocus('experienciaNombreVisible',$index)",ng-blur="onBlur('experienciaNombreVisible',$index)", ng-attr-list="{{ 'experienciaNombre' + $index }}", ng-attr-name="{{ 'experienciaNombre' + $index }}",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(exp.name,'JobFunctionName','dataExperienciaNombre')", ng-model="exp.name")
+                                                                                    ul(ng-show="{{ 'experienciaNombreVisible' + $index }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                                                        li(class="list-group-item",ng-click="exp.name = item.er", ng-repeat="item in dataExperienciaNombre") {{item.er}} 
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Fecha
@@ -430,9 +426,9 @@ div(class="page-content-wrap")
                                                                                 label(for="") Nombre
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="exp.jobName", ng-hide="exp.edit")
-                                                                                input(class="form-control", ng-attr-list="{{ 'empleadorNombre' + $index }}", ng-attr-name="{{ 'empleadorNombre' + $index }}",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(exp.jobName,'EmployerName','dataEmpleadorNombre')", ng-model="exp.jobName", ng-show="exp.edit")
-                                                                                    datalist(ng-attr-id="{{ 'empleadorNombre' + $index }}")
-                                                                                        option(ng-repeat="item in dataEmpleadorNombre") {{item.er}}
+                                                                                input(class="form-control",ng-focus="onFocus('empleadorNombre',$index)",ng-blur="onBlur('empleadorNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(exp.jobName,'EmployerName','dataEmpleadorNombre')", ng-model="exp.jobName", ng-show="exp.edit")
+                                                                                ul(ng-show="{{ 'empleadorNombre' + $index }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                                                    li(class="list-group-item",ng-click="exp.jobName = item.er", ng-repeat="item in dataEmpleadorNombre") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Fecha
@@ -490,9 +486,9 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="idioma.lenguageName", ng-hide="idioma.edit")
                                                                                 div(style="width:100%", ng-show="idioma.edit")
-                                                                                    input(class="form-control", ng-attr-list="{{ 'idiomaNombre' + $index }}", ng-attr-name="{{ 'idiomaNombre' + $index }}",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(idioma.lenguageName,'LanguageName','dataIdioma')", ng-model="idioma.lenguageName")
-                                                                                    datalist(ng-attr-id="{{ 'idiomaNombre' + $index }}")
-                                                                                        option(ng-repeat="item in dataIdioma") {{item.er}}
+                                                                                    input(class="form-control",ng-focus="onFocus('idiomaNombre',$index)",ng-blur="onBlur('idiomaNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(idioma.lenguageName,'LanguageName','dataIdioma')", ng-model="idioma.lenguageName")
+                                                                                    ul(ng-show="{{ 'idiomaNombre' + $index }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                                                        li(class="list-group-item",ng-click="idioma.lenguageName = item.er", ng-repeat="item in dataIdioma") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Leido
@@ -547,9 +543,9 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="skill.name", ng-hide="skill.edit")
                                                                                 div(style="width:100%", ng-show="skill.edit")
-                                                                                    input(class="form-control", ng-attr-list="{{ 'skillNombre' + $index }}", ng-attr-name="{{ 'skillNombre' + $index }}",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(skill.name,'SkillName','dataSkill')", ng-model="skill.name")
-                                                                                    datalist(ng-attr-id="{{ 'skillNombre' + $index }}")
-                                                                                        option(ng-repeat="item in dataSkill") {{item.er}}
+                                                                                    input(class="form-control",ng-focus="onFocus('skillNombre',$index)",ng-blur="onBlur('skillNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(skill.name,'SkillName','dataSkill')", ng-model="skill.name")
+                                                                                    ul(ng-show="{{ 'skillNombre' + $index }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                                                        li(class="list-group-item",ng-click="skill.name = item.er", ng-repeat="item in dataSkill") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Meses
@@ -598,9 +594,9 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="caracteristica.nombre", ng-hide="caracteristica.edit")
                                                                                 div(style="width:100%", ng-show="caracteristica.edit")
-                                                                                    input(class="form-control", ng-attr-list="{{ 'caracteristicaNombre' + $index }}", ng-attr-name="{{ 'caracteristicaNombre' + $index }}",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(caracteristica.nombre,undefined,'dataJob')", ng-model="caracteristica.nombre")
-                                                                                    datalist(ng-attr-id="{{ 'caracteristicaNombre' + $index }}")
-                                                                                        option(ng-repeat="item in dataJob") {{item.er}}
+                                                                                    input(class="form-control",ng-focus="onFocus('caracteristicaNombre',$index)",ng-blur="onBlur('caracteristicaNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(caracteristica.nombre,undefined,'dataJob')", ng-model="caracteristica.nombre")
+                                                                                    ul(ng-show="{{ 'caracteristicaNombre' + $index }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                                                        li(class="list-group-item",ng-click="caracteristica.nombre = item.er", ng-repeat="item in dataJob") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Valor
@@ -643,9 +639,9 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="caracteristica.nombre", ng-hide="caracteristica.edit")
                                                                                 div(style="width:100%", ng-show="caracteristica.edit")
-                                                                                    input(class="form-control", ng-attr-list="{{ 'caracteristicasPsicologicasNombre' + $index }}", ng-attr-name="{{ 'caracteristicasPsicologicasNombre' + $index }}",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(caracteristica.nombre,'PsychologicalCharacteristicsName','dataJobFunction')", ng-model="caracteristica.nombre")
-                                                                                    datalist(ng-attr-id="{{ 'caracteristicasPsicologicasNombre' + $index }}")
-                                                                                        option(ng-repeat="item in dataJobFunction") {{item.er}}
+                                                                                    input(class="form-control",ng-focus="onFocus('caracteristicasPsicologicasNombre',$index)",ng-blur="onBlur('caracteristicasPsicologicasNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(caracteristica.nombre,'PsychologicalCharacteristicsName','dataJobFunction')", ng-model="caracteristica.nombre")
+                                                                                    ul(ng-show="{{ 'caracteristicasPsicologicasNombre' + $index }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                                                        li(class="list-group-item",ng-click="caracteristica.nombre = item.er", ng-repeat="item in dataJobFunction") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Valor
