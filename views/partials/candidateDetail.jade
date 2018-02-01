@@ -173,6 +173,8 @@ div(class="page-content-wrap")
                                 a(data-toggle="tab", ng-attr-data-target="{{ '#tab' + item.id }}") {{item.name}}
                             li(style="border-bottom: 1px solid #ddd;")
                                 a(data-toggle="tab", data-target="#tabPostulaciones") Cargos a los que se ha postulado
+                            li(style="border-bottom: 1px solid #ddd;")
+                                a(data-toggle="tab", data-target="#tabSinResolver") Sin resolver
                         div(class="tab-content", style="min-height:100vh; border-left: 1px solid #ddd;")
                             div(id="tab6397", class="tab-pane fade")
                                 div(class="panel-body")
@@ -692,7 +694,41 @@ div(class="page-content-wrap")
                                                                     <input type="radio" class="icheckbox" checked="checked" value="Si" ng-model="postulacion.seleccionado" disabled="disabled"/> No
                                                                     <input type="radio" class="icheckbox" value="No" ng-model="postulacion.seleccionado"  disabled="disabled"/>
                                                                 </p>
-
+                            div(id="tabSinResolver", class="tab-pane fade")
+                                div(class="panel-body")
+                                    div(class="form-group")
+                                        div(class="row", style="display: flex; flex-wrap: wrap;")
+                                            div(class="col-md-6",, ng-repeat="caracteristica in usuario.unresolved")
+                                                div(class="dd", id="nestable")
+                                                    ol(class="dd-list")
+                                                        li(class="dd-item", data-id="1")
+                                                            div(class="dd-handle clearfix")
+                                                                div(class="form-group")
+                                                                    div(class="col-md-9")
+                                                                        div(class="form-group row row-space")
+                                                                            div(class="col-md-3")
+                                                                                label(for="") Caracteristica
+                                                                            div(class="col-md-9")
+                                                                                p(ng-bind="caracteristica.name", ng-hide="caracteristica.edit")
+                                                                                div(style="width:100%", ng-show="caracteristica.edit")
+                                                                                    input(class="form-control",ng-focus="onFocus('caracteristicasPsicologicasNombre',$index)",ng-blur="onBlur('caracteristicasPsicologicasNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(caracteristica.nombre,'PsychologicalCharacteristicsName','dataJobFunction')", ng-model="caracteristica.nombre")
+                                                                                    ul(ng-show="{{ 'caracteristicasPsicologicasNombre' + $index }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                                                        li(class="list-group-item",ng-click="caracteristica.nombre = item.name", ng-repeat="item in dataJobFunction") {{item.name}}
+                                                                        div(class="form-group row row-space")
+                                                                            div(class="col-md-3")
+                                                                                label(for="") Valor
+                                                                            div(class="col-md-9")
+                                                                                p(ng-bind="caracteristica.valor", ng-hide="caracteristica.edit")
+                                                                                input(ng-model="caracteristica.valor", type="text", class="form-control", ng-show="caracteristica.edit")
+                                                                    div(class="col-md-3")
+                                                                        ul(class="panel-controls")
+                                                                            li()
+                                                                                a(class="panel-fullscreen", ng-click="caracteristica.edit = !caracteristica.edit")
+                                                                                    span(class="fa fa-pencil", ng-hide="caracteristica.edit")
+                                                                                    span(class="fa fa-save", ng-show="caracteristica.edit", ng-click="actualizarCaracteristicaPsicologica(caracteristica)")
+                                                                            li()
+                                                                                a(class="panel-remove", ng-click="eliminarCaracteristicaPsicologica(caracteristica)")
+                                                                                    span(class="fa fa-times")
 
 
            
