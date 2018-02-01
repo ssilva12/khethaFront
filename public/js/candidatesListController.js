@@ -1,10 +1,11 @@
 angular.module('myApp.candidatesListCtrl', ['ui.bootstrap']).
-controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'filterFilter', 'Mensaje', '$rootScope', 'Dictionary', '$parse', function ($scope, candidatesServices, $location, filterFilter, Mensaje, $rootScope, Dictionary, $parse) {
+controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'filterFilter', 'Mensaje', '$rootScope', 'Dictionary', '$parse', '$timeout', function ($scope, candidatesServices, $location, filterFilter, Mensaje, $rootScope, Dictionary, $parse, $timeout) {
 
     $rootScope.activeId == 'candidateList';
     $scope.lista = {};
     $scope.lista.filtro = "";
     $scope.lista.candidatos = [];
+    $scope.Dato = {};
 
     var allData = candidatesServices.getAll(function (result) {
         if (!result.error) {
@@ -126,11 +127,20 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
         reader.readAsDataURL(files[0]);
         reader.onload = function () {
             var resultado = candidatesServices.uploadFile(files[0]);
-           
+
         };
         reader.onerror = function (error) {
             console.log('Error: ', error);
         };
     };
 
+    //EVENTOS AUTOCOMPLETAR
+    $scope.onFocus = function (variable, index) {
+        $parse(variable + index).assign($scope, true);
+    }
+    $scope.onBlur = function (variable, index) {
+        $timeout(function () {
+            $parse(variable + index).assign($scope, false);
+        }, 125);
+    }
 }]);
