@@ -35,7 +35,7 @@ div(class="page-content-wrap")
                                             span(class="fa fa-search")
                                         input(class="form-control", placeholder="¿A quién estás buscando?", type="text", ng-model="search.name")
                                         div(class="input-group-btn")
-                                            button(class="btn btn-primary mb-control", data-box="#message-box-success",ng-click="advSearch(country,status,skill,jobFunction,jobs)", ng-hide="busquedaAvanzada") Buscar
+                                            button(class="btn btn-primary mb-control", data-box="#message-box-success",ng-click="advSearch(Dato.country,status,Dato.skill,Dato.jobFunction,Dato.jobs)", ng-hide="busquedaAvanzada") Buscar
                                 div(class="col-md-3")
                                     button(class="btn btn-default btn-block mb-control", ng-click="busquedaAvanzada = !busquedaAvanzada")
                                         span(class="fa fa-plus")
@@ -46,9 +46,9 @@ div(class="page-content-wrap")
                                         div(class="col-sm-1") 
                                             label(for="") Pais
                                         div(class="col-sm-3")
-                                            input(class="form-control", list="browsers", name="browser",ng-model-options="{ debounce: 1000 }",ng-change="autocompletarInput(country,'CountryName','dataPais')", ng-model="country")
-                                            datalist(id="browsers")
-                                                option(ng-repeat="estudio in dataPais",value="{{estudio.er}}") {{estudio.er}}                                                        
+                                            input(class="form-control",ng-focus="onFocus('pais',1)",ng-blur="onBlur('pais',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.country,'CountryName','dataPais')", ng-model="Dato.country")
+                                            ul(ng-show="{{ 'pais' + 1 }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                li(class="list-group-item",ng-click="Dato.country = item.er", ng-repeat="item in dataPais") {{item.er}}
                                         div(class="col-sm-1") 
                                             label(for="") Estatus
                                         div(class="col-sm-3")
@@ -57,25 +57,25 @@ div(class="page-content-wrap")
                                         div(class="col-sm-1") 
                                             label(for="") Skill
                                         div(class="col-sm-3")
-                                            input(class="form-control", list="skill", name="skill",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(skill,'SkillName','dataSkills')", ng-model="skill")
-                                            datalist(id="skill")
-                                                option(ng-repeat="skill in dataSkills") {{skill.er}} 
+                                            input(class="form-control",ng-focus="onFocus('skill',1)",ng-blur="onBlur('skill',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.skill,'SkillName','dataSkills')", ng-model="Dato.skill")
+                                            ul(ng-show="{{ 'skill' + 1 }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                li(class="list-group-item",ng-click="Dato.skill = item.er", ng-repeat="item in dataSkills") {{item.er}}
                                     div(class="row row-space")
                                         div(class="col-sm-1") 
                                             label(for="") Job/Function
                                         div(class="col-sm-3")
-                                            input(class="form-control", list="jobFunction", name="jobFunction",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(jobFunction,'JobFunctionName','dataJobFuncion')", ng-model="jobFunction")
-                                            datalist(id="jobFunction")
-                                                option(ng-repeat="jobFunction in dataJobFuncion") {{jobFunction.er}} 
+                                            input(class="form-control",ng-focus="onFocus('jobFunction',1)",ng-blur="onBlur('jobFunction',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.jobFunction,'JobFunctionName','dataJobFuncion')", ng-model="Dato.jobFunction")
+                                            ul(ng-show="{{ 'jobFunction' + 1 }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                li(class="list-group-item",ng-click="Dato.jobFunction = item.er", ng-repeat="item in dataJobFuncion") {{item.er}}
                                         div(class="col-sm-1") 
                                             label(for="") Jobs
                                         div(class="col-sm-3")
-                                            input(class="form-control", list="job", name="job",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(job,'JobName','dataJob')", ng-model="job")
-                                            datalist(id="job")
-                                                option(ng-repeat="job in dataJob") {{job.er}} 
+                                            input(class="form-control",ng-focus="onFocus('job',1)",ng-blur="onBlur('job',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.job,'JobName','dataJob')", ng-model="Dato.job")
+                                            ul(ng-show="{{ 'job' + 1 }}", class="list-group", style="z-index: 10; position: absolute;")
+                                                li(class="list-group-item",ng-click="Dato.job = item.er", ng-repeat="item in dataJob") {{item.er}}
                                     div(class="row")
                                         div(class="col-sm-12")
-                                            button(class="btn btn-primary mb-control pull-right",ng-click="advSearch(country,status,skill,jobFunction,jobs)", data-box="#message-box-success") Buscar
+                                            button(class="btn btn-primary mb-control pull-right",ng-click="advSearch(Dato.country,status,Dato.skill,Dato.jobFunction,Dato.jobs)", data-box="#message-box-success") Buscar
         //- CANDIDATOS
         div(class="row")
             div(class="col-sm-12")
