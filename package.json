@@ -6,6 +6,7 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "angucomplete-alt": "^3.0.0",
     "angular-spinner": "*",
     "body-parser": "^1.18.2",
     "cfenv": "^1.0.4",

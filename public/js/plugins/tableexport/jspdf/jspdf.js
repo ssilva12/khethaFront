@@ -292,7 +292,7 @@ var jsPDF = function(){
 				return buffer;
 			}
 			if(type == 'datauri') {
-				document.location.href = 'data:application/pdf;base64,' + Base64.encode(buffer);
+				//document.location.href = 'data:application/pdf;base64,' + Base64.encode(buffer);
 			}
 			// @TODO: Add different output options
 		},

@@ -8,7 +8,7 @@
 angular.module('myApp.services', []).
   value('version', '0.1')
   .service('frequencyMatrixService', function($http) {
-    // var url = "http://localhost:9000/"
+    //var url = "http://localhost:9000/"
     var url = "http://guarded-atoll-31281.herokuapp.com/"
 
     this.get = (parameters, callback) => {
@@ -165,7 +165,7 @@ angular.module('myApp.services', []).
 
   })
   .service('Dictionary', function ($http) {
-    // var url = "http://localhost:9000/"
+    //var url = "http://localhost:9000/"
     var url = "http://guarded-atoll-31281.herokuapp.com/"
 
     this.getSynonyms = function (name, dictionaryName, acronym, callback) {

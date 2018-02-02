@@ -37,43 +37,27 @@ div(class="row search-div")
                             td:{{sug.er}}
                             td: button(ng-click="selectNoun(sug.er)") Seleccionar
             
-
-<div class="modal fade" id="myModal" role="dialog">
-<div class="modal-dialog">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal">&times;</button>
-h1 Cargar Diccionario
-</div>
-<div class="modal-body">
-
-input(type="file", name="image", ngf-select, ng-model="dictionary", name="file" )
-<select ng-model="meta" ng-options="x.name for x in metaFeatures" class="form-control">
-</select>  
-button(ng-click="uploadFiles(dictionary,'primary')") Subir
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-</div>
-</div>
-</div>
-</div>
-
-<div class="modal fade" id="metaModal" role="dialog">
-<div class="modal-dialog">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal">&times;</button>
-h1 Cargar meta relaciones
-</div>
-<div class="modal-body">
-
-input(type="file", name="image", ngf-select, ng-model="meta", name="file" )  
-button(ng-click="uploadFiles(meta)") Subir
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-</div>
-</div>
-</div>
-</div>
+#myModal.modal.fade(role='dialog')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+            h1 Cargar Diccionario
+      .modal-body
+        input(type="file", name="image", ngf-select, ng-model="dictionary", name="file" )
+        select.form-control(ng-model='meta', ng-options='x.name for x in metaFeatures')
+        button(ng-click="uploadFiles(dictionary,'primary')") Subir
+      .modal-footer
+        button.btn.btn-default(type='button', data-dismiss='modal') Close
+#metaModal.modal.fade(role='dialog')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h1 Cargar meta relaciones
+      .modal-body
+        input(type="file", name="image", ngf-select, ng-model="meta", name="file" )
+        button(ng-click="uploadFiles(meta)") Subir
+      .modal-footer
+        button.btn.btn-default(type='button', data-dismiss='modal') Close
+    
