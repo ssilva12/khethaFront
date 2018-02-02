@@ -409,6 +409,8 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
   $scope.weightPopupEdit = '';
   $scope.methaRelationEdit = '';
 
+  $scope.candidate = '';
+
   let employers = frequencyMatrixService.getEmployers( {}, function(error, data) {
     console.log(data);
     if (!error) {
@@ -472,6 +474,7 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
   $scope.refreshMatrix = function() {
     $scope.featuresModified = [];
     $scope.methaFeatures.forEach(mf => {
+      // console.log('Metha features: ');
       // console.log(mf);
       mf.features.forEach(f => {
         let featureModified = {
@@ -486,6 +489,8 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
           tdTitle: [],
           tdContent: [],
           tdEditWeight: [],
+          mfrWeight: mf.mfrWeight,
+          topWeightSum: mf.topWeightSum,
           ...f,
         };
 
@@ -538,10 +543,11 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
           
         $scope.featuresModified.push(featureModified);
       });
-      //console.log('features refreshed');
-      //$scope.featuresModified
     });
     
+    // console.log('features refreshed');
+    // console.log($scope.featuresModified);
+
     $scope.updateVisible();
     // $timeout($scope.handleRows(), 0);        
   }
@@ -579,9 +585,8 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
         // var el = $compile( "<test text='n'></test>" )( $scope );
         let addButton = $compile('<tr class="addFeatureButton" bgcolor="' + $(rows[0]).attr('bgcolor') +'"><td colspan="16">' +
           '<input type="button" value="+" ng-click="showAddFeature(' + mf.id + ')" data-toggle="modal", data-target="#modalAddFeature",> ' +
-          '</td></tr>')($scope);
+          '</td><td>' + mf.topWeightSum + '</td></tr>')($scope);
         $(rows[rows.length - 1]).after(addButton);
-
       });
     };
 
@@ -777,5 +782,103 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
     $scope.match = true;
   }, 3000); 
   // $location.path("/frequencyMatrix");
+
+
+  // Candidate related functions
+  $scope.getCandidates = function() {
+    console.log('getCandidates');
+    console.log($scope.vacancy);
+    $scope.candidates = [];
+    $scope.candidate = '';
+
+    if ($scope.vacancy !== '') {
+      frequencyMatrixService.getCandidates( { 
+        vacancyId: $scope.vacancy
+      },
+      function(error, data) {
+        console.log(data);
+        if (!error) {
+          $scope.candidates = data;
+          // $scope.candidate = '';
+        }
+      });
+    }
+  }
+
+  $scope.getCandidateMethaFeatures = function() {
+    console.log('Consultar candidate features click... ' + $scope.employer + ', ' + $scope.job +
+    ', ' + $scope.years + ', ' + $scope.candidateType + ', ' + $scope.minPercentage);
+
+    $scope.candidateMethaFeatures = [];
+
+    frequencyMatrixService.getCandidateMethaFeatures( { 
+      employer: $scope.employer,
+      job: $scope.job,
+      jobVacancy: $scope.vacancy,
+      candidate: $scope.candidate,
+      years: $scope.years,
+      candidateType: $scope.candidateType,
+      minPercentage: $scope.minPercentage
+    }, function(error, data) {
+      console.log('Candidate Metha Features');
+      console.log(data);
+      if (!error) {
+        $scope.candidateMethaFeatures = data;
+        $scope.refreshCandidateMatrix();
+      }
+    });
+  }
+
+  // *
+  $scope.refreshCandidateMatrix = function() {
+    $scope.candidateFeaturesModified = [];
+    $scope.candidateMaxScoreTotal = 0;
+    $scope.candidateScoreTotal = 0;
+    $scope.candidateMethaFeatures.forEach(mf => {
+      mf.features.forEach(f => {
+        let featureModified = {
+          methaFeatureId: mf.id,
+          methaFeatureOrder: mf.order,
+          methaFeature: mf.name,
+          methaRelationIds: mf.methaRelationIds,
+          levelNames: mf.levelNames,
+          // totalCount: mf.totalCount,
+          // visible: f.count > mf.totalCount * $scope.minPercentage / 100,
+          // tdClass: [],
+          tdTitle: [],
+          tdContent: [],
+          tdEditWeight: [],
+          mfrWeight: mf.mfrWeight,
+          topWeightSum: mf.topWeightSum,
+          ...f,
+        };
+
+        $scope.candidateMaxScoreTotal += f.maxScore;
+        $scope.candidateScoreTotal += f.score;
+
+        //*
+        for(var i = 0; i < featureModified.levelNames.length; i++) {
+          featureModified.tdContent[i] = '';
+          if (featureModified.levelNames[i] && featureModified.weight[i] > 0) {
+            featureModified.tdContent[i] = featureModified.weight[i];
+          }
+        }
+        //*/
+  
+        $scope.candidateFeaturesModified.push(featureModified);
+      });
+    });
+
+    $scope.candidateScorePercentage = 100 * $scope.candidateScoreTotal / $scope.candidateMaxScoreTotal;
+
+    
+    // $scope.candidateFeaturesModified.forEach(f => $scope.candidateMaxScoreTotal += f.maxScore);
+    
+    console.log('candidate features refreshed');
+    console.log($scope.candidateFeaturesModified);
+
+    // $scope.updateVisible();
+  }
+  // */
 })
 ;

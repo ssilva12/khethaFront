@@ -1,0 +1,88 @@
+style(type="text/css")
+    .weightSetted {
+        background-color: #fff2cc;
+    }
+
+div.row
+    div.col-md-12
+        br
+        div.col-md-4(style="float: left")
+            span Empleador 
+            select(ng-model="employer", ng-change="getJobs()")
+                option(ng-repeat="emp in employers")(value="{{ emp.id }}") {{ emp.name }}
+                option(value="") Todos
+        div.col-md-4
+            span Oficio 
+            select(ng-model="job", ng-change="getVacancies()")
+                option(ng-repeat="job in jobs")(value="{{ job.id }}") {{ job.name }}
+                option(value="") Todos
+        div.col-md-4
+            span Vacante 
+            select(ng-model="vacancy", ng-change="getCandidates()")
+                option(ng-repeat="v in vacancies")(value="{{ v.id }}") {{ v.name }}
+                option(value="") Todos
+        br
+        div.col-md-4
+            span Candidato 
+            select(ng-model="candidate")
+                option(ng-repeat="c in candidates")(value="{{ c.id }}") {{ c.name }}
+        div.col-md-12
+            br
+            input(type="button", value="Consultar", style="float:right", ng-click="getCandidateMethaFeatures()")
+            br
+            br
+        
+        br
+        br
+        br        
+        table(class = "table", border = 1)
+            thead
+                tr: th 
+                    th
+                    th(colspan = "12") Metha-Relación
+                    th(colspan = 3)
+                tr: th Metha Feature
+                    th Feature
+                    th MR1
+                    th MR2
+                    th MR3
+                    th MR4
+                    th MR5
+                    th MR6
+                    th MR7
+                    th MR8
+                    th MR9
+                    th MR10
+                    th MR11
+                    th MR12
+                    
+                    th Max Score
+                    th Score
+                    th %
+            tbody
+                tr(ng-repeat="feature in candidateFeaturesModified | orderBy : ['methaFeatureOrder', 'name']", class="mf_tr_{{feature.methaFeatureId}}") 
+                    td(class="mf_name") {{ feature.methaFeature }}
+                    td {{ feature.name }}
+
+                    td(title="{{ feature.tdTitle[0] }}") {{ feature.tdContent[0] }} 
+                    td(title="{{ feature.tdTitle[1] }}") {{ feature.tdContent[1] }} 
+                    td(title="{{ feature.tdTitle[2] }}") {{ feature.tdContent[2] }} 
+                    td(title="{{ feature.tdTitle[3] }}") {{ feature.tdContent[3] }} 
+                    td(title="{{ feature.tdTitle[4] }}") {{ feature.tdContent[4] }} 
+                    td(title="{{ feature.tdTitle[5] }}") {{ feature.tdContent[5] }} 
+                    td(title="{{ feature.tdTitle[6] }}") {{ feature.tdContent[6] }} 
+                    td(title="{{ feature.tdTitle[7] }}") {{ feature.tdContent[7] }} 
+                    td(title="{{ feature.tdTitle[8] }}") {{ feature.tdContent[8] }} 
+                    td(title="{{ feature.tdTitle[9] }}") {{ feature.tdContent[9] }} 
+                    td(title="{{ feature.tdTitle[10] }}") {{ feature.tdContent[10] }} 
+                    td(title="{{ feature.tdTitle[11] }}") {{ feature.tdContent[11] }} 
+
+                    td {{ feature.maxScore | number:2 }}
+                    td {{ feature.score | number:2 }}
+                    td {{ feature.scorePercentage | number:2 }}
+                tr
+                    td(colspan="13")
+                    td Total
+                    td {{ candidateMaxScoreTotal | number:2 }}
+                    td {{ candidateScoreTotal | number:2 }}
+                    td {{ candidateScorePercentage | number:2 }}

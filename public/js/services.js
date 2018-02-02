@@ -103,6 +103,24 @@ angular.module('myApp.services', []).
       });
     }
 
+    this.getCandidates = (parameters, callback) => {
+      $http({
+        method: 'GET',
+        url: url + 'api/candidate/all/',
+        params: parameters,
+      }).
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        console.log('error');
+        console.log(response.status);
+        console.log(response.data);
+        console.log(response.headers);
+        console.log(response.config);
+        callback("Error")
+      });
+    }
+
     this.addFeature = (parameters, callback) => {
       console.log(parameters);
       $http({
@@ -122,6 +140,20 @@ angular.module('myApp.services', []).
       $http({
         method: 'GET',
         url: url + 'api/frequencymatrix/feature-discarded/',
+        params: parameters
+      }).
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        callback("Error");
+      });
+    }
+
+    // Candidate Match
+    this.getCandidateMethaFeatures = (parameters, callback) => {
+      $http({
+        method: 'GET',
+        url: url + 'api/frequencymatrix/candidate-match',
         params: parameters
       }).
       then(function onSuccess(response) {

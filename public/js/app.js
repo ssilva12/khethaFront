@@ -108,6 +108,11 @@ config(function ($routeProvider, $locationProvider) {
         controller: 'frequencyMatrixCtrl',
         activetab: 'frequencyMatrix'
     }).
+    when('/candidateMatching', {
+        templateUrl: 'partials/candidateMatching',
+        controller: 'frequencyMatrixCtrl',
+        activetab: 'candidateMatching'
+    }).
     when('/vacancyList', {
         templateUrl: 'partials/vacancyList',
         controller: 'vacancyListController',

@@ -75,6 +75,10 @@ div.row
                         span(ng-show="showValue == 'p'") Probab
                     th Discarded
                     th Mandatory
+
+                    th Top Weight
+                    th MFR WEIGHT
+                    th Point Value
             tbody
                 tr(ng-repeat="feature in featuresModified | orderBy : ['methaFeatureOrder', 'name']", ng-show="feature.visible", class="mf_tr_{{feature.methaFeatureId}}") 
                     td(class="mf_name") {{ feature.methaFeature }}
@@ -123,7 +127,12 @@ div.row
                     td
                         input(ng-show="!feature.discarded", type="button", value="{{ feature.discarded }}", ng-click="showDiscarded(feature.id, feature.discarded)", data-toggle="modal", data-target="#modalDiscarded")
                         span(ng-show="feature.discarded") {{ feature.discarded }}
-                    td {{ feature.mandatory }}                  
+                    td {{ feature.mandatory }}
+
+                    td {{ feature.topWeight }}
+                    td {{ feature.mfrWeight }}
+                    td {{ feature.pointValue | number:2 }}
+
                 
 
 //- , class="mb-control", data-box="#messageBoxWeight"
