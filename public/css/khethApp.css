@@ -322,7 +322,19 @@ label {
     /* min-height: 20px; */
 }
 
-.row-space{
+/* end nestable list */
+
+.row-space {
     margin-bottom: 10px;
 }
-/* end nestable list */
+
+.select-list {
+    z-index: 10;
+    position: absolute;
+}
+
+.select-list li:hover {
+    cursor: pointer;
+    color: #004085;
+    background-color: #9fcdff;
+}

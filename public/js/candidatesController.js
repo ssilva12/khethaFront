@@ -230,7 +230,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
             value: "",
             edit: true
         };
-        $scope.usuario.experiencia.push(experiencia);
+        $scope.usuario.jobFunctions.push(experiencia);
     };
 
     $scope.eliminarExperiencia = function (experiencia) {
@@ -241,8 +241,8 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     $scope.agregarEmpleador = function () {
         var empleador = {
             job: "",
-            fecha: "",
-            meses: "",
+            value: "",
+            methaRelation: "",
             edit: true
         };
         $scope.usuario.jobs.push(empleador);
@@ -261,9 +261,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     $scope.agregarIdioma = function () {
         var idioma = {
             lenguageName: "",
-            leido: "",
-            hablado: "",
-            escrito: "",
+            methaRelation: "",
             edit: true
         };
         $scope.usuario.idiomas.push(idioma);

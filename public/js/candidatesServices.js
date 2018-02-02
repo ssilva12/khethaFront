@@ -27,7 +27,7 @@ angular.module('myApp.candidatesServices', [])
                 //callback(Result);
             }, function onError(response) {
                 Result.error = true;
-                Result.status = reponse.status;
+                Result.status = response.status;
                 switch (status) {
                     case 404:
                         Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
@@ -39,7 +39,7 @@ angular.module('myApp.candidatesServices', [])
                         Result.message = "Error.";
                         break;
                 }
-                Result.data = reponse.data;
+                Result.data = response.data;
                 //callback(Result);
             });
         };
@@ -57,7 +57,7 @@ angular.module('myApp.candidatesServices', [])
                 callback(Result);
             }, function onError(response) {
                 Result.error = true;
-                Result.status = reponse.status;
+                Result.status = response.status;
                 switch (status) {
                     case 404:
                         Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
@@ -69,7 +69,7 @@ angular.module('myApp.candidatesServices', [])
                         Result.message = "Error.";
                         break;
                 }
-                Result.data = reponse.data;
+                Result.data = response.data;
                 callback(Result);
             });
         };
@@ -91,7 +91,7 @@ angular.module('myApp.candidatesServices', [])
                 callback(Result);
             }, function onError(response) {
                 Result.error = true;
-                Result.status = reponse.status;
+                Result.status = response.status;
                 switch (status) {
                     case 404:
                         Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
@@ -103,7 +103,7 @@ angular.module('myApp.candidatesServices', [])
                         Result.message = "Error.";
                         break;
                 }
-                Result.data = reponse.data;
+                Result.data = response.data;
                 callback(Result);
             });
         };
@@ -127,7 +127,7 @@ angular.module('myApp.candidatesServices', [])
                 callback(Result);
             }, function onError(response) {
                 Result.error = true;
-                Result.status = reponse.status;
+                Result.status = response.status;
                 switch (status) {
                     case 404:
                         Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
@@ -139,7 +139,7 @@ angular.module('myApp.candidatesServices', [])
                         Result.message = "Error.";
                         break;
                 }
-                Result.data = reponse.data;
+                Result.data = response.data;
                 callback(Result);
             });
         };
@@ -163,7 +163,7 @@ angular.module('myApp.candidatesServices', [])
                 callback(Result);
             }, function onError(response) {
                 Result.error = true;
-                Result.status = reponse.status;
+                Result.status = response.status;
                 switch (status) {
                     case 404:
                         Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
@@ -175,7 +175,7 @@ angular.module('myApp.candidatesServices', [])
                         Result.message = "Error.";
                         break;
                 }
-                Result.data = reponse.data;
+                Result.data = response.data;
                 callback(Result);
             });
         };
@@ -199,7 +199,7 @@ angular.module('myApp.candidatesServices', [])
                 callback(Result);
             }, function onError(response) {
                 Result.error = true;
-                Result.status = reponse.status;
+                Result.status = response.status;
                 switch (status) {
                     case 404:
                         Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
@@ -211,7 +211,7 @@ angular.module('myApp.candidatesServices', [])
                         Result.message = "Error.";
                         break;
                 }
-                Result.data = reponse.data;
+                Result.data = response.data;
                 callback(Result);
             });
         };
@@ -236,7 +236,7 @@ angular.module('myApp.candidatesServices', [])
                 callback(Result);
             }, function onError(response) {
                 Result.error = true;
-                Result.status = reponse.status;
+                Result.status = response.status;
                 switch (status) {
                     case 404:
                         Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'feature).';
@@ -248,7 +248,7 @@ angular.module('myApp.candidatesServices', [])
                         Result.message = "Error.";
                         break;
                 }
-                Result.data = reponse.data;
+                Result.data = response.data;
                 callback(Result);
             });
         };
@@ -273,7 +273,7 @@ angular.module('myApp.candidatesServices', [])
                 callback(Result);
             }, function onError(response) {
                 Result.error = true;
-                Result.status = reponse.status;
+                Result.status = response.status;
                 switch (status) {
                     case 404:
                         Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
@@ -285,7 +285,7 @@ angular.module('myApp.candidatesServices', [])
                         Result.message = "Error.";
                         break;
                 }
-                Result.data = reponse.data;
+                Result.data = response.data;
                 callback(Result);
             });
         };
