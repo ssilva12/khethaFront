@@ -9,7 +9,7 @@ angular.module('myApp.candidatesServices', [])
         Result.message = "";
         Result.data = null;
 
-        candidatesServices.uploadFile = function (file) {
+        candidatesServices.uploadFile = function (file, callback) {
             var fd = new FormData();
             fd.append('curriculum', file);
             var uploadUrl = URL.URL_REST_SERVICE + 'uploadCv';
@@ -24,7 +24,7 @@ angular.module('myApp.candidatesServices', [])
                 Result.status = response.status;
                 Result.message = "OK";
                 Result.data = response.data;
-                //callback(Result);
+                callback(Result);
             }, function onError(response) {
                 Result.error = true;
                 Result.status = response.status;
@@ -40,7 +40,7 @@ angular.module('myApp.candidatesServices', [])
                         break;
                 }
                 Result.data = response.data;
-                //callback(Result);
+                callback(Result);
             });
         };
 

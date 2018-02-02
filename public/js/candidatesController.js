@@ -92,7 +92,9 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     $scope.usuario = {};
 
     $scope.cargarCandidato = function (id) {
+        Mensaje.Esperar();
         var allData = candidatesServices.getById(id, function (result) {
+            Mensaje.Desocupar();
             if (!result.error) {
                 console.log(result.data);
                 $scope.usuario = result.data;
@@ -312,8 +314,10 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
 
     //INICIO ACTUALIZACIONES DE DATOS
     $scope.actualizarCandidato = function () {
+        Mensaje.Esperar();
         if ($scope.usuario.candidateInfo.id != null || $scope.usuario.candidateInfo.id != undefined) {
             var allData = candidatesServices.updateInformation($scope.usuario, function (result) {
+                Mensaje.Desocupar();
                 if (!result.error) {
                     Mensaje.Alerta("success", 'OK', result.message);
                 } else {
@@ -322,6 +326,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
             });
         } else {
             var allData = candidatesServices.createCandidate($scope.usuario, function (result) {
+                Mensaje.Desocupar();
                 if (!result.error) {
                     Mensaje.Alerta("success", 'OK', result.message);
                 } else {
@@ -333,8 +338,10 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     };
 
     $scope.actualizarFeature = function (data, dictionary) {
+        Mensaje.Esperar();
         if (data.id != null && data.id != undefined) {
             var allData = candidatesServices.updateFeature(data, function (result) {
+                Mensaje.Desocupar();
                 if (!result.error) {
                     Mensaje.Alerta("success", 'OK', result.message);
                 } else {
@@ -344,6 +351,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
         } else {
             data.dictionary = dictionary
             var allData = candidatesServices.createFeature($scope.usuario.candidateInfo.id, data, function (result) {
+                Mensaje.Desocupar();
                 if (!result.error) {
                     Mensaje.Alerta("success", 'OK', result.message);
                 } else {

@@ -1,7 +1,6 @@
 extends layout
 
 block body
-  toast()
   //- START PAGE CONTAINER
   div(class="page-container page-navigation-top-fixed")
     div(class="page-sidebar page-sidebar-fixed scroll")
@@ -191,6 +190,12 @@ block body
           p() {{message}}
         div(class="mb-footer")
           button(class="btn btn-default btn-lg pull-right mb-control-close", ng-click="open = false;") Close
+  div(id="wait", class="modal", ng-class="{'show': waitModal}", role="dialog")
+    div(class="modal-dialog modal-sm", style="width:80px")
+        div(class="modal-content") 
+            div(class="modal-body")
+              div(class="row")
+                img(src="img/loaders/default.gif")
   //- END MESSAGE BOX
   script(type="text/javascript", src="js/plugins/jquery/jquery.min.js")
   script(type="text/javascript", src="js/plugins/jquery/jquery-ui.min.js")

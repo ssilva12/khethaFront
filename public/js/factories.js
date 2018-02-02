@@ -143,5 +143,14 @@ value('version', '0.1')
             });
             n.show();
         };
+
+        Mensaje.Esperar = function (params) {
+            $rootScope.waitModal = true;
+        };
+
+        Mensaje.Desocupar = function (params) {
+            $rootScope.waitModal = false;
+        };
+
         return Mensaje;
     }]);
