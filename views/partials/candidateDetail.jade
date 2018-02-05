@@ -154,6 +154,18 @@ div(class="page-content-wrap")
                                         label(for="") Última Actualización
                                     div(class="col-md-8 col-xs-8")
                                         p(ng-bind="usuario.candidateInfo.ultimaAct")
+                        div(class="panel panel-default")
+                            div(class="panel-body")
+                                div(class="form-group")
+                                    div(class="col-md-4 col-xs-4")
+                                        label(for="") Edad
+                                    div(class="col-md-8 col-xs-8")
+                                        p(ng-bind="usuario.candidateInfo.age")
+                                div(class="form-group")
+                                    div(class="col-md-4 col-xs-4")
+                                        label(for="") Grado
+                                    div(class="col-md-8 col-xs-8")
+                                        p(ng-bind="usuario.candidateInfo.maxDegree")
                         //- END PANEL WITH STATIC CONTROLS
                         div(class="panel panel-default", style="display:none;")
                             div(class="panel-heading")
