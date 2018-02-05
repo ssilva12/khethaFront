@@ -1,5 +1,5 @@
-angular.module('myApp.factories', []).
-value('version', '0.1')
+angular.module('myApp.factories', [])
+    .value('version', '0.1')
     .factory('termFactory', function () {
         this.primary = {};
         this.synonyms = [];
@@ -146,7 +146,7 @@ value('version', '0.1')
 
         Mensaje.Esperar = function (mensaje) {
             $rootScope.waitModal = true;
-            $rootScope.waitModalMessage = (mensaje != null && mensaje != undefined ? mensaje:'Cargando');
+            $rootScope.waitModalMessage = (mensaje != null && mensaje != undefined ? mensaje : 'Cargando');
         };
 
         Mensaje.Desocupar = function () {
@@ -154,4 +154,39 @@ value('version', '0.1')
         };
 
         return Mensaje;
-    }]);
+    }])
+    .factory('AuthenticationService', function ($http, $localStorage) {
+        var service = {};
+
+        service.Login = Login;
+        service.Logout = Logout;
+
+        return service;
+
+        function Login(username, password, callback) {
+            callback(true);
+            // $http.post('/api/authenticate', {
+            //         username: username,
+            //         password: password
+            //     })
+            //     .success(function (response) {
+            //         if (response.token) {
+            //             $localStorage.currentUser = {
+            //                 username: username,
+            //                 token: response.token
+            //             };
+
+            //             $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
+
+            //             callback(true);
+            //         } else {
+            //             callback(false);
+            //         }
+            //     });
+        }
+
+        function Logout() {
+            delete $localStorage.currentUser;
+            $http.defaults.headers.common.Authorization = '';
+        }
+    });
