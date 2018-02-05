@@ -7,7 +7,10 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
     $scope.lista.candidatos = [];
     $scope.Dato = {};
 
+    Mensaje.Esperar();
+
     var allData = candidatesServices.getAll(function (result) {
+        Mensaje.Desocupar();
         if (!result.error) {
             $scope.lista.candidatos = result.data.candidates;
             $scope.lista.cantidad = " (" + result.data.candidates.length + " candidatos)";
@@ -70,7 +73,9 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
     };
 
     $scope.advSearch = function (country, status, skill, jobFunction, jobs) {
+        Mensaje.Esperar();
         candidatesServices.advSearch(String(country), String(status), String(skill), String(jobFunction), String(jobs), function (result) {
+            Mensaje.Desocupar();
             if (!result.error) {
                 $scope.lista.candidatos = result.data.candidates;
                 $scope.lista.cantidad = " (" + result.data.candidates.length + " candidatos)";
@@ -122,13 +127,21 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
     };
 
     $scope.uploadFile = function (files) {
+        Mensaje.Esperar("Subiendo curriculum");
         var fd = new FormData();
         fd.append("file", files[0]);
         var reader = new FileReader();
         reader.readAsDataURL(files[0]);
         reader.onload = function () {
-            var resultado = candidatesServices.uploadFile(files[0]);
-
+            var resultado = candidatesServices.uploadFile(files[0],function(result){
+                Mensaje.Desocupar();
+                if (!result.error) {
+                    $scope.buscarDetalle(result.data.id);
+                }
+                else {
+                    Mensaje.Alerta("Error", result.message);
+                }
+            });
         };
         reader.onerror = function (error) {
             console.log('Error: ', error);
