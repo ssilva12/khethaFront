@@ -104,13 +104,14 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
         var data = Dictionary.getSynonyms(string, tipo, 'null', function (error, result) {
             if (!error) {
                 console.log(result)
-                if (result.primary) {
+                if (result.suggested) {
                     console.log("como primario")
                     //$scope.data = [result.primary];
-                    model.assign($scope, [result.primary]);
+                    model.assign($scope, result.suggested);
                 } else {
                     //$scope.data = result.suggested;
-                    model.assign($scope, result.suggested);
+                    
+                    model.assign($scope, [result.primary]);
                 }
             } else {
                 Mensaje.Alerta("error", 'Error', '');
