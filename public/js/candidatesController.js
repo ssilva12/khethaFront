@@ -314,7 +314,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
 
     //INICIO ACTUALIZACIONES DE DATOS
     $scope.actualizarCandidato = function () {
-        Mensaje.Esperar();
+        Mensaje.Esperar("Guardando información");
         if ($scope.usuario.candidateInfo.id != null || $scope.usuario.candidateInfo.id != undefined) {
             var allData = candidatesServices.updateInformation($scope.usuario, function (result) {
                 Mensaje.Desocupar();
@@ -338,7 +338,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     };
 
     $scope.actualizarFeature = function (data, dictionary) {
-        Mensaje.Esperar();
+        Mensaje.Esperar("Guardando información");
         if (data.id != null && data.id != undefined) {
             var allData = candidatesServices.updateFeature(data, function (result) {
                 Mensaje.Desocupar();

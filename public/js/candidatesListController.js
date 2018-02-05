@@ -10,7 +10,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
     Mensaje.Esperar();
 
     var allData = candidatesServices.getAll(function (result) {
-        //Mensaje.Desocupar();
+        Mensaje.Desocupar();
         if (!result.error) {
             $scope.lista.candidatos = result.data.candidates;
             $scope.lista.cantidad = " (" + result.data.candidates.length + " candidatos)";
@@ -126,7 +126,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
     };
 
     $scope.uploadFile = function (files) {
-        Mensaje.Esperar();
+        Mensaje.Esperar("Subiendo curriculum");
         var fd = new FormData();
         fd.append("file", files[0]);
         var reader = new FileReader();
