@@ -1,4 +1,4 @@
-angular.module('myApp.candidatesCtrl', ['ui.select']).
+angular.module('myApp.candidatesCtrl', ['ui.select', 'angularjs-datetime-picker']).
 controller('candidatesController', ['$scope', '$routeParams', 'candidatesServices', 'Mensaje', 'Dictionary', '$parse', '$timeout', function ($scope, $routeParams, candidatesServices, Mensaje, Dictionary, $parse, $timeout) {
     //Variables globales
     $scope.variablesGlobales = {};
@@ -45,26 +45,23 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
         label: "Cargos a los que se ha postulado"
     }];
     $scope.variablesGlobales.sexo = [{
+        value: 0,
+        label: "Hombre"
+    }, {
         value: 1,
-        label: "Femenino"
-    }, {
-        value: 2,
-        label: "Masculino"
-    }, {
-        value: 3,
-        label: "Indefinido"
+        label: "Mujer"
     }];
     $scope.variablesGlobales.estados = [{
-        value: 1,
+        value: "A",
         label: "Asignado"
     }, {
-        value: 2,
+        value: "P",
         label: "En proceso de selección"
     }, {
-        value: 3,
+        value: "F",
         label: "Disponible"
     }, {
-        value: 4,
+        value: "N",
         label: "No disponible"
     }];
     $scope.variablesGlobales.poblacion = [{
@@ -107,17 +104,21 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                     }
                 }
                 //Datos faltantes
-                $scope.usuario.candidateInfo.title = "xxxxxxxxxxxxxx";
-                $scope.usuario.candidateInfo.username = "xxxxxxxxxx";
-                $scope.usuario.candidateInfo.sex = "";
-                $scope.usuario.candidateInfo.status = "";
-                $scope.usuario.candidateInfo.idNumber = "xxxxxxxxxx";
-                $scope.usuario.candidateInfo.poblacion = "";
-                $scope.usuario.candidateInfo.pais = "";
+                $scope.usuario.estudiosCertificaciones = [];
+                $scope.usuario.caracteristicas = [];
+                $scope.usuario.caracteristicasPsicologicas = [];
+                $scope.usuario.postulaciones = [];
+                // $scope.usuario.candidateInfo.title = "xxxxxxxxxxxxxx";
+                // $scope.usuario.candidateInfo.username = "xxxxxxxxxx";
+                // $scope.usuario.candidateInfo.sex = "";
+                // $scope.usuario.candidateInfo.status = "";
+                // $scope.usuario.candidateInfo.idNumber = "xxxxxxxxxx";
+                // $scope.usuario.candidateInfo.poblacion = "";
+                // $scope.usuario.candidateInfo.pais = "";
 
 
-                $scope.usuario.candidateInfo.desde = "xx/xx/xxxx";
-                $scope.usuario.candidateInfo.ultimaAct = "xx/xx/xxxx";
+                // $scope.usuario.candidateInfo.desde = "xx/xx/xxxx";
+                // $scope.usuario.candidateInfo.ultimaAct = "xx/xx/xxxx";
                 // $scope.usuario.experiencia = [{
                 //     job: "xxxxxxxxxx",
                 //     fecha: "xx/xx/xxxx",
@@ -131,32 +132,32 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 //     pais: "",
                 //     edit: false
                 // }];
-                $scope.usuario.estudiosCertificaciones = [{
-                    estudio: "xxxxxxxxxxxxxxx",
-                    pais: "",
-                    edit: false
-                }];
+                // $scope.usuario.estudiosCertificaciones = [{
+                //     estudio: "xxxxxxxxxxxxxxx",
+                //     pais: "",
+                //     edit: false
+                // }];
 
                 // $scope.usuario.skills = [{
                 //     nombre: "xxxxxxxxxxxxxx",
                 //     meses: "xx",
                 //     fechaFin: "xx/xx/xxxx"
                 // }];
-                $scope.usuario.caracteristicas = [{
-                    nombre: "",
-                    valor: ""
-                }];
-                $scope.usuario.caracteristicasPsicologicas = [{
-                    nombre: "",
-                    valor: 0
-                }];
-                $scope.usuario.postulaciones = [{
-                    job: "xxxxxxxxxxxx",
-                    fecha: "xx/xx/xxxx",
-                    empleador: "xxxxx",
-                    seleccionado: "No",
-                    ranking: "xx/xx"
-                }];
+                // $scope.usuario.caracteristicas = [{
+                //     nombre: "",
+                //     valor: ""
+                // }];
+                // $scope.usuario.caracteristicasPsicologicas = [{
+                //     nombre: "",
+                //     valor: 0
+                // }];
+                // $scope.usuario.postulaciones = [{
+                //     job: "xxxxxxxxxxxx",
+                //     fecha: "xx/xx/xxxx",
+                //     empleador: "xxxxx",
+                //     seleccionado: "No",
+                //     ranking: "xx/xx"
+                // }];
                 //fin datos faltantes
             } else {
                 Mensaje.Alerta("error", result.message);
@@ -398,9 +399,9 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     }
     //FIN ACTUALIZACION DE DATOS
     $scope.data = [];
-    $scope.autocompletarInput = function (string, tipo, datos) {
+    $scope.autocompletarInput = function (string, tipo, datos, acronimo) {
         var model = $parse(datos);
-        var data = Dictionary.getSynonyms(string, tipo, 'null', function (error, result) {
+        var data = Dictionary.getSynonyms(string, tipo, acronimo, function (error, result) {
             if (!error) {
                 console.log(result)
                 if (result.suggested) {
@@ -417,6 +418,12 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 model.assign($scope, []);
             }
         });
+    };
+
+    $scope.getAcronym = function(item){
+        $scope.usuario.candidateInfo.country = item.er;
+        $scope.usuario.candidateInfo.acronym = item.acronym;
+        console.log(item);
     };
 
     //EVENTOS AUTOCOMPLETAR

@@ -70,7 +70,7 @@ div(class="page-content-wrap")
                                     div(class="form-group clearfix", ng-class="{ 'has-error' : formCandidato.nombre.$invalid && !formCandidato.nombre.$pristine }")   
                                         label(class="col-md-3 control-label") Nombre Completo:
                                         div(class="col-md-9")
-                                            input(class="form-control",ng-focus="onFocus('NombreVisible',1)",ng-blur="onBlur('NombreVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.name,'Name','dataName')", ng-model="usuario.candidateInfo.name")
+                                            input(class="form-control",ng-focus="onFocus('NombreVisible',1)",ng-blur="onBlur('NombreVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.name,'Name','dataName','null')", ng-model="usuario.candidateInfo.name")
                                             ul(ng-show="{{ 'NombreVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                 li(class="list-group-item",ng-mousedown="usuario.candidateInfo.name = persona.er", ng-repeat="persona in dataName") {{persona.er}}
                                     div(class="form-group clearfix")
@@ -106,23 +106,27 @@ div(class="page-content-wrap")
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") Dirección:
                                         div(class="col-md-9")
-                                            input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.addressLine")                    
+                                            input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.addressLine")   
+                                    div(class="form-group clearfix")
+                                        label(class="col-md-3 control-label") País:
+                                        div(class="col-md-9")
+                                            input(class="form-control",ng-focus="onFocus('paisVisible',1)",ng-blur="onBlur('paisVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.country,'CountryName','dataPais','null'); usuario.candidateInfo.cityName =''; usuario.candidateInfo.postalCode =''", ng-model="usuario.candidateInfo.country")
+                                            ul(ng-show="{{ 'paisVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                                li(class="list-group-item",ng-mousedown="getAcronym(pais)", ng-repeat="pais in dataPais") {{pais.er}}                 
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") Población:
                                         div(class="col-md-9")
-                                            input(class="form-control",ng-focus="onFocus('poblacionVisible',1)",ng-blur="onBlur('poblacionVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.cityName,'CityName','dataCity')", ng-model="usuario.candidateInfo.cityName")
+                                            input(class="form-control",ng-focus="onFocus('poblacionVisible',1)",ng-blur="onBlur('poblacionVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.cityName,'CityName','dataCity',usuario.candidateInfo.acronym)", ng-model="usuario.candidateInfo.cityName", ng-disabled="!usuario.candidateInfo.country")
                                             ul(ng-show="{{ 'poblacionVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                 li(class="list-group-item",ng-mousedown="usuario.candidateInfo.cityName = city.er", ng-repeat="city in dataCity") {{city.er}}
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") Código postal:
                                         div(class="col-md-9")
-                                            input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.postalCode")
+                                            input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.postalCode", ng-disabled="!usuario.candidateInfo.country") 
                                     div(class="form-group clearfix")
-                                        label(class="col-md-3 control-label") País:
+                                        label(class="col-md-3 control-label") Fecha de nacimiento:
                                         div(class="col-md-9")
-                                            input(class="form-control",ng-focus="onFocus('paisVisible',1)",ng-blur="onBlur('paisVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.country,'CountryName','dataPais')", ng-model="usuario.candidateInfo.country")
-                                            ul(ng-show="{{ 'paisVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                li(class="list-group-item",ng-mousedown="usuario.candidateInfo.country = pais.er", ng-repeat="pais in dataPais") {{pais.er}}
+                                            input(datetime-picker="", date-format="yyyy-MM-dd", ng-model="usuario.candidateInfo.birthdate", date-only="", class="form-control")
                                     div(class="form-group")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="formCandidato.$valid && actualizarCandidato()") 
@@ -208,18 +212,18 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Estudio
                                                                             div(class="col-md-9")
-                                                                                p(ng-bind="estudio.studyName", ng-hide="estudio.edit")
+                                                                                p(ng-bind="estudio.name", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    input(class="form-control",ng-focus="onFocus('estudioNombre',$index)",ng-blur="onBlur('estudioNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.studyName,'studiesName','dataEstudio')", ng-model="estudio.studyName")
+                                                                                    input(class="form-control",ng-focus="onFocus('estudioNombre',$index)",ng-blur="onBlur('estudioNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.name,'studiesName','dataEstudio','null')", ng-model="estudio.name")
                                                                                     ul(ng-show="{{ 'estudioNombre' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                                                        li(class="list-group-item",ng-mousedown="estudio.studyName = estudio.er", ng-repeat="estudio in dataEstudio") {{estudio.studyName}}  
+                                                                                        li(class="list-group-item",ng-mousedown="estudio.name = estudio.er", ng-repeat="estudio in dataEstudio") {{estudio.studyName}}  
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Grado
                                                                             div(class="col-md-9")
-                                                                                p(ng-bind="estudio.methaRelation", ng-hide="estudio.edit")
+                                                                                p(ng-bind="estudio.mrName", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    select(select2="", ng-model="estudio.methaRelation", class="form-control")  
+                                                                                    select(select2="", ng-model="estudio.levelOrOrder", class="form-control")  
                                                                                         option(value="0") Básico
                                                                                         option(value="1") Bachillerato
                                                                                         option(value="2") Form. Profesional
@@ -232,14 +236,14 @@ div(class="page-content-wrap")
                                                                                 label(for="") Fecha de terminación
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.fechaTerminacion", ng-hide="estudio.edit")
-                                                                                input(ng-model="estudio.fechaTerminacion", type="text", class="form-control", ng-show="estudio.edit")
+                                                                                input(datetime-picker="", date-format="yyyy-MM-dd", ng-model="estudio.fechaTerminacion", ng-show="estudio.edit", date-only="", class="form-control")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") País
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.pais", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    input(class="form-control",ng-focus="onFocus('estudioPais',$index)",ng-blur="onBlur('estudioPais',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.pais,'CountryName','dataEstudioPais')", ng-model="estudio.pais")
+                                                                                    input(class="form-control",ng-focus="onFocus('estudioPais',$index)",ng-blur="onBlur('estudioPais',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.pais,'CountryName','dataEstudioPais','null')", ng-model="estudio.pais")
                                                                                     ul(ng-show="{{ 'estudioPais' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                                         li(class="list-group-item",ng-mousedown="estudio.pais = estudio.er", ng-repeat="estudio in dataEstudioPais") {{estudio.er}}
                                                                     div(class="col-md-3")
@@ -278,7 +282,7 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.name", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    input(class="form-control",ng-focus="onFocus('centroNombre',$index)",ng-blur="onBlur('centroNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.name,'EducationalCenterName','dataEstudioName')", ng-model="estudio.name")
+                                                                                    input(class="form-control",ng-focus="onFocus('centroNombre',$index)",ng-blur="onBlur('centroNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.name,'EducationalCenterName','dataEstudioName','null')", ng-model="estudio.name")
                                                                                     ul(ng-show="{{ 'centroNombre' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                                         li(class="list-group-item",ng-mousedown="estudio.name = item.er", ng-repeat="item in dataEstudioName") {{item.er}}
                                                                         div(class="form-group row row-space")
@@ -287,17 +291,17 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.pais", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    input(class="form-control",ng-focus="onFocus('centroPais',$index)",ng-blur="onBlur('centroPais',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.pais,'CountryName','dataEstudioPais')", ng-model="estudio.pais")
+                                                                                    input(class="form-control",ng-focus="onFocus('centroPais',$index)",ng-blur="onBlur('centroPais',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.pais,'CountryName','dataEstudioPais','null')", ng-model="estudio.pais")
                                                                                     ul(ng-show="{{ 'centroPais' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                                         li(class="list-group-item",ng-mousedown="estudio.pais = item.er", ng-repeat="item in dataEstudioPais") {{item.er}}
-                                                                        div(class="form-group row row-space")
+                                                                        div(class="form-group row row-space", style="display:none")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Meta Relación
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.methaRelation", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
                                                                                     select(select2="", ng-model="estudio.methaRelation", class="form-control")  
-                                                                                        option(value="0") Unike                                                                              
+                                                                                        option(value="0",selected="") Unike                                                                              
                                                                     div(class="col-md-3")
                                                                         ul(class="panel-controls")
                                                                             li()
@@ -334,7 +338,7 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.estudio", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    input(class="form-control",ng-focus="onFocus('certificadoNombre',$index)",ng-blur="onBlur('certificadoNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.estudio,'CertificateName','dataCertificadoEstudio')", ng-model="estudio.estudio")
+                                                                                    input(class="form-control",ng-focus="onFocus('certificadoNombre',$index)",ng-blur="onBlur('certificadoNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.estudio,'CertificateName','dataCertificadoEstudio','null')", ng-model="estudio.estudio")
                                                                                     ul(ng-show="{{ 'certificadoNombre' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                                         li(class="list-group-item",ng-mousedown="estudio.estudio = item.er", ng-repeat="item in dataCertificadoEstudio") {{item.er}}
                                                                         div(class="form-group row row-space")
@@ -343,17 +347,17 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.pais", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    input(class="form-control",ng-focus="onFocus('certificadoPais',$index)",ng-blur="onBlur('certificadoPais',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.pais,'CountryName','dataCertificadoPais')", ng-model="estudio.pais")
+                                                                                    input(class="form-control",ng-focus="onFocus('certificadoPais',$index)",ng-blur="onBlur('certificadoPais',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.pais,'CountryName','dataCertificadoPais','null')", ng-model="estudio.pais")
                                                                                     ul(ng-show="{{ 'certificadoPais' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                                         li(class="list-group-item",ng-mousedown="estudio.pais = item.er", ng-repeat="item in dataCertificadoPais") {{item.er}}
-                                                                        div(class="form-group row row-space")
+                                                                        div(class="form-group row row-space", style="display:none")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Meta Relación
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.methaRelation", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
                                                                                     select(select2="", ng-model="estudio.methaRelation", class="form-control")  
-                                                                                        option(value="0") Unike
+                                                                                        option(value="0", selected="") Unike
                                                                     div(class="col-md-3")
                                                                         ul(class="panel-controls")
                                                                             li()
@@ -390,7 +394,7 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="exp.name", ng-hide="exp.edit")
                                                                                 div(style="width:100%", ng-show="exp.edit")
-                                                                                    input(class="form-control",ng-focus="onFocus('experienciaNombreVisible',$index)",ng-blur="onBlur('experienciaNombreVisible',$index)", ng-attr-list="{{ 'experienciaNombre' + $index }}", ng-attr-name="{{ 'experienciaNombre' + $index }}",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(exp.name,'JobFunctionName','dataExperienciaNombre')", ng-model="exp.name")
+                                                                                    input(class="form-control",ng-focus="onFocus('experienciaNombreVisible',$index)",ng-blur="onBlur('experienciaNombreVisible',$index)", ng-attr-list="{{ 'experienciaNombre' + $index }}", ng-attr-name="{{ 'experienciaNombre' + $index }}",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(exp.name,'JobFunctionName','dataExperienciaNombre','null')", ng-model="exp.name")
                                                                                     ul(ng-show="{{ 'experienciaNombreVisible' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                                         li(class="list-group-item",ng-mousedown="exp.name = item.er", ng-repeat="item in dataExperienciaNombre") {{item.er}} 
                                                                         div(class="form-group row row-space")
@@ -398,7 +402,7 @@ div(class="page-content-wrap")
                                                                                 label(for="") Fecha
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="exp.lastDate", ng-hide="exp.edit")
-                                                                                input(ng-model="exp.lastDate", type="text", class="form-control", ng-show="exp.edit")
+                                                                                input(datetime-picker="", date-format="yyyy-MM-dd", ng-model="exp.lastDate", ng-show="exp.edit", date-only="", class="form-control")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Meses
@@ -439,30 +443,30 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Nombre
                                                                             div(class="col-md-9")
-                                                                                p(ng-bind="exp.jobName", ng-hide="exp.edit")
-                                                                                input(class="form-control",ng-focus="onFocus('empleadorNombre',$index)",ng-blur="onBlur('empleadorNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(exp.jobName,'EmployerName','dataEmpleadorNombre')", ng-model="exp.jobName", ng-show="exp.edit")
+                                                                                p(ng-bind="exp.name", ng-hide="exp.edit")
+                                                                                input(class="form-control",ng-focus="onFocus('empleadorNombre',$index)",ng-blur="onBlur('empleadorNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(exp.name,'EmployerName','dataEmpleadorNombre','null')", ng-model="exp.name", ng-show="exp.edit")
                                                                                 ul(ng-show="{{ 'empleadorNombre' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                                                    li(class="list-group-item",ng-mousedown="exp.jobName = item.er", ng-repeat="item in dataEmpleadorNombre") {{item.er}}
+                                                                                    li(class="list-group-item",ng-mousedown="exp.name = item.er", ng-repeat="item in dataEmpleadorNombre") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Fecha
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="exp.lastDate", ng-hide="exp.edit")
-                                                                                input(ng-model="exp.lastDate", type="text", class="form-control", ng-show="exp.edit")
+                                                                                input(datetime-picker="", date-format="yyyy-MM-dd", ng-model="exp.lastDate", ng-show="exp.edit", date-only="", class="form-control")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Meses
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="exp.value", ng-hide="exp.edit")
                                                                                 input(ng-model="exp.value", type="text", class="form-control", ng-show="exp.edit")
-                                                                        div(class="form-group row row-space")
+                                                                        div(class="form-group row row-space", style="display:none")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Meta Relación
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="exp.methaRelation", ng-hide="exp.edit")
                                                                                 div(style="width:100%", ng-show="exp.edit")
                                                                                     select(select2="", ng-model="exp.methaRelation", class="form-control")  
-                                                                                        option(value="0") Empleado por
+                                                                                        option(value="0", selected="") Empleado por
                                                                                         option(value="1") Empleado para
                                                                     div(class="col-md-3")
                                                                         ul(class="panel-controls")
@@ -498,18 +502,18 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Idioma
                                                                             div(class="col-md-9")
-                                                                                p(ng-bind="idioma.lenguageName", ng-hide="idioma.edit")
+                                                                                p(ng-bind="idioma.name", ng-hide="idioma.edit")
                                                                                 div(style="width:100%", ng-show="idioma.edit")
-                                                                                    input(class="form-control",ng-focus="onFocus('idiomaNombre',$index)",ng-blur="onBlur('idiomaNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(idioma.lenguageName,'LanguageName','dataIdioma')", ng-model="idioma.lenguageName")
+                                                                                    input(class="form-control",ng-focus="onFocus('idiomaNombre',$index)",ng-blur="onBlur('idiomaNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(idioma.name,'LanguageName','dataIdioma','null')", ng-model="idioma.name")
                                                                                     ul(ng-show="{{ 'idiomaNombre' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                                                        li(class="list-group-item",ng-mousedown="idioma.lenguageName = item.er", ng-repeat="item in dataIdioma") {{item.er}}
+                                                                                        li(class="list-group-item",ng-mousedown="idioma.name = item.er", ng-repeat="item in dataIdioma") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Meta Relación
                                                                             div(class="col-md-9")
-                                                                                p(ng-bind="idioma.methaRelation", ng-hide="idioma.edit")
+                                                                                p(ng-bind="idioma.mfName", ng-hide="idioma.edit")
                                                                                 div(style="width:100%", ng-show="idioma.edit")
-                                                                                    select(select2="", ng-model="idioma.methaRelation", class="form-control")  
+                                                                                    select(select2="", ng-model="idioma.level", class="form-control")  
                                                                                         option(value="0") Hablado
                                                                                         option(value="1") Escrito
                                                                                         option(value="2") Leído
@@ -549,7 +553,7 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="skill.name", ng-hide="skill.edit")
                                                                                 div(style="width:100%", ng-show="skill.edit")
-                                                                                    input(class="form-control",ng-focus="onFocus('skillNombre',$index)",ng-blur="onBlur('skillNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(skill.name,'SkillName','dataSkill')", ng-model="skill.name")
+                                                                                    input(class="form-control",ng-focus="onFocus('skillNombre',$index)",ng-blur="onBlur('skillNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(skill.name,'SkillName','dataSkill','null')", ng-model="skill.name")
                                                                                     ul(ng-show="{{ 'skillNombre' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                                         li(class="list-group-item",ng-mousedown="skill.name = item.er", ng-repeat="item in dataSkill") {{item.er}}
                                                                         div(class="form-group row row-space")
@@ -563,7 +567,7 @@ div(class="page-content-wrap")
                                                                                 label(for="") Fecha
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="skill.lastDate", ng-hide="skill.edit")
-                                                                                input(ng-model="skill.lastDate", type="text", class="form-control", ng-show="skill.edit")
+                                                                                input(datetime-picker="", date-format="yyyy-MM-dd", ng-model="skill.lastDate", ng-show="skill.edit", date-only="", class="form-control")
                                                                     div(class="col-md-3")
                                                                         ul(class="panel-controls")
                                                                             li()
@@ -598,11 +602,11 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Caracteristica
                                                                             div(class="col-md-9")
-                                                                                p(ng-bind="caracteristica.nombre", ng-hide="caracteristica.edit")
+                                                                                p(ng-bind="caracteristica.name", ng-hide="caracteristica.edit")
                                                                                 div(style="width:100%", ng-show="caracteristica.edit")
-                                                                                    input(class="form-control",ng-focus="onFocus('caracteristicaNombre',$index)",ng-blur="onBlur('caracteristicaNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(caracteristica.nombre,undefined,'dataJob')", ng-model="caracteristica.nombre")
+                                                                                    input(class="form-control",ng-focus="onFocus('caracteristicaNombre',$index)",ng-blur="onBlur('caracteristicaNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(caracteristica.name,undefined,'dataJob','null')", ng-model="caracteristica.name")
                                                                                     ul(ng-show="{{ 'caracteristicaNombre' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                                                        li(class="list-group-item",ng-mousedown="caracteristica.nombre = item.er", ng-repeat="item in dataJob") {{item.er}}
+                                                                                        li(class="list-group-item",ng-mousedown="caracteristica.name = item.er", ng-repeat="item in dataJob") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Valor
@@ -643,11 +647,11 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Caracteristica
                                                                             div(class="col-md-9")
-                                                                                p(ng-bind="caracteristica.nombre", ng-hide="caracteristica.edit")
+                                                                                p(ng-bind="caracteristica.name", ng-hide="caracteristica.edit")
                                                                                 div(style="width:100%", ng-show="caracteristica.edit")
-                                                                                    input(class="form-control",ng-focus="onFocus('caracteristicasPsicologicasNombre',$index)",ng-blur="onBlur('caracteristicasPsicologicasNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(caracteristica.nombre,'PsychologicalCharacteristicsName','dataJobFunction')", ng-model="caracteristica.nombre")
+                                                                                    input(class="form-control",ng-focus="onFocus('caracteristicasPsicologicasNombre',$index)",ng-blur="onBlur('caracteristicasPsicologicasNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(caracteristica.name,'PsychologicalCharacteristicsName','dataJobFunction','null')", ng-model="caracteristica.name")
                                                                                     ul(ng-show="{{ 'caracteristicasPsicologicasNombre' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                                                        li(class="list-group-item",ng-mousedown="caracteristica.nombre = item.er", ng-repeat="item in dataJobFunction") {{item.er}}
+                                                                                        li(class="list-group-item",ng-mousedown="caracteristica.name = item.er", ng-repeat="item in dataJobFunction") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Valor
@@ -715,7 +719,7 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="caracteristica.name", ng-hide="caracteristica.edit")
                                                                                 div(style="width:100%", ng-show="caracteristica.edit")
-                                                                                    input(class="form-control",ng-focus="onFocus('caracteristicasPsicologicasNombre',$index)",ng-blur="onBlur('caracteristicasPsicologicasNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(caracteristica.nombre,'PsychologicalCharacteristicsName','dataJobFunction')", ng-model="caracteristica.nombre")
+                                                                                    input(class="form-control",ng-focus="onFocus('caracteristicasPsicologicasNombre',$index)",ng-blur="onBlur('caracteristicasPsicologicasNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(caracteristica.nombre,'PsychologicalCharacteristicsName','dataJobFunction','null')", ng-model="caracteristica.nombre")
                                                                                     ul(ng-show="{{ 'caracteristicasPsicologicasNombre' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                                         li(class="list-group-item",ng-mousedown="caracteristica.nombre = item.name", ng-repeat="item in dataJobFunction") {{item.name}}
                                                                         div(class="form-group row row-space")
