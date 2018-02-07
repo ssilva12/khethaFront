@@ -90,7 +90,7 @@ div(class="page-content-wrap")
                                                         i(class="fa fa-circle status-disponible")
                                                 select(class="form-control", select2="", name="estado", data-ng-model="usuario.candidateInfo.status")
                                                     option(value="") Seleccione
-                                                    option(ng-repeat="estado in variablesGlobales.estados", value="estado.value") {{estado.label}}
+                                                    option(ng-repeat="estado in variablesGlobales.estados", value="{{estado.value}}") {{estado.label}}
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") Número de identificación:
                                         div(class="col-md-9")
