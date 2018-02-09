@@ -33,9 +33,9 @@ div(class="page-content-wrap")
                                     div(class="input-group")
                                         div(class="input-group-addon")
                                             span(class="fa fa-search")
-                                        input(class="form-control", placeholder="¿A quién estás buscando?", type="text", ng-model="search.name")
+                                        input(class="form-control", placeholder="¿A quién estás buscando?", type="text", ng-model="Dato.name")
                                         div(class="input-group-btn")
-                                            button(class="btn btn-primary mb-control", data-box="#message-box-success",ng-click="advSearch(Dato.country,status,Dato.skill,Dato.jobFunction,Dato.jobs)", ng-hide="busquedaAvanzada") Buscar
+                                            button(class="btn btn-primary mb-control", data-box="#message-box-success",ng-click="advSearch(Dato.name,Dato.country,Dato.status,Dato.skill,Dato.jobFunction,Dato.jobs,1,12)", ng-hide="busquedaAvanzada") Buscar
                                 div(class="col-md-3")
                                     button(class="btn btn-default btn-block mb-control", ng-click="busquedaAvanzada = !busquedaAvanzada")
                                         span(class="fa fa-plus")
@@ -52,8 +52,9 @@ div(class="page-content-wrap")
                                         div(class="col-sm-1") 
                                             label(for="") Estatus
                                         div(class="col-sm-3")
-                                            select(style="width:100%",class="form-control", select2="", name="estatus", ng-model="status")
+                                            select(style="width:100%",class="form-control", select2="", name="estatus", ng-model="Dato.status")
                                                 option(value="") Seleccione
+                                                option(ng-repeat="estado in variablesGlobales.estados", value="{{estado.value}}") {{estado.label}}
                                         div(class="col-sm-1") 
                                             label(for="") Skill
                                         div(class="col-sm-3")
@@ -75,11 +76,11 @@ div(class="page-content-wrap")
                                                 li(class="list-group-item",ng-mousedown="Dato.job = item.er", ng-repeat="item in dataJob") {{item.er}}
                                     div(class="row")
                                         div(class="col-sm-12")
-                                            button(class="btn btn-primary mb-control pull-right",ng-click="advSearch(Dato.country,status,Dato.skill,Dato.jobFunction,Dato.jobs)", data-box="#message-box-success") Buscar
+                                            button(class="btn btn-primary mb-control pull-right",ng-click="advSearch(Dato.name,Dato.country,Dato.status,Dato.skill,Dato.jobFunction,Dato.jobs,1,12)", data-box="#message-box-success") Buscar
         //- CANDIDATOS
         div(class="row")
-            div(class="col-sm-12")
-                div(class="col-md-3", ng-repeat="candidato in filtered = lista.candidatos | filter : search | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit")
+            div(class="col-sm-12", style="display: flex; flex-wrap: wrap;")
+                div(class="col-md-3", ng-repeat="candidato in lista.candidatos")
                     //- CONTACT ITEM
                     div(class="panel panel-default", ng-click="buscarDetalle(candidato.id)", style="cursor: pointer;")
                         div(class="panel-body profileCandidato")
@@ -106,7 +107,7 @@ div(class="page-content-wrap")
         div(class="row")
             div(class="col-sm-12")
                 div(class="col-md-9")
-                    pagination(class="pagination pagination-sm",page="currentPage", max-size="noOfPages", total-items="totalItems", items-per-page="entryLimit")
+                    pagination(class="pagination pagination-sm",page="lista.currentPage", max-size="lista.noOfPages", total-items="lista.totalItems", items-per-page="lista.entryLimit", ng-click="pagination()")
                 div(class="col-md-3")
                     button(ng-click="crearNuevo()", class="btn btn-default btn-block")
                         i(class="fa fa-user-plus", aria-hidden="true")

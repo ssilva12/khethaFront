@@ -344,6 +344,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
             var allData = candidatesServices.updateFeature(data, function (result) {
                 Mensaje.Desocupar();
                 if (!result.error) {
+                    $scope.cargarCandidato($scope.usuario.candidateInfo.id);
                     Mensaje.Alerta("success", 'OK', result.message);
                 } else {
                     Mensaje.Alerta("error", 'Error', result.message);
@@ -354,6 +355,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
             var allData = candidatesServices.createFeature($scope.usuario.candidateInfo.id, data, function (result) {
                 Mensaje.Desocupar();
                 if (!result.error) {
+                    $scope.cargarCandidato($scope.usuario.candidateInfo.id);
                     Mensaje.Alerta("success", 'OK', result.message);
                 } else {
                     Mensaje.Alerta("error", 'Error', result.message);
