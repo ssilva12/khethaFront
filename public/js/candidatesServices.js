@@ -253,17 +253,20 @@ angular.module('myApp.candidatesServices', [])
             });
         };
 
-        candidatesServices.advSearch = function (country, status, skill, jobFunction, jobs, callback) {
+        candidatesServices.advSearch = function (name, country, status, skill, jobFunction, jobs, page, itemsPerPage, callback) {
             $http({
                 method: 'GET',
                 params: {
+                    name: name,
                     country: country,
                     status: status,
                     skill: skill,
                     jobFunction: jobFunction,
-                    jobs: jobs
+                    jobs: jobs,
+                    page: page,
+                    itemsPerPage: itemsPerPage
                 },
-                url: URL.URL_REST_SERVICE + 'advSearch'
+                url: URL.URL_REST_SERVICE + 'paginatedSearch'
             }).
             then(function onSuccess(response) {
                 Result.error = false;

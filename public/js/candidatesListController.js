@@ -1,48 +1,31 @@
 angular.module('myApp.candidatesListCtrl', ['ui.bootstrap']).
-controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'filterFilter', 'Mensaje', '$rootScope', 'Dictionary', '$parse', '$timeout', function ($scope, candidatesServices, $location, filterFilter, Mensaje, $rootScope, Dictionary, $parse, $timeout) {
+controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'Mensaje', '$rootScope', 'Dictionary', '$parse', '$timeout', function ($scope, candidatesServices, $location, Mensaje, $rootScope, Dictionary, $parse, $timeout) {
 
-    $rootScope.activeId == 'candidateList';
     $scope.lista = {};
-    $scope.lista.filtro = "";
     $scope.lista.candidatos = [];
+    $scope.lista.currentPage = 0;
+    $scope.lista.totalItems = 0;
+    $scope.lista.entryLimit = 0;
+    $scope.lista.noOfPages = 0;
+
+
     $scope.Dato = {};
+    $scope.variablesGlobales = {};
+    $scope.variablesGlobales.estados = [{
+        value: "A",
+        label: "Asignado"
+    }, {
+        value: "P",
+        label: "En proceso de selección"
+    }, {
+        value: "F",
+        label: "Disponible"
+    }, {
+        value: "N",
+        label: "No disponible"
+    }];
 
-    Mensaje.Esperar();
-
-    var allData = candidatesServices.getAll(function (result) {
-        Mensaje.Desocupar();
-        if (!result.error) {
-            $scope.lista.candidatos = result.data.candidates;
-            $scope.lista.cantidad = " (" + result.data.candidates.length + " candidatos)";
-
-            $scope.search = {
-                name: $scope.lista.filtro
-            };
-
-            $scope.resetFilters = function () {
-                $scope.lista.filtro = "";
-                $scope.search = {
-                    name: $scope.lista.filtro
-                };
-            };
-
-            // pagination controls
-            $scope.currentPage = 1;
-            $scope.totalItems = $scope.lista.candidatos.length;
-            $scope.entryLimit = 12; // items per page
-            $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
-
-            // $watch search to update pagination
-            $scope.$watch('search', function (newVal, oldVal) {
-                $scope.filtered = filterFilter($scope.lista.candidatos, newVal);
-                $scope.totalItems = $scope.filtered.length;
-                $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
-                $scope.currentPage = 1;
-            }, true);
-        } else {
-            Mensaje.Alerta("error", 'Error', result.message);
-        }
-    });
+    
 
     $scope.buscarDetalle = function (id) {
         $location.path('/detail/' + id);
@@ -52,57 +35,36 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
         $location.path('/detail/');
     };
 
-    $scope.people = [];
-    $scope.localSearch = function (str) {
-        var matches = [];
-        var data = Dictionary.getSynonyms(str, 'null', 'null', function (error, result) {
-            if (!error) {
-                if (result.prymary) {
-                    $scope.people = [result.primary];
-                    console.log($scope.people)
-                } else {
-                    $scope.people = result.suggested;
-                    console.log($scope.people)
-                }
-            } else {
-                Mensaje.Alerta("error", 'Error', '');
-                $scope.people = [];
-                console.log("aqui")
-            }
-        });
-    };
-
-    $scope.advSearch = function (country, status, skill, jobFunction, jobs) {
+    $scope.advSearch = function (name, country, status, skill, jobFunction, jobs, page, itemsPerPage) {
         Mensaje.Esperar();
-        candidatesServices.advSearch(String(country), String(status), String(skill), String(jobFunction), String(jobs), function (result) {
+        candidatesServices.advSearch(String(name), String(country), String(status), String(skill), String(jobFunction), String(jobs), String(page), String(itemsPerPage), function (result) {
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.lista.candidatos = result.data.candidates;
-                $scope.lista.cantidad = " (" + result.data.candidates.length + " candidatos)";
+                $scope.lista.cantidad = " (" + result.data.total + " candidatos)";
+                $scope.lista.currentPage = page;
+                $scope.lista.totalItems = result.data.total;
+                $scope.lista.entryLimit = itemsPerPage;
+                $scope.lista.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
 
-                $scope.search = {
-                    name: $scope.lista.filtro
-                };
-
-                $scope.resetFilters = function () {
-                    $scope.lista.filtro = "";
-                    $scope.search = {
-                        name: $scope.lista.filtro
-                    };
-                };
-
-                // pagination controls
-                $scope.currentPage = 1;
-                $scope.totalItems = $scope.lista.candidatos.length;
-                $scope.entryLimit = 12; // items per page
-                $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
-                $scope.lista.candidatos = result.data.candidates;
+                $scope.Dato.namePaginado = name;
+                $scope.Dato.countryPaginado = country;
+                $scope.Dato.statusPaginado = status;
+                $scope.Dato.skillPaginado = skill;
+                $scope.Dato.jobFunctionPaginado = jobFunction;
+                $scope.Dato.jobsPaginado = jobs;
             } else {
                 $scope.lista.candidatos = [];
                 Mensaje.Alerta("error", 'Error', result.message);
             }
         })
     }
+
+    $scope.advSearch("", "", "", "", "", "", 1, 12);
+    $scope.pagination = function () {
+        $scope.advSearch($scope.Dato.namePaginado, $scope.Dato.countryPaginado, $scope.Dato.statusPaginado, $scope.Dato.skillPaginado, $scope.Dato.jobFunctionPaginado, $scope.Dato.jobsPaginado, $scope.lista.currentPage, 12);
+    };
+
     $scope.data = [];
     $scope.autocompletarInput = function (string, tipo, datos) {
         var model = $parse(datos);
@@ -115,7 +77,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
                     model.assign($scope, result.suggested);
                 } else {
                     //$scope.data = result.suggested;
-                    
+
                     model.assign($scope, [result.primary]);
                 }
             } else {
@@ -133,12 +95,11 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
         var reader = new FileReader();
         reader.readAsDataURL(files[0]);
         reader.onload = function () {
-            var resultado = candidatesServices.uploadFile(files[0],function(result){
+            var resultado = candidatesServices.uploadFile(files[0], function (result) {
                 Mensaje.Desocupar();
                 if (!result.error) {
                     $scope.buscarDetalle(result.data.id);
-                }
-                else {
+                } else {
                     Mensaje.Alerta("Error", result.message);
                 }
             });
