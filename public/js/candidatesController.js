@@ -1,4 +1,4 @@
-angular.module('myApp.candidatesCtrl', ['ui.select', 'angularjs-datetime-picker']).
+angular.module('myApp.candidatesCtrl', ['ui.select', 'ADM-dateTimePicker']).
 controller('candidatesController', ['$scope', '$routeParams', 'candidatesServices', 'Mensaje', 'Dictionary', '$parse', '$timeout', function ($scope, $routeParams, candidatesServices, Mensaje, Dictionary, $parse, $timeout) {
     //Variables globales
     $scope.variablesGlobales = {};
@@ -103,6 +103,11 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                         $scope.usuario.candidateInfo.lat = coordenadas[1];
                     }
                 }
+                // debugger
+                if ($scope.usuario.candidateInfo.birthdate != "null" && $scope.usuario.candidateInfo.birthdate != null) {
+                    var parts = $scope.usuario.candidateInfo.birthdate.split('-');
+                    $scope.usuario.candidateInfo.birthdate = new Date(parts[0], parts[1] - 1, parts[2]);
+                }
                 //Datos faltantes
                 $scope.usuario.estudiosCertificaciones = [];
                 $scope.usuario.caracteristicas = [];
@@ -205,7 +210,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
 
     $scope.agregarCentroEstudio = function () {
         var estudio = {
-            educationalCenterName: "",
+            name: "",
             pais: "",
             edit: true
         };
@@ -258,7 +263,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
 
     $scope.eliminarIdioma = function (idioma) {
         var index = $scope.usuario.idiomas.indexOf(idioma);
-        $scope.usuario.idiomas.splice(index, 1);
+        $scope.usuario.languages.splice(index, 1);
     };
 
     $scope.agregarIdioma = function () {
@@ -267,7 +272,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
             methaRelation: "",
             edit: true
         };
-        $scope.usuario.idiomas.push(idioma);
+        $scope.usuario.languages.push(idioma);
     };
 
     $scope.agregarSkill = function () {
@@ -422,7 +427,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
         });
     };
 
-    $scope.getAcronym = function(item){
+    $scope.getAcronym = function (item) {
         $scope.usuario.candidateInfo.country = item.er;
         $scope.usuario.candidateInfo.acronym = item.acronym;
         console.log(item);
@@ -437,4 +442,6 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
             $parse(variable + index).assign($scope, false);
         }, 125);
     }
+
+    
 }]);
