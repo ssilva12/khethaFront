@@ -235,8 +235,8 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Fecha de terminación
                                                                             div(class="col-md-9")
-                                                                                p(ng-bind="estudio.fechaTerminacion", ng-hide="estudio.edit")
-                                                                                input(datetime-picker="", date-format="yyyy-MM-dd", ng-model="estudio.fechaTerminacion", ng-show="estudio.edit", date-only="", class="form-control")
+                                                                                p(ng-bind="estudio.lastDate", ng-hide="estudio.edit")
+                                                                                input(datetime-picker="", date-format="yyyy-MM-dd", ng-model="estudio.lastDate", ng-show="estudio.edit", date-only="", class="form-control")
                                                                         div(class="form-group row row-space", style="display:none;")
                                                                             div(class="col-md-3")
                                                                                 label(for="") País
@@ -336,11 +336,11 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Estudio
                                                                             div(class="col-md-9")
-                                                                                p(ng-bind="estudio.estudio", ng-hide="estudio.edit")
+                                                                                p(ng-bind="estudio.name", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    input(class="form-control",ng-focus="onFocus('certificadoNombre',$index)",ng-blur="onBlur('certificadoNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.estudio,'CertificateName','dataCertificadoEstudio','null')", ng-model="estudio.estudio")
+                                                                                    input(class="form-control",ng-focus="onFocus('certificadoNombre',$index)",ng-blur="onBlur('certificadoNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.name,'CertificateName','dataCertificadoEstudio','null')", ng-model="estudio.name")
                                                                                     ul(ng-show="{{ 'certificadoNombre' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                                                        li(class="list-group-item",ng-mousedown="estudio.estudio = item.er", ng-repeat="item in dataCertificadoEstudio") {{item.er}}
+                                                                                        li(class="list-group-item",ng-mousedown="estudio.name = item.er", ng-repeat="item in dataCertificadoEstudio") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") País

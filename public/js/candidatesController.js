@@ -194,9 +194,10 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
 
     $scope.agregarEstudio = function () {
         var estudio = {
-            studyName: "",
-            grado: "",
-            fechaTerminacion: "",
+            name: "",
+            mrName: "", 
+            levelOrOrder: "", 
+            lastDate: "",
             pais: "",
             edit: true
         };
@@ -224,7 +225,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
 
     $scope.agregarCertificado = function () {
         var estudio = {
-            estudio: "",
+            name: "",
             pais: "",
             edit: true
         };

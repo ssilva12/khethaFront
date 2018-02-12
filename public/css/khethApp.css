@@ -331,6 +331,8 @@ label {
 .select-list {
     z-index: 10;
     position: absolute;
+    height: 200px;
+    overflow: auto;
 }
 
 .select-list li:hover {

@@ -33,13 +33,16 @@ div(class="page-content-wrap")
                                     div(class="input-group")
                                         div(class="input-group-addon")
                                             span(class="fa fa-search")
-                                        input(class="form-control", placeholder="¿A quién estás buscando?", type="text", ng-model="Dato.name")
+                                        input(class="form-control", placeholder="¿A quién estás buscando?",ng-focus="onFocus('NombreVisible',1)",ng-blur="onBlur('NombreVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.name,'Name','dataName','null')", ng-model="Dato.name")
                                         div(class="input-group-btn")
                                             button(class="btn btn-primary mb-control", data-box="#message-box-success",ng-click="advSearch(Dato.name,Dato.country,Dato.status,Dato.skill,Dato.jobFunction,Dato.jobs,1,12)", ng-hide="busquedaAvanzada") Buscar
                                 div(class="col-md-3")
                                     button(class="btn btn-default btn-block mb-control", ng-click="busquedaAvanzada = !busquedaAvanzada")
                                         span(class="fa fa-plus")
                                         span() Búsqueda Avanzada
+                                div(class="col-md-12")
+                                    ul(ng-show="{{ 'NombreVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                        li(class="list-group-item",ng-mousedown="Dato.name = persona.er", ng-repeat="persona in dataName") {{persona.er}}
                             div(class="form-group", ng-show="busquedaAvanzada")
                                 div(class="dd-handle clearfix")
                                     div(class="row row-space")
@@ -92,17 +95,17 @@ div(class="page-content-wrap")
                         div(class="panel-body")
                             div(class="contact-info")
                                 p()
-                                    strong() Estatus:
-                                    span() En proceso de selección
+                                    strong() Estatus:&nbsp;
+                                    span(ng-bind="candidato.status")
                                 p()
-                                    strong() Nº Identificación:
-                                    span() #0987654321
+                                    strong() Nº Identificación:&nbsp;
+                                    span(ng-bind="candidato.idNumber") 
                                 p()
-                                    strong() Teléfono:
-                                    span() (+1 57_) 345 67 89
+                                    strong() Teléfono:&nbsp;
+                                    span(ng-bind="candidato.formattedNumber") 
                                 p()
-                                    strong() E-Mail:
-                                    a(href="#") JMarioDoeM@mail.com
+                                    strong() E-Mail:&nbsp;
+                                    a(ng-bind="candidato.email") 
         //- FIN CANDIDATOS
         div(class="row")
             div(class="col-sm-12")

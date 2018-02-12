@@ -1,15 +1,16 @@
-angular.module('myApp.candidatesListCtrl', ['ui.bootstrap']).
-controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'Mensaje', '$rootScope', 'Dictionary', '$parse', '$timeout', function ($scope, candidatesServices, $location, Mensaje, $rootScope, Dictionary, $parse, $timeout) {
+angular.module('myApp.candidatesListCtrl', ['ui.bootstrap', 'ngCookies']).
+controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'Mensaje', '$rootScope', 'Dictionary', '$parse', '$timeout', '$cookies', function ($scope, candidatesServices, $location, Mensaje, $rootScope, Dictionary, $parse, $timeout, $cookies) {
 
     $scope.lista = {};
     $scope.lista.candidatos = [];
-    $scope.lista.currentPage = 0;
+    $scope.lista.currentPage = 1;
     $scope.lista.totalItems = 0;
-    $scope.lista.entryLimit = 0;
+    $scope.lista.entryLimit = 12;
     $scope.lista.noOfPages = 0;
 
 
     $scope.Dato = {};
+
     $scope.variablesGlobales = {};
     $scope.variablesGlobales.estados = [{
         value: "A",
@@ -25,7 +26,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
         label: "No disponible"
     }];
 
-    
+
 
     $scope.buscarDetalle = function (id) {
         $location.path('/detail/' + id);
@@ -45,14 +46,17 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
                 $scope.lista.currentPage = page;
                 $scope.lista.totalItems = result.data.total;
                 $scope.lista.entryLimit = itemsPerPage;
-                $scope.lista.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
+                $scope.lista.noOfPages = Math.ceil($scope.lista.totalItems / $scope.lista.entryLimit);
 
-                $scope.Dato.namePaginado = name;
-                $scope.Dato.countryPaginado = country;
-                $scope.Dato.statusPaginado = status;
-                $scope.Dato.skillPaginado = skill;
-                $scope.Dato.jobFunctionPaginado = jobFunction;
-                $scope.Dato.jobsPaginado = jobs;
+
+                var Dato = {};
+                Dato.namePaginado = name;
+                Dato.countryPaginado = country;
+                Dato.statusPaginado = status;
+                Dato.skillPaginado = skill;
+                Dato.jobFunctionPaginado = jobFunction;
+                Dato.jobsPaginado = jobs;
+                $cookies.put('Filtros', JSON.stringify(Dato));
             } else {
                 $scope.lista.candidatos = [];
                 Mensaje.Alerta("error", 'Error', result.message);
@@ -60,10 +64,24 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
         })
     }
 
-    $scope.advSearch("", "", "", "", "", "", 1, 12);
+
     $scope.pagination = function () {
         $scope.advSearch($scope.Dato.namePaginado, $scope.Dato.countryPaginado, $scope.Dato.statusPaginado, $scope.Dato.skillPaginado, $scope.Dato.jobFunctionPaginado, $scope.Dato.jobsPaginado, $scope.lista.currentPage, 12);
     };
+
+    var datosCookies = $cookies.get('Filtros');
+    // if (datosCookies != null && datosCookies != undefined) {
+    //     var datos = JSON.parse(datosCookies);
+    //     $scope.Dato.namePaginado = datos.namePaginado != undefined ? datos.namePaginado : "";
+    //     $scope.Dato.countryPaginado = datos.countryPaginado != undefined ? datos.countryPaginado : "";
+    //     $scope.Dato.statusPaginado = datos.statusPaginado != undefined ? datos.statusPaginado : "";
+    //     $scope.Dato.skillPaginado = datos.skillPaginado != undefined ? datos.skillPaginado : "";
+    //     $scope.Dato.jobFunctionPaginado = datos.jobFunctionPaginado != undefined ? datos.jobFunctionPaginado : "";
+    //     $scope.Dato.jobsPaginado = datos.jobsPaginado != undefined ? datos.jobsPaginado : "";
+    //     $scope.pagination();
+    // } else {
+        $scope.advSearch("", "", "", "", "", "", 1, 12);
+    // }
 
     $scope.data = [];
     $scope.autocompletarInput = function (string, tipo, datos) {
