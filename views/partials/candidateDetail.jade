@@ -676,21 +676,21 @@ div(class="page-content-wrap")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="row", style="display: flex; flex-wrap: wrap;")
-                                            div(class="col-md-6", ng-repeat="postulacion in usuario.postulaciones")
+                                            div(class="col-md-6", ng-repeat="postulacion in usuario.postulations")
                                                 form(role="form", class="form-horizontal")
                                                     div(class="panel panel-default")
                                                         div(class="form-group")
                                                             label(class="col-sm-2") Cargo:
                                                             div(class="col-md-10")
-                                                                p(class="form-control-static", ng-bind="postulacion.job")
+                                                                p(class="form-control-static", ng-bind="postulacion.jobDescription")
                                                         div(class="form-group")
                                                             label(class="col-sm-2") Empresa:
                                                             div(class="col-md-10")
-                                                                p(class="form-control-static", ng-bind="postulacion.empleador")
+                                                                p(class="form-control-static", ng-bind="postulacion.employer")
                                                         div(class="form-group")
                                                             label(class="col-sm-2") Fecha:
                                                             div(class="col-md-10")
-                                                                p(class="form-control-static", ng-bind="postulacion.fecha")
+                                                                p(class="form-control-static", ng-bind="postulacion.fromDate +'-'+ postulacion.toDate")
                                                         div(class="form-group")
                                                             label(class="col-sm-2") Ranking
                                                             div(class="col-md-10")
@@ -699,8 +699,8 @@ div(class="page-content-wrap")
                                                             label(class="col-sm-2") Seleccionado
                                                             div(class="col-md-10").
                                                                 <p>Si
-                                                                    <input type="radio" class="icheckbox" checked="checked" value="Si" ng-model="postulacion.seleccionado" disabled="disabled"/> No
-                                                                    <input type="radio" class="icheckbox" value="No" ng-model="postulacion.seleccionado"  disabled="disabled"/>
+                                                                    <input type="radio" class="icheckbox" checked="checked" value="true" ng-model="postulacion.selected" disabled="disabled"/> No
+                                                                    <input type="radio" class="icheckbox" value="false" ng-model="postulacion.selected"  disabled="disabled"/>
                                                                 </p>
                             div(id="tabSinResolver", class="tab-pane fade")
                                 div(class="panel-body")

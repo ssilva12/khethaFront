@@ -112,7 +112,6 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 $scope.usuario.estudiosCertificaciones = [];
                 $scope.usuario.caracteristicas = [];
                 $scope.usuario.caracteristicasPsicologicas = [];
-                $scope.usuario.postulaciones = [];
                 // $scope.usuario.candidateInfo.title = "xxxxxxxxxxxxxx";
                 // $scope.usuario.candidateInfo.username = "xxxxxxxxxx";
                 // $scope.usuario.candidateInfo.sex = "";
