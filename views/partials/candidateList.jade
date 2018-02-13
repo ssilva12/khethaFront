@@ -22,24 +22,28 @@ div(class="page-content-wrap")
                                     div(class="col-md-3")
                                         button(ng-click="crearNuevo()", class="btn btn-default btn-block")
                                             i(class="fa fa-user-plus", aria-hidden="true")
-                                            span() Crear nuevo candidato
+                                            span() Crear nuevo candidato                                    
             div(class="col-md-12")
                 div(class="panel panel-default")
                     div(class="panel-body")
                         p() Usa la búsqueda para encontrar candidatos. Puede buscar por: nombre, dirección, teléfono o usa la búsqueda avanzada.
                         form(class="form-horizontal")
                             div(class="form-group")
-                                div(class="col-md-9")
+                                div(class="col-md-8")
                                     div(class="input-group")
                                         div(class="input-group-addon")
                                             span(class="fa fa-search")
                                         input(class="form-control", placeholder="¿A quién estás buscando?",ng-focus="onFocus('NombreVisible',1)",ng-blur="onBlur('NombreVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.name,'Name','dataName','null')", ng-model="Dato.name")
                                         div(class="input-group-btn")
                                             button(class="btn btn-primary mb-control", data-box="#message-box-success",ng-click="advSearch(Dato.name,Dato.country,Dato.status,Dato.skill,Dato.jobFunction,Dato.jobs,1,12)", ng-hide="busquedaAvanzada") Buscar
-                                div(class="col-md-3")
+                                div(class="col-md-2")
                                     button(class="btn btn-default btn-block mb-control", ng-click="busquedaAvanzada = !busquedaAvanzada")
                                         span(class="fa fa-plus")
                                         span() Búsqueda Avanzada
+                                div(class="col-md-2")
+                                        button(ng-click="clearFilter()", class="btn btn-default btn-block")
+                                            i(class="fa fa-eraser", aria-hidden="true")
+                                            span() Limpiar filtro
                                 div(class="col-md-12")
                                     ul(ng-show="{{ 'NombreVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                         li(class="list-group-item",ng-mousedown="Dato.name = persona.er", ng-repeat="persona in dataName") {{persona.er}}
@@ -80,6 +84,30 @@ div(class="page-content-wrap")
                                     div(class="row")
                                         div(class="col-sm-12")
                                             button(class="btn btn-primary mb-control pull-right",ng-click="advSearch(Dato.name,Dato.country,Dato.status,Dato.skill,Dato.jobFunction,Dato.jobs,1,12)", data-box="#message-box-success") Buscar
+                            div(class="form-group")
+                                div(class="col-sm-12", ng-show="Dato.namePaginado || Dato.countryPaginado")
+                                    span()
+                                        span(class="fa fa-filter")
+                                        label() Filtros:
+                                    ul(class="list-tags")
+                                        li(ng-show="Dato.namePaginado")
+                                            a()
+                                                span() Nombre: {{Dato.namePaginado}}
+                                        li(ng-show="Dato.countryPaginado")
+                                            a()
+                                                span() Pais: {{Dato.countryPaginado}}
+                                        li(ng-show="Dato.statusPaginado")
+                                            a()
+                                                span() Status: {{Dato.statusPaginado}}
+                                        li(ng-show="Dato.skillPaginado")
+                                            a()
+                                                span() Skill: {{Dato.skillPaginado}}
+                                        li(ng-show="Dato.jobFunctionPaginado")
+                                            a()
+                                                span() Job/Function: {{Dato.jobFunctionPaginado}}
+                                        li(ng-show="Dato.jobsPaginado")
+                                            a()
+                                                span() Jobs: {{Dato.jobsPaginado}}
         //- CANDIDATOS
         div(class="row")
             div(class="col-sm-12", style="display: flex; flex-wrap: wrap;")
@@ -96,16 +124,19 @@ div(class="page-content-wrap")
                             div(class="contact-info")
                                 p()
                                     strong() Estatus:&nbsp;
-                                    span(ng-bind="candidato.status")
+                                    span(ng-if="candidato.status == 'A'") Asignado
+                                    span(ng-if="candidato.status == 'P'") En proceso de selección
+                                    span(ng-if="candidato.status == 'F'") Disponible
+                                    span(ng-if="candidato.status == 'N'") No disponible
                                 p()
                                     strong() Nº Identificación:&nbsp;
-                                    span(ng-bind="candidato.idNumber") 
+                                    span(ng-if="candidato.idNumber != 'null'") {{candidato.idNumber}}
                                 p()
                                     strong() Teléfono:&nbsp;
-                                    span(ng-bind="candidato.formattedNumber") 
+                                    span(ng-iff="candidato.formattedNumber != 'null'") {{candidato.formattedNumber}}
                                 p()
                                     strong() E-Mail:&nbsp;
-                                    a(ng-bind="candidato.email") 
+                                    a(ng-if="candidato.email != 'null'") {{candidato.email}}
         //- FIN CANDIDATOS
         div(class="row")
             div(class="col-sm-12")

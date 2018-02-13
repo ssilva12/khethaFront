@@ -1,5 +1,5 @@
 angular.module('myApp.candidatesListCtrl', ['ui.bootstrap', 'ngCookies']).
-controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'Mensaje', '$rootScope', 'Dictionary', '$parse', '$timeout', '$cookies', function ($scope, candidatesServices, $location, Mensaje, $rootScope, Dictionary, $parse, $timeout, $cookies) {
+controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'Mensaje', '$rootScope', 'Dictionary', '$parse', '$timeout', 'keepData', function ($scope, candidatesServices, $location, Mensaje, $rootScope, Dictionary, $parse, $timeout, keepData) {
 
     $scope.lista = {};
     $scope.lista.candidatos = [];
@@ -49,14 +49,14 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
                 $scope.lista.noOfPages = Math.ceil($scope.lista.totalItems / $scope.lista.entryLimit);
 
 
-                var Dato = {};
-                Dato.namePaginado = name;
-                Dato.countryPaginado = country;
-                Dato.statusPaginado = status;
-                Dato.skillPaginado = skill;
-                Dato.jobFunctionPaginado = jobFunction;
-                Dato.jobsPaginado = jobs;
-                $cookies.put('Filtros', JSON.stringify(Dato));
+                $scope.Dato.namePaginado = name;
+                $scope.Dato.countryPaginado = country;
+                $scope.Dato.statusPaginado = status;
+                $scope.Dato.skillPaginado = skill;
+                $scope.Dato.jobFunctionPaginado = jobFunction;
+                $scope.Dato.jobsPaginado = jobs;
+                //$cookies.put('Filtros', JSON.stringify(Dato));
+                keepData.set('Filtros', $scope.Dato);
             } else {
                 $scope.lista.candidatos = [];
                 Mensaje.Alerta("error", 'Error', result.message);
@@ -69,19 +69,37 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
         $scope.advSearch($scope.Dato.namePaginado, $scope.Dato.countryPaginado, $scope.Dato.statusPaginado, $scope.Dato.skillPaginado, $scope.Dato.jobFunctionPaginado, $scope.Dato.jobsPaginado, $scope.lista.currentPage, 12);
     };
 
-    var datosCookies = $cookies.get('Filtros');
-    // if (datosCookies != null && datosCookies != undefined) {
-    //     var datos = JSON.parse(datosCookies);
-    //     $scope.Dato.namePaginado = datos.namePaginado != undefined ? datos.namePaginado : "";
-    //     $scope.Dato.countryPaginado = datos.countryPaginado != undefined ? datos.countryPaginado : "";
-    //     $scope.Dato.statusPaginado = datos.statusPaginado != undefined ? datos.statusPaginado : "";
-    //     $scope.Dato.skillPaginado = datos.skillPaginado != undefined ? datos.skillPaginado : "";
-    //     $scope.Dato.jobFunctionPaginado = datos.jobFunctionPaginado != undefined ? datos.jobFunctionPaginado : "";
-    //     $scope.Dato.jobsPaginado = datos.jobsPaginado != undefined ? datos.jobsPaginado : "";
-    //     $scope.pagination();
-    // } else {
+    var datosCookies = $rootScope.Filtros;
+    if (datosCookies != null && datosCookies != undefined) {
+        var datos = datosCookies;
+        //$scope.busquedaAvanzada = true;
+        $scope.Dato.namePaginado = datos.namePaginado != undefined ? datos.namePaginado : "";
+        $scope.Dato.countryPaginado = datos.countryPaginado != undefined ? datos.countryPaginado : "";
+        $scope.Dato.statusPaginado = datos.statusPaginado != undefined ? datos.statusPaginado : "";
+        $scope.Dato.skillPaginado = datos.skillPaginado != undefined ? datos.skillPaginado : "";
+        $scope.Dato.jobFunctionPaginado = datos.jobFunctionPaginado != undefined ? datos.jobFunctionPaginado : "";
+        $scope.Dato.jobsPaginado = datos.jobsPaginado != undefined ? datos.jobsPaginado : "";
+
+        $scope.Dato.name = $scope.Dato.namePaginado;
+        $scope.Dato.country = $scope.Dato.countryPaginado;
+        $scope.Dato.status = $scope.Dato.statusPaginado;
+        $scope.Dato.skill = $scope.Dato.skillPaginado;
+        $scope.Dato.jobFunction = $scope.Dato.jobFunctionPaginado;
+        $scope.Dato.job = $scope.Dato.jobsPaginado;
+        $scope.pagination();
+    } else {
         $scope.advSearch("", "", "", "", "", "", 1, 12);
-    // }
+    }
+
+    $scope.clearFilter = function () {
+        $scope.Dato.name = "";
+        $scope.Dato.country = "";
+        $scope.Dato.status = "";
+        $scope.Dato.skill = "";
+        $scope.Dato.jobFunction = "";
+        $scope.Dato.job = "";
+        $scope.busquedaAvanzada=false;
+    };
 
     $scope.data = [];
     $scope.autocompletarInput = function (string, tipo, datos) {
