@@ -85,7 +85,7 @@ div(class="page-content-wrap")
                                         div(class="col-sm-12")
                                             button(class="btn btn-primary mb-control pull-right",ng-click="advSearch(Dato.name,Dato.country,Dato.status,Dato.skill,Dato.jobFunction,Dato.jobs,1,12)", data-box="#message-box-success") Buscar
                             div(class="form-group")
-                                div(class="col-sm-12", ng-show="Dato.namePaginado || Dato.countryPaginado")
+                                div(class="col-sm-12", ng-show="Dato.namePaginado || Dato.countryPaginado || Dato.statusPaginado || Dato.skillPaginado || Dato.jobFunctionPaginado || Dato.jobsPaginado")
                                     span()
                                         span(class="fa fa-filter")
                                         label() Filtros:
@@ -98,7 +98,10 @@ div(class="page-content-wrap")
                                                 span() Pais: {{Dato.countryPaginado}}
                                         li(ng-show="Dato.statusPaginado")
                                             a()
-                                                span() Status: {{Dato.statusPaginado}}
+                                                span(ng-if="Dato.statusPaginado == 'A'") Status: Asignado
+                                                span(ng-if="Dato.statusPaginado == 'P'") Status: En proceso de selección
+                                                span(ng-if="Dato.statusPaginado == 'F'") Status: Disponible
+                                                span(ng-if="Dato.statusPaginado == 'N'") Status: No disponible
                                         li(ng-show="Dato.skillPaginado")
                                             a()
                                                 span() Skill: {{Dato.skillPaginado}}
