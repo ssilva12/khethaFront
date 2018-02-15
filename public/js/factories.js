@@ -158,10 +158,17 @@ value('version', '0.1')
     .factory('keepData', ['$rootScope', '$parse', function ($rootScope, $parse) {
         var keepData = {};
 
-        keepData.set = function (key, value) {
-            var model = $parse(key);
-            model.assign($rootScope, value);
-        };
+        // keepData.set = function (key, value) {
+        //     var model = $parse(key);
+        //     model.assign($rootScope, value);
+        // };
 
-        return keepData;
+        return {
+            get: function () {
+                return (this.keepData);
+            },
+            set: function (keepData) {
+                this.keepData = keepData;
+            }
+        };
     }]);

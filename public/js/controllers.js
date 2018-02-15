@@ -3,9 +3,13 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
-controller('AppCtrl', function ($scope, $http,$route) {
-  $scope.$route = $route;
-}).
+  controller('AppCtrl', function ($scope, $http, $route, $location) {
+    $scope.$route = $route;
+
+    $scope.Redirect = function (target) {
+      $location.path(target);
+    }
+  }).
 controller('MyCtrl1', function ($scope,$http,Dictionary,$location,termFactory) {
   termFactory.setCurrent(null);
   //trae los tickets sin resolver
@@ -471,6 +475,26 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
     });
   }
 
+  
+  $scope.getMethaFeaturesJobLastVacancy = function() {
+    console.log('Consultar click... ' + $scope.employer + ', ' + $scope.job +
+      ', ' + $scope.minPercentage);
+
+    $scope.methaFeatures = [];
+
+    frequencyMatrixService.getForJobAndLastVacancy( { 
+      employer: $scope.employer,
+      job: $scope.job,      
+      minPercentage: $scope.minPercentage
+    }, function(error, data) {
+      console.log(data);
+      if (!error) {
+        $scope.methaFeatures = data;
+        $scope.refreshMatrix();
+      }
+    });
+  }
+
   $scope.refreshMatrix = function() {
     $scope.featuresModified = [];
     $scope.methaFeatures.forEach(mf => {
@@ -491,10 +515,16 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
           tdEditWeight: [],
           mfrWeight: mf.mfrWeight,
           topWeightSum: mf.topWeightSum,
+          pointValue: mf.pointValue,
           ...f,
         };
 
         for(var i = 0; i < featureModified.levelNames.length; i++) {
+          if (featureModified.frequencyCorrected[i] === undefined) {
+            console.log('featureModified frequencyCorrected ' + i);
+            console.log(featureModified);
+          }
+
           featureModified.tdClass[i] = !featureModified.isWeightInferred[i] && featureModified.levelNames[i] ? 'weightSetted' : '';
           featureModified.tdTitle[i] = 'MR: ' + featureModified.levelNames[i] + '\r\nFrecuencia: ' + featureModified.frequency[i] + 
             '\r\nFrecuencia Corregida: ' + featureModified.frequencyCorrected[i].toFixed(2) + '\r\nPeso establecido: ' + featureModified.weightSetted[i] +
