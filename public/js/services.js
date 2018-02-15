@@ -8,13 +8,26 @@
 angular.module('myApp.services', []).
   value('version', '0.1')
   .service('frequencyMatrixService', function($http) {
-    //var url = "http://localhost:9000/"
-    var url = "http://guarded-atoll-31281.herokuapp.com/"
+    var url = "http://localhost:9000/"
+    // var url = "http://guarded-atoll-31281.herokuapp.com/"
 
     this.get = (parameters, callback) => {
       $http({
         method: 'GET',
         url: url + 'api/frequencymatrix/',
+        params: parameters
+      }).
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        callback("Error");
+      });
+    }
+
+    this.getForJobAndLastVacancy = (parameters, callback) => {
+      $http({
+        method: 'GET',
+        url: url + 'api/frequencymatrix/job-lastvacancy',
         params: parameters
       }).
       then(function onSuccess(response) {

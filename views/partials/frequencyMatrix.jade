@@ -40,6 +40,8 @@ div.row
         div.col-md-12
             br
             input(type="button", value="Consultar", style="float:right", ng-click="getMethaFeatures()")
+            &nbsp; &nbsp;
+            input(type="button", value="Consultar Job Last Vacancy", style="float:right", ng-click="getMethaFeaturesJobLastVacancy()")
         div.col-md-12
             input(type="button", value="Frecuencia", ng-click="setShowValue('f')") 
             input(type="button", value="Peso", ng-click="setShowValue('w')")
@@ -132,8 +134,7 @@ div.row
                     td {{ feature.topWeight }}
                     td {{ feature.mfrWeight }}
                     td {{ feature.pointValue | number:2 }}
-
-                
+  
 
 //- , class="mb-control", data-box="#messageBoxWeight"
 .message-box.message-box-success.animated.fadeIn#messageBoxWeight
