@@ -340,7 +340,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 }
             });
         }
-
+        $scope.cargarCandidato($scope.usuario.candidateInfo.id);
     };
 
     $scope.actualizarFeature = function (data, dictionary) {
@@ -352,6 +352,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                     $scope.cargarCandidato($scope.usuario.candidateInfo.id);
                     Mensaje.Alerta("success", 'OK', result.message);
                 } else {
+                    $scope.cargarCandidato($scope.usuario.candidateInfo.id);
                     Mensaje.Alerta("error", 'Error', result.message);
                 }
             });
@@ -363,6 +364,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                     $scope.cargarCandidato($scope.usuario.candidateInfo.id);
                     Mensaje.Alerta("success", 'OK', result.message);
                 } else {
+                    $scope.cargarCandidato($scope.usuario.candidateInfo.id);
                     Mensaje.Alerta("error", 'Error', result.message);
                 }
             });

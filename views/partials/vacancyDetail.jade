@@ -15,16 +15,16 @@ div(class="page-content-wrap")
                                 div(class="col-md-1") 
                                     label() Empleador
                                 div(class="col-md-5")
-                                    input(type="text", class="form-control", list="empleador", name="empleador", ng-model="empleador")
-                                    datalist(id="empleador")
-                                                option(ng-repeat="empleador in dataEmpleadores") {{empleador.er}}
+                                    input(class="form-control",ng-focus="onFocus('empleador',1)",ng-blur="onBlur('empleador',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.employer,'EmployerName','dataEmpleador')", ng-model="Dato.employer")
+                                    ul(ng-show="{{ 'empleador' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                        li(class="list-group-item",ng-mousedown="Dato.employer = item.er", ng-repeat="item in dataEmpleador") {{item.er}}
                                 div(class="col-md-1") 
                                     label() Oficio
                                 div(class="col-md-5")
-                                    input(type="text", class="form-control", list="oficio", name="oficio", ng-model="oficio")
-                                    datalist(id="oficio")
-                                                option(ng-repeat="oficio in dataOficio") {{oficio.er}}
-            div(class="row", ng-if="oficio && empleador")
+                                    input(class="form-control",ng-focus="onFocus('oficio',1)",ng-blur="onBlur('oficio',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.job,'JobName','dataJob')", ng-model="Dato.job")
+                                    ul(ng-show="{{ 'oficio' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                        li(class="list-group-item",ng-mousedown="Dato.job = item.er", ng-repeat="item in dataJob") {{item.er}}
+            div(class="row", ng-if="Dato.employer && Dato.job")
                 div(class="col-md-12")
                     div(class="panel panel-default")
                         div(class="panel-body")
@@ -125,7 +125,9 @@ div(class="page-content-wrap")
                                                         div(class="input-group")
                                                             div(class="input-group-addon")
                                                                 span(class="fa fa-search")
-                                                            input(class="form-control", placeholder="busqueda de candidatos", type="text")
+                                                            input(class="form-control", placeholder="busqueda de candidatos",ng-focus="onFocus('candidatos',1)",ng-blur="onBlur('candidatos',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.candidate,'Name','dataCandidate')", ng-model="Dato.candidate")
+                                                        ul(ng-show="{{ 'candidatos' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                                            li(class="list-group-item",ng-mousedown="Dato.candidate = item.er", ng-repeat="item in dataCandidate") {{item.er}}
                                                     div(class="col-md-2") 
                                                         button(class="btn btn-default btn-block mb-control")
                                                             span(class="fa fa-plus")
