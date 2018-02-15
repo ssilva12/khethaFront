@@ -427,6 +427,24 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
         });
     };
 
+    $scope.solveAsAsociation = function(nounId,name,dictionary,synonymId){
+      debugger;
+      Dictionary.solveAsAsociation(nounId,name,dictionary,synonymId,function(error,data){
+        if (!error){
+          if(!data.primary){
+            //$scope.suggested = data.suggested
+            //$scope.notFound = true
+            //$location.path("/unresolved");
+          }else{
+            //termFactory.setSynonyms(data.synonyms);
+            //termFactory.setCurrent($scope.current.name);
+            //termFactory.setPrimary(data.primary);
+            //$location.path("/unresolved");
+          }        
+        }
+      });
+    }
+
     $scope.getAcronym = function (item) {
         $scope.usuario.candidateInfo.country = item.er;
         $scope.usuario.candidateInfo.acronym = item.acronym;
