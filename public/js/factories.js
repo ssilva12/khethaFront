@@ -146,7 +146,7 @@ value('version', '0.1')
 
         Mensaje.Esperar = function (mensaje) {
             $rootScope.waitModal = true;
-            $rootScope.waitModalMessage = (mensaje != null && mensaje != undefined ? mensaje:'Cargando');
+            $rootScope.waitModalMessage = (mensaje != null && mensaje != undefined ? mensaje : 'Cargando');
         };
 
         Mensaje.Desocupar = function () {
@@ -154,4 +154,14 @@ value('version', '0.1')
         };
 
         return Mensaje;
+    }])
+    .factory('keepData', ['$rootScope', '$parse', function ($rootScope, $parse) {
+        var keepData = {};
+
+        keepData.set = function (key, value) {
+            var model = $parse(key);
+            model.assign($rootScope, value);
+        };
+
+        return keepData;
     }]);

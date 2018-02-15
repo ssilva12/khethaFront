@@ -79,7 +79,7 @@ div(class="page-content-wrap")
                                         div(class="col-md-9").
                                                 <select class="form-control" select2="", name="sexo" data-ng-model="usuario.candidateInfo.sex" >
                                                     <option value="">Seleccione</option>
-                                                    <option ng-repeat="c in variablesGlobales.sexo" value="c.value">{{c.label}}</option>
+                                                    <option ng-repeat="c in variablesGlobales.sexo" value="{{c.value}}">{{c.label}}</option>
                                                 </select>
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") Estatus:
@@ -126,10 +126,10 @@ div(class="page-content-wrap")
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") Fecha de nacimiento:
                                         div(class="col-md-9")
-                                            input(datetime-picker="", date-format="yyyy-MM-dd", ng-model="usuario.candidateInfo.birthdate", date-only="", class="form-control")
+                                            adm-dtp(ng-model='usuario.candidateInfo.birthdate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
                                     div(class="form-group")
                                         div(class="col-md-12")
-                                            button(type="button", class="btn btn-primary pull-right", ng-click="formCandidato.$valid && actualizarCandidato()") 
+                                            button(type="button", class="btn btn-primary pull-right", ng-click="actualizarCandidato()") 
                                                 li(class="fa fa-save")
                                                 span() Guardar
                         //- END PANEL WITH STATIC CONTROLS
@@ -214,9 +214,9 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.name", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    input(class="form-control",ng-focus="onFocus('estudioNombre',$index)",ng-blur="onBlur('estudioNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.name,'studiesName','dataEstudio','null')", ng-model="estudio.name")
+                                                                                    input(class="form-control",ng-focus="onFocus('estudioNombre',$index)",ng-blur="onBlur('estudioNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.name,'StudiesName','dataEstudio','null')", ng-model="estudio.name")
                                                                                     ul(ng-show="{{ 'estudioNombre' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                                                        li(class="list-group-item",ng-mousedown="estudio.name = estudio.er", ng-repeat="estudio in dataEstudio") {{estudio.studyName}}  
+                                                                                        li(class="list-group-item",ng-mousedown="estudio.name = item.er", ng-repeat="item in dataEstudio") {{item.er}}  
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Grado
@@ -235,9 +235,9 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Fecha de terminación
                                                                             div(class="col-md-9")
-                                                                                p(ng-bind="estudio.fechaTerminacion", ng-hide="estudio.edit")
-                                                                                input(datetime-picker="", date-format="yyyy-MM-dd", ng-model="estudio.fechaTerminacion", ng-show="estudio.edit", date-only="", class="form-control")
-                                                                        div(class="form-group row row-space")
+                                                                                p(ng-bind="estudio.lastDate", ng-hide="estudio.edit")
+                                                                                input(datetime-picker="", date-format="yyyy-MM-dd", ng-model="estudio.lastDate", ng-show="estudio.edit", date-only="", class="form-control")
+                                                                        div(class="form-group row row-space", style="display:none;")
                                                                             div(class="col-md-3")
                                                                                 label(for="") País
                                                                             div(class="col-md-9")
@@ -336,11 +336,11 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-3")
                                                                                 label(for="") Estudio
                                                                             div(class="col-md-9")
-                                                                                p(ng-bind="estudio.estudio", ng-hide="estudio.edit")
+                                                                                p(ng-bind="estudio.name", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
-                                                                                    input(class="form-control",ng-focus="onFocus('certificadoNombre',$index)",ng-blur="onBlur('certificadoNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.estudio,'CertificateName','dataCertificadoEstudio','null')", ng-model="estudio.estudio")
+                                                                                    input(class="form-control",ng-focus="onFocus('certificadoNombre',$index)",ng-blur="onBlur('certificadoNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(estudio.name,'CertificateName','dataCertificadoEstudio','null')", ng-model="estudio.name")
                                                                                     ul(ng-show="{{ 'certificadoNombre' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                                                        li(class="list-group-item",ng-mousedown="estudio.estudio = item.er", ng-repeat="item in dataCertificadoEstudio") {{item.er}}
+                                                                                        li(class="list-group-item",ng-mousedown="estudio.name = item.er", ng-repeat="item in dataCertificadoEstudio") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
                                                                                 label(for="") País
@@ -676,21 +676,21 @@ div(class="page-content-wrap")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="row", style="display: flex; flex-wrap: wrap;")
-                                            div(class="col-md-6", ng-repeat="postulacion in usuario.postulaciones")
+                                            div(class="col-md-6", ng-repeat="postulacion in usuario.postulations")
                                                 form(role="form", class="form-horizontal")
                                                     div(class="panel panel-default")
                                                         div(class="form-group")
                                                             label(class="col-sm-2") Cargo:
                                                             div(class="col-md-10")
-                                                                p(class="form-control-static", ng-bind="postulacion.job")
+                                                                p(class="form-control-static", ng-bind="postulacion.jobDescription")
                                                         div(class="form-group")
                                                             label(class="col-sm-2") Empresa:
                                                             div(class="col-md-10")
-                                                                p(class="form-control-static", ng-bind="postulacion.empleador")
+                                                                p(class="form-control-static", ng-bind="postulacion.employer")
                                                         div(class="form-group")
                                                             label(class="col-sm-2") Fecha:
                                                             div(class="col-md-10")
-                                                                p(class="form-control-static", ng-bind="postulacion.fecha")
+                                                                p(class="form-control-static", ng-bind="postulacion.fromDate +'-'+ postulacion.toDate")
                                                         div(class="form-group")
                                                             label(class="col-sm-2") Ranking
                                                             div(class="col-md-10")
@@ -699,8 +699,8 @@ div(class="page-content-wrap")
                                                             label(class="col-sm-2") Seleccionado
                                                             div(class="col-md-10").
                                                                 <p>Si
-                                                                    <input type="radio" class="icheckbox" checked="checked" value="Si" ng-model="postulacion.seleccionado" disabled="disabled"/> No
-                                                                    <input type="radio" class="icheckbox" value="No" ng-model="postulacion.seleccionado"  disabled="disabled"/>
+                                                                    <input type="radio" class="icheckbox" checked="checked" value="true" ng-model="postulacion.selected" disabled="disabled"/> No
+                                                                    <input type="radio" class="icheckbox" value="false" ng-model="postulacion.selected"  disabled="disabled"/>
                                                                 </p>
                             div(id="tabSinResolver", class="tab-pane fade")
                                 div(class="panel-body")

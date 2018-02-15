@@ -22,7 +22,7 @@ value('version', '0.2')
                 callback(Result);
             }, function onError(response) {
                 Result.error = true;
-                Result.status = reponse.status;
+                Result.status = response.status;
                 switch (status) {
                     case 404:
                         Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getVacancies).';

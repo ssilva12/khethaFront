@@ -36,9 +36,10 @@ controller('vacancyCtrl', function ($scope, $route, Vacancy) {
     }
 
     function getvacancies() {
-        Vacancy.getVacancies(function (error, data) {
-            if (!error) {
-                $scope.vacancies = data.vacancies;
+        Vacancy.getVacancies(function (response) {
+            debugger
+            if (!response.error) {
+                $scope.vacancies = response.data.vacancies;
             }
         });
     }
