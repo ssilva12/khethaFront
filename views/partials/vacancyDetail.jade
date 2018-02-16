@@ -4,227 +4,197 @@ div(class="page-title")
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
 div(class="page-content-wrap")
-    div(class="row")
-        div(class="col-md-12")
-            //-INICIO
-            div(class="row")
-                div(class="col-md-12")
-                    div(class="panel panel-default")
-                        div(class="panel-body")
-                            form(class="form-horizontal")
-                                div(class="col-md-1") 
-                                    label() Empleador
-                                div(class="col-md-5")
-                                    input(class="form-control",ng-focus="onFocus('empleador',1)",ng-blur="onBlur('empleador',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.employer,'EmployerName','dataEmpleador')", ng-model="Dato.employer")
-                                    ul(ng-show="{{ 'empleador' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                        li(class="list-group-item",ng-mousedown="Dato.employer = item.er", ng-repeat="item in dataEmpleador") {{item.er}}
-                                div(class="col-md-1") 
-                                    label() Oficio
-                                div(class="col-md-5")
-                                    input(class="form-control",ng-focus="onFocus('oficio',1)",ng-blur="onBlur('oficio',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.job,'JobName','dataJob')", ng-model="Dato.job")
-                                    ul(ng-show="{{ 'oficio' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                        li(class="list-group-item",ng-mousedown="Dato.job = item.er", ng-repeat="item in dataJob") {{item.er}}
-            div(class="row", ng-if="Dato.employer && Dato.job")
-                div(class="col-md-12")
-                    div(class="panel panel-default")
-                        div(class="panel-body")
-                            form(class="form-horizontal")
-                                div(class="panel panel-default nav-tabs-vertical")
-                                    ul(class="nav nav-tabs")
-                                        li(style="border-bottom: 1px solid #ddd;")
-                                            a(data-toggle="tab", data-target="#tab1") Información
-                                        li(style="border-bottom: 1px solid #ddd;")
-                                            a(data-toggle="tab", data-target="#tab2") Metha-Características
-                                        li(style="border-bottom: 1px solid #ddd;")
-                                            a(data-toggle="tab", data-target="#tab3") Matriz de caracterización
-                                        li(style="border-bottom: 1px solid #ddd;")
-                                            a(data-toggle="tab", data-target="#tab4") Lista de preselección
-                                    div(class="tab-content", style="min-height:100vh; border-left: 1px solid #ddd;")
-                                        div(id="tab1", class="tab-pane fade")
-                                            div(class="panel-body")
-                                                div(class="row row-space")
-                                                    div(class="col-md-2")
-                                                        label() Código
-                                                    div(class="col-md-4")
-                                                        input(type='text', class="form-control")
-                                                    div(class="col-md-2")
-                                                        label() Número de vacantes
-                                                    div(class="col-md-4")
-                                                        input(type='text', class="form-control")
-                                                div(class="row row-space")
-                                                    div(class="col-md-2")
-                                                        label() Estatus
-                                                    div(class="col-sm-4")
-                                                        input(type='text', class="form-control")
-                                                    div(class="col-md-2")
-                                                        label() Fecha de inicio
-                                                    div(class="col-md-4")
-                                                        input(type='text', class="form-control")
-                                                div(class="row row-space")
-                                                    div(class="col-md-2")
-                                                        label() Fecha fin
-                                                    div(class="col-sm-4")
-                                                        input(type='text', class="form-control")
-                                                    div(class="col-md-2")
-                                                        label() Salario previsto
-                                                    div(class="col-md-4")
-                                                        input(type='text', class="form-control")
-                                                div(class="row row-space")
-                                                    div(class="col-md-2")
-                                                        label() Dirección
-                                                    div(class="col-sm-4")
-                                                        input(type='text', class="form-control")
-                                                    div(class="col-md-2")
-                                                        label() Población
-                                                    div(class="col-md-4")
-                                                        input(type='text', class="form-control")
-                                                div(class="row row-space")
-                                                    div(class="col-md-2")
-                                                        label() Código postal
-                                                    div(class="col-sm-4")
-                                                        input(type='text', class="form-control")
-                                                    div(class="col-md-2")
-                                                        label() País
-                                                    div(class="col-md-4")
-                                                        input(type='text', class="form-control")
-                                                div(class="row row-space")
-                                                    div(class="col-md-2")
-                                                        label() Cargo
-                                                    div(class="col-sm-4")
-                                                        input(type='text', class="form-control")
-                                                    div(class="col-md-2")
-                                                        label() Analista
-                                                    div(class="col-md-4")
-                                                        input(type='text', class="form-control")
-                                                div(class="row row-space")
-                                                    div(class="col-md-2")
-                                                        label() Persona de contacto
-                                                    div(class="col-sm-4")
-                                                        input(type='text', class="form-control")
-                                                    div(class="col-md-2")
-                                                        label() Probabilidad condicional
-                                                    div(class="col-md-4")
-                                                        input(type='text', class="form-control")
-                                                div(class="row row-space")
-                                                    div(class="col-md-2")
-                                                        label() Coordenadas GPS
-                                                    div(class="col-sm-4")
-                                                        input(type='text', class="form-control")
-                                                    div(class="col-md-2")
-                                                        label() Última actualización
-                                                    div(class="col-md-4")
-                                                        input(type='text', class="form-control")
-                                        div(id="tab2", class="tab-pane fade")
-                                            div(class="panel-body")
-                                        div(id="tab3", class="tab-pane fade")
-                                            div(class="panel-body")
-                                        div(id="tab4", class="tab-pane fade")
-                                            div(class="panel-body")
-                                                div(class="row row-space")
-                                                    div(class="col-md-8") 
-                                                        div(class="input-group")
-                                                            div(class="input-group-addon")
-                                                                span(class="fa fa-search")
-                                                            input(class="form-control", placeholder="busqueda de candidatos",ng-focus="onFocus('candidatos',1)",ng-blur="onBlur('candidatos',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.candidate,'Name','dataCandidate')", ng-model="Dato.candidate")
-                                                        ul(ng-show="{{ 'candidatos' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                            li(class="list-group-item",ng-mousedown="Dato.candidate = item.er", ng-repeat="item in dataCandidate") {{item.er}}
-                                                    div(class="col-md-2") 
-                                                        button(class="btn btn-default btn-block mb-control")
-                                                            span(class="fa fa-plus")
-                                                            span() Agregar
-                                                    div(class="col-md-2") 
-                                                        button(class="btn btn-default btn-block mb-control")
-                                                            span(class="fa fa-cloud-upload")
-                                                            span() Importar CV
-                                                div(class="row")
-                                                    div(class="col-md-8") 
-                                                    div(class="col-md-4") 
-                                                            button(class="btn btn-default btn-block mb-control", data-toggle="modal", data-target="#myModal", data-backdrop="true")
-                                                                span(class="fa fa-search")
-                                                                span() Busqueda avanzada
-            
-            
-            
-            
-            
-            
-            
-            
-            //- Ventana busqueda avanzada
-            div(id="myModal", class="modal fade", role="dialog")
-                div(class="modal-dialog modal-lg")
-                    div(class="modal-content") 
-                        div(class="modal-header")
-                            button(type="button", class="close", data-dismiss="modal") &times;
-                            h4(class="modal-title") Modal Header
-                        div(class="modal-body")
-                        div(class="modal-footer")
-                            button(type="button", class="btn btn-default", data-dismiss="modal") Cerrar
-
-                                               
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    form(name="userForm", id="userForm")
+        div(class="row")
+            div(class="col-md-12")
+                //-INICIO
+                div(class="row")
+                    div(class="col-md-12")
+                        div(class="panel panel-default")
+                            div(class="panel-body")
+                                form(class="form-horizontal")
+                                    div(class="col-md-1") 
+                                        label() Empleador
+                                    div(class="col-md-5")
+                                        input(name="employer", class="form-control has-error",ng-focus="onFocus('empleador',1)",ng-blur="onBlur('empleador',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.employer,'EmployerName','dataEmpleador','null','Dato.employer')", ng-model="Dato.employer",ng-required="Dato.employerSelected")
+                                        ul(ng-show="{{ 'empleador' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                            li(class="list-group-item",ng-mousedown="assign('Dato.employer',item.er)", ng-repeat="item in dataEmpleador") {{item.er}}
+                                    div(class="col-md-1") 
+                                        label() Oficio
+                                    div(class="col-md-5")
+                                        input(class="form-control",ng-focus="onFocus('oficio',1)",ng-blur="onBlur('oficio',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.job,'JobName','dataJob','null','Dato.job')", ng-model="Dato.job", ng-required="Dato.jobSelected")
+                                        ul(ng-show="{{ 'oficio' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                            li(class="list-group-item",ng-mousedown="assign('Dato.job',item.er)", ng-repeat="item in dataJob") {{item.er}}
+                //- div(class="row", ng-if="Dato.employerSelected && Dato.jobSelected")
+                div(class="row")
+                    div(class="col-md-12")
+                        div(class="panel panel-default")
+                            div(class="panel-body")
+                                form(class="form-horizontal")
+                                    div(class="panel panel-default nav-tabs-vertical")
+                                        ul(class="nav nav-tabs")
+                                            li(style="border-bottom: 1px solid #ddd;")
+                                                a(data-toggle="tab", data-target="#tab1") Información
+                                            li(style="border-bottom: 1px solid #ddd;")
+                                                a(data-toggle="tab", data-target="#tab2") Metha-Características
+                                            li(style="border-bottom: 1px solid #ddd;")
+                                                a(data-toggle="tab", data-target="#tab3") Matriz de caracterización
+                                            li(style="border-bottom: 1px solid #ddd;")
+                                                a(data-toggle="tab", data-target="#tab4") Lista de preselección
+                                        div(class="tab-content", style="min-height:100vh; border-left: 1px solid #ddd;")
+                                            div(id="tab1", class="tab-pane fade")
+                                                div(class="panel-body")
+                                                    div(class="row row-space")
+                                                        div(class="col-md-2")
+                                                            label() Código
+                                                        div(class="col-md-4")
+                                                            input(type='text', class="form-control")
+                                                        div(class="col-md-2")
+                                                            label() Número de vacantes
+                                                        div(class="col-md-4")
+                                                            input(type='text', class="form-control")
+                                                    div(class="row row-space")
+                                                        div(class="col-md-2")
+                                                            label() Estatus
+                                                        div(class="col-sm-4")
+                                                            select(class="form-control", select2="", name="estado", data-ng-model="status")
+                                                                option(value="") Seleccione
+                                                                option(ng-repeat="estado in variablesGlobales.estados", value="{{estado.value}}") {{estado.label}}
+                                                        div(class="col-md-2")
+                                                            label() Fecha de inicio
+                                                        div(class="col-md-4")
+                                                            adm-dtp(ng-model='fechaInicio', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
+                                                    div(class="row row-space")
+                                                        div(class="col-md-2")
+                                                            label() Fecha fin
+                                                        div(class="col-sm-4")
+                                                            adm-dtp(ng-model='fechaFin', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
+                                                        div(class="col-md-2")
+                                                            label() Salario previsto
+                                                        div(class="col-md-4")
+                                                            input(type='text', class="form-control")
+                                                    div(class="row row-space")
+                                                        div(class="col-md-2")
+                                                            label() Dirección
+                                                        div(class="col-sm-4")
+                                                            input(type='text', class="form-control")
+                                                        div(class="col-md-2")
+                                                            label() País
+                                                        div(class="col-md-4")
+                                                            input(class="form-control",ng-focus="onFocus('paisVisible',1)",ng-blur="onBlur('paisVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(pais,'CountryName','dataPais','null','pais'); cityName =''; postalCode =''", ng-model="pais", ng-required="paisSelected")
+                                                            ul(ng-show="{{ 'paisVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                                                li(class="list-group-item",ng-mousedown="assign('pais',pais.er); getAcronym(pais)", ng-repeat="pais in dataPais") {{pais.er}}
+                                                    div(class="row row-space")
+                                                        div(class="col-md-2")
+                                                            label() Código postal
+                                                        div(class="col-sm-4")
+                                                            input(type='text', class="form-control", ng-model="codigoPostal", ng-disabled="!pais")
+                                                        div(class="col-md-2")
+                                                            label() Población
+                                                        div(class="col-md-4")
+                                                            input(class="form-control",ng-focus="onFocus('poblacionVisible',1)",ng-blur="onBlur('poblacionVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(poblacion,'CityName','dataCity',acronym,'poblacion')", ng-model="poblacion", ng-required="poblacionSelected", ng-disabled="!pais")
+                                                            ul(ng-show="{{ 'poblacionVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                                                li(class="list-group-item",ng-mousedown="assign('poblacion',city.er)", ng-repeat="city in dataCity") {{city.er}}
+                                                    div(class="row row-space")
+                                                        div(class="col-md-2")
+                                                            label() Cargo
+                                                        div(class="col-sm-4")
+                                                            input(type='text', class="form-control")
+                                                        div(class="col-md-2")
+                                                            label() Analista
+                                                        div(class="col-md-4")
+                                                            input(class="form-control", ng-focus="onFocus('analista',1)",ng-blur="onBlur('analista',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(analista,'Name','dataAnalista','null','analista')", ng-model="analista")
+                                                            ul(ng-show="{{ 'analista' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                                                li(class="list-group-item",ng-mousedown="assign('analista',item.er)", ng-repeat="item in dataAnalista") {{item.er}}
+                                                    div(class="row row-space")
+                                                        div(class="col-md-2")
+                                                            label() Persona de contacto
+                                                        div(class="col-sm-4")
+                                                            input(class="form-control", ng-focus="onFocus('persona',1)",ng-blur="onBlur('persona',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(persona,'Name','dataPersona','null','persona')", ng-model="persona")
+                                                            ul(ng-show="{{ 'persona' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                                                li(class="list-group-item",ng-mousedown="assign('persona',item.er)", ng-repeat="item in dataPersona") {{item.er}}
+                                                        div(class="col-md-2")
+                                                            label() Probabilidad condicional
+                                                        div(class="col-md-4")
+                                                            input(type='text', class="form-control")
+                                                    div(class="row row-space")
+                                                        div(class="col-md-2")
+                                                            label() Coordenadas GPS
+                                                        div(class="col-sm-4")
+                                                            input(type='text', class="form-control")
+                                                        div(class="col-md-2")
+                                                            label() Última actualización
+                                                        div(class="col-md-4")
+                                                            input(type='text', class="form-control")
+                                            div(id="tab2", class="tab-pane fade")
+                                                div(class="panel-body")
+                                                    div(class="row")
+                                                        div(class="col-sm-12")
+                                                            table(class="table table-striped")
+                                                                thead()
+                                                                    tr()
+                                                                        th() MethaCaracterísticas
+                                                                        th() Peso
+                                                                tbody()
+                                                                    tr()
+                                                                        td() 1
+                                                                        td() 2
+                                                                    tr()
+                                                                        td() 1
+                                                                        td() 2
+                                                                    tr()
+                                                                        td() 1
+                                                                        td() 2
+                                            div(id="tab3", class="tab-pane fade")
+                                                div(class="panel-body")
+                                            div(id="tab4", class="tab-pane fade")
+                                                div(class="panel-body")
+                                                    div(class="row row-space")
+                                                        div(class="col-md-8") 
+                                                            div(class="input-group")
+                                                                div(class="input-group-addon")
+                                                                    span(class="fa fa-search")
+                                                                input(class="form-control", placeholder="busqueda de candidatos",ng-focus="onFocus('candidatos',1)",ng-blur="onBlur('candidatos',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(candidato,'Name','dataCandidate','null','candidato')", ng-model="candidato")
+                                                            ul(ng-show="{{ 'candidatos' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                                                li(class="list-group-item",ng-mousedown="assign('candidato',item.er)", ng-repeat="item in dataCandidate") {{item.er}}
+                                                        div(class="col-md-2") 
+                                                            button(class="btn btn-default btn-block mb-control")
+                                                                span(class="fa fa-plus")
+                                                                span() Agregar
+                                                        div(class="col-md-2") 
+                                                            button(class="btn btn-default btn-block mb-control")
+                                                                span(class="fa fa-cloud-upload")
+                                                                span() Importar CV
+                                                    div(class="row")
+                                                        div(class="col-md-8") 
+                                                        div(class="col-md-4") 
+                                                                button(class="btn btn-default btn-block mb-control", data-toggle="modal", data-target="#myModal", data-backdrop="static")
+                                                                    span(class="fa fa-search")
+                                                                    span() Búsqueda avanzada
+                
+                
+                
+                
+                
+                
+                
+                
+                //- Ventana busqueda avanzada
+                div(id="myModal", class="modal fade", role="dialog")
+                    div(class="modal-dialog modal-lg")
+                        div(class="modal-content") 
+                            div(class="modal-header")
+                                button(type="button", class="close", data-dismiss="modal") &times;
+                                h4(class="modal-title") Búsqueda avanzada
+                            div(class="modal-body")
+                                div(class="row row-space")
+                                    div(class="col-sm-3")
+                                        label() status
+                                    div(class="col-sm-3")
+                                        input()
+                                    div(class="col-sm-3")
+                                        label()
+                                    div(class="col-sm-3")
+                                        input()
+                            div(class="modal-footer")
+                                button(type="button", class="btn btn-default", data-dismiss="modal") Cerrar

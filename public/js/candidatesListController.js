@@ -55,8 +55,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
                 $scope.Dato.skillPaginado = skill;
                 $scope.Dato.jobFunctionPaginado = jobFunction;
                 $scope.Dato.jobsPaginado = jobs;
-                //$cookies.put('Filtros', JSON.stringify(Dato));
-                keepData.set($scope.Dato);
+                keepData.set('filtroCandidato', $scope.Dato);
             } else {
                 $scope.lista.candidatos = [];
                 Mensaje.Alerta("error", 'Error', result.message);
@@ -69,7 +68,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
         $scope.advSearch($scope.Dato.namePaginado, $scope.Dato.countryPaginado, $scope.Dato.statusPaginado, $scope.Dato.skillPaginado, $scope.Dato.jobFunctionPaginado, $scope.Dato.jobsPaginado, $scope.lista.currentPage, 12);
     };
 
-    var datosCookies = keepData.get();
+    var datosCookies = $rootScope.filtroCandidato;
     if (datosCookies != null && datosCookies != undefined) {
         var datos = datosCookies;
         //$scope.busquedaAvanzada = true;

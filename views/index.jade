@@ -50,7 +50,11 @@ block body
         li()
           a(href="",ng-click="Redirect('/candidateMatching')") 
             i(class="fa fa-th", aria-hidden="true") 
-            span(class="xn-text") &nbsp;Matching  
+            span(class="xn-text") &nbsp;Matching 
+        li()
+          a(href="",ng-click="Redirect('/employerList')") 
+            i(class="glyphicon glyphicon-user", aria-hidden="true") 
+            span(class="xn-text") &nbsp;Gestión de empleadores  
     div(class="page-content")
       ul(class="x-navigation x-navigation-horizontal x-navigation-panel")
         li(class="xn-icon-button")
@@ -240,6 +244,8 @@ block body
   script(src='js/candidatesServices.js')
   script(src='js/candidatesController.js')
   script(src='js/candidatesListController.js')
+  script(src='js/employerListController.js')
+  script(src='js/employerService.js')
   script(src='js/filters.js')
   script(src='js/directives.js')
   script(src='js/factories.js')
