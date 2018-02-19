@@ -1,5 +1,5 @@
 angular.module('myApp.vacancyController', ['ui.select', 'ADM-dateTimePicker']).
-controller('vacancyDetailController', ['$scope', '$routeParams', 'Vacancy', 'Mensaje', 'Dictionary', '$parse', '$timeout', function ($scope, $routeParams, Vacancy, Mensaje, Dictionary, $parse, $timeout) {
+controller('vacancyDetailController', ['$scope', '$routeParams', 'Mensaje', 'Dictionary', '$parse', '$timeout', 'vacancyService', function ($scope, $routeParams, Mensaje, Dictionary, $parse, $timeout, vacancyService) {
     $scope.Dato = {};
     $scope.variablesGlobales = {};
     $scope.variablesGlobales.estados = [{
@@ -19,12 +19,14 @@ controller('vacancyDetailController', ['$scope', '$routeParams', 'Vacancy', 'Men
         label: "Inferida"
     }];
 
+    $scope.guardarDatos = function () {
+
+    };
+
     $scope.getAcronym = function (item) {
         $scope.pais = item.er;
         $scope.acronym = item.acronym;
-        console.log(item);
     };
-
 
     $scope.data = [];
     $scope.autocompletarInput = function (string, tipo, datos, acronimo, selected) {
@@ -33,7 +35,6 @@ controller('vacancyDetailController', ['$scope', '$routeParams', 'Vacancy', 'Men
         modelSelect.assign($scope, "");
         var data = Dictionary.getSynonyms(string, tipo, acronimo, function (error, result) {
             if (!error) {
-                console.log(result)
                 if (result.suggested) {
                     model.assign($scope, result.suggested);
                 } else {
@@ -55,10 +56,10 @@ controller('vacancyDetailController', ['$scope', '$routeParams', 'Vacancy', 'Men
             $parse(variable + index).assign($scope, false);
         }, 125);
     }
-    $scope.assign = function (variable, valor) {
+    $scope.assign = function (variable, item) {
         var model = $parse(variable);
         var modelSelect = $parse(variable + "Selected");
-        model.assign($scope, valor);
-        modelSelect.assign($scope, valor);
+        model.assign($scope, item.er);
+        modelSelect.assign($scope, item);
     }
 }]);

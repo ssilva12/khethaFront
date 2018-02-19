@@ -18,19 +18,24 @@ div(class="page-content-wrap")
                                     div(class="col-md-5")
                                         input(name="employer", class="form-control has-error",ng-focus="onFocus('empleador',1)",ng-blur="onBlur('empleador',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.employer,'EmployerName','dataEmpleador','null','Dato.employer')", ng-model="Dato.employer",ng-required="Dato.employerSelected")
                                         ul(ng-show="{{ 'empleador' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                            li(class="list-group-item",ng-mousedown="assign('Dato.employer',item.er)", ng-repeat="item in dataEmpleador") {{item.er}}
+                                            li(class="list-group-item",ng-mousedown="assign('Dato.employer',item)", ng-repeat="item in dataEmpleador") {{item.er}}
                                     div(class="col-md-1") 
                                         label() Oficio
                                     div(class="col-md-5")
                                         input(class="form-control",ng-focus="onFocus('oficio',1)",ng-blur="onBlur('oficio',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.job,'JobName','dataJob','null','Dato.job')", ng-model="Dato.job", ng-required="Dato.jobSelected")
                                         ul(ng-show="{{ 'oficio' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                            li(class="list-group-item",ng-mousedown="assign('Dato.job',item.er)", ng-repeat="item in dataJob") {{item.er}}
-                //- div(class="row", ng-if="Dato.employerSelected && Dato.jobSelected")
-                div(class="row")
+                                            li(class="list-group-item",ng-mousedown="assign('Dato.job',item)", ng-repeat="item in dataJob") {{item.er}}
+                div(class="row", ng-if="Dato.employerSelected && Dato.jobSelected")
+                    //- div(class="row")
                     div(class="col-md-12")
                         div(class="panel panel-default")
                             div(class="panel-body")
                                 form(class="form-horizontal")
+                                    div(class="row row-space")
+                                        div(class="col-sm-12")
+                                            button(type="button", class="btn btn-primary pull-right", ng-click="guardarDatos()")
+                                                li(class="fa fa-save")
+                                                span() Guardar
                                     div(class="panel panel-default nav-tabs-vertical")
                                         ul(class="nav nav-tabs")
                                             li(style="border-bottom: 1px solid #ddd;")
@@ -83,7 +88,7 @@ div(class="page-content-wrap")
                                                         div(class="col-md-4")
                                                             input(class="form-control",ng-focus="onFocus('paisVisible',1)",ng-blur="onBlur('paisVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(pais,'CountryName','dataPais','null','pais'); cityName =''; postalCode =''", ng-model="pais", ng-required="paisSelected")
                                                             ul(ng-show="{{ 'paisVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                                li(class="list-group-item",ng-mousedown="assign('pais',pais.er); getAcronym(pais)", ng-repeat="pais in dataPais") {{pais.er}}
+                                                                li(class="list-group-item",ng-mousedown="assign('pais',pais); getAcronym(pais)", ng-repeat="pais in dataPais") {{pais.er}}
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
                                                             label() Código postal
@@ -94,7 +99,7 @@ div(class="page-content-wrap")
                                                         div(class="col-md-4")
                                                             input(class="form-control",ng-focus="onFocus('poblacionVisible',1)",ng-blur="onBlur('poblacionVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(poblacion,'CityName','dataCity',acronym,'poblacion')", ng-model="poblacion", ng-required="poblacionSelected", ng-disabled="!pais")
                                                             ul(ng-show="{{ 'poblacionVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                                li(class="list-group-item",ng-mousedown="assign('poblacion',city.er)", ng-repeat="city in dataCity") {{city.er}}
+                                                                li(class="list-group-item",ng-mousedown="assign('poblacion',city)", ng-repeat="city in dataCity") {{city.er}}
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
                                                             label() Cargo
@@ -105,14 +110,14 @@ div(class="page-content-wrap")
                                                         div(class="col-md-4")
                                                             input(class="form-control", ng-focus="onFocus('analista',1)",ng-blur="onBlur('analista',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(analista,'Name','dataAnalista','null','analista')", ng-model="analista")
                                                             ul(ng-show="{{ 'analista' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                                li(class="list-group-item",ng-mousedown="assign('analista',item.er)", ng-repeat="item in dataAnalista") {{item.er}}
+                                                                li(class="list-group-item",ng-mousedown="assign('analista',item)", ng-repeat="item in dataAnalista") {{item.er}}
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
                                                             label() Persona de contacto
                                                         div(class="col-sm-4")
                                                             input(class="form-control", ng-focus="onFocus('persona',1)",ng-blur="onBlur('persona',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(persona,'Name','dataPersona','null','persona')", ng-model="persona")
                                                             ul(ng-show="{{ 'persona' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                                li(class="list-group-item",ng-mousedown="assign('persona',item.er)", ng-repeat="item in dataPersona") {{item.er}}
+                                                                li(class="list-group-item",ng-mousedown="assign('persona',item)", ng-repeat="item in dataPersona") {{item.er}}
                                                         div(class="col-md-2")
                                                             label() Probabilidad condicional
                                                         div(class="col-md-4")
@@ -156,7 +161,7 @@ div(class="page-content-wrap")
                                                                     span(class="fa fa-search")
                                                                 input(class="form-control", placeholder="busqueda de candidatos",ng-focus="onFocus('candidatos',1)",ng-blur="onBlur('candidatos',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(candidato,'Name','dataCandidate','null','candidato')", ng-model="candidato")
                                                             ul(ng-show="{{ 'candidatos' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                                li(class="list-group-item",ng-mousedown="assign('candidato',item.er)", ng-repeat="item in dataCandidate") {{item.er}}
+                                                                li(class="list-group-item",ng-mousedown="assign('candidato',item)", ng-repeat="item in dataCandidate") {{item.er}}
                                                         div(class="col-md-2") 
                                                             button(class="btn btn-default btn-block mb-control")
                                                                 span(class="fa fa-plus")

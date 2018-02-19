@@ -1,7 +1,7 @@
 angular.module('myApp.vacancyService', []).
 value('version', '0.2')
     .service('Vacancy', ['$http', 'URL', function ($http, URL) {
-
+        
         var Result = {};
         Result.error = false;
         Result.status = null;
@@ -14,7 +14,6 @@ value('version', '0.2')
                 url: URL.URL_REST_SERVICE + 'getVacancies'
             }).
             then(function onSuccess(response) {
-                console.log(response);
                 Result.error = false;
                 Result.status = response.status;
                 Result.message = "OK";
@@ -81,3 +80,15 @@ value('version', '0.2')
             });
         }
     }])
+    .factory('vacancyService', ['$http', 'URL', function ($http, URL) {
+
+        var vacancyService = {};
+
+        var Result = {};
+        Result.error = false;
+        Result.status = null;
+        Result.message = "";
+        Result.data = null;
+
+        return vacancyService;
+    }]);

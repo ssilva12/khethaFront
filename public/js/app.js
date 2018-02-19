@@ -10,6 +10,9 @@ angular.module('myApp', [
     'myApp.candidatesServices',
     'myApp.candidatesCtrl',
     'myApp.candidatesListCtrl',
+    'myApp.employerService',
+    'myApp.employerListCtrl',
+    'myApp.employerCtrl',
     'myApp.filters',
     'myApp.services',
     'myApp.vacancyService',
@@ -23,6 +26,55 @@ angular.module('myApp', [
 ]).
 config(function ($routeProvider, $locationProvider) {
     $routeProvider.
+    when('/detail', {
+        title: "Candidato",
+        templateUrl: 'partials/candidateDetail',
+        controller: 'candidatesController'
+    }).
+    when('/detail/:id', {
+        title: "Candidato",
+        templateUrl: 'partials/candidateDetail',
+        controller: 'candidatesController'
+    }).
+    when('/candidateslist', {
+        title: "Lista de candidatos",
+        templateUrl: 'partials/candidateList',
+        controller: 'candidatesListController'
+    }).
+    when('/vacancyDetail', {
+        templateUrl: 'partials/vacancyDetail',
+        controller: 'vacancyDetailController',
+        title: "Vacante"
+    }).
+    when('/vacancyDetail/:id', {
+        templateUrl: 'partials/vacancyDetail',
+        controller: 'vacancyDetailController',
+        title: "Vacante"
+    }).
+    when('/vacancyList', {
+        templateUrl: 'partials/vacancyList',
+        controller: 'vacancyListController',
+        title: "Lista de vacantes"
+    }).
+    when('/employerList', {
+        templateUrl: 'partials/employerList',
+        controller: 'employerListController',
+        title: "Lista de empleadores"
+    }).
+    when('/employerDetail', {
+        title: "Empleador",
+        templateUrl: 'partials/employerDetail',
+        controller: 'employerController'
+    }).
+    when('/employerDetail/:id', {
+        title: "Empleador",
+        templateUrl: 'partials/employerDetail',
+        controller: 'employerController'
+    }).
+
+
+
+
     when('/unresolved', {
         templateUrl: 'partials/unresolved',
         controller: 'MyCtrl1',
@@ -113,40 +165,11 @@ config(function ($routeProvider, $locationProvider) {
         controller: 'frequencyMatrixCtrl',
         activetab: 'candidateMatching'
     }).
-    when('/vacancyList', {
-        templateUrl: 'partials/vacancyList',
-        controller: 'vacancyListController',
-        title: "Lista de vacantes"
-    }).
+
     when('/vacancy', {
         templateUrl: 'partials/vacancy',
         controller: 'vacancyCtrl',
         title: "Vacante"
-    }).
-    when('/vacancyDetail', {
-        templateUrl: 'partials/vacancyDetail',
-        controller: 'vacancyDetailController',
-        title: "Vacante"
-    }).
-    when('/vacancyDetail/:id', {
-        templateUrl: 'partials/vacancyDetail',
-        controller: 'vacancyDetailController',
-        title: "Vacante"
-    }).
-    when('/detail', {
-        title: "Candidato",
-        templateUrl: 'partials/candidateDetail',
-        controller: 'candidatesController'
-    }).
-    when('/detail/:id', {
-        title: "Candidato",
-        templateUrl: 'partials/candidateDetail',
-        controller: 'candidatesController'
-    }).
-    when('/candidateslist', {
-        title: "Lista de candidatos",
-        templateUrl: 'partials/candidateList',
-        controller: 'candidatesListController'
     }).
     otherwise({
         redirectTo: '/candidateslist'

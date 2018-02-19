@@ -1,15 +1,16 @@
-angular.module('myApp.employerListCtrl', ['ui.select', 'ADM-dateTimePicker']).
-controller('employerListController', ['$scope', 'Mensaje', 'Dictionary', '$parse', '$timeout', 'employerServices', '$rootScope', function ($scope, Mensaje, Dictionary, $parse, $timeout, employerServices, $rootScope) {
+angular.module('myApp.employerListCtrl', ['ui.select']).
+controller('employerListController', ['$scope', 'Mensaje', 'employerService', '$rootScope', '$location', 'keepData', function ($scope, Mensaje, employerService, $rootScope, $location, keepData) {
     $scope.lista = {};
     $scope.lista.empleadores = [];
     $scope.lista.currentPage = 1;
     $scope.lista.totalItems = 0;
     $scope.lista.entryLimit = 12;
     $scope.lista.noOfPages = 0;
+    $scope.Dato = {};
 
     $scope.advSearch = function (name, page, itemsPerPage) {
         Mensaje.Esperar();
-        employerServices.advSearch(String(name), String(page), String(itemsPerPage), function (result) {
+        employerService.advSearch(String(name), String(page), String(itemsPerPage), function (result) {
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.lista.empleadores = result.data.employers;
@@ -18,7 +19,6 @@ controller('employerListController', ['$scope', 'Mensaje', 'Dictionary', '$parse
                 $scope.lista.totalItems = result.data.total;
                 $scope.lista.entryLimit = itemsPerPage;
                 $scope.lista.noOfPages = Math.ceil($scope.lista.totalItems / $scope.lista.entryLimit);
-
 
                 $scope.Dato.namePaginado = name;
                 keepData.set('filtroEmpleador', $scope.Dato);
@@ -33,6 +33,15 @@ controller('employerListController', ['$scope', 'Mensaje', 'Dictionary', '$parse
         $scope.advSearch($scope.Dato.namePaginado, $scope.lista.currentPage, 12);
     };
 
+    $scope.buscarDetalle = function (id) {
+        $location.path('/employerDetail/' + id);
+    };
+
+    $scope.crearNuevo = function () {
+        $location.path('/employerDetail/');
+    };
+
+    //INIT
     var datosCookies = $rootScope.filtroEmpleador;
     if (datosCookies != null && datosCookies != undefined) {
         var datos = datosCookies;

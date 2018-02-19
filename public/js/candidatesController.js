@@ -406,6 +406,28 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     $scope.actualizarCaracteristicaPsicologica = function (caracteristica) {
         $scope.actualizarFeature(caracteristica, "PsychologicalCharacteristicsName");
     }
+
+    $scope.uploadFile = function (files) {
+        Mensaje.Esperar("Subiendo curriculum");
+        var fd = new FormData();
+        fd.append("file", files[0]);
+        var reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onload = function () {
+            var resultado = candidatesServices.uploadFile(files[0], function (result) {
+                Mensaje.Desocupar();
+                if (!result.error) {
+                    $scope.cargarCandidato(result.data.id);
+                } else {
+                    Mensaje.Alerta("Error", result.message);
+                }
+            });
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    };
+
     //FIN ACTUALIZACION DE DATOS
     $scope.data = [];
     $scope.autocompletarInput = function (string, tipo, datos, acronimo) {

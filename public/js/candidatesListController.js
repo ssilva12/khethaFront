@@ -42,7 +42,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.lista.candidatos = result.data.candidates;
-                $scope.lista.cantidad = " (" + result.data.total + " candidatos)";
+                $scope.lista.cantidad = " (" + result.data.total + " candidato(s))";
                 $scope.lista.currentPage = page;
                 $scope.lista.totalItems = result.data.total;
                 $scope.lista.entryLimit = itemsPerPage;
@@ -98,6 +98,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
         $scope.Dato.jobFunction = "";
         $scope.Dato.job = "";
         $scope.busquedaAvanzada = false;
+        $scope.advSearch("", "", "", "", "", "", 1, 12);
     };
 
     $scope.data = [];
