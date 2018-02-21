@@ -13,6 +13,9 @@ angular.module('myApp', [
     'myApp.employerService',
     'myApp.employerListCtrl',
     'myApp.employerCtrl',
+    'myApp.jobService',
+    'myApp.jobListCtrl',
+    'myApp.jobCtrl',
     'myApp.filters',
     'myApp.services',
     'myApp.vacancyService',
@@ -59,7 +62,7 @@ config(function ($routeProvider, $locationProvider) {
     when('/employerList', {
         templateUrl: 'partials/employerList',
         controller: 'employerListController',
-        title: "Lista de empleadores"
+        title: "Gestión de empleadores"
     }).
     when('/employerDetail', {
         title: "Empleador",
@@ -71,7 +74,21 @@ config(function ($routeProvider, $locationProvider) {
         templateUrl: 'partials/employerDetail',
         controller: 'employerController'
     }).
-
+    when('/jobList', {
+        templateUrl: 'partials/jobList',
+        controller: 'jobListController',
+        title: "Gestión de jobs"
+    }).
+    when('/jobDetail', {
+        title: "Job",
+        templateUrl: 'partials/jobDetail',
+        controller: 'jobController'
+    }).
+    when('/jobDetail/:id', {
+        title: "Job",
+        templateUrl: 'partials/jobDetail',
+        controller: 'jobController'
+    }).
 
 
 

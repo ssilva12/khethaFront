@@ -54,7 +54,11 @@ block body
         li()
           a(href="",ng-click="Redirect('/employerList')") 
             i(class="glyphicon glyphicon-user", aria-hidden="true") 
-            span(class="xn-text") &nbsp;Gestión de empleadores  
+            span(class="xn-text") &nbsp;Gestión de empleadores
+        li()
+          a(href="",ng-click="Redirect('/jobList')") 
+            i(class="fa fa-desktop", aria-hidden="true") 
+            span(class="xn-text") &nbsp;Gestión de jobs  
         li()
           br()
     div(class="page-content")
@@ -249,6 +253,9 @@ block body
   script(src='js/employerService.js')
   script(src='js/employerListController.js')
   script(src='js/employerController.js')
+  script(src='js/jobService.js')
+  script(src='js/jobListController.js')
+  script(src='js/jobController.js')
   script(src='js/filters.js')
   script(src='js/directives.js')
   script(src='js/factories.js')

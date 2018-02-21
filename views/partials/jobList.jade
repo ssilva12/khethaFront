@@ -1,6 +1,6 @@
 //- PAGE TITLE
 div(class="page-title")
-    h2() Gestión de empleadores
+    h2() Gestión de jobs
         span(class="txt-grises", ng-bind="lista.cantidad")
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
@@ -12,7 +12,7 @@ div(class="page-content-wrap")
                 div(class="col-md-12")
                     div(class="panel panel-default")
                         div(class="panel-body")
-                            p() Usa la búsqueda para encontrar empleadores
+                            p() Usa la búsqueda para encontrar jobs
                             form(class="form-horizontal")
                                 div(class="form-group")
                                     div(class="col-md-10")
@@ -25,7 +25,7 @@ div(class="page-content-wrap")
                                     div(class="col-md-2")
                                         button(class="btn btn-default btn-block mb-control", ng-click="crearNuevo()")
                                             span(class="fa fa-plus")
-                                            span() Crear empleador
+                                            span() Crear job
             div(class="row")
                 div(class="col-md-12")
                     div(class="panel panel-default")
@@ -42,12 +42,12 @@ div(class="page-content-wrap")
                                                         h3() Sector 
                                                     td(class="col-md-1")                                                                                                    
                                             tbody()
-                                                tr(ng-repeat="empleador in lista.empleadores")
-                                                    td() {{empleador.name}}
-                                                    td() {{empleador.sectorName}}
+                                                tr(ng-repeat="job in lista.jobs")
+                                                    td() {{job.name}}
+                                                    td() {{job.sectorName}}
                                                     td() 
                                                         div(class="btn-group")
-                                                            button(class="btn btn-default btn-condensed", ng-click="buscarDetalle(empleador.id)")
+                                                            button(class="btn btn-default btn-condensed", ng-click="buscarDetalle(job.id)")
                                                                 span(class="fa fa-pencil")
                             div(class="row")
                                 div(class="col-sm-12")
