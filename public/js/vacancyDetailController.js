@@ -1,5 +1,5 @@
 angular.module('myApp.vacancyController', ['ui.select', 'ADM-dateTimePicker']).
-controller('vacancyDetailController', ['$scope', '$routeParams', 'Mensaje', 'Dictionary', '$parse', '$timeout', 'vacancyService', '$location', function ($scope, $routeParams, Mensaje, Dictionary, $parse, $timeout, vacancyService, $location) {
+controller('vacancyDetailController', ['$scope', '$rootScope', '$routeParams', 'Mensaje', 'Dictionary', '$parse', '$timeout', 'vacancyService', '$location', 'keepData', function ($scope, $rootScope, $routeParams, Mensaje, Dictionary, $parse, $timeout, vacancyService, $location, keepData) {
     $scope.Dato = {};
     $scope.Data = {};
     $scope.variablesGlobales = {};
@@ -81,8 +81,9 @@ controller('vacancyDetailController', ['$scope', '$routeParams', 'Mensaje', 'Dic
         var allData = vacancyService.getById(id, function (result) {
             Mensaje.Desocupar();
             if (!result.error) {
-                console.log(result.data);
+                console.log(result.data)
                 $scope.Data = result.data;
+                $scope.Dato.tab = $rootScope.activeTabVacancy != null & $rootScope.activeTabVacancy != undefined ? $rootScope.activeTabVacancy : "tab1";
             } else {
                 Mensaje.Alerta("error", result.message);
             }
@@ -91,6 +92,22 @@ controller('vacancyDetailController', ['$scope', '$routeParams', 'Mensaje', 'Dic
 
     $scope.buscarDetalle = function (id) {
         $location.path('/detail/' + id);
+    };
+
+    $scope.setActive = function (tab) {
+        keepData.set('activeTabVacancy', tab);
+    };
+
+    $scope.agregarCandidato = function (candidateId, relation) {
+        Mensaje.Esperar();
+        vacancyService.addCandidate(candidateId, $scope.Data.vacancy.id, relation, function (result) {
+            Mensaje.Desocupar();
+            if (!result.error) {
+                $scope.cargarVacante($scope.Data.vacancy.id);
+            } else {
+                Mensaje.Alerta("error", result.message);
+            }
+        });
     };
 
     //INIT

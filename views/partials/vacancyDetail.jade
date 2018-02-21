@@ -46,23 +46,23 @@ div(class="page-content-wrap")
                                                 span() Guardar
                                     div(class="panel panel-default tabs")
                                         ul(class="nav nav-tabs nav-justified")
-                                            li(class="active")
-                                                a(data-toggle="tab", data-target="#tab1") Información
-                                            li()
-                                                a(data-toggle="tab", data-target="#tab2") Metha-Características
-                                            li()
-                                                a(data-toggle="tab", data-target="#tab3") Matriz de caracterización
-                                            li(class="dropdown")
+                                            li(ng-class="{'active' : Dato.tab == 'tab1'}")
+                                                a(data-toggle="tab", data-target="#tab1",ng-click="setActive('tab1')") Información
+                                            li(ng-class="{'active' : Dato.tab == 'tab2'}")
+                                                a(data-toggle="tab", data-target="#tab2",ng-click="setActive('tab2')") Metha-Características
+                                            li(ng-class="{'active' : Dato.tab == 'tab3'}")
+                                                a(data-toggle="tab", data-target="#tab3",ng-click="setActive('tab3')") Matriz de caracterización
+                                            li(class="dropdown",ng-class="{'active' : Dato.tab == 'tab4'}")
                                                 a(class="dropdown-toggle", data-toggle="dropdown") Lista de selección
                                                     ul(class="dropdown-menu")
                                                         li()
-                                                            a(data-toggle="tab", data-target="#tab4") Concurren
+                                                            a(data-toggle="tab", data-target="#tab4",ng-click="setActive('tab4')") Concurren
                                                         li()
-                                                            a(data-toggle="tab", data-target="#tab5") Preseleccionados
+                                                            a(data-toggle="tab", data-target="#tab5",ng-click="setActive('tab5')") Preseleccionados
                                                         li()
-                                                            a(data-toggle="tab", data-target="#tab6") Seleccionados
+                                                            a(data-toggle="tab", data-target="#tab6",ng-click="setActive('tab6')") Seleccionados
                                         div(class="tab-content", style="min-height:100vh; border-left: 1px solid #ddd;")
-                                            div(id="tab1", class="tab-pane active")
+                                            div(id="tab1", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab1'}")
                                                 div(class="panel-body")
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
@@ -146,7 +146,7 @@ div(class="page-content-wrap")
                                                             label() Última actualización
                                                         div(class="col-md-4")
                                                             input(type='text', class="form-control")
-                                            div(id="tab2", class="tab-pane fade")
+                                            div(id="tab2", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab2'}")
                                                 div(class="panel-body")
                                                     div(class="row")
                                                         div(class="col-sm-12")
@@ -165,9 +165,9 @@ div(class="page-content-wrap")
                                                                     tr()
                                                                         td() 1
                                                                         td() 2
-                                            div(id="tab3", class="tab-pane fade")
+                                            div(id="tab3", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab3'}")
                                                 div(class="panel-body")
-                                            div(id="tab4", class="tab-pane fade")
+                                            div(id="tab4", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab4'}")
                                                 div(class="panel-body")
                                                     div(class="row row-space")
                                                         div(class="col-md-8") 
@@ -178,7 +178,7 @@ div(class="page-content-wrap")
                                                             ul(ng-show="{{ 'candidatos' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                 li(class="list-group-item",ng-mousedown="assign('candidato',item)", ng-repeat="item in dataCandidate") {{item.er}}
                                                         div(class="col-md-2") 
-                                                            button(class="btn btn-default btn-block mb-control")
+                                                            button(class="btn btn-default btn-block mb-control",ng-click="agregarCandidato(candidatoSelected.id,'CND_CONCUR')")
                                                                 span(class="fa fa-plus")
                                                                 span() Agregar
                                                         div(class="col-md-2") 
@@ -210,9 +210,9 @@ div(class="page-content-wrap")
                                                                             button(class="btn btn-default btn-condensed", ng-click="buscarDetalle(candidato.id)")
                                                                                 span(class="fa fa-file-text-o")
                                                                         td() 
-                                                                            button(class="btn btn-default btn-condensed")
+                                                                            button(class="btn btn-default btn-condensed",ng-click="agregarCandidato(candidato.nounId,'CND_PRESELECTED')")
                                                                                 span(class="fa fa-check-square-o")
-                                            div(id="tab5", class="tab-pane fade")     
+                                            div(id="tab5", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab5'}")     
                                                 div(class="panel-body")      
                                                     div(class="row row-space")
                                                         div(class="col-sm-12")
@@ -233,9 +233,9 @@ div(class="page-content-wrap")
                                                                             button(class="btn btn-default btn-condensed", ng-click="buscarDetalle(candidato.id)")
                                                                                 span(class="fa fa-file-text-o")
                                                                         td() 
-                                                                            button(class="btn btn-default btn-condensed")
+                                                                            button(class="btn btn-default btn-condensed",ng-click="agregarCandidato(candidato.nounId,'CND_SELECTED')")
                                                                                 span(class="fa fa-check-square-o") 
-                                            div(id="tab6", class="tab-pane fade")  
+                                            div(id="tab6", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab6'}")  
                                                 div(class="panel-body")
                                                     div(class="row row-space")
                                                         div(class="col-sm-12")
