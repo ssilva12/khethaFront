@@ -1,7 +1,7 @@
 angular.module('myApp.vacancyController', ['ui.select', 'ADM-dateTimePicker']).
-controller('vacancyDetailController', ['$scope', '$routeParams', 'Mensaje', 'Dictionary', '$parse', '$timeout', 'vacancyService', function ($scope, $routeParams, Mensaje, Dictionary, $parse, $timeout, vacancyService) {
+controller('vacancyDetailController', ['$scope', '$routeParams', 'Mensaje', 'Dictionary', '$parse', '$timeout', 'vacancyService', '$location', function ($scope, $routeParams, Mensaje, Dictionary, $parse, $timeout, vacancyService, $location) {
     $scope.Dato = {};
-    $scope.vacancy = {};
+    $scope.Data = {};
     $scope.variablesGlobales = {};
     $scope.variablesGlobales.estados = [{
         value: "A",
@@ -13,17 +13,20 @@ controller('vacancyDetailController', ['$scope', '$routeParams', 'Mensaje', 'Dic
         value: "C",
         label: "Cerrada"
     }, {
-        value: "N",
+        value: "D",
         label: "Anulada"
     }, {
-        value: "I",
+        value: "S",
         label: "Inferida"
     }];
 
     $scope.crearVacante = function () {
-        var vacante = vacancyService.createVacancy(Dato.employerSelected.id, Dato.jobSelected.id, function (result) {
+        var vacante = vacancyService.createVacancy($scope.Dato.employerSelected.id, $scope.Dato.jobSelected.id, function (result) {
             Mensaje.Desocupar();
-            if (!result.error) {} else {
+            if (!result.error) {
+                console.log(result);
+                $scope.cargarVacante(result.data.id);
+            } else {
                 Mensaje.Alerta("error", result.message);
             }
         });
@@ -79,11 +82,15 @@ controller('vacancyDetailController', ['$scope', '$routeParams', 'Mensaje', 'Dic
             Mensaje.Desocupar();
             if (!result.error) {
                 console.log(result.data);
-                $scope.vacancy = result.data.vacancy;
+                $scope.Data = result.data;
             } else {
                 Mensaje.Alerta("error", result.message);
             }
         });
+    };
+
+    $scope.buscarDetalle = function (id) {
+        $location.path('/detail/' + id);
     };
 
     //INIT

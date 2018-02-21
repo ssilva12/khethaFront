@@ -90,10 +90,13 @@ value('version', '0.2')
         Result.message = "";
         Result.data = null;
 
-        vacancyService.createVacancy = function (callback) {
+        vacancyService.createVacancy = function (employerId, jobId, callback) {
             $http({
                 method: 'POST',
-                data: {},
+                data: {
+                    employerId: employerId,
+                    jobId: jobId
+                },
                 url: URL.URL_REST_SERVICE + 'vacancy'
             }).
             then(function onSuccess(response) {

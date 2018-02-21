@@ -8,7 +8,7 @@ div(class="page-content-wrap")
         div(class="row")
             div(class="col-md-12")
                 //-INICIO
-                div(class="row",ng-hide="vacancy.id")
+                div(class="row",ng-hide="Data.vacancy.id")
                     div(class="col-md-12")
                         div(class="panel panel-default")
                             div(class="panel-body")
@@ -27,33 +27,42 @@ div(class="page-content-wrap")
                                             ul(ng-show="{{ 'oficio' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                 li(class="list-group-item",ng-mousedown="assign('Dato.job',item)", ng-repeat="item in dataJob") {{item.er}}
                                     div(class="row row-space")
-                                        div(class="col-sm-12 pull-right", ng-if="Dato.employerSelected && Dato.jobSelected", ng-hide="vacancy.id")
+                                        div(class="col-sm-12 pull-right", ng-if="Dato.employerSelected && Dato.jobSelected", ng-hide="Data.vacancy.id")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="crearVacante()")
                                                 li(class="fa fa-save")
                                                 span() Crear vacante
-                div(class="row",ng-show="vacancy.id")
+                div(class="row",ng-show="Data.vacancy.id")
                     //- div(class="row")
                     div(class="col-md-12")
                         div(class="panel panel-default")
                             div(class="panel-body")
                                 form(class="form-horizontal")
                                     div(class="row row-space")
-                                        div(class="col-sm-12")
+                                        div(class="col-sm-11") 
+                                            H3() Empleador: {{Data.vacancy.employer}} - Job: {{Data.vacancy.job}}
+                                        div(class="col-sm-1")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="guardarDatos()")
                                                 li(class="fa fa-save")
                                                 span() Guardar
-                                    div(class="panel panel-default nav-tabs-vertical")
-                                        ul(class="nav nav-tabs")
-                                            li(style="border-bottom: 1px solid #ddd;")
+                                    div(class="panel panel-default tabs")
+                                        ul(class="nav nav-tabs nav-justified")
+                                            li(class="active")
                                                 a(data-toggle="tab", data-target="#tab1") Información
-                                            li(style="border-bottom: 1px solid #ddd;")
+                                            li()
                                                 a(data-toggle="tab", data-target="#tab2") Metha-Características
-                                            li(style="border-bottom: 1px solid #ddd;")
+                                            li()
                                                 a(data-toggle="tab", data-target="#tab3") Matriz de caracterización
-                                            li(style="border-bottom: 1px solid #ddd;")
-                                                a(data-toggle="tab", data-target="#tab4") Lista de preselección
+                                            li(class="dropdown")
+                                                a(class="dropdown-toggle", data-toggle="dropdown") Lista de selección
+                                                    ul(class="dropdown-menu")
+                                                        li()
+                                                            a(data-toggle="tab", data-target="#tab4") Concurren
+                                                        li()
+                                                            a(data-toggle="tab", data-target="#tab5") Preseleccionados
+                                                        li()
+                                                            a(data-toggle="tab", data-target="#tab6") Seleccionados
                                         div(class="tab-content", style="min-height:100vh; border-left: 1px solid #ddd;")
-                                            div(id="tab1", class="tab-pane fade")
+                                            div(id="tab1", class="tab-pane active")
                                                 div(class="panel-body")
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
@@ -68,13 +77,13 @@ div(class="page-content-wrap")
                                                         div(class="col-md-2")
                                                             label() Estatus
                                                         div(class="col-sm-4")
-                                                            select(class="form-control", select2="", name="estado", data-ng-model="vacancy.status")
+                                                            select(class="form-control", select2="", name="estado", data-ng-model="Data.vacancy.status")
                                                                 option(value="") Seleccione
                                                                 option(ng-repeat="estado in variablesGlobales.estados", value="{{estado.value}}") {{estado.label}}
                                                         div(class="col-md-2")
                                                             label() Fecha de inicio
                                                         div(class="col-md-4")
-                                                            adm-dtp(ng-model='vacancy.fromDate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
+                                                            adm-dtp(ng-model='Data.vacancy.fromDate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
                                                             label() Fecha fin
@@ -92,38 +101,38 @@ div(class="page-content-wrap")
                                                         div(class="col-md-2")
                                                             label() País
                                                         div(class="col-md-4")
-                                                            input(class="form-control",ng-focus="onFocus('paisVisible',1)",ng-blur="onBlur('paisVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(vacancy.country,'CountryName','dataPais','null','vacancy.country'); cityName =''; postalCode =''", ng-model="vacancy.country", ng-required="vacancy.countrySelected")
+                                                            input(class="form-control",ng-focus="onFocus('paisVisible',1)",ng-blur="onBlur('paisVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Data.vacancy.country,'CountryName','dataPais','null','Data.vacancy.country'); cityName =''; postalCode =''", ng-model="Data.vacancy.country", ng-required="Data.vacancy.countrySelected")
                                                             ul(ng-show="{{ 'paisVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                                li(class="list-group-item",ng-mousedown="assign('vacancy.country',pais); getAcronym(pais)", ng-repeat="pais in dataPais") {{pais.er}}
+                                                                li(class="list-group-item",ng-mousedown="assign('Data.vacancy.country',pais); getAcronym(pais)", ng-repeat="pais in dataPais") {{pais.er}}
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
                                                             label() Código postal
                                                         div(class="col-sm-4")
-                                                            input(type='text', class="form-control", ng-model="vacancy.postalCode", ng-disabled="!vacancy.country")
+                                                            input(type='text', class="form-control", ng-model="Data.vacancy.postalCode", ng-disabled="!Data.vacancy.country")
                                                         div(class="col-md-2")
                                                             label() Población
                                                         div(class="col-md-4")
-                                                            input(class="form-control",ng-focus="onFocus('poblacionVisible',1)",ng-blur="onBlur('poblacionVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(vacancy.city,'CityName','dataCity',acronym,'vacancy.city')", ng-model="vacancy.city", ng-required="vacancy.citySelected", ng-disabled="!vacancy.country")
+                                                            input(class="form-control",ng-focus="onFocus('poblacionVisible',1)",ng-blur="onBlur('poblacionVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Data.vacancy.city,'CityName','dataCity',acronym,'Data.vacancy.city')", ng-model="Data.vacancy.city", ng-required="Data.vacancy.citySelected", ng-disabled="!Data.vacancy.country")
                                                             ul(ng-show="{{ 'poblacionVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                                li(class="list-group-item",ng-mousedown="assign('vacancy.city',city)", ng-repeat="city in dataCity") {{city.er}}
+                                                                li(class="list-group-item",ng-mousedown="assign('Data.vacancy.city',city)", ng-repeat="city in dataCity") {{city.er}}
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
                                                             label() Cargo
                                                         div(class="col-sm-4")
-                                                            input(type='text', class="form-control",ng-model="vacancy.name")
+                                                            input(type='text', class="form-control",ng-model="Data.vacancy.name")
                                                         div(class="col-md-2")
                                                             label() Analista
                                                         div(class="col-md-4")
-                                                            input(class="form-control", ng-focus="onFocus('analista',1)",ng-blur="onBlur('analista',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(vacancy.analist,'Name','dataAnalista','null','vacancy.analist')", ng-model="vacancy.analist")
+                                                            input(class="form-control", ng-focus="onFocus('analista',1)",ng-blur="onBlur('analista',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Data.vacancy.analist,'Name','dataAnalista','null','Data.vacancy.analist')", ng-model="Data.vacancy.analist")
                                                             ul(ng-show="{{ 'analista' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                                li(class="list-group-item",ng-mousedown="assign('vacancy.analist',item)", ng-repeat="item in dataAnalista") {{item.er}}
+                                                                li(class="list-group-item",ng-mousedown="assign('Data.vacancy.analist',item)", ng-repeat="item in dataAnalista") {{item.er}}
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
                                                             label() Persona de contacto
                                                         div(class="col-sm-4")
-                                                            input(class="form-control", ng-focus="onFocus('persona',1)",ng-blur="onBlur('persona',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(vacancy.contact,'Name','dataPersona','null','vacancy.contact')", ng-model="vacancy.contact")
+                                                            input(class="form-control", ng-focus="onFocus('persona',1)",ng-blur="onBlur('persona',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Data.vacancy.contact,'Name','dataPersona','null','Data.vacancy.contact')", ng-model="Data.vacancy.contact")
                                                             ul(ng-show="{{ 'persona' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                                li(class="list-group-item",ng-mousedown="assign('vacancy.contact',item)", ng-repeat="item in dataPersona") {{item.er}}
+                                                                li(class="list-group-item",ng-mousedown="assign('Data.vacancy.contact',item)", ng-repeat="item in dataPersona") {{item.er}}
                                                         div(class="col-md-2")
                                                             label() Probabilidad condicional
                                                         div(class="col-md-4")
@@ -176,12 +185,76 @@ div(class="page-content-wrap")
                                                             button(class="btn btn-default btn-block mb-control")
                                                                 span(class="fa fa-cloud-upload")
                                                                 span() Importar CV
-                                                    div(class="row")
+                                                    div(class="row row-space")
                                                         div(class="col-md-8") 
                                                         div(class="col-md-4") 
                                                                 button(class="btn btn-default btn-block mb-control", data-toggle="modal", data-target="#myModal", data-backdrop="static")
                                                                     span(class="fa fa-search")
                                                                     span() Búsqueda avanzada
+                                                    div(class="row row-space")
+                                                        div(class="col-sm-12")
+                                                            table(class="table table-striped")
+                                                                thead()
+                                                                    tr()
+                                                                        th(class="col-sm-9") Candidato
+                                                                        th(class="col-sm-1") Adaptación
+                                                                        th(class="col-sm-1") Ver 
+                                                                        th(class="col-sm-1") Preseleccionar 
+                                                                tbody()
+                                                                    tr(ng-repeat="candidato in Data.concur")
+                                                                        td() 
+                                                                            span(ng-bind="candidato.name")
+                                                                        td() 
+                                                                            span(ng-bind="candidato.adaptation")
+                                                                        td() 
+                                                                            button(class="btn btn-default btn-condensed", ng-click="buscarDetalle(candidato.id)")
+                                                                                span(class="fa fa-file-text-o")
+                                                                        td() 
+                                                                            button(class="btn btn-default btn-condensed")
+                                                                                span(class="fa fa-check-square-o")
+                                            div(id="tab5", class="tab-pane fade")     
+                                                div(class="panel-body")      
+                                                    div(class="row row-space")
+                                                        div(class="col-sm-12")
+                                                            table(class="table table-striped")
+                                                                thead()
+                                                                    tr()
+                                                                        th(class="col-sm-9") Candidato
+                                                                        th(class="col-sm-1") Adaptación
+                                                                        th(class="col-sm-1") Ver 
+                                                                        th(class="col-sm-1") Seleccionar
+                                                                tbody()
+                                                                    tr(ng-repeat="candidato in Data.preselected")
+                                                                        td() 
+                                                                            span(ng-bind="candidato.name")
+                                                                        td() 
+                                                                            span(ng-bind="candidato.adaptation")
+                                                                        td() 
+                                                                            button(class="btn btn-default btn-condensed", ng-click="buscarDetalle(candidato.id)")
+                                                                                span(class="fa fa-file-text-o")
+                                                                        td() 
+                                                                            button(class="btn btn-default btn-condensed")
+                                                                                span(class="fa fa-check-square-o") 
+                                            div(id="tab6", class="tab-pane fade")  
+                                                div(class="panel-body")
+                                                    div(class="row row-space")
+                                                        div(class="col-sm-12")
+                                                            table(class="table table-striped")
+                                                                thead()
+                                                                    tr()
+                                                                        th(class="col-sm-9") Candidato
+                                                                        th(class="col-sm-1") Adaptación
+                                                                        th(class="col-sm-1") Ver 
+                                                                tbody()
+                                                                    tr(ng-repeat="candidato in Data.selected")
+                                                                        td() 
+                                                                            span(ng-bind="candidato.name")
+                                                                        td() 
+                                                                            span(ng-bind="candidato.adaptation")
+                                                                        td() 
+                                                                            button(class="btn btn-default btn-condensed", ng-click="buscarDetalle(candidato.id)")
+                                                                                span(class="fa fa-file-text-o")
+                                                             
                 
                 
                 
