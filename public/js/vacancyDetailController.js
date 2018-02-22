@@ -1,7 +1,13 @@
 angular.module('myApp.vacancyController', ['ui.select', 'ADM-dateTimePicker']).
-controller('vacancyDetailController', ['$scope', '$rootScope', '$routeParams', 'Mensaje', 'Dictionary', '$parse', '$timeout', 'vacancyService', '$location', 'keepData', function ($scope, $rootScope, $routeParams, Mensaje, Dictionary, $parse, $timeout, vacancyService, $location, keepData) {
+controller('vacancyDetailController', ['$scope', '$rootScope', '$routeParams', 'Mensaje', 'Dictionary', '$parse', '$timeout', 'vacancyService', '$location', 'keepData', 'candidatesServices', function ($scope, $rootScope, $routeParams, Mensaje, Dictionary, $parse, $timeout, vacancyService, $location, keepData, candidatesServices) {
     $scope.Dato = {};
     $scope.Data = {};
+    $scope.lista = {};
+    $scope.lista.candidatos = [];
+    $scope.lista.currentPage = 1;
+    $scope.lista.totalItems = 0;
+    $scope.lista.entryLimit = 12;
+    $scope.lista.noOfPages = 0;
     $scope.variablesGlobales = {};
     $scope.variablesGlobales.estados = [{
         value: "A",
@@ -59,7 +65,19 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$routeParams', '
             }
         });
     };
-
+    $scope.autocompletarInputCandidato = function (string, datos, selected) {
+        var model = $parse(datos);
+        var modelSelect = $parse(selected + "Selected");
+        modelSelect.assign($scope, "");
+        candidatesServices.advSearch(String(string), "null", "null", "null", "null", "null", "1", "1000", function (result) {
+            if (!result.error) {
+                model.assign($scope, result.data.candidates);
+            } else {
+                model.assign($scope, []);
+                Mensaje.Alerta("error", 'Error', result.message);
+            }
+        });
+    };
     //EVENTOS AUTOCOMPLETAR
     $scope.onFocus = function (variable, index) {
         $parse(variable + index).assign($scope, true);
@@ -73,6 +91,12 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$routeParams', '
         var model = $parse(variable);
         var modelSelect = $parse(variable + "Selected");
         model.assign($scope, item.er);
+        modelSelect.assign($scope, item);
+    }
+    $scope.assignCandidato = function (variable, item) {
+        var model = $parse(variable);
+        var modelSelect = $parse(variable + "Selected");
+        model.assign($scope, item.name);
         modelSelect.assign($scope, item);
     }
 
@@ -91,7 +115,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$routeParams', '
     };
 
     $scope.buscarDetalle = function (id) {
-        $location.path('/detail/' + id);
+        $location.path('/detail/' + id + '/' + $scope.Data.vacancy.id);
     };
 
     $scope.setActive = function (tab) {
@@ -108,6 +132,53 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$routeParams', '
                 Mensaje.Alerta("error", result.message);
             }
         });
+    };
+
+    $scope.advSearch = function (name, country, status, skill, jobFunction, jobs, page, itemsPerPage) {
+        Mensaje.Esperar();
+        candidatesServices.advSearch(String(name), String(country), String(status), String(skill), String(jobFunction), String(jobs), String(page), String(itemsPerPage), function (result) {
+            Mensaje.Desocupar();
+            if (!result.error) {
+                $scope.lista.candidatos = result.data.candidates;
+                $scope.lista.cantidad = " (" + result.data.total + " candidato(s))";
+                $scope.lista.currentPage = page;
+                $scope.lista.totalItems = result.data.total;
+                $scope.lista.entryLimit = itemsPerPage;
+                $scope.lista.noOfPages = Math.ceil($scope.lista.totalItems / $scope.lista.entryLimit);
+                console.log(result.data.candidates)
+
+                $scope.Dato.namePaginado = name;
+                $scope.Dato.countryPaginado = country;
+                $scope.Dato.statusPaginado = status;
+                $scope.Dato.skillPaginado = skill;
+                $scope.Dato.jobFunctionPaginado = jobFunction;
+                $scope.Dato.jobsPaginado = jobs;
+            } else {
+                $scope.lista.candidatos = [];
+                Mensaje.Alerta("error", 'Error', result.message);
+            }
+        })
+    }
+
+    $scope.uploadFile = function (files) {
+        Mensaje.Esperar("Subiendo curriculum");
+        var fd = new FormData();
+        fd.append("file", files[0]);
+        var reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onload = function () {
+            var resultado = candidatesServices.uploadFile(files[0], function (result) {
+                Mensaje.Desocupar();
+                if (!result.error) {
+                    $scope.agregarCandidato(result.data.id,'CND_CONCUR');
+                } else {
+                    Mensaje.Alerta("Error", result.message);
+                }
+            });
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
     };
 
     //INIT

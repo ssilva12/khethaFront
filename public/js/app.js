@@ -39,6 +39,11 @@ config(function ($routeProvider, $locationProvider) {
         templateUrl: 'partials/candidateDetail',
         controller: 'candidatesController'
     }).
+        when('/detail/:id/:vacancyId', {
+            title: "Candidato",
+            templateUrl: 'partials/candidateDetail',
+            controller: 'candidatesController'
+        }).
     when('/candidateslist', {
         title: "Lista de candidatos",
         templateUrl: 'partials/candidateList',
@@ -47,17 +52,17 @@ config(function ($routeProvider, $locationProvider) {
     when('/vacancyDetail', {
         templateUrl: 'partials/vacancyDetail',
         controller: 'vacancyDetailController',
-        title: "Vacante"
+        title: "Ficha de Vacantes"
     }).
     when('/vacancyDetail/:id', {
         templateUrl: 'partials/vacancyDetail',
         controller: 'vacancyDetailController',
-        title: "Vacante"
+        title: "Ficha de Vacantes"
     }).
     when('/vacancyList', {
         templateUrl: 'partials/vacancyList',
         controller: 'vacancyListController',
-        title: "Lista de vacantes"
+        title: "Lista de fichas de Vacantes"
     }).
     when('/employerList', {
         templateUrl: 'partials/employerList',

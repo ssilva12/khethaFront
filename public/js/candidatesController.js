@@ -170,7 +170,9 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     };
 
     var init = function () {
-        if ($routeParams.id != null) {
+        if ($routeParams.id != null && $routeParams.vacancyId != null) {
+
+        } else if ($routeParams.id != null && $routeParams.vacancyId == null) {
             $scope.cargarCandidato($routeParams.id);
         } else {
             $scope.usuario.jobs = [];
@@ -194,8 +196,8 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     $scope.agregarEstudio = function () {
         var estudio = {
             name: "",
-            mrName: "", 
-            levelOrOrder: "", 
+            mrName: "",
+            levelOrOrder: "",
             lastDate: "",
             pais: "",
             edit: true
@@ -467,5 +469,5 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
         }, 125);
     }
 
-    
+
 }]);
