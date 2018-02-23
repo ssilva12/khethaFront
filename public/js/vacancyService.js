@@ -14,7 +14,6 @@ value('version', '0.2')
                 url: URL.URL_REST_SERVICE + 'getVacancies'
             }).
             then(function onSuccess(response) {
-                console.log(response);
                 Result.error = false;
                 Result.status = response.status;
                 Result.message = "OK";
@@ -81,3 +80,117 @@ value('version', '0.2')
             });
         }
     }])
+    .factory('vacancyService', ['$http', 'URL', function ($http, URL) {
+
+        var vacancyService = {};
+
+        var Result = {};
+        Result.error = false;
+        Result.status = null;
+        Result.message = "";
+        Result.data = null;
+
+        vacancyService.createVacancy = function (employerId, jobId, callback) {
+            $http({
+                method: 'POST',
+                data: {
+                    employerId: employerId,
+                    jobId: jobId
+                },
+                url: URL.URL_REST_SERVICE + 'vacancy'
+            }).
+            then(function onSuccess(response) {
+                Result.error = false;
+                Result.status = response.status;
+                Result.message = "OK";
+                Result.data = response.data;
+                callback(Result);
+            }, function onError(response) {
+                Result.error = true;
+                Result.status = response.status;
+                switch (status) {
+                    case 404:
+                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'vacancy).';
+                        break;
+                    case 500:
+                        Result.message = "Error en el servicio.";
+                        break;
+                    default:
+                        Result.message = "Error.";
+                        break;
+                }
+                Result.data = reponse.data;
+                callback(Result);
+            });
+        }
+
+        vacancyService.getById = function (id, callback) {
+            $http({
+                method: 'GET',
+                params: {
+                    id: id
+                },
+                url: URL.URL_REST_SERVICE + 'vacancy'
+            }).
+            then(function onSuccess(response) {
+                Result.error = false;
+                Result.status = response.status;
+                Result.message = "OK";
+                Result.data = response.data;
+                callback(Result);
+            }, function onError(response) {
+                Result.error = true;
+                Result.status = response.status;
+                switch (status) {
+                    case 404:
+                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'vacancy).';
+                        break;
+                    case 500:
+                        Result.message = "Error en el servicio.";
+                        break;
+                    default:
+                        Result.message = "Error.";
+                        break;
+                }
+                Result.data = reponse.data;
+                callback(Result);
+            });
+        }
+
+        vacancyService.addCandidate = function (candidateId, vacancyId, relationName, callback) {
+            $http({
+                method: 'POST',
+                params: {
+                    vacancyId: vacancyId,
+                    candidateId: candidateId,
+                    relationName: relationName
+                },
+                url: URL.URL_REST_SERVICE + 'linkJobVancancyCandidate'
+            }).
+            then(function onSuccess(response) {
+                Result.error = false;
+                Result.status = response.status;
+                Result.message = "OK";
+                Result.data = response.data;
+                callback(Result);
+            }, function onError(response) {
+                Result.error = true;
+                Result.status = response.status;
+                switch (status) {
+                    case 404:
+                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'linkJobVancancyCandidate).';
+                        break;
+                    case 500:
+                        Result.message = "Error en el servicio.";
+                        break;
+                    default:
+                        Result.message = "Error.";
+                        break;
+                }
+                Result.data = reponse.data;
+                callback(Result);
+            });
+        }
+
+        return vacancyService;
+    }]);

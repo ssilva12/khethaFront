@@ -164,4 +164,12 @@ value('version', '0.1')
         };
 
         return keepData;
+        // return {
+        //     get: function () {
+        //         return (this.keepData);
+        //     },
+        //     set: function (keepData) {
+        //         this.keepData = keepData;
+        //     }
+        // };
     }]);

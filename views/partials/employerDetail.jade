@@ -1,0 +1,37 @@
+//- PAGE TITLE
+div(class="page-title")
+    h2() Empleador:&nbsp;
+        span(class="txt-grises", ng-bind="usuario.candidateInfo.name")
+//- END PAGE TITLE
+//- PAGE CONTENT WRAPPER
+div(class="page-content-wrap")
+    div(class="row")
+        div(class="col-sm-12")
+            form(name="formCandidato", novalidate)
+                div(class="row")
+                    div(class="col-md-12")
+                        div(class="panel panel-default")
+                            div(class="panel-heading")
+                                h3(class="panel-title") Datos del empleador
+                            div(class="panel-body")
+                                div(class="row row-space")
+                                    label(class="col-md-3", style="text-align: right;") Código
+                                    div(class="col-md-6")
+                                        input(type="text", class="form-control", ng-model="employer.code")
+                                div(class="row row-space")
+                                    label(class="col-md-3", style="text-align: right;") Nombre
+                                    div(class="col-md-6")
+                                        input(type="text", class="form-control", ng-model="employer.name")
+                                div(class="row row-space")
+                                    label(class="col-md-3", style="text-align: right;") Sector
+                                    div(class="col-md-6")
+                                        input(class="form-control",ng-focus="onFocus('Sector',1)",ng-blur="onBlur('Sector',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(employer.sectorName,'SectorName','dataSector','null','employer.sectorName')", ng-model="employer.sectorName", ng-required="employer.sectorNameSelected")
+                                        ul(ng-show="{{ 'Sector' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                            li(class="list-group-item",ng-mousedown="employer.sectorNameId=item.id; assign('employer.sectorName',item.er);", ng-repeat="item in dataSector") {{item.er}}
+                                div(class="row row-space")
+                                    div(class="col-md-12")
+                                        button(type="button", class="btn btn-primary pull-right", ng-click="actualizarEmpleador()") 
+                                            li(class="fa fa-save")
+                                            span() Guardar
+
+

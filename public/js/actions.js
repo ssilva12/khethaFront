@@ -96,7 +96,9 @@ var page_actions = function(){
         }
     });*/
     // END XN PANEL DRAGGING
-
+    $(window).bind('resize', function () {
+        onresize();
+    });
     /* DROPDOWN TOGGLE */
     $(".dropdown-toggle").on("click",function(){
         onresize();
@@ -352,6 +354,7 @@ function page_content_onresize(){
     
     if(sidebar.height() > content.height()){        
         //content.height(sidebar.height());
+        $(".page-sidebar").css("height", "");
     }
     
     if($(".page-content-adaptive").length > 0)

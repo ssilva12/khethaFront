@@ -3,9 +3,13 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
-controller('AppCtrl', function ($scope, $http,$route) {
-  $scope.$route = $route;
-}).
+  controller('AppCtrl', function ($scope, $http, $route, $location) {
+    $scope.$route = $route;
+
+    $scope.Redirect = function (target) {
+      $location.path(target);
+    }
+  }).
 controller('MyCtrl1', function ($scope,$http,Dictionary,$location,termFactory) {
   termFactory.setCurrent(null);
   //trae los tickets sin resolver

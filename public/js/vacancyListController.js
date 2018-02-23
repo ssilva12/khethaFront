@@ -1,5 +1,5 @@
 angular.module('myApp.vacancyListCtrl', ['ui.bootstrap']).
-controller('vacancyListController', ['$scope', '$location', 'filterFilter', 'Mensaje', '$rootScope', 'Dictionary', '$parse', 'Vacancy', function ($scope, $location, filterFilter, Mensaje, $rootScope, Dictionary, $parse, Vacancy) {
+controller('vacancyListController', ['$scope', '$location', 'filterFilter', 'Mensaje', '$rootScope', 'Dictionary', '$parse', 'Vacancy', 'keepData', function ($scope, $location, filterFilter, Mensaje, $rootScope, Dictionary, $parse, Vacancy, keepData) {
 
     $scope.lista = {};
     $scope.lista.filtro = "";
@@ -43,6 +43,7 @@ controller('vacancyListController', ['$scope', '$location', 'filterFilter', 'Men
     };
 
     $scope.buscarDetalle = function (id) {
+        keepData.set('activeTabVacancy', "tab1");
         $location.path('/vacancyDetail/' + id);
     };
 

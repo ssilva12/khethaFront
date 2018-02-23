@@ -10,6 +10,12 @@ angular.module('myApp', [
     'myApp.candidatesServices',
     'myApp.candidatesCtrl',
     'myApp.candidatesListCtrl',
+    'myApp.employerService',
+    'myApp.employerListCtrl',
+    'myApp.employerCtrl',
+    'myApp.jobService',
+    'myApp.jobListCtrl',
+    'myApp.jobCtrl',
     'myApp.filters',
     'myApp.services',
     'myApp.vacancyService',
@@ -23,6 +29,74 @@ angular.module('myApp', [
 ]).
 config(function ($routeProvider, $locationProvider) {
     $routeProvider.
+    when('/detail', {
+        title: "Candidato",
+        templateUrl: 'partials/candidateDetail',
+        controller: 'candidatesController'
+    }).
+    when('/detail/:id', {
+        title: "Candidato",
+        templateUrl: 'partials/candidateDetail',
+        controller: 'candidatesController'
+    }).
+        when('/detail/:id/:vacancyId', {
+            title: "Candidato",
+            templateUrl: 'partials/candidateDetail',
+            controller: 'candidatesController'
+        }).
+    when('/candidateslist', {
+        title: "Lista de candidatos",
+        templateUrl: 'partials/candidateList',
+        controller: 'candidatesListController'
+    }).
+    when('/vacancyDetail', {
+        templateUrl: 'partials/vacancyDetail',
+        controller: 'vacancyDetailController',
+        title: "Ficha de Vacantes"
+    }).
+    when('/vacancyDetail/:id', {
+        templateUrl: 'partials/vacancyDetail',
+        controller: 'vacancyDetailController',
+        title: "Ficha de Vacantes"
+    }).
+    when('/vacancyList', {
+        templateUrl: 'partials/vacancyList',
+        controller: 'vacancyListController',
+        title: "Lista de fichas de Vacantes"
+    }).
+    when('/employerList', {
+        templateUrl: 'partials/employerList',
+        controller: 'employerListController',
+        title: "Gestión de empleadores"
+    }).
+    when('/employerDetail', {
+        title: "Empleador",
+        templateUrl: 'partials/employerDetail',
+        controller: 'employerController'
+    }).
+    when('/employerDetail/:id', {
+        title: "Empleador",
+        templateUrl: 'partials/employerDetail',
+        controller: 'employerController'
+    }).
+    when('/jobList', {
+        templateUrl: 'partials/jobList',
+        controller: 'jobListController',
+        title: "Gestión de jobs"
+    }).
+    when('/jobDetail', {
+        title: "Job",
+        templateUrl: 'partials/jobDetail',
+        controller: 'jobController'
+    }).
+    when('/jobDetail/:id', {
+        title: "Job",
+        templateUrl: 'partials/jobDetail',
+        controller: 'jobController'
+    }).
+
+
+
     when('/unresolved', {
         templateUrl: 'partials/unresolved',
         controller: 'MyCtrl1',
@@ -113,40 +187,11 @@ config(function ($routeProvider, $locationProvider) {
         controller: 'frequencyMatrixCtrl',
         activetab: 'candidateMatching'
     }).
-    when('/vacancyList', {
-        templateUrl: 'partials/vacancyList',
-        controller: 'vacancyListController',
-        title: "Lista de vacantes"
-    }).
+
     when('/vacancy', {
         templateUrl: 'partials/vacancy',
         controller: 'vacancyCtrl',
         title: "Vacante"
-    }).
-    when('/vacancyDetail', {
-        templateUrl: 'partials/vacancyDetail',
-        controller: 'vacancyDetailController',
-        title: "Vacante"
-    }).
-    when('/vacancyDetail/:id', {
-        templateUrl: 'partials/vacancyDetail',
-        controller: 'vacancyDetailController',
-        title: "Vacante"
-    }).
-    when('/detail', {
-        title: "Candidato",
-        templateUrl: 'partials/candidateDetail',
-        controller: 'candidatesController'
-    }).
-    when('/detail/:id', {
-        title: "Candidato",
-        templateUrl: 'partials/candidateDetail',
-        controller: 'candidatesController'
-    }).
-    when('/candidateslist', {
-        title: "Lista de candidatos",
-        templateUrl: 'partials/candidateList',
-        controller: 'candidatesListController'
     }).
     otherwise({
         redirectTo: '/candidateslist'

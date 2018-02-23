@@ -170,7 +170,9 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     };
 
     var init = function () {
-        if ($routeParams.id != null) {
+        if ($routeParams.id != null && $routeParams.vacancyId != null) {
+
+        } else if ($routeParams.id != null && $routeParams.vacancyId == null) {
             $scope.cargarCandidato($routeParams.id);
         } else {
             $scope.usuario.jobs = [];
@@ -194,8 +196,8 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     $scope.agregarEstudio = function () {
         var estudio = {
             name: "",
-            mrName: "", 
-            levelOrOrder: "", 
+            mrName: "",
+            levelOrOrder: "",
             lastDate: "",
             pais: "",
             edit: true
@@ -340,7 +342,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 }
             });
         }
-
+        $scope.cargarCandidato($scope.usuario.candidateInfo.id);
     };
 
     $scope.actualizarFeature = function (data, dictionary) {
@@ -352,6 +354,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                     $scope.cargarCandidato($scope.usuario.candidateInfo.id);
                     Mensaje.Alerta("success", 'OK', result.message);
                 } else {
+                    $scope.cargarCandidato($scope.usuario.candidateInfo.id);
                     Mensaje.Alerta("error", 'Error', result.message);
                 }
             });
@@ -363,6 +366,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                     $scope.cargarCandidato($scope.usuario.candidateInfo.id);
                     Mensaje.Alerta("success", 'OK', result.message);
                 } else {
+                    $scope.cargarCandidato($scope.usuario.candidateInfo.id);
                     Mensaje.Alerta("error", 'Error', result.message);
                 }
             });
@@ -404,6 +408,28 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     $scope.actualizarCaracteristicaPsicologica = function (caracteristica) {
         $scope.actualizarFeature(caracteristica, "PsychologicalCharacteristicsName");
     }
+
+    $scope.uploadFile = function (files) {
+        Mensaje.Esperar("Subiendo curriculum");
+        var fd = new FormData();
+        fd.append("file", files[0]);
+        var reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onload = function () {
+            var resultado = candidatesServices.uploadFile(files[0], function (result) {
+                Mensaje.Desocupar();
+                if (!result.error) {
+                    $scope.cargarCandidato(result.data.id);
+                } else {
+                    Mensaje.Alerta("Error", result.message);
+                }
+            });
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    };
+
     //FIN ACTUALIZACION DE DATOS
     $scope.data = [];
     $scope.autocompletarInput = function (string, tipo, datos, acronimo) {
@@ -443,5 +469,5 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
         }, 125);
     }
 
-    
+
 }]);

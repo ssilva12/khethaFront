@@ -1,0 +1,93 @@
+//- PAGE TITLE
+div(class="page-title")
+    h2() Gestión de jobs
+        span(class="txt-grises", ng-bind="lista.cantidad")
+//- END PAGE TITLE
+//- PAGE CONTENT WRAPPER
+div(class="page-content-wrap")
+    div(class="row")
+        div(class="col-md-12")
+            //-INICIO
+            div(class="row")
+                div(class="col-md-12")
+                    div(class="panel panel-default")
+                        div(class="panel-body")
+                            p() Usa la búsqueda para encontrar jobs
+                            form(class="form-horizontal")
+                                div(class="form-group")
+                                    div(class="col-md-10")
+                                        div(class="input-group")
+                                            div(class="input-group-addon")
+                                                span(class="fa fa-search")
+                                            input(class="form-control", placeholder="¿Que estás buscando?", type="text", ng-model="Dato.name")
+                                            div(class="input-group-btn")
+                                                button(class="btn btn-primary mb-control", data-box="#message-box-success",ng-click="advSearch(Dato.name,1,12)") Buscar
+                                    div(class="col-md-2")
+                                        button(class="btn btn-default btn-block mb-control", ng-click="crearNuevo()")
+                                            span(class="fa fa-plus")
+                                            span() Crear job
+            div(class="row")
+                div(class="col-md-12")
+                    div(class="panel panel-default")
+                        div(class="panel-body")
+                            div(class="row")
+                                div(class="col-sm-12")
+                                    div(class="table-responsive")
+                                        table(class="table table-bordered table-condensed")
+                                            thead()
+                                                tr()
+                                                    td(class="col-md-6") 
+                                                        h3() Nombre
+                                                    td(class="col-md-5") 
+                                                        h3() Sector 
+                                                    td(class="col-md-1")                                                                                                    
+                                            tbody()
+                                                tr(ng-repeat="job in lista.jobs")
+                                                    td() {{job.name}}
+                                                    td() {{job.sectorName}}
+                                                    td() 
+                                                        div(class="btn-group")
+                                                            button(class="btn btn-default btn-condensed", ng-click="buscarDetalle(job.id)")
+                                                                span(class="fa fa-pencil")
+                            div(class="row")
+                                div(class="col-sm-12")
+                                     pagination(class="pagination pagination-sm",page="lista.currentPage", max-size="lista.noOfPages", total-items="lista.totalItems", items-per-page="lista.entryLimit", ng-click="pagination()")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

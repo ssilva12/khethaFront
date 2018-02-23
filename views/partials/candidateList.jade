@@ -7,7 +7,7 @@ div(class="page-title")
 div(class="page-content-wrap")
     div(class="row")
         div(class="col-md-12")
-            div(class="col-md-12")
+            div(class="col-md-12", style="display:none;")
                 div(class="panel panel-default")
                         div(class="panel-body")
                             p() Creación de candidatos.
@@ -38,7 +38,7 @@ div(class="page-content-wrap")
                                             button(class="btn btn-primary mb-control", data-box="#message-box-success",ng-click="advSearch(Dato.name,Dato.country,Dato.status,Dato.skill,Dato.jobFunction,Dato.jobs,1,12)", ng-hide="busquedaAvanzada") Buscar
                                 div(class="col-md-2")
                                     button(class="btn btn-default btn-block mb-control", ng-click="busquedaAvanzada = !busquedaAvanzada")
-                                        span(class="fa fa-plus")
+                                        span(class="fa fa-filter")
                                         span() Búsqueda Avanzada
                                 div(class="col-md-2")
                                         button(ng-click="clearFilter()", class="btn btn-default btn-block")
@@ -85,7 +85,7 @@ div(class="page-content-wrap")
                                         div(class="col-sm-12")
                                             button(class="btn btn-primary mb-control pull-right",ng-click="advSearch(Dato.name,Dato.country,Dato.status,Dato.skill,Dato.jobFunction,Dato.jobs,1,12)", data-box="#message-box-success") Buscar
                             div(class="form-group")
-                                div(class="col-sm-12", ng-show="Dato.namePaginado || Dato.countryPaginado")
+                                div(class="col-sm-12", ng-show="Dato.namePaginado || Dato.countryPaginado || Dato.statusPaginado || Dato.skillPaginado || Dato.jobFunctionPaginado || Dato.jobsPaginado")
                                     span()
                                         span(class="fa fa-filter")
                                         label() Filtros:
@@ -98,7 +98,10 @@ div(class="page-content-wrap")
                                                 span() Pais: {{Dato.countryPaginado}}
                                         li(ng-show="Dato.statusPaginado")
                                             a()
-                                                span() Status: {{Dato.statusPaginado}}
+                                                span(ng-if="Dato.statusPaginado == 'A'") Status: Asignado
+                                                span(ng-if="Dato.statusPaginado == 'P'") Status: En proceso de selección
+                                                span(ng-if="Dato.statusPaginado == 'F'") Status: Disponible
+                                                span(ng-if="Dato.statusPaginado == 'N'") Status: No disponible
                                         li(ng-show="Dato.skillPaginado")
                                             a()
                                                 span() Skill: {{Dato.skillPaginado}}
@@ -142,7 +145,7 @@ div(class="page-content-wrap")
             div(class="col-sm-12")
                 div(class="col-md-9")
                     pagination(class="pagination pagination-sm",page="lista.currentPage", max-size="lista.noOfPages", total-items="lista.totalItems", items-per-page="lista.entryLimit", ng-click="pagination()")
-                div(class="col-md-3")
+                div(class="col-md-3", style="display:none;")
                     button(ng-click="crearNuevo()", class="btn btn-default btn-block")
                         i(class="fa fa-user-plus", aria-hidden="true")
                         span() Crear nuevo candidato

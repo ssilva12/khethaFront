@@ -2,7 +2,7 @@ extends layout
 
 block body
   //- START PAGE CONTAINER
-  div(class="page-container page-navigation-top-fixed")
+  div(class="page-container page-navigation-top-fixed",ng-controller="AppCtrl")
     div(class="page-sidebar page-sidebar-fixed scroll")
       ul(class="x-navigation", active-tab="")
         li(class="xn-logo")
@@ -20,37 +20,47 @@ block body
         li(class="xn-title") 
           span() Candidatos
         li(ng-class="{'active' : activeId == 'candidateList'}")
-          a(href="/candidateslist") 
+          a(href="",ng-click="Redirect('/candidateslist')") 
             i(class="fa fa-users", aria-hidden="true") 
             span(class="xn-text") &nbsp;Lista de candidatos
         li(ng-class="{'active' : activeId == 'candidateDetail'}")
-          a(href="/detail") 
+          a(href="",ng-click="Redirect('/detail')") 
             i(class="fa fa-user-plus", aria-hidden="true") 
             span(class="xn-text") &nbsp;Crear candidato
         li()
-          a(href="/synonyms") 
+          a(href="",ng-click="Redirect('/synonyms')") 
             i(class="fa fa-copy", aria-hidden="true") 
             span(class="xn-text") &nbsp;Sinónimos
         li()
-          a(href="/metaFeatures") 
+          a(href="",ng-click="Redirect('/metaFeatures')") 
             i(class="fa fa-tag", aria-hidden="true") 
             span(class="xn-text") &nbsp;Meta caracteristicas
         li()
-          a(href="/unresolved") 
+          a(href="",ng-click="Redirect('/unresolved')") 
             i(class="fa fa-exclamation-triangle", aria-hidden="true") 
             span(class="xn-text") &nbsp;Sin resolver
         li()
-          a(href="/vacancyList") 
+          a(href="",ng-click="Redirect('/vacancyList')") 
             i(class="fa fa-briefcase", aria-hidden="true") 
             span(class="xn-text") &nbsp;Vacantes
         li()
-          a(href="/frequencyMatrix") 
+          a(href="",ng-click="Redirect('/frequencyMatrix')") 
             i(class="fa fa-th", aria-hidden="true") 
             span(class="xn-text") &nbsp;Matrices de frecuencia 
         li()
-          a(href="/candidateMatching") 
+          a(href="",ng-click="Redirect('/candidateMatching')") 
             i(class="fa fa-th", aria-hidden="true") 
-            span(class="xn-text") &nbsp;Matching  
+            span(class="xn-text") &nbsp;Matching 
+        li()
+          a(href="",ng-click="Redirect('/employerList')") 
+            i(class="glyphicon glyphicon-user", aria-hidden="true") 
+            span(class="xn-text") &nbsp;Gestión de empleadores
+        li()
+          a(href="",ng-click="Redirect('/jobList')") 
+            i(class="fa fa-desktop", aria-hidden="true") 
+            span(class="xn-text") &nbsp;Gestión de jobs  
+        li()
+          br()
     div(class="page-content")
       ul(class="x-navigation x-navigation-horizontal x-navigation-panel")
         li(class="xn-icon-button")
@@ -240,6 +250,12 @@ block body
   script(src='js/candidatesServices.js')
   script(src='js/candidatesController.js')
   script(src='js/candidatesListController.js')
+  script(src='js/employerService.js')
+  script(src='js/employerListController.js')
+  script(src='js/employerController.js')
+  script(src='js/jobService.js')
+  script(src='js/jobListController.js')
+  script(src='js/jobController.js')
   script(src='js/filters.js')
   script(src='js/directives.js')
   script(src='js/factories.js')

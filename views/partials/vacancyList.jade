@@ -1,6 +1,6 @@
 //- PAGE TITLE
 div(class="page-title")
-    h2() Lista de vacantes
+    h2() Lista de fichas de Vacantes
         span(class="txt-grises", ng-bind="lista.cantidad")
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
@@ -46,7 +46,7 @@ div(class="page-content-wrap")
                                                     td(class="col-md-1") 
                                                         h4() Fecha
                                                     td(class="col-md-4") 
-                                                        h4() Vacante
+                                                        h4() Ficha de Vacantes
                                                     td(class="col-md-3") 
                                                         h4() Empleador
                                                     td(class="col-md-1") 
@@ -60,7 +60,12 @@ div(class="page-content-wrap")
                                                     td() 
                                                         label() {{vacante.name}}
                                                     td() {{vacante.employer}}
-                                                    td() {{vacante.status}}
+                                                    td() 
+                                                        span(ng-if="vacante.status == 'A'") Asignada
+                                                        span(ng-if="vacante.status == 'P'") En proceso
+                                                        span(ng-if="vacante.status == 'C'") Cerrada
+                                                        span(ng-if="vacante.status == 'D'") Anulada
+                                                        span(ng-if="vacante.status == 'S'") Inferida
                                                     td() Jaime enrique garcia sanchez
                                                     td() 
                                                         div(class="btn-group")

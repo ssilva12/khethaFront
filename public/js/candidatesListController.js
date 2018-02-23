@@ -42,7 +42,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.lista.candidatos = result.data.candidates;
-                $scope.lista.cantidad = " (" + result.data.total + " candidatos)";
+                $scope.lista.cantidad = " (" + result.data.total + " candidato(s))";
                 $scope.lista.currentPage = page;
                 $scope.lista.totalItems = result.data.total;
                 $scope.lista.entryLimit = itemsPerPage;
@@ -55,8 +55,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
                 $scope.Dato.skillPaginado = skill;
                 $scope.Dato.jobFunctionPaginado = jobFunction;
                 $scope.Dato.jobsPaginado = jobs;
-                //$cookies.put('Filtros', JSON.stringify(Dato));
-                keepData.set('Filtros', $scope.Dato);
+                keepData.set('filtroCandidato', $scope.Dato);
             } else {
                 $scope.lista.candidatos = [];
                 Mensaje.Alerta("error", 'Error', result.message);
@@ -69,7 +68,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
         $scope.advSearch($scope.Dato.namePaginado, $scope.Dato.countryPaginado, $scope.Dato.statusPaginado, $scope.Dato.skillPaginado, $scope.Dato.jobFunctionPaginado, $scope.Dato.jobsPaginado, $scope.lista.currentPage, 12);
     };
 
-    var datosCookies = $rootScope.Filtros;
+    var datosCookies = $rootScope.filtroCandidato;
     if (datosCookies != null && datosCookies != undefined) {
         var datos = datosCookies;
         //$scope.busquedaAvanzada = true;
@@ -98,7 +97,8 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
         $scope.Dato.skill = "";
         $scope.Dato.jobFunction = "";
         $scope.Dato.job = "";
-        $scope.busquedaAvanzada=false;
+        $scope.busquedaAvanzada = false;
+        $scope.advSearch("", "", "", "", "", "", 1, 12);
     };
 
     $scope.data = [];
