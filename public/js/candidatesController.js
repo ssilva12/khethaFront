@@ -103,7 +103,6 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                         $scope.usuario.candidateInfo.lat = coordenadas[1];
                     }
                 }
-                // debugger
                 if ($scope.usuario.candidateInfo.birthdate != "null" && $scope.usuario.candidateInfo.birthdate != null) {
                     var parts = $scope.usuario.candidateInfo.birthdate.split('-');
                     $scope.usuario.candidateInfo.birthdate = new Date(parts[0], parts[1] - 1, parts[2]);
@@ -112,57 +111,10 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 $scope.usuario.estudiosCertificaciones = [];
                 $scope.usuario.caracteristicas = [];
                 $scope.usuario.caracteristicasPsicologicas = [];
-                // $scope.usuario.candidateInfo.title = "xxxxxxxxxxxxxx";
-                // $scope.usuario.candidateInfo.username = "xxxxxxxxxx";
-                // $scope.usuario.candidateInfo.sex = "";
-                // $scope.usuario.candidateInfo.status = "";
-                // $scope.usuario.candidateInfo.idNumber = "xxxxxxxxxx";
-                // $scope.usuario.candidateInfo.poblacion = "";
-                // $scope.usuario.candidateInfo.pais = "";
 
-
-                // $scope.usuario.candidateInfo.desde = "xx/xx/xxxx";
-                // $scope.usuario.candidateInfo.ultimaAct = "xx/xx/xxxx";
-                // $scope.usuario.experiencia = [{
-                //     job: "xxxxxxxxxx",
-                //     fecha: "xx/xx/xxxx",
-                //     meses: "xx",
-                //     edit: false
-                // }];
-                // $scope.usuario.estudios = [{
-                //     estudio: "xxxxxxxxxxxxxx",
-                //     grado: "xxxxxxxxx",
-                //     fechaTerminacion: "xx/xx/xxxx",
-                //     pais: "",
-                //     edit: false
-                // }];
-                // $scope.usuario.estudiosCertificaciones = [{
-                //     estudio: "xxxxxxxxxxxxxxx",
-                //     pais: "",
-                //     edit: false
-                // }];
-
-                // $scope.usuario.skills = [{
-                //     nombre: "xxxxxxxxxxxxxx",
-                //     meses: "xx",
-                //     fechaFin: "xx/xx/xxxx"
-                // }];
-                // $scope.usuario.caracteristicas = [{
-                //     nombre: "",
-                //     valor: ""
-                // }];
-                // $scope.usuario.caracteristicasPsicologicas = [{
-                //     nombre: "",
-                //     valor: 0
-                // }];
-                // $scope.usuario.postulaciones = [{
-                //     job: "xxxxxxxxxxxx",
-                //     fecha: "xx/xx/xxxx",
-                //     empleador: "xxxxx",
-                //     seleccionado: "No",
-                //     ranking: "xx/xx"
-                // }];
-                //fin datos faltantes
+                if ($routeParams.vacancyId != null) {
+                    $scope.cargarVacancy($routeParams.vacancyId, $routeParams.id);
+                }
             } else {
                 Mensaje.Alerta("error", result.message);
             }
@@ -193,9 +145,9 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 "featureIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "methaRelationIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "weight": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                "mandatory": false,
+                "mandatory": true,
                 "maxScore": 0.5882353186607361,
-                "score": 0,
+                "score": 10,
                 "scorePercentage": 0
             }, {
                 "id": "36887",
@@ -226,7 +178,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 "featureIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "methaRelationIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "weight": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                "mandatory": false,
+                "mandatory": true,
                 "maxScore": 0.5882353186607361,
                 "score": 0,
                 "scorePercentage": 0
@@ -610,8 +562,8 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 "featureIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "methaRelationIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "weight": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                "mandatory": false,
-                "maxScore": 0,
+                "mandatory": true,
+                "maxScore": 10,
                 "score": 0,
                 "scorePercentage": 0
             }, {
@@ -621,7 +573,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 "featureIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "methaRelationIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "weight": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                "mandatory": false,
+                "mandatory": true,
                 "maxScore": 0,
                 "score": 0,
                 "scorePercentage": 0
@@ -675,9 +627,9 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 "featureIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "methaRelationIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "weight": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                "mandatory": false,
+                "mandatory": true,
                 "maxScore": 0,
-                "score": 0,
+                "score": 20,
                 "scorePercentage": 0
             }, {
                 "id": "36707",
@@ -697,7 +649,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 "featureIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "methaRelationIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "weight": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                "mandatory": false,
+                "mandatory": true,
                 "maxScore": 0,
                 "score": 0,
                 "scorePercentage": 0
@@ -729,8 +681,8 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 "featureIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "methaRelationIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "weight": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                "mandatory": false,
-                "maxScore": 0,
+                "mandatory": true,
+                "maxScore": 10,
                 "score": 0,
                 "scorePercentage": 0
             }, {
@@ -740,7 +692,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 "featureIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "methaRelationIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "weight": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                "mandatory": false,
+                "mandatory": true,
                 "maxScore": 0,
                 "score": 0,
                 "scorePercentage": 0
@@ -1366,7 +1318,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 "featureIds": ["28001", "36080", "36081", null, null, null, null, null, null, null, null, null],
                 "methaRelationIds": ["8179", "8183", "8194", null, null, null, null, null, null, null, null, null],
                 "weight": [9, 9, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                "mandatory": false,
+                "mandatory": true,
                 "maxScore": 5.555555820465088,
                 "score": 5.555555820465088,
                 "scorePercentage": 100
@@ -1377,7 +1329,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 "featureIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "methaRelationIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "weight": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                "mandatory": false,
+                "mandatory": true,
                 "maxScore": 1.1111111640930176,
                 "score": 0,
                 "scorePercentage": 0
@@ -1431,9 +1383,9 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 "featureIds": [null, "35983", null, null, null, null, null, null, null, null, null, null],
                 "methaRelationIds": [null, "11718", null, null, null, null, null, null, null, null, null, null],
                 "weight": [0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                "mandatory": false,
+                "mandatory": true,
                 "maxScore": 20,
-                "score": 20,
+                "score": 0,
                 "scorePercentage": 100
             }]
         }, {
@@ -1452,9 +1404,9 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 "featureIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "methaRelationIds": [null, null, null, null, null, null, null, null, null, null, null, null],
                 "weight": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                "mandatory": false,
+                "mandatory": true,
                 "maxScore": 0,
-                "score": 0,
+                "score": 10,
                 "scorePercentage": 0
             }, {
                 "id": "27982",
@@ -1495,7 +1447,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 "featureIds": ["28015", null, null, null, null, null, null, null, null, null, null, null],
                 "methaRelationIds": ["9477", null, null, null, null, null, null, null, null, null, null, null],
                 "weight": [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                "mandatory": false,
+                "mandatory": true,
                 "maxScore": 1.2307692766189575,
                 "score": 1.2307692766189575,
                 "scorePercentage": 100
@@ -1506,7 +1458,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 "featureIds": ["28028", null, "28014", null, null, null, null, null, null, null, null, null],
                 "methaRelationIds": ["9477", null, "9479", null, null, null, null, null, null, null, null, null],
                 "weight": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                "mandatory": false,
+                "mandatory": true,
                 "maxScore": 0,
                 "score": 0,
                 "scorePercentage": 0
@@ -1956,7 +1908,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 "featureIds": [null, "27998", null, null, null, null, null, null, null, null, null, null],
                 "methaRelationIds": [null, "11743", null, null, null, null, null, null, null, null, null, null],
                 "weight": [0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                "mandatory": false,
+                "mandatory": true,
                 "maxScore": 0,
                 "score": 0,
                 "scorePercentage": 0
@@ -2041,10 +1993,7 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     };
 
     var init = function () {
-        if ($routeParams.id != null && $routeParams.vacancyId != null) {
-            $scope.cargarCandidato($routeParams.id);
-            $scope.cargarVacancy($routeParams.vacancyId, $routeParams.id);
-        } else if ($routeParams.id != null && $routeParams.vacancyId == null) {
+        if ($routeParams.id != null) {
             $scope.cargarCandidato($routeParams.id);
         } else {
             $scope.usuario.jobs = [];
@@ -2252,7 +2201,6 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.cargarCandidato($scope.usuario.candidateInfo.id);
-                $scope.cargarVacancy($routeParams.vacancyId, $routeParams.id);
                 Mensaje.Alerta("success", 'OK', result.message);
             } else {
                 $scope.cargarCandidato($scope.usuario.candidateInfo.id);
