@@ -849,13 +849,8 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
     $scope.candidateMethaFeatures = [];
 
     frequencyMatrixService.getCandidateMethaFeatures( { 
-      employer: $scope.employer,
-      job: $scope.job,
       jobVacancy: $scope.vacancy,
       candidate: $scope.candidate,
-      years: $scope.years,
-      candidateType: $scope.candidateType,
-      minPercentage: $scope.minPercentage
     }, function(error, data) {
       console.log('Candidate Metha Features');
       console.log(data);
