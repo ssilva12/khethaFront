@@ -171,6 +171,13 @@ div(class="page-content-wrap")
                                         label(for="") Grado
                                     div(class="col-md-8 col-xs-8")
                                         p(ng-bind="usuario.candidateInfo.maxDegree")
+                        div(class="panel panel-default")
+                            div(class="panel-body")
+                                div(class="form-group")
+                                    div(class="col-md-4 col-xs-4")
+                                        label(for="") Vacante
+                                    div(class="col-md-8 col-xs-8")
+                                        p(ng-bind="vacancy.name")
                         //- END PANEL WITH STATIC CONTROLS
                         div(class="panel panel-default", style="display:none;")
                             div(class="panel-heading")
@@ -258,6 +265,45 @@ div(class="page-content-wrap")
                                                                             li()
                                                                                 a(class="panel-remove", ng-click="eliminarEstudio(estudio)")
                                                                                     span(class="fa fa-times")
+                                        div(class="row", style="display: flex; flex-wrap: wrap;", ng-repeat="vacancy in vacancy | filter:{ id: '6397' }")
+                                            div(class="col-md-6", ng-repeat="feature in vacancy.features | filter: aplica('score', 1,'mandatory')")
+                                                div(class="dd", id="nestable")
+                                                    ol(class="dd-list")
+                                                        li(class="dd-item", data-id="1")
+                                                            div(class="dd-handle clearfix", style="background: #B64645")
+                                                                div(class="form-group")
+                                                                    div(class="col-md-9")
+                                                                        div(class="form-group row row-space", ng-class="{ 'has-error' : formEstudio.estudio.$invalid && !formEstudio.estudio.$pristine }")
+                                                                            div(class="col-md-3")
+                                                                                label(for="") Estudio
+                                                                            div(class="col-md-9")
+                                                                                div(style="width:100%")
+                                                                                    input(class="form-control",ng-focus="onFocus('featureestudioNombre',$index)",ng-blur="onBlur('featureestudioNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(feature.name,'StudiesName','dataEstudio','null')", ng-model="feature.name")
+                                                                                    ul(ng-show="{{ 'featureestudioNombre' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                                                                        li(class="list-group-item",ng-mousedown="feature.name = item.er", ng-repeat="item in dataEstudio") {{item.er}}  
+                                                                        div(class="form-group row row-space")
+                                                                            div(class="col-md-3")
+                                                                                label(for="") Grado
+                                                                            div(class="col-md-9")
+                                                                                div(style="width:100%")
+                                                                                    select(select2="", ng-model="feature.levelOrOrder", class="form-control")  
+                                                                                        option(value="0") Básico
+                                                                                        option(value="1") Bachillerato
+                                                                                        option(value="2") Form. Profesional
+                                                                                        option(value="3") Licenciatura
+                                                                                        option(value="4") Pregrado
+                                                                                        option(value="5") Máster
+                                                                                        option(value="6") Post grado
+                                                                        div(class="form-group row row-space")    
+                                                                            div(class="col-md-3")
+                                                                                label(for="") Fecha de terminación
+                                                                            div(class="col-md-9")
+                                                                                adm-dtp(ng-model='feature.lastDate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
+                                                                    div(class="col-md-3")
+                                                                        ul(class="panel-controls")
+                                                                            li()
+                                                                                a(class="panel-fullscreen", ng-click="createFeature(feature,'StudiesName')")
+                                                                                    span(class="fa fa-save")
                                     div(class="form-group")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-default pull-right", ng-click="agregarEstudio()") 
@@ -322,7 +368,6 @@ div(class="page-content-wrap")
                                                                             li()
                                                                                 a(class="panel-remove", ng-click="eliminarCentroEstudio(estudio)")
                                                                                     span(class="fa fa-times")
-
                                             div(class="col-md-6",, ng-repeat="caracteristica in usuario.unresolved",ng-show="showUnresolved==true && caracteristica.dictionary=='EducationalCenterName'")
                                                 div(class="dd", id="nestable")
                                                     ol(class="dd-list")
@@ -358,9 +403,6 @@ div(class="page-content-wrap")
                                                                             li()
                                                                                 a(class="panel-remove", ng-click="eliminarCaracteristicaPsicologica(caracteristica)")
                                                                                     span(class="fa fa-times")
-
-
-           
                                     div(class="form-group")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-default pull-right", ng-click="agregarCentroEstudio()") 

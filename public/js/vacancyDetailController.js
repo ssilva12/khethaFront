@@ -39,7 +39,16 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$routeParams', '
     };
 
     $scope.guardarDatos = function () {
-
+        Mensaje.Esperar("Guardando información");
+        var allData = vacancyService.updateInformation($scope.Data.vacancy, function (result) {
+            Mensaje.Desocupar();
+            if (!result.error) {
+                $scope.cargarVacante($scope.Data.vacancy.id);
+                Mensaje.Alerta("success", 'OK', result.message);
+            } else {
+                Mensaje.Alerta("error", 'Error', result.message);
+            }
+        });
     };
 
     $scope.getAcronym = function (item) {
@@ -170,7 +179,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$routeParams', '
             var resultado = candidatesServices.uploadFile(files[0], function (result) {
                 Mensaje.Desocupar();
                 if (!result.error) {
-                    $scope.agregarCandidato(result.data.id,'CND_CONCUR');
+                    $scope.agregarCandidato(result.data.id, 'CND_CONCUR');
                 } else {
                     Mensaje.Alerta("Error", result.message);
                 }
