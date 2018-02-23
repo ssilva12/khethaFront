@@ -37,6 +37,19 @@ angular.module('myApp.services', []).
       });
     }
 
+    this.getForNewVacancy = (parameters, callback) => {
+      $http({
+        method: 'GET',
+        url: url + 'api/frequencymatrix/new-vacancy',
+        params: parameters
+      }).
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        callback("Error");
+      });
+    }
+
     this.getEmployers = (parameters, callback) => {
       console.log('test get employers...');
       $http({
@@ -166,7 +179,7 @@ angular.module('myApp.services', []).
     this.getCandidateMethaFeatures = (parameters, callback) => {
       $http({
         method: 'GET',
-        url: url + 'api/frequencymatrix/candidate-match',
+        url: url + 'api/vacancy/candidate-match',
         params: parameters
       }).
       then(function onSuccess(response) {

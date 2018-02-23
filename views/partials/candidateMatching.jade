@@ -2,6 +2,9 @@ style(type="text/css")
     .weightSetted {
         background-color: #fff2cc;
     }
+    .redMandatory {
+        color: red;
+    }
 
 div.row
     div.col-md-12
@@ -61,7 +64,8 @@ div.row
                     th Score
                     th %
             tbody
-                tr(ng-repeat="feature in candidateFeaturesModified | orderBy : ['methaFeatureOrder', 'name']", class="mf_tr_{{feature.methaFeatureId}}") 
+                tr(ng-repeat="feature in candidateFeaturesModified | orderBy : ['methaFeatureOrder', 'name']", ng-show="feature.score > 0 || feature.mandatory",
+                    class="mf_tr_{{feature.methaFeatureId}} {{feature.extraClass}}") 
                     td(class="mf_name") {{ feature.methaFeature }}
                     td {{ feature.name }}
 

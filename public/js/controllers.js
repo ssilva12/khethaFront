@@ -419,8 +419,6 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
   })
 
   $scope.getJobs = function() {
-    console.log('controller getJobs');
-    // employerId: $scope.employer }
     frequencyMatrixService.getJobs( { 
       employerId: $scope.employer 
     },
@@ -435,7 +433,6 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
   }
 
   $scope.getVacancies = function() {
-    // employerId: $scope.employer }
     frequencyMatrixService.getVacancies( { 
       employerId: $scope.employer,
       jobId: $scope.job 
@@ -450,9 +447,6 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
   }
 
   $scope.getMethaFeatures = function() {
-    console.log('Consultar click... ' + $scope.employer + ', ' + $scope.job +
-    ', ' + $scope.years + ', ' + $scope.candidateType + ', ' + $scope.minPercentage);
-
     $scope.methaFeatures = [];
 
     frequencyMatrixService.get( { 
@@ -491,11 +485,27 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
     });
   }
 
+  $scope.getMethaFeaturesNewVacancy = function() {
+    console.log('Consultar click... ' + $scope.employer + ', ' + $scope.job +
+      ', ' + $scope.minPercentage);
+
+    $scope.methaFeatures = [];
+
+    frequencyMatrixService.getForNewVacancy( { 
+      employer: $scope.employer,
+      job: $scope.job,
+    }, function(error, data) {
+      console.log(data);
+      if (!error) {
+        $scope.methaFeatures = data;
+        $scope.refreshMatrix();
+      }
+    });
+  }
+
   $scope.refreshMatrix = function() {
     $scope.featuresModified = [];
     $scope.methaFeatures.forEach(mf => {
-      // console.log('Metha features: ');
-      // console.log(mf);
       mf.features.forEach(f => {
         let featureModified = {
           methaFeatureId: mf.id,
@@ -515,15 +525,12 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
           ...f,
         };
 
+        let vacancySelected = $scope.vacancy !== '';
         for(var i = 0; i < featureModified.levelNames.length; i++) {
-          if (featureModified.frequencyCorrected[i] === undefined) {
-            console.log('featureModified frequencyCorrected ' + i);
-            console.log(featureModified);
-          }
-
-          featureModified.tdClass[i] = !featureModified.isWeightInferred[i] && featureModified.levelNames[i] ? 'weightSetted' : '';
+          featureModified.tdClass[i] = !featureModified.isWeightInferred[i] && featureModified.levelNames[i] && vacancySelected ? 'weightSetted' : '';
           featureModified.tdTitle[i] = 'MR: ' + featureModified.levelNames[i] + '\r\nFrecuencia: ' + featureModified.frequency[i] + 
-            '\r\nFrecuencia Corregida: ' + featureModified.frequencyCorrected[i].toFixed(2) + '\r\nPeso establecido: ' + featureModified.weightSetted[i] +
+            '\r\nFrecuencia Corregida: ' + featureModified.frequencyCorrected[i].toFixed(2) +
+            (vacancySelected ? '\r\nPeso establecido: ' + featureModified.weightSetted[i] : '') +
             '\r\nPeso Inferido: ' + featureModified.weightInferred[i] + '\r\nProbabilidad: ' + featureModified.probability[i].toFixed(2);
           featureModified.tdContent[i] = '';
           featureModified.tdEditWeight[i] = false;
@@ -592,7 +599,8 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
       var backColors = ['#f1f1f1', '#d1d1d1'];
       $('tr.addFeatureButton').remove();
       $scope.methaFeatures.sort(function(obj1, obj2) {
-        return parseInt(obj1.id) - parseInt(obj2.id)
+        return parseInt(obj1.order) - parseInt(obj2.order)
+        // return parseInt(obj1.id) - parseInt(obj2.id)
       }).forEach(mf => {
         let rows = $('.mf_tr_' + mf.id);
         rows.attr('bgcolor', backColors[flagColor]);
@@ -607,6 +615,8 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
         for(var i = 1; i < tds.length; i++) {
           $(tds[i]).hide();//.remove();
         }
+
+        // if ($scope.vacancy)
 
         // var el = $compile( "<test text='n'></test>" )( $scope );
         let addButton = $compile('<tr class="addFeatureButton" bgcolor="' + $(rows[0]).attr('bgcolor') +'"><td colspan="16">' +
@@ -832,9 +842,6 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
   }
 
   $scope.getCandidateMethaFeatures = function() {
-    console.log('Consultar candidate features click... ' + $scope.employer + ', ' + $scope.job +
-    ', ' + $scope.years + ', ' + $scope.candidateType + ', ' + $scope.minPercentage);
-
     $scope.candidateMethaFeatures = [];
 
     frequencyMatrixService.getCandidateMethaFeatures( { 
@@ -868,9 +875,7 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
           methaFeature: mf.name,
           methaRelationIds: mf.methaRelationIds,
           levelNames: mf.levelNames,
-          // totalCount: mf.totalCount,
-          // visible: f.count > mf.totalCount * $scope.minPercentage / 100,
-          // tdClass: [],
+          extraClass: f.mandatory && f.score <= 0 ? 'redMandatory' : '',
           tdTitle: [],
           tdContent: [],
           tdEditWeight: [],
