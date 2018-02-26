@@ -29,7 +29,7 @@ div(class="page-content-wrap")
                         p() Usa la búsqueda para encontrar candidatos. Puede buscar por: nombre, dirección, teléfono o usa la búsqueda avanzada.
                         form(class="form-horizontal")
                             div(class="form-group")
-                                div(class="col-md-8")
+                                div(class="col-md-6")
                                     div(class="input-group")
                                         div(class="input-group-addon")
                                             span(class="fa fa-search")
@@ -39,11 +39,15 @@ div(class="page-content-wrap")
                                 div(class="col-md-2")
                                     button(class="btn btn-default btn-block mb-control", ng-click="busquedaAvanzada = !busquedaAvanzada")
                                         span(class="fa fa-filter")
-                                        span() Búsqueda Avanzada
+                                        span() Filtrar
                                 div(class="col-md-2")
                                         button(ng-click="clearFilter()", class="btn btn-default btn-block")
                                             i(class="fa fa-eraser", aria-hidden="true")
                                             span() Limpiar filtro
+                                div(class="col-md-2")
+                                    button(ng-click="crearNuevo()", class="btn btn-default btn-block")
+                                        i(class="fa fa-user-plus", aria-hidden="true")
+                                        span() Crear candidato
                                 div(class="col-md-12")
                                     ul(ng-show="{{ 'NombreVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                         li(class="list-group-item",ng-mousedown="Dato.name = persona.er", ng-repeat="persona in dataName") {{persona.er}}

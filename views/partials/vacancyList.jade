@@ -15,7 +15,7 @@ div(class="page-content-wrap")
                             p() Usa la búsqueda para encontrar vacantes
                             form(class="form-horizontal")
                                 div(class="form-group")
-                                    div(class="col-md-8")
+                                    div(class="col-md-6")
                                         div(class="input-group")
                                             div(class="input-group-addon")
                                                 span(class="fa fa-search")
@@ -24,8 +24,12 @@ div(class="page-content-wrap")
                                                 button(class="btn btn-primary mb-control", data-box="#message-box-success", ng-hide="busquedaAvanzada") Buscar
                                     div(class="col-md-2")
                                         button(class="btn btn-default btn-block mb-control", ng-click="busquedaAvanzada = !busquedaAvanzada")
-                                            span(class="fa fa-search")
-                                            span() Búsqueda Avanzada
+                                            span(class="fa fa-filter")
+                                            span() Filtrar
+                                    div(class="col-md-2")
+                                        button(ng-click="clearFilter()", class="btn btn-default btn-block")
+                                            i(class="fa fa-eraser", aria-hidden="true")
+                                            span() Limpiar filtro
                                     div(class="col-md-2")
                                         button(class="btn btn-default btn-block mb-control", ng-click="crearNuevo()")
                                             span(class="fa fa-plus")
