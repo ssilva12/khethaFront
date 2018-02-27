@@ -1,5 +1,5 @@
 angular.module('myApp.jobCtrl', []).
-    controller('jobController', ['$scope', '$routeParams', 'jobService', 'Mensaje', 'Dictionary', '$parse', '$timeout', function ($scope, $routeParams, jobService, Mensaje, Dictionary, $parse, $timeout) {
+    controller('jobController', ['$scope', '$stateParams', 'jobService', 'Mensaje', 'Dictionary', '$parse', '$timeout', function ($scope, $stateParams, jobService, Mensaje, Dictionary, $parse, $timeout) {
 
         $scope.cargarJob = function (id) {
             Mensaje.Esperar();
@@ -79,8 +79,8 @@ angular.module('myApp.jobCtrl', []).
         }
         //INIT
         var init = function () {
-            if ($routeParams.id != null) {
-                $scope.cargarJob($routeParams.id);
+            if ($stateParams.id != null) {
+                $scope.cargarJob($stateParams.id);
             } else {
 
             }

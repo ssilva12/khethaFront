@@ -1,5 +1,5 @@
 angular.module('myApp.employerListCtrl', ['ui.select']).
-controller('employerListController', ['$scope', 'Mensaje', 'employerService', '$rootScope', '$location', 'keepData', function ($scope, Mensaje, employerService, $rootScope, $location, keepData) {
+controller('employerListController', ['$scope', 'Mensaje', 'employerService', '$rootScope', '$state', 'keepData', function ($scope, Mensaje, employerService, $rootScope, $state, keepData) {
     $scope.lista = {};
     $scope.lista.empleadores = [];
     $scope.lista.currentPage = 1;
@@ -34,11 +34,20 @@ controller('employerListController', ['$scope', 'Mensaje', 'employerService', '$
     };
 
     $scope.buscarDetalle = function (id) {
-        $location.path('/employerDetail/' + id);
+        $state.go('employerDetail', {
+            "id": id
+        });
     };
 
     $scope.crearNuevo = function () {
-        $location.path('/employerDetail/');
+        $state.go('employerDetail', {
+            "id": null
+        });
+    };
+
+    $scope.clearFilter = function () {
+        $scope.Dato.name = "";
+        $scope.advSearch("", 1, 12);
     };
 
     //INIT

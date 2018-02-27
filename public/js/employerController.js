@@ -1,5 +1,5 @@
 angular.module('myApp.employerCtrl', []).
-controller('employerController', ['$scope', '$routeParams', 'employerService', 'Mensaje', 'Dictionary', '$parse', '$timeout', function ($scope, $routeParams, employerService, Mensaje, Dictionary, $parse, $timeout) {
+controller('employerController', ['$scope', '$stateParams', 'employerService', 'Mensaje', 'Dictionary', '$parse', '$timeout', function ($scope, $stateParams, employerService, Mensaje, Dictionary, $parse, $timeout) {
 
     $scope.cargarEmpleador = function (id) {
         Mensaje.Esperar();
@@ -79,8 +79,8 @@ controller('employerController', ['$scope', '$routeParams', 'employerService', '
     }
     //INIT
     var init = function () {
-        if ($routeParams.id != null) {
-            $scope.cargarEmpleador($routeParams.id);
+        if ($stateParams.id != null) {
+            $scope.cargarEmpleador($stateParams.id);
         } else {
 
         }

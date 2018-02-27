@@ -1,6 +1,6 @@
 //- PAGE TITLE
 div(class="page-title")
-    h2() Gestión de empleadores
+    h2() Lista de empleadores
         span(class="txt-grises", ng-bind="lista.cantidad")
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
@@ -15,13 +15,17 @@ div(class="page-content-wrap")
                             p() Usa la búsqueda para encontrar empleadores
                             form(class="form-horizontal")
                                 div(class="form-group")
-                                    div(class="col-md-10")
+                                    div(class="col-md-8")
                                         div(class="input-group")
                                             div(class="input-group-addon")
                                                 span(class="fa fa-search")
                                             input(class="form-control", placeholder="¿Que estás buscando?", type="text", ng-model="Dato.name")
                                             div(class="input-group-btn")
                                                 button(class="btn btn-primary mb-control", data-box="#message-box-success",ng-click="advSearch(Dato.name,1,12)") Buscar
+                                    div(class="col-md-2")
+                                        button(ng-click="clearFilter()", class="btn btn-default btn-block")
+                                            i(class="fa fa-eraser", aria-hidden="true")
+                                            span() Limpiar filtro
                                     div(class="col-md-2")
                                         button(class="btn btn-default btn-block mb-control", ng-click="crearNuevo()")
                                             span(class="fa fa-plus")

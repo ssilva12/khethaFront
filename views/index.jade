@@ -1,218 +1,8 @@
 extends layout
 
 block body
-  //- START PAGE CONTAINER
-  div(class="page-container page-navigation-top-fixed",ng-controller="AppCtrl")
-    div(class="page-sidebar page-sidebar-fixed scroll")
-      ul(class="x-navigation", active-tab="")
-        li(class="xn-logo")
-          a(href="index.html") KHETHA
-          a(href="#", class="x-navigation-control")
-        li(class="xn-profile")
-          a(href="#", class="profile-mini")
-            img(src="assets/images/users/user3.jpg", alt="Nadia Ali")
-          div(class="profile")
-            div(class="profile-image")
-              img(src="assets/images/users/user3.jpg", alt="Nadia Ali")
-            div(class="profile-data")
-              div(class="profile-data-name") Nadia Ali M.
-              div(class="profile-data-title") Analista de Selección
-        li(ng-class="{'active' : activetab == 'vacancyList'}")
-          a(href="",ng-click="Redirect('/vacancyList')") 
-            i(class="fa fa-briefcase", aria-hidden="true") 
-            span(class="xn-text") &nbsp;Vacantes
-        li(ng-class="{'active' : activeId == 'candidateList'}")
-          a(href="",ng-click="Redirect('/candidateslist')") 
-            i(class="fa fa-users", aria-hidden="true") 
-            span(class="xn-text") &nbsp;Candidatos
-        li(ng-class="{'active' : activeId == 'employerList'}")
-          a(href="",ng-click="Redirect('/employerList')") 
-            i(class="glyphicon glyphicon-user", aria-hidden="true") 
-            span(class="xn-text") &nbsp;Empleadores
-        li(class="xn-openable")
-          a(href="")
-            i(class="fa fa-wrench", aria-hidden="true") 
-            span(class="xn-text") &nbsp;Feature engineering
-          ul()
-            li(ng-class="{'active' : activeId == 'synonyms'}")
-              a(href="",ng-click="Redirect('/synonyms')") 
-                i(class="fa fa-copy", aria-hidden="true") 
-                span(class="xn-title") &nbsp;Diccionarios
-            li(ng-class="{'active' : activeId == 'metaFeatures'}")
-              a(href="",ng-click="Redirect('/metaFeatures')") 
-                i(class="fa fa-tag", aria-hidden="true") 
-                span(class="xn-title") &nbsp;Meta-características
-            li(ng-class="{'active' : activeId == 'unresolved'}")
-              a(href="",ng-click="Redirect('/unresolved')") 
-                i(class="fa fa-exclamation-triangle", aria-hidden="true") 
-                span(class="xn-title") &nbsp;Sin resolver  
-            li(ng-class="{'active' : activeId == 'frequencyMatrix'}")
-              a(href="",ng-click="Redirect('/frequencyMatrix')") 
-                i(class="fa fa-th", aria-hidden="true") 
-                span(class="xn-title") &nbsp;Matrices de frecuencia 
-            li(ng-class="{'active' : activeId == 'candidateMatching'}")
-              a(href="",ng-click="Redirect('/candidateMatching')") 
-                i(class="fa fa-th", aria-hidden="true") 
-                span(class="xn-title") &nbsp;Caracterización Vacantes 
-            li(ng-class="{'active' : activeId == 'jobList'}")
-              a(href="",ng-click="Redirect('/jobList')") 
-                i(class="fa fa-desktop", aria-hidden="true") 
-                span(class="xn-title") &nbsp;Jobs     
-        li()
-          br()
-    div(class="page-content")
-      ul(class="x-navigation x-navigation-horizontal x-navigation-panel")
-        li(class="xn-icon-button")
-          a(href="#", class="x-navigation-minimize")
-            span(class="fa fa-dedent")
-        li(class="xn-search")
-          form(role="form")
-            input(type="text", name="search", placeholder="Search...")
-        li(class="xn-icon-button pull-right last")
-          a(href="#")
-            span(class="fa fa-power-off")
-          ul(class="xn-drop-left animated zoomIn")
-            li()
-              a(href="pages-lock-screen.html") 
-                span(class="fa fa-lock")
-                span() Lock Screen
-            li()
-              a(class="mb-control", data-box="#mb-signout") 
-                span(class="fa fa-sign-out") 
-                span() Sign Out
-        li(class="xn-icon-button pull-right", style="display:none;")
-          a(href="#")
-            span(class="fa fa-comments")
-          div(class="informer informer-danger") 4
-          div(class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging")
-            div(class="panel-heading")
-              h3(class="panel-title")
-                span(class="fa fa-comments")
-                span()  Messages
-              div(class="pull-right")
-                span(class="label label-danger") 4 new
-            div(class="panel-body list-group list-group-contacts scroll", style="height: 200px;")
-              a(href="#", class="list-group-item")
-                div(class="list-group-status status-online")
-                img(src="assets/images/users/user2.jpg", class="pull-left", alt="John Doe")
-                span(class="contacts-title") John Mario Doe M.
-                p() Praesent placerat tellus id augue condimentum
-              a(href="#", class="list-group-item")
-                div(class="list-group-status status-away")
-                img(src="assets/images/users/user.jpg", class="pull-left", alt="Dmitry Ivaniuk")
-                span(class="contacts-title") John Mario Doe M.
-                p() Donec risus sapien, sagittis et magna quis
-              a(href="#", class="list-group-item")
-                div(class="list-group-status status-away")
-                img(src="assets/images/users/user3.jpg", class="pull-left", alt="Nadia Ali")
-                span(class="contacts-title") John Mario Doe M.
-                p() Mauris vel eros ut nunc rhoncus cursus sed
-              a(href="#", class="list-group-item")
-                div(class="list-group-status status-offline")
-                img(src="assets/images/users/user6.jpg", class="pull-left", alt="Darth Vader")
-                span(class="contacts-title") John Mario Doe M.
-                p() I want my money back!
-            div(class="panel-footer text-center")
-              a(href="pages-messages.html") Show all messages
-        li(class="xn-icon-button pull-right", style="display:none;")
-          a(href="#")
-            span(class="fa fa-tasks")
-          div(class="informer informer-warning") 3
-          div(class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging")
-            div(class="panel-heading")
-              h3(class="panel-title")
-                span(class="fa fa-tasks") 
-                span()  Tasks
-              div(class="pull-right")
-                span(class="label label-warning") 3 active
-            div(class="panel-body list-group scroll", style="height: 200px;")
-              a(class="list-group-item", href="#")
-                strong() Phasellus augue arcu, elementum
-                div(class="progress progress-small progress-striped active")
-                  div(class="progress-bar progress-bar-danger", role="progressbar", aria-valuenow="50", aria-valuemin="0", aria-valuemax="100", style="width: 50%;") 50%
-                small(class="text-muted") John Doe, 25 Sep 2015 / 50%
-              a(class="list-group-item", href="#")
-                strong() Aenean ac cursus
-                div(class="progress progress-small progress-striped active")
-                  div(class="progress-bar progress-bar-warning", role="progressbar", aria-valuenow="80", aria-valuemin="0", aria-valuemax="100", style="width: 80%;") 80%
-                small(class="text-muted") Dmitry Ivaniuk, 24 Sep 2015 / 80%
-              a(class="list-group-item", href="#")
-                strong() Lorem ipsum dolor
-                div(class="progress progress-small progress-striped active")
-                  div(class="progress-bar progress-bar-success", role="progressbar", aria-valuenow="95", aria-valuemin="0", aria-valuemax="100", style="width: 95%;") 95%
-                small(class="text-muted") John Doe, 23 Sep 2015 / 95%
-              a(class="list-group-item", href="#")
-                strong() Cras suscipit ac quam at tincidunt.
-                div(class="progress progress-small")
-                  div(class="progress-bar", role="progressbar", aria-valuenow="100", aria-valuemin="0", aria-valuemax="100", style="width: 100%;") 100%
-                small(class="text-muted") John Doe, 21 Sep 2015 /
-                small(class="text-success") Done
-            div(class="panel-footer text-center")
-              a(href="pages-tasks.html") Show all tasks   
-        li(class="xn-icon-button pull-right", style="display:none;")
-          a(href="#")
-            span(class="flag flag-gb")
-          ul(class="xn-drop-left xn-drop-white animated zoomIn")
-            li()
-              a(href="#")
-                span(class="flag flag-gb")
-                span() English
-              a(href="#")
-                span(class="flag flag-de")
-                span() Deutsch
-              a(href="#")
-                span(class="flag flag-cn")
-                span() Chinese
-      //- START LOADING
-      div(id="wait", ng-show="waitModal")
-        div(class="page-sidebar page-sidebar-fixed scroll row", style="width:100%")
-          div(class="progress", style="border-radius:0px !important;")
-            div(class="progress-bar progress-bar-success progress-bar-striped active", role="progressbar", aria-valuenow="100", aria-valuemin="0", aria-valuemax="100", style="width:100%")
-              span(ng-bind="waitModalMessage")
-      //- START LOADING
-      //- START BREADCRUMB
-      ul(class="breadcrumb")
-        li()
-          a(href="#") Inicio
-        li()
-          a(ng-bind="activeTitle")
-      //- END BREADCRUMB
-      div(class="row")
-        div(ng-view)
-  //- END PAGE CONTAINER
-  //- MESSAGE BOX
-  div(class="message-box animated fadeIn", data-sound="alert", id="mb-signout")
-    div(class="mb-container")
-      div(class="mb-middle")
-        div(class="mb-title")
-          span(class="fa fa-sign-out")
-          span()  Log 
-          strong() Out
-          span()  ?
-        div(class="mb-content")
-          p() Are you sure you want to log out?
-          p() Press No if youwant to continue work. Press Yes to logout current user.
-        div(class="mb-footer")
-          div(class="pull-right")
-            a(href="pages-login.html", class="btn btn-success btn-lg") Yes
-            button(class="btn btn-default btn-lg mb-control-close") No
-  div(class="message-box animated fadeIn", ng-class="{'open': open,'message-box-success' : type == 'success','message-box-danger' : type == 'error','message-box-warning' : type == 'warning','message-box-info' : type == 'info'}")
-    div(class="mb-container")
-      div(class="mb-middle")
-        div(class="mb-title")
-          span(class="fa fa-check")
-          span() {{title}}
-        div(class="mb-content")
-          p() {{message}}
-        div(class="mb-footer")
-          button(class="btn btn-default btn-lg pull-right mb-control-close", ng-click="open = false;") Close
-  //- div(id="wait", class="modal", ng-class="{'show': waitModal}", role="dialog")
-  //-   div(class="modal-dialog modal-sm", style="width:80px")
-  //-       div(class="modal-content") 
-  //-           div(class="modal-body")
-  //-             div(class="row")
-  //-               img(src="img/loaders/default.gif")
-  //- END MESSAGE BOX
+  div(ui-view)
+
   script(type="text/javascript", src="js/plugins/jquery/jquery.min.js")
   script(type="text/javascript", src="js/plugins/jquery/jquery-ui.min.js")
   script(type="text/javascript", src="js/plugins/bootstrap/bootstrap.min.js")
@@ -230,6 +20,7 @@ block body
   script(src='js/lib/angular/angular.js')
   script(src='js/lib/angular/angular-animate.js')
   script(src='js/lib/angular/angular-sanitize.js')
+  script(src='js/lib/angular/angular-ui-router.js')
   script(src='js/lib/angular/angular-route.js')
   script(src='js/lib/angular/angular-cookies.js')
   script(type="text/javascript", src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js")
@@ -240,6 +31,7 @@ block body
   
   script(src='js/app.js')
   script(src='js/actions.js')
+  script(src='js/loginController.js')
   script(src='js/services.js')
   script(src='js/vacancyService.js')
   script(src='js/controllers.js')
