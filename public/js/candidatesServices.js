@@ -83,7 +83,6 @@ angular.module('myApp.candidatesServices', [])
                 url: URL.URL_REST_SERVICE + 'candidate'
             }).
             then(function onSuccess(response) {
-                debugger;
                 Result.error = false;
                 Result.status = response.status;
                 Result.message = "OK";
