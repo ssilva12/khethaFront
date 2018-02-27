@@ -41,6 +41,11 @@ controller('employerListController', ['$scope', 'Mensaje', 'employerService', '$
         $location.path('/employerDetail/');
     };
 
+    $scope.clearFilter = function () {
+        $scope.Dato.name = "";
+        $scope.advSearch("", 1, 12);
+    };
+
     //INIT
     var datosCookies = $rootScope.filtroEmpleador;
     if (datosCookies != null && datosCookies != undefined) {

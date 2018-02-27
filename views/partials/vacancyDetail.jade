@@ -1,6 +1,7 @@
 //- PAGE TITLE
 div(class="page-title")
-    h2() Ficha de vacantes
+    h2() Ficha de vacantes 
+        span(class="txt-grises", ng-bind="titulo")
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
 div(class="page-content-wrap")
@@ -49,7 +50,7 @@ div(class="page-content-wrap")
                                             li(ng-class="{'active' : Dato.tab == 'tab1'}")
                                                 a(data-toggle="tab", data-target="#tab1",ng-click="setActive('tab1')") Información
                                             li(ng-class="{'active' : Dato.tab == 'tab2'}")
-                                                a(data-toggle="tab", data-target="#tab2",ng-click="setActive('tab2')") Metha-Características
+                                                a(data-toggle="tab", data-target="#tab2",ng-click="setActive('tab2')") Metha características
                                             li(ng-class="{'active' : Dato.tab == 'tab3'}")
                                                 a(data-toggle="tab", data-target="#tab3",ng-click="setActive('tab3')") Matriz de caracterización
                                             li(class="dropdown",ng-class="{'active' : Dato.tab == 'tab4'}")
@@ -68,11 +69,11 @@ div(class="page-content-wrap")
                                                         div(class="col-md-2")
                                                             label() Código
                                                         div(class="col-md-4")
-                                                            input(type='text', class="form-control")
+                                                            input(type='text', class="form-control", data-ng-model="Data.vacancy.code")
                                                         div(class="col-md-2")
                                                             label() Número de vacantes
                                                         div(class="col-md-4")
-                                                            input(type='text', class="form-control")
+                                                            input(type='text', class="form-control", data-ng-model="Data.vacancy.vacanciesNumber")
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
                                                             label() Estatus
@@ -88,16 +89,16 @@ div(class="page-content-wrap")
                                                         div(class="col-md-2")
                                                             label() Fecha fin
                                                         div(class="col-sm-4")
-                                                            adm-dtp(ng-model='fechaFin', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
+                                                            adm-dtp(ng-model='Data.vacancy.toDate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
                                                         div(class="col-md-2")
                                                             label() Salario previsto
                                                         div(class="col-md-4")
-                                                            input(type='text', class="form-control")
+                                                            input(type='text', class="form-control", data-ng-model="Data.vacancy.salary")
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
                                                             label() Dirección
                                                         div(class="col-sm-4")
-                                                            input(type='text', class="form-control")
+                                                            input(type='text', class="form-control", data-ng-model="Data.vacancy.address")
                                                         div(class="col-md-2")
                                                             label() País
                                                         div(class="col-md-4")
@@ -136,12 +137,12 @@ div(class="page-content-wrap")
                                                         div(class="col-md-2")
                                                             label() Probabilidad condicional
                                                         div(class="col-md-4")
-                                                            input(type='text', class="form-control")
+                                                            input(type='checkbox', data-ng-model="Data.vacancy.conditionalProbability", value="true")
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
                                                             label() Coordenadas GPS
                                                         div(class="col-sm-4")
-                                                            input(type='text', class="form-control")
+                                                            input(type='text', class="form-control", data-ng-model="Data.vacancy.gps")
                                                         div(class="col-md-2")
                                                             label() Última actualización
                                                         div(class="col-md-4")
@@ -153,7 +154,7 @@ div(class="page-content-wrap")
                                                             table(class="table table-striped")
                                                                 thead()
                                                                     tr()
-                                                                        th() MethaCaracterísticas
+                                                                        th() Metha características
                                                                         th() Peso
                                                                 tbody()
                                                                     tr()
@@ -169,6 +170,8 @@ div(class="page-content-wrap")
                                                 div(class="panel-body")
                                             div(id="tab4", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab4'}")
                                                 div(class="panel-body")
+                                                    div(class="row row-space")
+                                                        h3() Candidatos que concurren
                                                     div(class="row row-space")
                                                         div(class="col-md-8") 
                                                             div(class="input-group")
@@ -216,6 +219,8 @@ div(class="page-content-wrap")
                                             div(id="tab5", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab5'}")     
                                                 div(class="panel-body")      
                                                     div(class="row row-space")
+                                                        h3() Candidatos pre-seleccionados
+                                                    div(class="row row-space")
                                                         div(class="col-sm-12")
                                                             table(class="table table-striped")
                                                                 thead()
@@ -238,6 +243,8 @@ div(class="page-content-wrap")
                                                                                 span(class="fa fa-check-square-o") 
                                             div(id="tab6", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab6'}")  
                                                 div(class="panel-body")
+                                                    div(class="row row-space")
+                                                        h3() Candidatos seleccionados
                                                     div(class="row row-space")
                                                         div(class="col-sm-12")
                                                             table(class="table table-striped")

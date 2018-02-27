@@ -1,6 +1,7 @@
 angular.module('myApp.vacancyController', ['ui.select', 'ADM-dateTimePicker']).
 controller('vacancyDetailController', ['$scope', '$rootScope', '$routeParams', 'Mensaje', 'Dictionary', '$parse', '$timeout', 'vacancyService', '$location', 'keepData', 'candidatesServices', function ($scope, $rootScope, $routeParams, Mensaje, Dictionary, $parse, $timeout, vacancyService, $location, keepData, candidatesServices) {
     $scope.Dato = {};
+    $scope.titulo = "";
     $scope.Data = {};
     $scope.lista = {};
     $scope.lista.candidatos = [];
@@ -128,6 +129,26 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$routeParams', '
     };
 
     $scope.setActive = function (tab) {
+        switch (tab) {
+            case "tab1":
+                $scope.titulo = " - Información";
+                break;
+            case "tab2":
+                $scope.titulo = " - Metha características";
+                break;
+            case "tab3":
+                $scope.titulo = " - Matriz de caracterización";
+                break;
+            case "tab4":
+                $scope.titulo = " - Candidatos que concurren";
+                break;
+            case "tab5":
+                $scope.titulo = " - Candidatos pre-seleccionados";
+                break;
+            case "tab6":
+                $scope.titulo = " - Candidatos seleccionados";
+                break;
+        }
         keepData.set('activeTabVacancy', tab);
     };
 

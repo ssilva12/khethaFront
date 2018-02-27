@@ -74,7 +74,7 @@ config(function ($routeProvider, $locationProvider) {
     when('/employerList', {
         templateUrl: 'partials/employerList',
         controller: 'employerListController',
-        title: "Gestión de empleadores",
+        title: "Lista de empleadores",
         activetab: 'employerList'
     }).
     when('/employerDetail', {
