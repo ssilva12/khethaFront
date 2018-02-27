@@ -1,5 +1,5 @@
 angular.module('myApp.candidatesCtrl', ['ui.select', 'ADM-dateTimePicker']).
-controller('candidatesController', ['$scope', '$routeParams', 'candidatesServices', 'Mensaje', 'Dictionary', '$parse', '$timeout', function ($scope, $routeParams, candidatesServices, Mensaje, Dictionary, $parse, $timeout) {
+controller('candidatesController', ['$scope', '$stateParams', 'candidatesServices', 'Mensaje', 'Dictionary', '$parse', '$timeout', function ($scope, $stateParams, candidatesServices, Mensaje, Dictionary, $parse, $timeout) {
     //Variables globales
     $scope.variablesGlobales = {};
     $scope.variablesGlobales.expandir = false;
@@ -112,8 +112,8 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
                 $scope.usuario.caracteristicas = [];
                 $scope.usuario.caracteristicasPsicologicas = [];
 
-                if ($routeParams.vacancyId != null) {
-                    $scope.cargarVacancy($routeParams.vacancyId, $routeParams.id);
+                if ($stateParams.vacancyId != null) {
+                    $scope.cargarVacancy($stateParams.vacancyId, $stateParams.id);
                 }
             } else {
                 Mensaje.Alerta("error", result.message);
@@ -214,8 +214,8 @@ controller('candidatesController', ['$scope', '$routeParams', 'candidatesService
     };
 
     var init = function () {
-        if ($routeParams.id != null) {
-            $scope.cargarCandidato($routeParams.id);
+        if ($stateParams.id != null) {
+            $scope.cargarCandidato($stateParams.id);
         } else {
             $scope.usuario.jobs = [];
             $scope.usuario.schooling = [];

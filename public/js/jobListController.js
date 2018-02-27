@@ -1,5 +1,5 @@
 angular.module('myApp.jobListCtrl', ['ui.select']).
-controller('jobListController', ['$scope', 'Mensaje', 'jobService', '$rootScope', '$location', 'keepData', function ($scope, Mensaje, jobService, $rootScope, $location, keepData) {
+    controller('jobListController', ['$scope', 'Mensaje', 'jobService', '$rootScope', '$state', 'keepData', function ($scope, Mensaje, jobService, $rootScope, $state, keepData) {
     $scope.lista = {};
     $scope.lista.jobs = [];
     $scope.lista.currentPage = 1;
@@ -34,11 +34,15 @@ controller('jobListController', ['$scope', 'Mensaje', 'jobService', '$rootScope'
     };
 
     $scope.buscarDetalle = function (id) {
-        $location.path('/jobDetail/' + id);
+        $state.go('jobDetail', {
+            "id": id
+        });
     };
 
     $scope.crearNuevo = function () {
-        $location.path('/jobDetail/');
+        $state.go('jobDetail', {
+            "id": null
+        });
     };
 
     $scope.clearFilter = function () {

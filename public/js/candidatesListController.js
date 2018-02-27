@@ -1,6 +1,6 @@
 angular.module('myApp.candidatesListCtrl', ['ui.bootstrap', 'ngCookies']).
-controller('candidatesListController', ['$scope', 'candidatesServices', '$location', 'Mensaje', '$rootScope', 'Dictionary', '$parse', '$timeout', 'keepData', function ($scope, candidatesServices, $location, Mensaje, $rootScope, Dictionary, $parse, $timeout, keepData) {
-
+controller('candidatesListController', ['$scope', 'candidatesServices', '$state', 'Mensaje', '$rootScope', 'Dictionary', '$parse', '$timeout', 'keepData', function ($scope, candidatesServices, $state, Mensaje, $rootScope, Dictionary, $parse, $timeout, keepData) {
+    console.log("cnd list ctrl");
     $scope.lista = {};
     $scope.lista.candidatos = [];
     $scope.lista.currentPage = 1;
@@ -29,11 +29,15 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$locati
 
 
     $scope.buscarDetalle = function (id) {
-        $location.path('/detail/' + id);
+        $state.go('detail', {
+            "id": id
+        });
     };
 
     $scope.crearNuevo = function () {
-        $location.path('/detail/');
+        $state.go('detail', {
+            "id": null
+        });
     };
 
     $scope.advSearch = function (name, country, status, skill, jobFunction, jobs, page, itemsPerPage) {

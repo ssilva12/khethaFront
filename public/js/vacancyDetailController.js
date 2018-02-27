@@ -1,5 +1,5 @@
 angular.module('myApp.vacancyController', ['ui.select', 'ADM-dateTimePicker']).
-controller('vacancyDetailController', ['$scope', '$rootScope', '$routeParams', 'Mensaje', 'Dictionary', '$parse', '$timeout', 'vacancyService', '$location', 'keepData', 'candidatesServices', function ($scope, $rootScope, $routeParams, Mensaje, Dictionary, $parse, $timeout, vacancyService, $location, keepData, candidatesServices) {
+    controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', 'Mensaje', 'Dictionary', '$parse', '$timeout', 'vacancyService', '$state', 'keepData', 'candidatesServices', function ($scope, $rootScope, $stateParams, Mensaje, Dictionary, $parse, $timeout, vacancyService, $state, keepData, candidatesServices) {
     $scope.Dato = {};
     $scope.titulo = "";
     $scope.Data = {};
@@ -125,7 +125,11 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$routeParams', '
     };
 
     $scope.buscarDetalle = function (id) {
-        $location.path('/detail/' + id + '/' + $scope.Data.vacancy.id);
+        //$location.path('/detail/' + id + '/' + $scope.Data.vacancy.id);
+        $state.go('detail', {
+            "id": id,
+            "vacancyId": $scope.Data.vacancy.id,
+        });
     };
 
     $scope.setActive = function (tab) {
@@ -213,8 +217,8 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$routeParams', '
 
     //INIT
     var init = function () {
-        if ($routeParams.id != null) {
-            $scope.cargarVacante($routeParams.id);
+        if ($stateParams.id != null) {
+            $scope.cargarVacante($stateParams.id);
         } else {
 
         }

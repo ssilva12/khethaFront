@@ -1,5 +1,5 @@
 angular.module('myApp.vacancyListCtrl', ['ui.bootstrap']).
-controller('vacancyListController', ['$scope', '$location', 'filterFilter', 'Mensaje', '$rootScope', 'Dictionary', '$parse', 'vacancyService', 'keepData', '$timeout', function ($scope, $location, filterFilter, Mensaje, $rootScope, Dictionary, $parse, vacancyService, keepData, $timeout) {
+controller('vacancyListController', ['$scope', '$state', 'filterFilter', 'Mensaje', '$rootScope', 'Dictionary', '$parse', 'vacancyService', 'keepData', '$timeout', function ($scope, $state, filterFilter, Mensaje, $rootScope, Dictionary, $parse, vacancyService, keepData, $timeout) {
 
     $scope.lista = {};
     $scope.lista.vacantes = [];
@@ -56,12 +56,16 @@ controller('vacancyListController', ['$scope', '$location', 'filterFilter', 'Men
     }
 
     $scope.crearNuevo = function () {
-        $location.path('/vacancyDetail/');
+        $state.go('vacancyDetail', {
+            "id": null
+        });
     };
 
     $scope.buscarDetalle = function (id) {
         keepData.set('activeTabVacancy', "tab1");
-        $location.path('/vacancyDetail/' + id);
+        $state.go('vacancyDetail', {
+            "id": id
+        });
     };
 
     $scope.advSearch = function (name, employer, job, status, analist, country, fromDate, toDate, page, itemsPerPage) {

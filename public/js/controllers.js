@@ -3,11 +3,11 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
-  controller('AppCtrl', function ($scope, $http, $route, $location) {
+  controller('AppCtrl', function ($scope, $http, $route, $location, $state) {
     $scope.$route = $route;
 
     $scope.Redirect = function (target) {
-      $location.path(target);
+      $state.go(target);
     }
   }).
 controller('MyCtrl1', function ($scope,$http,Dictionary,$location,termFactory) {
