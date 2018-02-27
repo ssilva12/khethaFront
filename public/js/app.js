@@ -32,67 +32,80 @@ config(function ($routeProvider, $locationProvider) {
     when('/detail', {
         title: "Candidato",
         templateUrl: 'partials/candidateDetail',
-        controller: 'candidatesController'
+        controller: 'candidatesController',
+        activetab: 'detail'
     }).
     when('/detail/:id', {
         title: "Candidato",
         templateUrl: 'partials/candidateDetail',
-        controller: 'candidatesController'
+        controller: 'candidatesController',
+        activetab: 'detail'
     }).
-        when('/detail/:id/:vacancyId', {
-            title: "Candidato",
-            templateUrl: 'partials/candidateDetail',
-            controller: 'candidatesController'
-        }).
+    when('/detail/:id/:vacancyId', {
+        title: "Candidato",
+        templateUrl: 'partials/candidateDetail',
+        controller: 'candidatesController',
+        activetab: 'detail'
+    }).
     when('/candidateslist', {
         title: "Lista de candidatos",
         templateUrl: 'partials/candidateList',
-        controller: 'candidatesListController'
+        controller: 'candidatesListController',
+        activetab: 'candidateslist'
     }).
     when('/vacancyDetail', {
         templateUrl: 'partials/vacancyDetail',
         controller: 'vacancyDetailController',
-        title: "Ficha de Vacantes"
+        title: "Ficha de Vacantes",
+        activetab: 'vacancyDetail'
     }).
     when('/vacancyDetail/:id', {
         templateUrl: 'partials/vacancyDetail',
         controller: 'vacancyDetailController',
-        title: "Ficha de Vacantes"
+        title: "Ficha de Vacantes",
+        activetab: 'vacancyDetail'
     }).
     when('/vacancyList', {
         templateUrl: 'partials/vacancyList',
         controller: 'vacancyListController',
-        title: "Lista de fichas de Vacantes"
+        title: "Lista de fichas de Vacantes",
+        activetab: 'vacancyList'
     }).
     when('/employerList', {
         templateUrl: 'partials/employerList',
         controller: 'employerListController',
-        title: "Gestión de empleadores"
+        title: "Gestión de empleadores",
+        activetab: 'employerList'
     }).
     when('/employerDetail', {
         title: "Empleador",
         templateUrl: 'partials/employerDetail',
-        controller: 'employerController'
+        controller: 'employerController',
+        activetab: 'employerDetail'
     }).
     when('/employerDetail/:id', {
         title: "Empleador",
         templateUrl: 'partials/employerDetail',
-        controller: 'employerController'
+        controller: 'employerController',
+        activetab: 'employerDetail'
     }).
     when('/jobList', {
         templateUrl: 'partials/jobList',
         controller: 'jobListController',
-        title: "Gestión de jobs"
+        title: "Gestión de jobs",
+        activetab: 'jobList'
     }).
     when('/jobDetail', {
         title: "Job",
         templateUrl: 'partials/jobDetail',
-        controller: 'jobController'
+        controller: 'jobController',
+        activetab: 'jobDetail'
     }).
     when('/jobDetail/:id', {
         title: "Job",
         templateUrl: 'partials/jobDetail',
-        controller: 'jobController'
+        controller: 'jobController',
+        activetab: 'jobDetail'
     }).
 
 
@@ -200,6 +213,7 @@ config(function ($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
 }).run(['$location', '$rootScope', function ($location, $rootScope) {
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-        $rootScope.title = current.$$route.title;
+        $rootScope.activeTitle = current.$$route.title;
+        $rootScope.activetab = current.$$route.activetab;
     });
 }]);

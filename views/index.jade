@@ -17,48 +17,47 @@ block body
             div(class="profile-data")
               div(class="profile-data-name") Nadia Ali M.
               div(class="profile-data-title") Analista de Selección
-        li(class="xn-title") 
-          span() Candidatos
-        li(ng-class="{'active' : activeId == 'candidateList'}")
-          a(href="",ng-click="Redirect('/candidateslist')") 
-            i(class="fa fa-users", aria-hidden="true") 
-            span(class="xn-text") &nbsp;Lista de candidatos
-        li(ng-class="{'active' : activeId == 'candidateDetail'}")
-          a(href="",ng-click="Redirect('/detail')") 
-            i(class="fa fa-user-plus", aria-hidden="true") 
-            span(class="xn-text") &nbsp;Crear candidato
-        li()
-          a(href="",ng-click="Redirect('/synonyms')") 
-            i(class="fa fa-copy", aria-hidden="true") 
-            span(class="xn-text") &nbsp;Sinónimos
-        li()
-          a(href="",ng-click="Redirect('/metaFeatures')") 
-            i(class="fa fa-tag", aria-hidden="true") 
-            span(class="xn-text") &nbsp;Meta caracteristicas
-        li()
-          a(href="",ng-click="Redirect('/unresolved')") 
-            i(class="fa fa-exclamation-triangle", aria-hidden="true") 
-            span(class="xn-text") &nbsp;Sin resolver
-        li()
+        li(ng-class="{'active' : activetab == 'vacancyList'}")
           a(href="",ng-click="Redirect('/vacancyList')") 
             i(class="fa fa-briefcase", aria-hidden="true") 
             span(class="xn-text") &nbsp;Vacantes
-        li()
-          a(href="",ng-click="Redirect('/frequencyMatrix')") 
-            i(class="fa fa-th", aria-hidden="true") 
-            span(class="xn-text") &nbsp;Matrices de frecuencia 
-        li()
-          a(href="",ng-click="Redirect('/candidateMatching')") 
-            i(class="fa fa-th", aria-hidden="true") 
-            span(class="xn-text") &nbsp;Matching 
-        li()
+        li(ng-class="{'active' : activeId == 'candidateList'}")
+          a(href="",ng-click="Redirect('/candidateslist')") 
+            i(class="fa fa-users", aria-hidden="true") 
+            span(class="xn-text") &nbsp;Candidatos
+        li(ng-class="{'active' : activeId == 'employerList'}")
           a(href="",ng-click="Redirect('/employerList')") 
             i(class="glyphicon glyphicon-user", aria-hidden="true") 
-            span(class="xn-text") &nbsp;Gestión de empleadores
-        li()
-          a(href="",ng-click="Redirect('/jobList')") 
-            i(class="fa fa-desktop", aria-hidden="true") 
-            span(class="xn-text") &nbsp;Gestión de jobs  
+            span(class="xn-text") &nbsp;Empleadores
+        li(class="xn-openable")
+          a(href="")
+            i(class="fa fa-wrench", aria-hidden="true") 
+            span(class="xn-text") &nbsp;Feature engineering
+          ul()
+            li(ng-class="{'active' : activeId == 'synonyms'}")
+              a(href="",ng-click="Redirect('/synonyms')") 
+                i(class="fa fa-copy", aria-hidden="true") 
+                span(class="xn-title") &nbsp;Diccionarios
+            li(ng-class="{'active' : activeId == 'metaFeatures'}")
+              a(href="",ng-click="Redirect('/metaFeatures')") 
+                i(class="fa fa-tag", aria-hidden="true") 
+                span(class="xn-title") &nbsp;Meta-características
+            li(ng-class="{'active' : activeId == 'unresolved'}")
+              a(href="",ng-click="Redirect('/unresolved')") 
+                i(class="fa fa-exclamation-triangle", aria-hidden="true") 
+                span(class="xn-title") &nbsp;Sin resolver  
+            li(ng-class="{'active' : activeId == 'frequencyMatrix'}")
+              a(href="",ng-click="Redirect('/frequencyMatrix')") 
+                i(class="fa fa-th", aria-hidden="true") 
+                span(class="xn-title") &nbsp;Matrices de frecuencia 
+            li(ng-class="{'active' : activeId == 'candidateMatching'}")
+              a(href="",ng-click="Redirect('/candidateMatching')") 
+                i(class="fa fa-th", aria-hidden="true") 
+                span(class="xn-title") &nbsp;Caracterización Vacantes 
+            li(ng-class="{'active' : activeId == 'jobList'}")
+              a(href="",ng-click="Redirect('/jobList')") 
+                i(class="fa fa-desktop", aria-hidden="true") 
+                span(class="xn-title") &nbsp;Jobs     
         li()
           br()
     div(class="page-content")
@@ -176,7 +175,7 @@ block body
         li()
           a(href="#") Inicio
         li()
-          a(ng-bind="title")
+          a(ng-bind="activeTitle")
       //- END BREADCRUMB
       div(class="row")
         div(ng-view)

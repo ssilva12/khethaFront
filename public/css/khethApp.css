@@ -340,3 +340,8 @@ label {
     color: #004085;
     background-color: #9fcdff;
 }
+
+.dd-alert {
+    color: #FFFFFF !important;
+    background-color: #B64645 !important;
+}
