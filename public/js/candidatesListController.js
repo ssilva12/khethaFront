@@ -1,6 +1,5 @@
 angular.module('myApp.candidatesListCtrl', ['ui.bootstrap', 'ngCookies']).
 controller('candidatesListController', ['$scope', 'candidatesServices', '$state', 'Mensaje', '$rootScope', 'Dictionary', '$parse', '$timeout', 'keepData', function ($scope, candidatesServices, $state, Mensaje, $rootScope, Dictionary, $parse, $timeout, keepData) {
-    console.log("cnd list ctrl");
     $scope.lista = {};
     $scope.lista.candidatos = [];
     $scope.lista.currentPage = 1;
