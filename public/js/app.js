@@ -5,6 +5,7 @@
 angular.module('myApp', [
     'myApp.controllers',
     'myApp.loginCtrl',
+    'myApp.loginService',
     'myApp.vacancyCtrl',
     'myApp.vacancyController',
     'myApp.vacancyListCtrl',
