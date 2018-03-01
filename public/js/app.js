@@ -5,6 +5,7 @@
 angular.module('myApp', [
     'myApp.controllers',
     'myApp.loginCtrl',
+    'myApp.loginService',
     'myApp.vacancyCtrl',
     'myApp.vacancyController',
     'myApp.vacancyListCtrl',
@@ -29,10 +30,11 @@ angular.module('myApp', [
     'ngRoute',
     'ui.router'
 ]).
-config(function ($stateProvider, $urlRouterProvider) {
+config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
     $urlRouterProvider.otherwise('/login');
-
+    $locationProvider.html5Mode(true)
+    
     $stateProvider
         .state('login', {
             url: '/login',
@@ -254,8 +256,7 @@ config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: 'partials/vacancy',
             controller: 'vacancyCtrl',
             activetab: 'vacancy'
-        })
-        ;
+        });
 }).
 run(['$location', '$rootScope', function ($location, $rootScope) {
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
