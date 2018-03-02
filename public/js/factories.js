@@ -1,4 +1,4 @@
-angular.module('myApp.factories', []).
+angular.module('myApp.factories', ['ngCookies']).
 value('version', '0.1')
     .factory('termFactory', function () {
         this.primary = {};
@@ -155,7 +155,7 @@ value('version', '0.1')
 
         return Mensaje;
     }])
-    .factory('keepData', ['$rootScope', '$parse', function ($rootScope, $parse) {
+    .factory('keepData', ['$rootScope', '$parse', '$cookieStore', function ($rootScope, $parse, $cookieStore) {
         var keepData = {};
 
         keepData.set = function (key, value) {
@@ -163,13 +163,10 @@ value('version', '0.1')
             model.assign($rootScope, value);
         };
 
+        keepData.setCookie = function (key, value) {
+            $cookieStore.put(key, value);
+        };
+
         return keepData;
-        // return {
-        //     get: function () {
-        //         return (this.keepData);
-        //     },
-        //     set: function (keepData) {
-        //         this.keepData = keepData;
-        //     }
-        // };
+
     }]);

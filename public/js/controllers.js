@@ -3,15 +3,21 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
-controller('AppCtrl', function ($scope, $http, $route, $location, $state) {
+controller('AppCtrl', ['$scope', '$http', '$route', '$location', '$state', '$cookieStore', 'keepData', function ($scope, $http, $route, $location, $state, $cookieStore, keepData) {
   $scope.$route = $route;
-
+  $scope.sesion = $cookieStore.get("sesion");
   $scope.Redirect = function (target) {
     $state.go(target);
   }
   onload();
   $(".page-sidebar.scroll").mCustomScrollbar("update");
-}).
+
+  $scope.logOut = function () {
+    keepData.setCookie("sesion",null);
+    $scope.Redirect("/");
+  }
+
+}]).
 controller('MyCtrl1', function ($scope, $http, Dictionary, $location, termFactory) {
   termFactory.setCurrent(null);
   //trae los tickets sin resolver
