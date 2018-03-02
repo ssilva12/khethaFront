@@ -2,20 +2,26 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', []).
-controller('AppCtrl', ['$scope', '$http', '$route', '$location', '$state', '$cookieStore', 'keepData', function ($scope, $http, $route, $location, $state, $cookieStore, keepData) {
+angular.module('myApp.controllers', ['angular-jwt']).
+controller('AppCtrl', ['$scope', '$http', '$route', '$location', '$state', '$cookieStore', 'keepData', 'jwtHelper', function ($scope, $http, $route, $location, $state, $cookieStore, keepData, jwtHelper) {
   $scope.$route = $route;
-  $scope.sesion = $cookieStore.get("sesion");
+  $scope.sesion = {};
+
+  if ($cookieStore.get("sesion") != null && $cookieStore.get("sesion") != "") {
+    var tokenPayload = jwtHelper.decodeToken($cookieStore.get("sesion"));
+    $scope.sesion.userName = tokenPayload.userName;
+    $scope.sesion.role = tokenPayload.role;
+  } else {
+    $state.go("login");
+  }
+
   $scope.Redirect = function (target) {
     $state.go(target);
   }
-  onload();
-  $(".page-sidebar.scroll").mCustomScrollbar("update");
 
-  $scope.logOut = function () {
-    keepData.setCookie("sesion",null);
-    $scope.Redirect("/");
-  }
+  onload();
+
+  $(".page-sidebar.scroll").mCustomScrollbar("update");
 
 }]).
 controller('MyCtrl1', function ($scope, $http, Dictionary, $location, termFactory) {

@@ -80,121 +80,47 @@ value('version', '0.2')
             });
         }
     }])
-    .factory('vacancyService', ['$http', 'URL', function ($http, URL) {
+    .factory('vacancyService', ['request', 'URL', function (request, URL) {
 
         var vacancyService = {};
 
-        var Result = {};
-        Result.error = false;
-        Result.status = null;
-        Result.message = "";
-        Result.data = null;
-
         vacancyService.createVacancy = function (employerId, jobId, callback) {
-            $http({
+            var config = {
                 method: 'POST',
                 data: {
                     employerId: employerId,
                     jobId: jobId
                 },
                 url: URL.URL_REST_SERVICE + 'vacancy'
-            }).
-            then(function onSuccess(response) {
-                Result.error = false;
-                Result.status = response.status;
-                Result.message = "OK";
-                Result.data = response.data;
-                callback(Result);
-            }, function onError(response) {
-                Result.error = true;
-                Result.status = response.status;
-                switch (status) {
-                    case 404:
-                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'vacancy).';
-                        break;
-                    case 500:
-                        Result.message = "Error en el servicio.";
-                        break;
-                    default:
-                        Result.message = "Error.";
-                        break;
-                }
-                Result.data = reponse.data;
-                callback(Result);
-            });
+            }
+            request.send(config, callback);
         }
 
         vacancyService.updateInformation = function (vacancy, callback) {
-            $http({
+            var config = {
                 method: 'PUT',
                 data: {
                     vacancy: vacancy
                 },
                 url: URL.URL_REST_SERVICE + 'vacancy',
-                headers: {
-                    'Content-Type': "application/json"
-                }
-            }).
-            then(function onSuccess(response) {
-                Result.error = false;
-                Result.status = response.status;
-                Result.message = "OK";
-                Result.data = response.data;
-                callback(Result);
-            }, function onError(response) {
-                Result.error = true;
-                Result.status = response.status;
-                switch (status) {
-                    case 404:
-                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'vacancy).';
-                        break;
-                    case 500:
-                        Result.message = "Error en el servicio.";
-                        break;
-                    default:
-                        Result.message = "Error.";
-                        break;
-                }
-                Result.data = response.data;
-                callback(Result);
-            });
+                contentType: "application/json"
+            }
+            request.send(config, callback);
         };
 
         vacancyService.getById = function (id, callback) {
-            $http({
+            var config = {
                 method: 'GET',
                 params: {
                     id: id
                 },
                 url: URL.URL_REST_SERVICE + 'vacancy'
-            }).
-            then(function onSuccess(response) {
-                Result.error = false;
-                Result.status = response.status;
-                Result.message = "OK";
-                Result.data = response.data;
-                callback(Result);
-            }, function onError(response) {
-                Result.error = true;
-                Result.status = response.status;
-                switch (status) {
-                    case 404:
-                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'vacancy).';
-                        break;
-                    case 500:
-                        Result.message = "Error en el servicio.";
-                        break;
-                    default:
-                        Result.message = "Error.";
-                        break;
-                }
-                Result.data = reponse.data;
-                callback(Result);
-            });
+            }
+            request.send(config, callback);
         }
 
         vacancyService.addCandidate = function (candidateId, vacancyId, relationName, callback) {
-            $http({
+            var config = {
                 method: 'POST',
                 params: {
                     vacancyId: vacancyId,
@@ -202,34 +128,12 @@ value('version', '0.2')
                     relationName: relationName
                 },
                 url: URL.URL_REST_SERVICE + 'linkJobVancancyCandidate'
-            }).
-            then(function onSuccess(response) {
-                Result.error = false;
-                Result.status = response.status;
-                Result.message = "OK";
-                Result.data = response.data;
-                callback(Result);
-            }, function onError(response) {
-                Result.error = true;
-                Result.status = response.status;
-                switch (status) {
-                    case 404:
-                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'linkJobVancancyCandidate).';
-                        break;
-                    case 500:
-                        Result.message = "Error en el servicio.";
-                        break;
-                    default:
-                        Result.message = "Error.";
-                        break;
-                }
-                Result.data = reponse.data;
-                callback(Result);
-            });
+            }
+            request.send(config, callback);
         }
 
         vacancyService.advSearch = function (name, employer, job, status, analist, country, fromDate, toDate, page, itemsPerPage, callback) {
-            $http({
+            var config = {
                 method: 'GET',
                 params: {
                     name: name,
@@ -244,30 +148,8 @@ value('version', '0.2')
                     itemsPerPage: itemsPerPage
                 },
                 url: URL.URL_REST_SERVICE + 'paginatedVacanciesSearch'
-            }).
-            then(function onSuccess(response) {
-                Result.error = false;
-                Result.status = response.status;
-                Result.message = "OK";
-                Result.data = response.data;
-                callback(Result);
-            }, function onError(response) {
-                Result.error = true;
-                Result.status = response.status;
-                switch (status) {
-                    case 404:
-                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'paginatedVacanciesSearch).';
-                        break;
-                    case 500:
-                        Result.message = "Error en el servicio.";
-                        break;
-                    default:
-                        Result.message = "Error.";
-                        break;
-                }
-                Result.data = response.data;
-                callback(Result);
-            });
+            }
+            request.send(config, callback);
         };
 
         return vacancyService;

@@ -1,5 +1,5 @@
 angular.module('myApp.vacancyController', ['ui.select', 'ADM-dateTimePicker']).
-    controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', 'Mensaje', 'Dictionary', '$parse', '$timeout', 'vacancyService', '$state', 'keepData', 'candidatesServices', function ($scope, $rootScope, $stateParams, Mensaje, Dictionary, $parse, $timeout, vacancyService, $state, keepData, candidatesServices) {
+controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', 'Mensaje', 'Dictionary', '$parse', '$timeout', 'vacancyService', '$state', 'keepData', 'candidatesServices', function ($scope, $rootScope, $stateParams, Mensaje, Dictionary, $parse, $timeout, vacancyService, $state, keepData, candidatesServices) {
     $scope.Dato = {};
     $scope.titulo = "";
     $scope.Data = {};
@@ -117,6 +117,8 @@ angular.module('myApp.vacancyController', ['ui.select', 'ADM-dateTimePicker']).
             if (!result.error) {
                 console.log(result.data)
                 $scope.Data = result.data;
+                $scope.Data.cantidadpreselected = $scope.Data.preselected.length + "/" + $scope.Data.concur.length
+                $scope.Data.cantidadselected = $scope.Data.selected.length + "/" + $scope.Data.concur.length
                 $scope.Dato.tab = $rootScope.activeTabVacancy != null & $rootScope.activeTabVacancy != undefined ? $rootScope.activeTabVacancy : "tab1";
             } else {
                 Mensaje.Alerta("error", result.message);
