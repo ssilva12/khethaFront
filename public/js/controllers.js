@@ -7,6 +7,7 @@ controller('AppCtrl', ['$scope', '$http', '$route', '$location', '$state', '$coo
   $scope.$route = $route;
   $scope.sesion = {};
 
+  /*
   if ($cookieStore.get("sesion") != null && $cookieStore.get("sesion") != "") {
     var tokenPayload = jwtHelper.decodeToken($cookieStore.get("sesion"));
     $scope.sesion.userName = tokenPayload.userName;
@@ -14,6 +15,7 @@ controller('AppCtrl', ['$scope', '$http', '$route', '$location', '$state', '$coo
   } else {
     $state.go("login");
   }
+  // */
 
   $scope.Redirect = function (target) {
     $state.go(target);
@@ -415,7 +417,6 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
   $scope.employer = '';
   $scope.job = '';
   $scope.vacancy = '';
-  $scope.years = 1;
   $scope.candidateType = 'C';
   $scope.minPercentage = 0;
   $scope.showValue = "w"; // f: frequency, w:weight, p: probability
@@ -426,6 +427,14 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
   $scope.currentMethaFeatureFirstMethaRelationId = '';
   $scope.currentFeatureNames = [];
   $scope.currentDiscarded = false;
+
+  const maxYearsBack = 10;
+  $scope.possibleYearsBack = [...Array(maxYearsBack).keys()].map(x => maxYearsBack - x++);
+  const currentYear = (new Date()).getFullYear();
+  $scope.possibleReferenceYears = [...Array(maxYearsBack).keys()].map(x => currentYear - x++);
+  
+  $scope.referenceYear = currentYear;
+  $scope.yearsBack = maxYearsBack;
 
   $scope.featureEdit = undefined;
   $scope.weightIndexEdit = undefined;
@@ -476,9 +485,10 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
       employer: $scope.employer,
       job: $scope.job,
       jobVacancy: $scope.vacancy,
-      years: $scope.years,
-      candidateType: $scope.candidateType,
-      minPercentage: $scope.minPercentage
+      referenceYear: $scope.referenceYear,
+      yearsBack: $scope.yearsBack,
+      // candidateType: $scope.candidateType,
+      // minPercentage: $scope.minPercentage
     }, function (error, data) {
       console.log(data);
       if (!error) {
@@ -551,10 +561,16 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compil
         let vacancySelected = $scope.vacancy !== '';
         for (var i = 0; i < featureModified.levelNames.length; i++) {
           featureModified.tdClass[i] = !featureModified.isWeightInferred[i] && featureModified.levelNames[i] && vacancySelected ? 'weightSetted' : '';
-          featureModified.tdTitle[i] = 'MR: ' + featureModified.levelNames[i] + '\r\nFrecuencia: ' + featureModified.frequency[i] +
-            '\r\nFrecuencia Corregida: ' + featureModified.frequencyCorrected[i].toFixed(2) +
+          featureModified.tdTitle[i] =
+            'MR: ' + featureModified.levelNames[i] +
+            '\r\nFrecuencia: ' + featureModified.frequency[i] +
+            '\r\nFrecuencia Corregida: ' + featureModified.frequencySelectCorrected[i].toFixed(2) +
+            '\r\nFrecuencia Concur: ' + featureModified.frequencyTotal[i] +
+            '\r\nFrecuencia Concur Corregida: ' + featureModified.frequencyConcurCorrected[i].toFixed(2) +
             (vacancySelected ? '\r\nPeso establecido: ' + featureModified.weightSetted[i] : '') +
-            '\r\nPeso Inferido: ' + featureModified.weightInferred[i] + '\r\nProbabilidad: ' + featureModified.probability[i].toFixed(2);
+            '\r\nPeso Inferido: ' + featureModified.weightInferred[i] +
+            '\r\nProbabilidad: ' + featureModified.probability[i].toFixed(2) +
+            '\r\nProbabilidad Condicionada: ' + featureModified.conditionalProbability[i].toFixed(2);
           featureModified.tdContent[i] = '';
           featureModified.tdEditWeight[i] = false;
         }

@@ -24,10 +24,13 @@ div.row
         br
         br
         div.col-md-4
-            span Años 
-            select(ng-model="years")
-                each val in [1, 2, 3, 4, 5]
-                    option(value=val)= val
+            span Año de referencia 
+            select(ng-model="referenceYear")
+                option(ng-repeat="y in possibleReferenceYears")(value="{{ y }}") {{ y }} 
+        div.col-md-4
+            span Años atras 
+            select(ng-model="yearsBack")
+                option(ng-repeat="y in possibleYearsBack")(value="{{ y }}") {{ y }} 
         div.col-md-4(ng-show="false")
             span Candidatos 
             select(ng-model="candidateType")
