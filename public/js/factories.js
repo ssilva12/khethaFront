@@ -1,4 +1,4 @@
-angular.module('myApp.factories', []).
+angular.module('myApp.factories', ['ngCookies']).
 value('version', '0.1')
     .factory('termFactory', function () {
         this.primary = {};
@@ -155,7 +155,7 @@ value('version', '0.1')
 
         return Mensaje;
     }])
-    .factory('keepData', ['$rootScope', '$parse', function ($rootScope, $parse) {
+    .factory('keepData', ['$rootScope', '$parse', '$cookieStore', function ($rootScope, $parse, $cookieStore) {
         var keepData = {};
 
         keepData.set = function (key, value) {
@@ -163,13 +163,64 @@ value('version', '0.1')
             model.assign($rootScope, value);
         };
 
+        keepData.setCookie = function (key, value) {
+            $cookieStore.put(key, value);
+        };
+
         return keepData;
-        // return {
-        //     get: function () {
-        //         return (this.keepData);
-        //     },
-        //     set: function (keepData) {
-        //         this.keepData = keepData;
-        //     }
-        // };
+
+    }])
+    .factory('request', ['$cookieStore', '$http', function ($cookieStore, $http) {
+        var request = {};
+
+        request.send = function (config, callback) {
+            var Result = {};
+            Result.error = false;
+            Result.status = null;
+            Result.message = "";
+            Result.data = null;
+
+            var headers = {
+                'Content-Type': (config.contentType == null ? "text/text" : config.contentType),
+                'Authorization': 'Bearer ' + $cookieStore.get("sesion"),
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
+            }
+            if ($cookieStore.get("sesion") == null || $cookieStore.get("sesion") == "") {
+                delete headers["Authorization"];
+            }
+            $http({
+                method: config.method,
+                url: config.url,
+                data: config.data,
+                params: config.params,
+                headers: headers
+            }).
+            then(function onSuccess(response) {
+                Result.error = false;
+                Result.status = response.status;
+                Result.message = "OK";
+                Result.data = response.data;
+                callback(Result);
+            }, function onError(response) {
+                Result.error = true;
+                Result.status = response.status;
+                switch (status) {
+                    case 404:
+                        Result.message = "Servicio no encontrado(" + config.url + ').';
+                        break;
+                    case 500:
+                        Result.message = "Error en el servicio.";
+                        break;
+                    default:
+                        Result.message = "Error.";
+                        break;
+                }
+                Result.data = response.data;
+                callback(Result);
+            });
+        };
+
+        return request;
     }]);

@@ -68,7 +68,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('vacancyDetail', {
             parent: 'principal',
-            url: '/detail',
+            url: '/vacancyDetail',
             params: {
                 id: null
             },

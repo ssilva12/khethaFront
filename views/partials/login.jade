@@ -12,6 +12,9 @@ div(class="login-container", style="height:100vh;")
                 div(class="form-group")
                     div(class="col-md-12")
                         input(type="password", class="form-control", placeholder="Password", ng-model="user.password")
+                div(class="form-group", ng-show="mensaje")
+                    div(class="col-md-12")
+                        div(class="alert alert-danger", role="alert") {{mensaje}}
                 div(class="form-group")
                     div(class="col-md-6")
                         a(href="", class="btn btn-link btn-block") Forgot your password?

@@ -1,5 +1,5 @@
 angular.module('myApp.candidatesServices', [])
-    .factory('candidatesServices', ['$http', 'URL', function ($http, URL) {
+    .factory('candidatesServices', ['$http', 'URL', 'request', function ($http, URL, request) {
 
         var candidatesServices = {};
 
@@ -45,215 +45,76 @@ angular.module('myApp.candidatesServices', [])
         };
 
         candidatesServices.getAll = function (callback) {
-            $http({
+            var config = {
                 method: 'GET',
                 url: URL.URL_REST_SERVICE + 'getCandidates'
-            }).
-            then(function onSuccess(response) {
-                Result.error = false;
-                Result.status = response.status;
-                Result.message = "OK";
-                Result.data = response.data;
-                callback(Result);
-            }, function onError(response) {
-                Result.error = true;
-                Result.status = response.status;
-                switch (status) {
-                    case 404:
-                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
-                        break;
-                    case 500:
-                        Result.message = "Error en el servicio.";
-                        break;
-                    default:
-                        Result.message = "Error.";
-                        break;
-                }
-                Result.data = response.data;
-                callback(Result);
-            });
+            }
+            request.send(config, callback);
         };
 
         candidatesServices.getById = function (id, callback) {
-            $http({
+            var config = {
                 method: 'GET',
                 params: {
                     id: id
                 },
                 url: URL.URL_REST_SERVICE + 'candidate'
-            }).
-            then(function onSuccess(response) {
-                Result.error = false;
-                Result.status = response.status;
-                Result.message = "OK";
-                Result.data = response.data;
-                callback(Result);
-            }, function onError(response) {
-                Result.error = true;
-                Result.status = response.status;
-                switch (status) {
-                    case 404:
-                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
-                        break;
-                    case 500:
-                        Result.message = "Error en el servicio.";
-                        break;
-                    default:
-                        Result.message = "Error.";
-                        break;
-                }
-                Result.data = response.data;
-                callback(Result);
-            });
+
+            }
+            request.send(config, callback);
         };
 
         candidatesServices.updateInformation = function (usuario, callback) {
-            $http({
+            var config = {
                 method: 'PUT',
                 data: {
                     candidateInfo: usuario.candidateInfo
                 },
                 url: URL.URL_REST_SERVICE + 'candidate',
-                headers: {
-                    'Content-Type': "application/json"
-                }
-            }).
-            then(function onSuccess(response) {
-                Result.error = false;
-                Result.status = response.status;
-                Result.message = "OK";
-                Result.data = response.data;
-                callback(Result);
-            }, function onError(response) {
-                Result.error = true;
-                Result.status = response.status;
-                switch (status) {
-                    case 404:
-                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
-                        break;
-                    case 500:
-                        Result.message = "Error en el servicio.";
-                        break;
-                    default:
-                        Result.message = "Error.";
-                        break;
-                }
-                Result.data = response.data;
-                callback(Result);
-            });
+                contentType: "application/json"
+            }
+            request.send(config, callback);
         };
 
         candidatesServices.createCandidate = function (usuario, callback) {
-            $http({
+            var config = {
                 method: 'POST',
                 data: {
                     candidateInfo: usuario.candidateInfo
                 },
                 url: URL.URL_REST_SERVICE + 'candidate',
-                headers: {
-                    'Content-Type': "application/json"
-                }
-            }).
-            then(function onSuccess(response) {
-                Result.error = false;
-                Result.status = response.status;
-                Result.message = "OK";
-                Result.data = response.data;
-                callback(Result);
-            }, function onError(response) {
-                Result.error = true;
-                Result.status = response.status;
-                switch (status) {
-                    case 404:
-                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
-                        break;
-                    case 500:
-                        Result.message = "Error en el servicio.";
-                        break;
-                    default:
-                        Result.message = "Error.";
-                        break;
-                }
-                Result.data = response.data;
-                callback(Result);
-            });
+                contentType: "application/json"
+            }
+            request.send(config, callback);
         };
 
         candidatesServices.updateFeature = function (feature, callback) {
-            $http({
+            var config = {
                 method: 'PUT',
                 data: {
                     featureInfo: feature
                 },
                 url: URL.URL_REST_SERVICE + 'feature',
-                headers: {
-                    'Content-Type': "application/json"
-                }
-            }).
-            then(function onSuccess(response) {
-                Result.error = false;
-                Result.status = response.status;
-                Result.message = "OK";
-                Result.data = response.data;
-                callback(Result);
-            }, function onError(response) {
-                Result.error = true;
-                Result.status = response.status;
-                switch (status) {
-                    case 404:
-                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
-                        break;
-                    case 500:
-                        Result.message = "Error en el servicio.";
-                        break;
-                    default:
-                        Result.message = "Error.";
-                        break;
-                }
-                Result.data = response.data;
-                callback(Result);
-            });
+                contentType: "application/json"
+            }
+            request.send(config, callback);
         };
 
         candidatesServices.createFeature = function (candidateId, feature, callback) {
-            $http({
+            var config = {
                 method: 'POST',
                 data: {
                     featureInfo: feature,
                     candidateId: candidateId
                 },
                 url: URL.URL_REST_SERVICE + 'feature',
-                headers: {
-                    'Content-Type': "application/json"
-                }
-            }).
-            then(function onSuccess(response) {
-                Result.error = false;
-                Result.status = response.status;
-                Result.message = "OK";
-                Result.data = response.data;
-                callback(Result);
-            }, function onError(response) {
-                Result.error = true;
-                Result.status = response.status;
-                switch (status) {
-                    case 404:
-                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'feature).';
-                        break;
-                    case 500:
-                        Result.message = "Error en el servicio.";
-                        break;
-                    default:
-                        Result.message = "Error.";
-                        break;
-                }
-                Result.data = response.data;
-                callback(Result);
-            });
+                contentType: "application/json"
+            }
+            request.send(config, callback);
         };
 
         candidatesServices.advSearch = function (name, country, status, skill, jobFunction, jobs, page, itemsPerPage, callback) {
-            $http({
+            var config = {
                 method: 'GET',
                 params: {
                     name: name,
@@ -266,67 +127,21 @@ angular.module('myApp.candidatesServices', [])
                     itemsPerPage: itemsPerPage
                 },
                 url: URL.URL_REST_SERVICE + 'paginatedSearch'
-            }).
-            then(function onSuccess(response) {
-                Result.error = false;
-                Result.status = response.status;
-                Result.message = "OK";
-                Result.data = response.data;
-                callback(Result);
-            }, function onError(response) {
-                Result.error = true;
-                Result.status = response.status;
-                switch (status) {
-                    case 404:
-                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
-                        break;
-                    case 500:
-                        Result.message = "Error en el servicio.";
-                        break;
-                    default:
-                        Result.message = "Error.";
-                        break;
-                }
-                Result.data = response.data;
-                callback(Result);
-            });
+            }
+            request.send(config, callback);
         };
 
         candidatesServices.getVacancyInfo = function (vacancyId, candidateId, callback) {
-            $http({
+            var config = {
                 method: 'GET',
                 params: {
                     jobVacancy: vacancyId,
                     candidate: candidateId
                 },
                 url: URL.URL_REST_SERVICE + 'api/vacancy/candidate-match',
-                headers: {
-                    'Content-Type': "application/json"
-                }
-            }).
-                then(function onSuccess(response) {
-                    Result.error = false;
-                    Result.status = response.status;
-                    Result.message = "OK";
-                    Result.data = response.data;
-                    callback(Result);
-                }, function onError(response) {
-                    Result.error = true;
-                    Result.status = response.status;
-                    switch (status) {
-                        case 404:
-                            Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'api/vacancy/candidate-match).';
-                            break;
-                        case 500:
-                            Result.message = "Error en el servicio.";
-                            break;
-                        default:
-                            Result.message = "Error.";
-                            break;
-                    }
-                    Result.data = response.data;
-                    callback(Result);
-                });
+                contentType: "application/json"
+            }
+            request.send(config, callback);
         };
 
         return candidatesServices;
