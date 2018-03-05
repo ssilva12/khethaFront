@@ -9,6 +9,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
     $scope.lista.totalItems = 0;
     $scope.lista.entryLimit = 12;
     $scope.lista.noOfPages = 0;
+    $scope.featuresModified = [];
     $scope.variablesGlobales = {};
     $scope.variablesGlobales.estados = [{
         value: "A",

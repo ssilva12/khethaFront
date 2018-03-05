@@ -48,7 +48,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('detail', {
             parent: 'principal',
-            url: '/detail',
+            url: '/detail?id&vacancyId',
             params: {
                 id: null,
                 vacancyId: null,
@@ -68,7 +68,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('vacancyDetail', {
             parent: 'principal',
-            url: '/vacancyDetail',
+            url: '/vacancyDetail?id',
             params: {
                 id: null
             },
@@ -95,7 +95,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('employerDetail', {
             parent: 'principal',
-            url: '/employerDetail',
+            url: '/employerDetail?id',
             params: {
                 id: null
             },
@@ -114,7 +114,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('jobDetail', {
             parent: 'principal',
-            url: '/jobDetail',
+            url: '/jobDetail?id',
             params: {
                 id: null
             },

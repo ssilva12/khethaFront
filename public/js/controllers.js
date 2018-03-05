@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ['angular-jwt']).
-controller('AppCtrl', ['$scope', '$http', '$route', '$location', '$state', '$cookieStore', 'keepData', 'jwtHelper', function ($scope, $http, $route, $location, $state, $cookieStore, keepData, jwtHelper) {
+controller('AppCtrl', ['$scope', '$http', '$route', '$state', '$cookieStore', 'keepData', 'jwtHelper', function ($scope, $http, $route, $state, $cookieStore, keepData, jwtHelper) {
   $scope.$route = $route;
   $scope.sesion = {};
 
@@ -24,7 +24,7 @@ controller('AppCtrl', ['$scope', '$http', '$route', '$location', '$state', '$coo
   $(".page-sidebar.scroll").mCustomScrollbar("update");
 
 }]).
-controller('MyCtrl1', function ($scope, $http, Dictionary, $location, termFactory) {
+controller('MyCtrl1', function ($scope, $http, Dictionary, $state, termFactory) {
   termFactory.setCurrent(null);
   //trae los tickets sin resolver
   getUnresolved();
@@ -44,7 +44,7 @@ controller('MyCtrl1', function ($scope, $http, Dictionary, $location, termFactor
   $scope.solve = function (name) {
     termFactory.setCurrent(name);
     console.log(termFactory.getCurrent());
-    $location.path("/solve");
+    $state.go("solve")
   }
 
   $scope.discard = function (entry) {
@@ -65,7 +65,7 @@ controller('MyCtrl1', function ($scope, $http, Dictionary, $location, termFactor
     });
   }
 }).
-controller('SynonymsCtrl', function ($scope, $location, Dictionary, termFactory, Upload, $timeout,$state) {
+controller('SynonymsCtrl', function ($scope, $state, Dictionary, termFactory, Upload, $timeout) {
   termFactory.setCurrent(null);
   getMeta();
   $scope.search = function (name) {
@@ -96,7 +96,7 @@ controller('SynonymsCtrl', function ($scope, $location, Dictionary, termFactory,
       if (!err) {
         termFactory.setSynonyms(data.synonyms);
         termFactory.setPrimary(data.primary);
-        $location.path("/setGrams");
+        $state.go("setGrams")
       }
     })
   };
@@ -144,7 +144,7 @@ controller('SynonymsCtrl', function ($scope, $location, Dictionary, termFactory,
     });
   }
 }).
-controller('SetCtrl', function ($scope, $location, termFactory, Dictionary) {
+controller('SetCtrl', function ($scope, $state, termFactory, Dictionary) {
   $scope.newSyn = "";
   $scope.primary = termFactory.getPrimary();
   $scope.synonyms = termFactory.getSynonyms();
@@ -186,7 +186,7 @@ controller('EditCtrl', function ($scope, termFactory, Dictionary) {
       })
     }
   })
-  .controller('SolveCtrl', function ($scope, Dictionary, termFactory, $location) {
+  .controller('SolveCtrl', function ($scope, Dictionary, termFactory, $state) {
     $scope.current = termFactory.getCurrent();
     $scope.synonymsSearch = termFactory.getCurrent().name;
     Dictionary.getMetaFeatures(function (error, data) {
@@ -213,7 +213,7 @@ controller('EditCtrl', function ($scope, termFactory, Dictionary) {
           termFactory.setSynonyms(data.synonyms);
           termFactory.setPrimary(data.primary);
           termFactory.setCurrent(null);
-          $location.path("/setGrams");
+          $state.go("setGrams")
         }
       })
     };
@@ -240,12 +240,12 @@ controller('EditCtrl', function ($scope, termFactory, Dictionary) {
           if (!data.primary) {
             //$scope.suggested = data.suggested
             //$scope.notFound = true
-            $location.path("/unresolved");
+            $state.go("unresolved");
           } else {
             //termFactory.setSynonyms(data.synonyms);
             //termFactory.setCurrent($scope.current.name);
             //termFactory.setPrimary(data.primary);
-            $location.path("/unresolved");
+            $state.go("unresolved");
           }
         }
       });
@@ -269,7 +269,7 @@ controller('SearchCtrl', function ($scope, termFactory, Dictionary) {
     });
   }
 }).
-controller('CandidatesCtrl', function ($scope, $location, candidateFactory, Dictionary) {
+controller('CandidatesCtrl', function ($scope, $state, candidateFactory, Dictionary) {
   $scope.jobs = candidateFactory.getJobs();
   $scope.features = candidateFactory.getFeatures();
   $scope.schooling = candidateFactory.getSchooling();
@@ -290,12 +290,12 @@ controller('CandidatesCtrl', function ($scope, $location, candidateFactory, Dict
         $scope.jobs = candidateFactory.getJobs();
         $scope.features = candidateFactory.getFeatures();
         $scope.schooling = candidateFactory.getSchooling();
-        $location.path("/candidate");
+        $state.go("candidate")
       }
     });
   }
 }).
-controller('JobsCtrl', function ($scope, $timeout, $location, candidateFactory, Dictionary, usSpinnerService) {
+controller('JobsCtrl', function ($scope, $timeout, $state, candidateFactory, Dictionary, usSpinnerService) {
   console.log("jobsCtrl");
   Dictionary.getCandidates(function (err, res) {
     if (!err) {
@@ -309,14 +309,14 @@ controller('JobsCtrl', function ($scope, $timeout, $location, candidateFactory, 
     $scope.match = true;
   }, 3000);
   $scope.matchJob = function () {
-    $location.path("/match");
+    $state.go("match")
     console.log("cambio")
   }
   $scope.new = function () {
-    $location.path("/job");
+    $state.go("job")
   }
 }).
-controller('metaFeaturesCtrl', function ($scope, $location, metaFeaturesFactory, Dictionary) {
+controller('metaFeaturesCtrl', function ($scope, $state, metaFeaturesFactory, Dictionary) {
   $scope.metaFeature = metaFeaturesFactory.getMetaFeature();
   $scope.metaRelations = metaFeaturesFactory.getMetaRelations();
   $scope.metaRelation = metaFeaturesFactory.getCurrentMetaRelation();
@@ -334,27 +334,27 @@ controller('metaFeaturesCtrl', function ($scope, $location, metaFeaturesFactory,
 
   $scope.showMetaFeature = function (id) {
     showMetaFeature(id, function () {
-      $location.path("/metaFeature");
+      $state.go("metaFeature")
     });
 
   }
 
   $scope.newMetaRelation = function () {
     metaFeaturesFactory.setCurrentMetaRelation(null);
-    $location.path("/newMetaRelation");
+    $state.go("newMetaRelation")
   }
 
   $scope.saveMetaRelation = function (metaFeature, metaRelation) {
     Dictionary.saveMetaRelation(metaFeature, metaRelation, function (error, data) {
       if (!error) {
         console.log(data);
-        $location.path("/metaFeature");
+        $state.go("metaFeature")
       }
     });
   }
   $scope.editMetaRelation = function (metaRelation) {
     metaFeaturesFactory.setCurrentMetaRelation(metaRelation);
-    $location.path("/metaRelation");
+    $state.go("metaRelation")
   }
 
   $scope.updateMetaFeature = function (metaFeature) {
@@ -370,7 +370,7 @@ controller('metaFeaturesCtrl', function ($scope, $location, metaFeaturesFactory,
     Dictionary.updateMetaRelation(metaRelation, function (error, data) {
       if (!error) {
         console.log(data);
-        $location.path("/metaFeature");
+        $state.go("metaFeature")
       }
     });
   }
@@ -410,7 +410,7 @@ controller('metaFeaturesCtrl', function ($scope, $location, metaFeaturesFactory,
     });
   }
 }).
-controller('frequencyMatrixCtrl', function ($scope, $timeout, $location, $compile, frequencyMatrixFactory, frequencyMatrixService, usSpinnerService) {
+controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, frequencyMatrixFactory, frequencyMatrixService, usSpinnerService) {
   console.log("frequencyMatrixCtrl");
 
   $scope.employer = '';

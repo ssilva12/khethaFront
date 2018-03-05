@@ -168,6 +168,34 @@ div(class="page-content-wrap")
                                                                         td() 2
                                             div(id="tab3", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab3'}")
                                                 div(class="panel-body")
+                                                    table()
+                                                        thead()
+                                                            tr()
+                                                                th()
+                                                                th()
+                                                                th(colspan="12") Metha-Relación
+                                                                th(colspan="3")
+                                                            tr()
+                                                                th() Metha Feature
+                                                                th() Feature
+                                                                th() MR1
+                                                                th() MR2
+                                                                th() MR3
+                                                                th() MR4
+                                                                th() MR5
+                                                                th() MR6
+                                                                th() MR7
+                                                                th() MR8
+                                                                th() MR9
+                                                                th() MR10
+                                                                th() MR11
+                                                                th() MR12
+                                                                th()
+                                                                    span(ng-show="showValue != 'p'") Count
+                                                                    span(ng-show="showValue == 'p'") Probab
+                                                        tbody()
+                                                            tr(ng-repeat="feature in featuresModified | orderBy : ['methaFeatureOrder', 'name']", ng-show="feature.visible", class="mf_tr_{{feature.methaFeatureId}}") 
+                                                            
                                             div(id="tab4", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab4'}")
                                                 div(class="panel-body")
                                                     div(class="row row-space")

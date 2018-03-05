@@ -73,7 +73,7 @@ controller('vacancyCtrl', function ($scope, $route, Vacancy) {
                     var coordenadasGps = data.primary.gps.split(";")
                     data.primary.latitud = coordenadasGps[0];
                     data.primary.longitud = coordenadasGps[1];
-                    $location.path("/setGrams");
+                    $state.go("setGrams")
                 }
             }
         });
