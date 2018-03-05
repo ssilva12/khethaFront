@@ -67,7 +67,7 @@ controller('MyCtrl1', function ($scope, $http, Dictionary, $location, termFactor
     });
   }
 }).
-controller('SynonymsCtrl', function ($scope, $location, Dictionary, termFactory, Upload, $timeout) {
+controller('SynonymsCtrl', function ($scope, $location, Dictionary, termFactory, Upload, $timeout,$state) {
   termFactory.setCurrent(null);
   getMeta();
   $scope.search = function (name) {
@@ -76,6 +76,7 @@ controller('SynonymsCtrl', function ($scope, $location, Dictionary, termFactory,
       $scope.metaRelationSearch.dictionary = null;
     }
     Dictionary.getSynonyms(name, $scope.metaRelationSearch.dictionary, $scope.acronym, function (error, data) {
+      
       if (!error) {
         if (!data.primary) {
           $scope.suggested = data.suggested
@@ -86,7 +87,7 @@ controller('SynonymsCtrl', function ($scope, $location, Dictionary, termFactory,
           var coordenadasGps = data.primary.gps.split(";")
           data.primary.latitud = coordenadasGps[0];
           data.primary.longitud = coordenadasGps[1];
-          $location.path("/setGrams");
+          $state.go("setGrams");
         }
       }
     });

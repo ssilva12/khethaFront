@@ -218,7 +218,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('metaFeature', {
             parent: 'principal',
             url: '/metaFeature',
-            templateUrl: 'partials/metaFeature',
+            templateUrl: 'partials/showMetaFeature',
             controller: 'metaFeaturesCtrl',
             activetab: 'metaFeature'
         })

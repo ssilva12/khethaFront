@@ -59,6 +59,7 @@ angular.module('myApp.candidatesServices', [])
                     id: id
                 },
                 url: URL.URL_REST_SERVICE + 'candidate'
+
             }
             request.send(config, callback);
         };
