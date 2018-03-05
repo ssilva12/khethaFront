@@ -263,7 +263,6 @@ value('version', '0.1')
           url: URL.URL_REST_SERVICE + 'createSynonyms'
         }).
         then(function onSuccess(response) {
-          console.log(responsedata)
           if (response.data.synonym.error) {
             alert(response.data.synonym.error)
           }
