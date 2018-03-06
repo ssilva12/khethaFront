@@ -28,6 +28,7 @@ controller('MyCtrl1', function ($scope, $http, Dictionary, $state, termFactory) 
   termFactory.setCurrent(null);
   //trae los tickets sin resolver
   getUnresolved();
+  getMeta();
   $scope.getSuggested = function (name) {
     Dictionary.getSynonyms(name, "null", function (error, data) {
       console.log(data);
@@ -61,6 +62,13 @@ controller('MyCtrl1', function ($scope, $http, Dictionary, $state, termFactory) 
       console.log(data.unresolved)
       if (!error) {
         $scope.unresolved = data.unresolved;
+      }
+    });
+  }
+  function getMeta() {
+    Dictionary.getMetaFeatures(function (error, data) {
+      if (!error) {
+        $scope.metaFeatures = data.metaFeatures;
       }
     });
   }
