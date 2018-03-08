@@ -12,21 +12,19 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
     $scope.featuresModified = [];
     $scope.methaFeatures = [];
     $scope.variablesGlobales = {};
+    
     $scope.variablesGlobales.estados = [{
         value: "A",
-        label: "Asignada"
+        label: "Asignado"
     }, {
         value: "P",
-        label: "En proceso"
+        label: "En proceso de selección"
     }, {
-        value: "C",
-        label: "Cerrada"
+        value: "F",
+        label: "Disponible"
     }, {
-        value: "D",
-        label: "Anulada"
-    }, {
-        value: "S",
-        label: "Inferida"
+        value: "N",
+        label: "No disponible"
     }];
 
     $scope.crearVacante = function () {
