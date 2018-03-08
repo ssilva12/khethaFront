@@ -117,6 +117,9 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
             Mensaje.Desocupar();
             if (!result.error) {
                 console.log(result.data)
+                if (result.data.vacancy.conditionalProbability=="TRUE"){
+                    result.data.vacancy.conditionalProbability=true
+                }
                 $scope.Data = result.data;
                 $scope.Data.cantidadpreselected = $scope.Data.preselected.length + "/" + $scope.Data.concur.length
                 $scope.Data.cantidadselected = $scope.Data.selected.length + "/" + $scope.Data.concur.length
