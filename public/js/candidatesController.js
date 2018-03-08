@@ -141,7 +141,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                                 //jobfunction
                                 for (index3 = 0; index3 < result.data[index].features.length; index3++) {
                                     for (index4 = 0; index4 < $scope.usuario.jobFunctions.length; index4++) {
-                                        if ($scope.usuario.jobFunctions[index4].id == result.data[index].features[index3].id) {
+                                        if ($scope.usuario.jobFunctions[index4].idNoun == result.data[index].features[index3].nameId) {
                                             result.data[index].features.splice(index3, 1);
                                             break;
                                         }
@@ -152,7 +152,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                                 //educational center
                                 for (index3 = 0; index3 < result.data[index].features.length; index3++) {
                                     for (index4 = 0; index4 < $scope.usuario.schooling.length; index4++) {
-                                        if ($scope.usuario.schooling[index4].id == result.data[index].features[index3].id) {
+                                        if ($scope.usuario.schooling[index4].idNoun == result.data[index].features[index3].nameId) {
                                             result.data[index].features.splice(index3, 1);
                                             break;
                                         }
@@ -163,7 +163,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                                 //employer
                                 for (index3 = 0; index3 < result.data[index].features.length; index3++) {
                                     for (index4 = 0; index4 < $scope.usuario.jobs.length; index4++) {
-                                        if ($scope.usuario.jobs[index4].id == result.data[index].features[index3].id) {
+                                        if ($scope.usuario.jobs[index4].idNoun == result.data[index].features[index3].nameId) {
                                             result.data[index].features.splice(index3, 1);
                                             break;
                                         }
@@ -174,7 +174,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                                 //lenguage
                                 for (index3 = 0; index3 < result.data[index].features.length; index3++) {
                                     for (index4 = 0; index4 < $scope.usuario.languages.length; index4++) {
-                                        if ($scope.usuario.languages[index4].id == result.data[index].features[index3].id) {
+                                        if ($scope.usuario.languages[index4].idNoun == result.data[index].features[index3].nameId) {
                                             result.data[index].features.splice(index3, 1);
                                             break;
                                         }
@@ -185,7 +185,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                                 //skill
                                 for (index3 = 0; index3 < result.data[index].features.length; index3++) {
                                     for (index4 = 0; index4 < $scope.usuario.skills.length; index4++) {
-                                        if ($scope.usuario.skills[index4].id == result.data[index].features[index3].id) {
+                                        if ($scope.usuario.skills[index4].idNoun == result.data[index].features[index3].nameId) {
                                             result.data[index].features.splice(index3, 1);
                                             break;
                                         }
@@ -196,7 +196,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                                 //studies
                                 for (index3 = 0; index3 < result.data[index].features.length; index3++) {
                                     for (index4 = 0; index4 < $scope.usuario.studies.length; index4++) {
-                                        if ($scope.usuario.studies[index4].id == result.data[index].features[index3].id) {
+                                        if ($scope.usuario.studies[index4].idNoun == result.data[index].features[index3].nameId) {
                                             result.data[index].features.splice(index3, 1);
                                             break;
                                         }

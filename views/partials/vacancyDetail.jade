@@ -49,8 +49,6 @@ div(class="page-content-wrap")
                                         ul(class="nav nav-tabs nav-justified")
                                             li(ng-class="{'active' : Dato.tab == 'tab1'}")
                                                 a(data-toggle="tab", data-target="#tab1",ng-click="setActive('tab1')") Información
-                                            //-li(ng-class="{'active' : Dato.tab == 'tab2'}")
-                                                a(data-toggle="tab", data-target="#tab2",ng-click="setActive('tab2')") Metha características
                                             li(ng-class="{'active' : Dato.tab == 'tab3'}")
                                                 a(data-toggle="tab", data-target="#tab3",ng-click="setActive('tab3')") Matriz de caracterización
                                             li(class="dropdown",ng-class="{'active' : Dato.tab == 'tab4'}")
@@ -147,25 +145,6 @@ div(class="page-content-wrap")
                                                             label() Última actualización
                                                         div(class="col-md-4")
                                                             input(type='text', class="form-control", data-ng-model="Data.vacancy.lastUpdate")
-                                            div(id="tab2", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab2'}")
-                                                div(class="panel-body")
-                                                    div(class="row")
-                                                        div(class="col-sm-12")
-                                                            table(class="table table-striped")
-                                                                thead()
-                                                                    tr()
-                                                                        th() Metha características
-                                                                        th() Peso
-                                                                tbody()
-                                                                    tr()
-                                                                        td() 1
-                                                                        td() 2
-                                                                    tr()
-                                                                        td() 1
-                                                                        td() 2
-                                                                    tr()
-                                                                        td() 1
-                                                                        td() 2
                                             div(id="tab3", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab3'}")
                                                 div(class="panel-body")
                                                     div(class="row")
@@ -176,7 +155,9 @@ div(class="page-content-wrap")
                                                                         div(class="col-sm-12")
                                                                             div(class="panel panel-primary")
                                                                                 div(class="panel-heading") 
-                                                                                    h4() {{methaFeatures.name}}
+                                                                                    h4() 
+                                                                                        span() {{methaFeatures.name}}
+                                                                                        span(class="pull-right") Peso: {{methaFeatures.mfrWeight}}
                                                                                 div(class="panel-body")
                                                                                     table(class="col-sm-12 table")
                                                                                         thead()
