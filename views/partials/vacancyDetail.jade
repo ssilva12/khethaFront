@@ -18,13 +18,13 @@ div(class="page-content-wrap")
                                         div(class="col-md-1") 
                                             label() Empleador
                                         div(class="col-md-5")
-                                            input(name="employer", class="form-control has-error",ng-focus="onFocus('empleador',1)",ng-blur="onBlur('empleador',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.employer,'EmployerName','dataEmpleador','null','Dato.employer')", ng-model="Dato.employer",ng-required="Dato.employerSelected")
+                                            input(name="employer",autocomplete="off", class="form-control has-error",ng-focus="onFocus('empleador',1)",ng-blur="onBlur('empleador',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.employer,'EmployerName','dataEmpleador','null','Dato.employer')", ng-model="Dato.employer",ng-required="Dato.employerSelected")
                                             ul(ng-show="{{ 'empleador' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                 li(class="list-group-item",ng-mousedown="assign('Dato.employer',item)", ng-repeat="item in dataEmpleador") {{item.er}}
                                         div(class="col-md-1") 
                                             label() Oficio
                                         div(class="col-md-5")
-                                            input(class="form-control",ng-focus="onFocus('oficio',1)",ng-blur="onBlur('oficio',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.job,'JobName','dataJob','null','Dato.job')", ng-model="Dato.job", ng-required="Dato.jobSelected")
+                                            input(class="form-control",autocomplete="off", ng-focus="onFocus('oficio',1)",ng-blur="onBlur('oficio',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.job,'JobName','dataJob','null','Dato.job')", ng-model="Dato.job", ng-required="Dato.jobSelected")
                                             ul(ng-show="{{ 'oficio' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                 li(class="list-group-item",ng-mousedown="assign('Dato.job',item)", ng-repeat="item in dataJob") {{item.er}}
                                     div(class="row row-space")
@@ -49,7 +49,7 @@ div(class="page-content-wrap")
                                         ul(class="nav nav-tabs nav-justified")
                                             li(ng-class="{'active' : Dato.tab == 'tab1'}")
                                                 a(data-toggle="tab", data-target="#tab1",ng-click="setActive('tab1')") Información
-                                            li(ng-class="{'active' : Dato.tab == 'tab2'}")
+                                            //-li(ng-class="{'active' : Dato.tab == 'tab2'}")
                                                 a(data-toggle="tab", data-target="#tab2",ng-click="setActive('tab2')") Metha características
                                             li(ng-class="{'active' : Dato.tab == 'tab3'}")
                                                 a(data-toggle="tab", data-target="#tab3",ng-click="setActive('tab3')") Matriz de caracterización
@@ -168,34 +168,34 @@ div(class="page-content-wrap")
                                                                         td() 2
                                             div(id="tab3", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab3'}")
                                                 div(class="panel-body")
-                                                    table()
-                                                        thead()
-                                                            tr()
-                                                                th()
-                                                                th()
-                                                                th(colspan="12") Metha-Relación
-                                                                th(colspan="3")
-                                                            tr()
-                                                                th() Metha Feature
-                                                                th() Feature
-                                                                th() MR1
-                                                                th() MR2
-                                                                th() MR3
-                                                                th() MR4
-                                                                th() MR5
-                                                                th() MR6
-                                                                th() MR7
-                                                                th() MR8
-                                                                th() MR9
-                                                                th() MR10
-                                                                th() MR11
-                                                                th() MR12
-                                                                th()
-                                                                    span(ng-show="showValue != 'p'") Count
-                                                                    span(ng-show="showValue == 'p'") Probab
-                                                        tbody()
-                                                            tr(ng-repeat="feature in featuresModified | orderBy : ['methaFeatureOrder', 'name']", ng-show="feature.visible", class="mf_tr_{{feature.methaFeatureId}}") 
-                                                            
+                                                    div(class="row")
+                                                        div(class="col-sm-12")
+                                                            table(class="col-sm-12")
+                                                                tr(ng-repeat="methaFeatures in methaFeatures | filter: greaterThan('mfrWeight', 0) | orderBy : ['methaFeatureOrder', 'name']")
+                                                                    td(class="col-sm-12")
+                                                                        div(class="col-sm-12")
+                                                                            div(class="panel panel-primary")
+                                                                                div(class="panel-heading") 
+                                                                                    h4() {{methaFeatures.name}}
+                                                                                div(class="panel-body")
+                                                                                    table(class="col-sm-12 table")
+                                                                                        thead()
+                                                                                            tr()
+                                                                                                th()
+                                                                                                th() Metha-Relación
+                                                                                                th()
+                                                                                            tr()
+                                                                                                th(style="width: 200px;") Feature
+                                                                                                th(ng-repeat="levelNames in methaFeatures.levelNames", style="width: 60px;") {{levelNames}}
+                                                                                                th()
+                                                                                                    span(ng-show="showValue != 'p'") Count
+                                                                                                    span(ng-show="showValue == 'p'") Probab
+                                                                                        tbody()
+                                                                                            tr(ng-repeat="feature in methaFeatures.features")
+                                                                                                td() {{ feature.name }}
+                                                                                                td(ng-repeat="levelNames in methaFeatures.levelNames", ng-class="{ 'warning': !feature.isWeightInferred[$index] }") 
+                                                                                                    div(title="MR: {{levelNames}}\r\nFrecuencia: {{feature.frequency[$index]}}\r\nFrecuencia Corregida: {{feature.frequencyCorrected[$index].toFixed(2)}}\r\nPeso Inferido: {{feature.weightInferred[$index]}}\r\nProbabilidad: {{feature.probability[$index].toFixed(2)}}") {{ feature.weightInferred[$index] }}
+                                                                                                td() {{ feature.count }}
                                             div(id="tab4", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab4'}")
                                                 div(class="panel-body")
                                                     div(class="row row-space")

@@ -419,7 +419,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         Mensaje.Esperar("Guardando información");
         data.dictionary = dictionary
         candidatesServices.createFeature($scope.usuario.candidateInfo.id, data, function (result) {
-            Mensaje.Desocupar();
+            //Mensaje.Desocupar();
             if (!result.error) {
                 $scope.cargarCandidato($scope.usuario.candidateInfo.id);
                 Mensaje.Alerta("success", 'OK', result.message);
