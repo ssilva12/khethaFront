@@ -1,5 +1,5 @@
-angular.module('myApp.vacancyController', ['ui.select', 'ADM-dateTimePicker']).
-controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', 'Mensaje', 'Dictionary', '$parse', '$timeout', 'vacancyService', '$state', 'keepData', 'candidatesServices', function ($scope, $rootScope, $stateParams, Mensaje, Dictionary, $parse, $timeout, vacancyService, $state, keepData, candidatesServices) {
+angular.module('myApp.vacancyController', ['ui.select', 'ADM-dateTimePicker', 'ui.bootstrap']).
+controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', 'Mensaje', 'Dictionary', '$parse', '$timeout', 'vacancyService', '$state', 'keepData', 'candidatesServices', '$compile', function ($scope, $rootScope, $stateParams, Mensaje, Dictionary, $parse, $timeout, vacancyService, $state, keepData, candidatesServices, $compile) {
     $scope.Dato = {};
     $scope.titulo = "";
     $scope.Data = {};
@@ -10,6 +10,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
     $scope.lista.entryLimit = 12;
     $scope.lista.noOfPages = 0;
     $scope.featuresModified = [];
+    $scope.methaFeatures = [];
     $scope.variablesGlobales = {};
     $scope.variablesGlobales.estados = [{
         value: "A",
@@ -116,19 +117,111 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
         var allData = vacancyService.getById(id, function (result) {
             Mensaje.Desocupar();
             if (!result.error) {
-                console.log(result.data)
                 $scope.Data = result.data;
                 $scope.Data.cantidadpreselected = $scope.Data.preselected.length + "/" + $scope.Data.concur.length
                 $scope.Data.cantidadselected = $scope.Data.selected.length + "/" + $scope.Data.concur.length
                 $scope.Dato.tab = $rootScope.activeTabVacancy != null & $rootScope.activeTabVacancy != undefined ? $rootScope.activeTabVacancy : "tab1";
+                Mensaje.Esperar();
+                vacancyService.getMethaFeatures($scope.Data.vacancy.idEmployer, $scope.Data.vacancy.idJob, $scope.Data.vacancy.id, 1, 'C', 0, function (result) {
+                    Mensaje.Desocupar();
+                    if (!result.error) {
+                        $scope.methaFeatures = result.data;
+                        $scope.showValue = "w";
+                        $scope.refreshMatrix();
+                    }
+                })
             } else {
                 Mensaje.Alerta("error", result.message);
             }
         });
     };
 
+    $scope.refreshMatrix = function () {
+        $scope.featuresModified = [];
+        $scope.methaFeatures.forEach(mf => {
+            mf.features.forEach(f => {
+                let featureModified = {
+                    methaFeatureId: mf.id,
+                    methaFeatureOrder: mf.order,
+                    methaFeature: mf.name,
+                    methaRelationIds: mf.methaRelationIds,
+                    levelNames: mf.levelNames,
+                    totalCount: mf.totalCount,
+                    visible: f.count > mf.totalCount * 0 / 100,
+                    tdClass: [],
+                    tdTitle: [],
+                    tdContent: [],
+                    tdEditWeight: [],
+                    mfrWeight: mf.mfrWeight,
+                    topWeightSum: mf.topWeightSum,
+                    pointValue: mf.pointValue,
+                    ...f,
+                };
+
+                let vacancySelected = $scope.vacancy !== '';
+                for (var i = 0; i < featureModified.levelNames.length; i++) {
+                    featureModified.tdClass[i] = !featureModified.isWeightInferred[i] && featureModified.levelNames[i] && vacancySelected ? 'weightSetted' : '';
+                    featureModified.tdTitle[i] = 'MR: ' + featureModified.levelNames[i] + '\r\nFrecuencia: ' + featureModified.frequency[i] +
+                        '\r\nFrecuencia Corregida: ' + featureModified.frequencyCorrected[i].toFixed(2) +
+                        (vacancySelected ? '\r\nPeso establecido: ' + featureModified.weightSetted[i] : '') +
+                        '\r\nPeso Inferido: ' + featureModified.weightInferred[i] + '\r\nProbabilidad: ' + featureModified.probability[i].toFixed(2);
+                    featureModified.tdContent[i] = '';
+                    featureModified.tdEditWeight[i] = false;
+                }
+
+                if ($scope.showValue === 'w') {
+                    for (var i = 0; i < featureModified.levelNames.length; i++) {
+                        if (featureModified.levelNames[i]) {
+                            featureModified.tdContent[i] = featureModified.isWeightInferred[i] ? featureModified.weightInferred[i] : featureModified.weightSetted[i];
+                        }
+                    }
+                }
+
+                $scope.featuresModified.push(featureModified);
+            });
+        });
+
+        //$scope.updateVisible();
+    }
+
+    $scope.greaterThan = function (prop, val) {
+        return function (item) {
+            return item[prop] > val;
+        }
+    }
+    
+    $scope.updateVisible = function () {
+        console.log("perc: " + $scope.minPercentage);
+        $scope.featuresModified.forEach(f => {
+            f.visible = f.count >= (f.totalCount * $scope.minPercentage / 100)
+        })
+
+        var handleRows = function () {
+            var flagColor = 0;
+            var backColors = ['#f1f1f1', '#d1d1d1'];
+            $('tr.addFeatureButton').remove();
+            $scope.methaFeatures.sort(function (obj1, obj2) {
+                return parseInt(obj1.order) - parseInt(obj2.order)
+            }).forEach(mf => {
+                let rows = $('.mf_tr_' + mf.id);
+                rows.attr('bgcolor', backColors[flagColor]);
+                flagColor = (flagColor === 0 ? 1 : 0);
+
+                let tdsAll = $(rows).find('td.mf_name');
+                tdsAll.attr('rowspan', 1);
+                tdsAll.show();
+                let tds = $(rows).find('td.mf_name:visible');
+                $(tds[0]).attr('rowspan', tds.length + 1);
+                for (var i = 1; i < tds.length; i++) {
+                    $(tds[i]).hide();
+                }
+            });
+        };
+
+        $timeout(handleRows, 0);
+    }
+
     $scope.buscarDetalle = function (id) {
-        //$location.path('/detail/' + id + '/' + $scope.Data.vacancy.id);
         $state.go('detail', {
             "id": id,
             "vacancyId": $scope.Data.vacancy.id,
