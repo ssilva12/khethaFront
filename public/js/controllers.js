@@ -574,8 +574,8 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
             'MR: ' + featureModified.levelNames[i] +
             '\r\nFrecuencia: ' + featureModified.frequency[i] +
             '\r\nFrecuencia Corregida: ' + featureModified.frequencySelectCorrected[i].toFixed(2) +
-            '\r\nFrecuencia Concur: ' + featureModified.frequencyTotal[i] +
-            '\r\nFrecuencia Concur Corregida: ' + featureModified.frequencyConcurCorrected[i].toFixed(2) +
+            '\r\nFrecuencia Preselect: ' + featureModified.frequencyPreselect[i] +
+            '\r\nFrecuencia Preselect Corregida: ' + featureModified.frequencyPreselectCorrected[i].toFixed(2) +
             (vacancySelected ? '\r\nPeso establecido: ' + featureModified.weightSetted[i] : '') +
             '\r\nPeso Inferido: ' + featureModified.weightInferred[i] +
             '\r\nProbabilidad: ' + featureModified.probability[i].toFixed(2) +
@@ -591,7 +591,8 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
         } else if ($scope.showValue === 'w') {
           for (var i = 0; i < featureModified.levelNames.length; i++) {
             if (featureModified.levelNames[i]) {
-              featureModified.tdContent[i] = featureModified.isWeightInferred[i] ? featureModified.weightInferred[i] : featureModified.weightSetted[i];
+              featureModified.tdContent[i] = !vacancySelected ? featureModified.weightInferred[i] :
+                (featureModified.isWeightInferred[i] ? featureModified.weightInferred[i] : featureModified.weightSetted[i]);
               // featureModified.tdEditWeight[i] = true;
               // '<span class="editWeight" data-toggle="modal" data-target="#modalWeight" ng-click="editWeight(' + featureModified.id + ', 0)">' +
               // ' <i class="glyphicon glyphicon-edit"></i>' +
