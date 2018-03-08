@@ -91,7 +91,8 @@ value('version', '0.2')
                     employerId: employerId,
                     jobId: jobId
                 },
-                url: URL.URL_REST_SERVICE + 'vacancy'
+                url: URL.URL_REST_SERVICE + 'vacancy',
+                contentType: "application/json"
             }
             request.send(config, callback);
         }
@@ -151,6 +152,22 @@ value('version', '0.2')
             }
             request.send(config, callback);
         };
+
+        vacancyService.getMethaFeatures = function (employer, job, jobVacancy, years, candidateType, minPercentage, callback) {
+            var config = {
+                method: 'GET',
+                params: {
+                    employer: employer,
+                    job: job,
+                    jobVacancy: jobVacancy,
+                    years: years,
+                    candidateType: candidateType,
+                    minPercentage: minPercentage
+                },
+                url: URL.URL_REST_SERVICE + 'api/frequencymatrix/'
+            }
+            request.send(config, callback);
+        }
 
         return vacancyService;
     }]);

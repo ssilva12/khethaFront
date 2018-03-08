@@ -27,6 +27,12 @@ div.row
         input(type="checkbox", name="value", ng-model="metaFeature.HasValue")
         label(for="gender_filter") Valor
     div(class="col-md-2")
+        input(type="checkbox", name="reflexWeightNext", ng-model="metaFeature.reflexWeightNext")
+        label(for="reflexWeightNext") Peso reflejo posterior
+    div(class="col-md-10")
+        input(type="checkbox", name="reflexWeightPrevious", ng-model="metaFeature.reflexWeightPrevious")
+        label(for="reflexWeightPrevious") Peso reflejo anterior
+    div(class="col-md-2")
         button(ng-click="updateMetaFeature(metaFeature)") Editar
 div.row(style="margin-top: 25px;")
     div(class="col-md-6 col-md-offset-3")

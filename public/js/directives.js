@@ -52,7 +52,7 @@ directive("select2", function ($timeout, $parse) {
     }
   };
 }).
-directive("activeTab", function ($location) {
+directive("activeTab", function ($state) {
   return function (scope, element, attrs) {
     var links = element.find('a'),
       currentLink,
@@ -71,7 +71,7 @@ directive("activeTab", function ($location) {
     }
 
     scope.$on('$routeChangeStart', function () {
-      var path = urlMap[$location.path()];
+      var path = urlMap[$state.href()];
 
       links.parent('li').removeClass(activeClass);
 

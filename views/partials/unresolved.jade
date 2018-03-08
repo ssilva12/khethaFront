@@ -1,3 +1,7 @@
+div.col-md-12
+  <select ng-model="meta" ng-options="x.name for x in metaFeatures" class="form-control">
+  <option value="">Seleccione</option>
+  </select>
 div
   table(class = "table")
     thead
@@ -6,7 +10,7 @@ div
           th
           th
     tbody
-      tr(ng-repeat="task in unresolved")
+      tr(ng-repeat="task in unresolved", ng-show="!meta || meta.dictionary==task.dictionary")
         td: {{task.name}}
         td {{task.dictionary}}
         td: button.btn.btn.btn-deffault(ng-click="solve(task)") Resolver
