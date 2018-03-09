@@ -28,8 +28,8 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
     }];
 
     $scope.crearVacante = function () {
+        Mensaje.Esperar("Creando vacante");
         var vacante = vacancyService.createVacancy($scope.Dato.employerSelected.id, $scope.Dato.jobSelected.id, function (result) {
-            Mensaje.Desocupar();
             if (!result.error) {
                 console.log(result);
                 $scope.cargarVacante(result.data.id);
@@ -122,10 +122,11 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                 $scope.Data = result.data;
                 $scope.Data.cantidadpreselected = $scope.Data.preselected.length + "/" + $scope.Data.concur.length
                 $scope.Data.cantidadselected = $scope.Data.selected.length + "/" + $scope.Data.concur.length
-                $scope.Dato.tab = $rootScope.activeTabVacancy != null & $rootScope.activeTabVacancy != undefined ? $rootScope.activeTabVacancy : "tab1";
+                $scope.Dato.tab = $rootScope.activeTabVacancy != null && $rootScope.activeTabVacancy != undefined ? $rootScope.activeTabVacancy : "tab1";
+                $scope.Dato.searched = $rootScope.searchedCandidate != null && $rootScope.searchedCandidate != undefined ? $rootScope.searchedCandidate : "";
                 Mensaje.Esperar();
                 $scope.disableCandidates();
-                vacancyService.getMethaFeatures($scope.Data.vacancy.idEmployer, $scope.Data.vacancy.idJob, $scope.Data.vacancy.id, 1, 'C', 0, function (result) {
+                vacancyService.getMethaFeatures($scope.Data.vacancy.idEmployer, $scope.Data.vacancy.idJob, $scope.Data.vacancy.id, 1, 'C', 10, function (result) {
                     Mensaje.Desocupar();
                     if (!result.error) {
                         $scope.methaFeatures = result.data;
@@ -168,6 +169,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
     }
 
     $scope.buscarDetalle = function (id) {
+        keepData.set('searchedCandidate', id);
         $state.go('detail', {
             "id": id,
             "vacancyId": $scope.Data.vacancy.id,

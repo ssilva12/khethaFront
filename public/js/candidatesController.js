@@ -133,88 +133,16 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
             if (!result.error) {
                 var resultado = result.data;
 
-                for (index = 0; index < result.data.length; index++) {
+                for (index2 = 0; index2 < result.data.length; index2++) {
                     var a = 0;
-                    result.data[index].features.forEach(feature => {
-                        if (existe(result.data[index].name, feature.nameId)) {
-                            result.data[index].features.splice(a, 1);
+                    result.data[index2].features.forEach(feature => {
+                        if (existe(result.data[index2].name, feature.nameId)) {
+                            result.data[index2].features.splice(a, 1);
                         }
                         a++;
                     });
                 }
-
-                // for (index = 0; index < result.data.length; index++) {
-                //     for (index2 = 0; index2 < result.data[index].features.length; index2++) {
-                //         switch (result.data[index].id) {
-                //             case "6373":
-                //                 //jobfunction
-                //                 for (index3 = 0; index3 < result.data[index].features.length; index3++) {
-                //                     for (index4 = 0; index4 < $scope.usuario.jobFunctions.length; index4++) {
-                //                         if ($scope.usuario.jobFunctions[index4].idNoun == result.data[index].features[index3].nameId) {
-                //                             result.data[index].features.splice(index3, 1);
-                //                             break;
-                //                         }
-                //                     }
-                //                 }
-                //                 break;
-                //             case "6366":
-                //                 //educational center
-                //                 for (index3 = 0; index3 < result.data[index].features.length; index3++) {
-                //                     for (index4 = 0; index4 < $scope.usuario.schooling.length; index4++) {
-                //                         if ($scope.usuario.schooling[index4].idNoun == result.data[index].features[index3].nameId) {
-                //                             result.data[index].features.splice(index3, 1);
-                //                             break;
-                //                         }
-                //                     }
-                //                 }
-                //                 break;
-                //             case "6369":
-                //                 //employer
-                //                 for (index3 = 0; index3 < result.data[index].features.length; index3++) {
-                //                     for (index4 = 0; index4 < $scope.usuario.jobs.length; index4++) {
-                //                         if ($scope.usuario.jobs[index4].idNoun == result.data[index].features[index3].nameId) {
-                //                             result.data[index].features.splice(index3, 1);
-                //                             break;
-                //                         }
-                //                     }
-                //                 }
-                //                 break;
-                //             case "6371":
-                //                 //lenguage
-                //                 for (index3 = 0; index3 < result.data[index].features.length; index3++) {
-                //                     for (index4 = 0; index4 < $scope.usuario.languages.length; index4++) {
-                //                         if ($scope.usuario.languages[index4].idNoun == result.data[index].features[index3].nameId) {
-                //                             result.data[index].features.splice(index3, 1);
-                //                             break;
-                //                         }
-                //                     }
-                //                 }
-                //                 break;
-                //             case "6394":
-                //                 //skill
-                //                 for (index3 = 0; index3 < result.data[index].features.length; index3++) {
-                //                     for (index4 = 0; index4 < $scope.usuario.skills.length; index4++) {
-                //                         if ($scope.usuario.skills[index4].idNoun == result.data[index].features[index3].nameId) {
-                //                             result.data[index].features.splice(index3, 1);
-                //                             break;
-                //                         }
-                //                     }
-                //                 }
-                //                 break;
-                //             case "6397":
-                //                 //studies
-                //                 for (index3 = 0; index3 < result.data[index].features.length; index3++) {
-                //                     for (index4 = 0; index4 < $scope.usuario.studies.length; index4++) {
-                //                         if ($scope.usuario.studies[index4].idNoun == result.data[index].features[index3].nameId) {
-                //                             result.data[index].features.splice(index3, 1);
-                //                             break;
-                //                         }
-                //                     }
-                //                 }
-                //                 break;
-                //         }
-                //     }
-                // }
+                
                 $scope.vacancy = resultado;
             } else {
                 Mensaje.Alerta("error", 'Error', result.message);
@@ -251,8 +179,8 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                 }
                 break;
             case "Language":
-                for (index = 0; index < $scope.usuario.language.length; index++) {
-                    if ($scope.usuario.language[index].nameId == id) {
+                for (index = 0; index < $scope.usuario.languages.length; index++) {
+                    if ($scope.usuario.languages[index].nameId == id) {
                         value = true;
                         break;
                     }

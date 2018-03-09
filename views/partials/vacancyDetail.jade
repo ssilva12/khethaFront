@@ -171,12 +171,14 @@ div(class="page-content-wrap")
                                                                                                 th()
                                                                                                     span(ng-show="showValue != 'p'") Count
                                                                                                     span(ng-show="showValue == 'p'") Probab
+                                                                                                th() MFR WEIGHT
                                                                                         tbody()
-                                                                                            tr(ng-repeat="feature in methaFeatures.features")
+                                                                                            tr(ng-repeat="feature in methaFeatures.features | orderBy : ['name'] | filter: greaterThan('topWeight', 0)")
                                                                                                 td() {{ feature.name }}
                                                                                                 td(ng-repeat="levelNames in methaFeatures.levelNames", ng-class="{ 'warning': !feature.isWeightInferred[$index] }") 
-                                                                                                    div(title="MR: {{levelNames}}\r\nFrecuencia: {{feature.frequency[$index]}}\r\nFrecuencia Corregida: {{feature.frequencyCorrected[$index].toFixed(2)}}\r\nPeso Inferido: {{feature.weightInferred[$index]}}\r\nProbabilidad: {{feature.probability[$index].toFixed(2)}}") {{ feature.weightInferred[$index] }}
+                                                                                                    div(title="MR: {{levelNames}}\r\nFrecuencia: {{feature.frequency[$index]}}\r\nFrecuencia Corregida: {{feature.frequencyCorrected[$index].toFixed(2)}}\r\nPeso Inferido: {{feature.weightInferred[$index]}}\r\nProbabilidad: {{feature.probability[$index].toFixed(2)}}") {{ feature.isWeightInferred[$index] ? feature.weightInferred[$index] : feature.weightSetted[$index]}}
                                                                                                 td() {{ feature.count }}
+                                                                                                td() {{ feature.topWeight }}
                                             div(id="tab4", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab4'}")
                                                 div(class="panel-body")
                                                     div(class="row row-space")
@@ -214,7 +216,7 @@ div(class="page-content-wrap")
                                                                         th(class="col-sm-1") Ver 
                                                                         th(class="col-sm-1") Preseleccionar 
                                                                 tbody()
-                                                                    tr(ng-repeat="candidato in Data.concur", ng-class=" { 'active' : candidato.disabled }")
+                                                                    tr(ng-repeat="candidato in Data.concur", ng-class="Dato.searched == candidato.id ? 'info' : (candidato.disabled == true ? 'active' : '')")
                                                                         td() 
                                                                             span(ng-bind="candidato.name")
                                                                         td() 
