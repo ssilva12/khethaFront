@@ -493,6 +493,24 @@ value('version', '0.1')
           callback("Error");
         });
       }
+      this.solveAsAsociation = function (nounId, synonymEr, synonymDictionary, featureId, callback) {
+        $http({
+          method: 'POST',
+          data: {
+            nounId: nounId,
+            synonymEr: synonymEr,
+            dictionary: synonymDictionary,
+            featureId: featureId
+          },
+          url: URL.URL_REST_SERVICE + 'solveAsAsociation'
+        }).
+        then(function onSuccess(response) {
+          callback(null, response.data);
+        }, function onError(response) {
+          console.log(response.data);
+          callback("Error");
+        });
+      }
       this.deleteCandidateFeature = function (feature, callback) {
         $http({
           method: 'POST',
