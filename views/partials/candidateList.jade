@@ -124,7 +124,8 @@ div(class="page-content-wrap")
                         div(class="panel-body profileCandidato")
                             div(class="profile-image")
                                 //-img(src="assets/images/users/avatar.jpg", alt="John Doe")
-                                i(style="color: #FFFFFF", class="fa fa-5x fa-user-circle")
+                                i(ng-if="candidato.sex == '1'", style="color: #FFFFFF", class="fa fa-5x fa-female")
+                                i(ng-if="candidato.sex == '0'", style="color: #FFFFFF", class="fa fa-5x fa-male")
                             div(class="profile-data")
                                 h3(class="profile-data-name") {{candidato.name}}
                                 p(class="profile-data-title") Web Developer / Administrator
