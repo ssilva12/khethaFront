@@ -1,36 +1,48 @@
-div(style="padding-top:20px;")
-    div.col-md-3
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Cargar</button>
-    div.col-md-3
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#metaModal">Meta Relaciones</button>
-div(class="row search-div")
-    div(class="col-md-12")
-        h1 Buscar
-        div.input.form-group
-            span.label.black-form Nombre
-            input(type="text", name="name",id="name", class="form-control", ng-model="name")
-    div.col-md-6
-        span.label.black-form Diccionario
-        <select ng-model="metaRelationSearch" ng-options="x.name for x in metaFeatures" class="form-control">
-        </select>
-    div.col-md-6
-        span.label.black-form Acrónimo
-        input(type="text", name="acronym",id="name", class="form-control", ng-model="acronym")
-    div.col-md-1.col-md-offset-11
-        button(class="btn btn-default", ng-click="search(name)") Buscar
-    div(class="col-md-12")      
-        div(ng-show="notFound")
+div.row.col-md-12
+    div(class="panel panel-default")
+        div(class="panel-body")
+            div.col-md-1.col-md-offset-8
+                label Cargar Diccionario
+            div.col-md-1
+                button(type="button", class="btn btn-default", data-toggle="modal", data-target="#myModal")
+                    span(class="fa fa-cloud-upload")
+            div.col-md-1
+                label Metha Caracteristicas
+            div.col-md-1
+                button(type="button", class="btn btn-default", data-toggle="modal", data-target="#metaModal")
+                    span(class="fa fa-cloud-upload")
+div.row.col-md-12
+    div(class="panel panel-default")
+        div(class="panel-body")
+            div.col-md-6
+                div.input.form-group
+                    label Nombre
+                    input(type="text", name="name",id="name", class="form-control", ng-model="name")
+            div.col-md-3
+                label Diccionario
+                select(ng-model="metaRelationSearch", ng-options="x.name for x in metaFeatures", class="form-control")
+            div.col-md-2
+                label Acrónimo
+                input(type="text", name="acronym",id="name", class="form-control", ng-model="acronym")
+            div.col-md-1
+                label &nbsp
+                button(class="btn btn-default", ng-click="search(name)") Buscar
+div.row.col-md-12(ng-show="notFound")
+    div(class="panel panel-default")
+        div(class="panel-body")
             div.col-md-5
                 h3 el termino no existe, ¿desea crearlo como una entrada primaria?
             div.col-md-5
+                label Diccionario
                 <select ng-model="meta" ng-options="x.name for x in metaFeatures" class="form-control">
                 </select>  
             div.col-md-2
+                label  &nbsp
                 button(id="createPrimary", class="btn btn-default", ng-click="createPrimary(name)") Crear
             div(class="col-md-12")
                 table.table
                     thead
-                        tr: th Noun
+                        tr: th Entrada
                             th
                     tbody
                         tr(ng-repeat="sug in suggested")
@@ -42,9 +54,10 @@ div(class="row search-div")
     .modal-content
       .modal-header
         button.close(type='button', data-dismiss='modal') ×
-            h1 Cargar Diccionario
+        h1 Cargar Diccionario
       .modal-body
         input(type="file", name="image", ngf-select, ng-model="dictionary", name="file" )
+        label Diccionario
         select.form-control(ng-model='meta', ng-options='x.name for x in metaFeatures')
         button(ng-click="uploadFiles(dictionary,'primary')") Subir
       .modal-footer
@@ -54,7 +67,7 @@ div(class="row search-div")
     .modal-content
       .modal-header
         button.close(type='button', data-dismiss='modal') ×
-        h1 Cargar meta relaciones
+        h1 Cargar metha caracteristicas
       .modal-body
         input(type="file", name="image", ngf-select, ng-model="meta", name="file" )
         button(ng-click="uploadFiles(meta)") Subir

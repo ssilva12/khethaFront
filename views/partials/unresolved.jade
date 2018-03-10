@@ -1,18 +1,28 @@
-div.col-md-12
-  <select ng-model="meta" ng-options="x.name for x in metaFeatures" class="form-control">
-  <option value="">Seleccione</option>
-  </select>
-div
-  table(class = "table")
-    thead
-      tr: th Nombre
-          th Diccionario
-          th
-          th
-    tbody
-      tr(ng-repeat="task in unresolved", ng-show="!meta || meta.dictionary==task.dictionary")
-        td: {{task.name}}
-        td {{task.dictionary}}
-        td: button.btn.btn.btn-deffault(ng-click="solve(task)") Resolver
-        td: button.btn.btn.btn-danger(ng-click="discard(task)") Descartar
-        
+
+div(class="col-md-12")
+  div(class="panel panel-default")
+    div(class="panel-body")
+      div.form-group
+        label(for="methaFeatures") Metha Caracteristica
+        select(ng-model="meta", ng-options="x.name for x in metaFeatures", class="form-control")
+          option(value="") Seleccione
+div(class="col-md-12")
+  div(class="panel panel-default")
+    div(class="panel-body")
+        div(class="row")
+            div(class="col-sm-12")
+              table(class = "table")
+                thead
+                  tr: th: h4() Nombre
+                      th: h4() Diccionario
+                      th
+                      th
+                tbody
+                  tr(ng-repeat="task in unresolved", ng-show="!meta || meta.dictionary==task.dictionary")
+                    td: {{task.name}}
+                    td {{task.dictionary}}
+                    td: button.btn.btn.btn-deffault(ng-click="solve(task)") 
+                      span(class="fa fa-pencil")
+                    td: button.btn.btn.btn-danger(ng-click="discard(task)") 
+                      span(class="fa fa-trash")
+                      

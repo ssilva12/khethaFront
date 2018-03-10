@@ -1,11 +1,21 @@
-div
-  table(class = "table")
-    thead
-      tr: th Nombre
-          th Diccionario
-          th
-    tbody
-      tr(ng-repeat="metaFeature in metaFeatures")
-        td: {{metaFeature.name}}
-        td {{metaFeature.dictionary}}
-        td: button.btn.btn.btn-deffault(ng-click="showMetaFeature(metaFeature.id)") Ver
+div(class="row")
+  div(class="col-md-12")
+    div(class="panel panel-default")
+      div(class="panel-body")
+          div(class="row")
+              div(class="col-sm-12")
+                  div(class="table-responsive")
+                      table(class="table table-striped")
+                        thead()
+                          tr()
+                              td(class="col-md-6") 
+                                  h4() Nombre
+                              td(class="col-md-5") 
+                                  h4() Diccionario
+                              td(class="col-md-1")
+                        tbody
+                          tr(ng-repeat="metaFeature in metaFeatures")
+                            td: label(){{metaFeature.name}}
+                            td {{metaFeature.dictionary}}
+                            td: button.btn.btn.btn-deffault(ng-click="showMetaFeature(metaFeature.id)") 
+                              span(class="fa fa-pencil")

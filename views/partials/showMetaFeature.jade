@@ -1,48 +1,64 @@
-div.row
-    div(class="col-md-12")
-        div.input.form-group
-            span.label.black-form Meta caracteristica
-            input(type="text", name="name",id="name", class="form-control", ng-model="metaFeature.name")
-    div(class="col-md-2")
-        span.label.black-form Diccionario
-    div(class="col-md-10")
-        p {{metaFeature.dictionary}}
-    div(class="col-md-2")
-        span.label.black-form Meta Relaciones
-    div(class="col-md-10")
-        select.form-control( ng-model="metaFeature.type")
-            option Occurs
-            option Levels
-            option Mesurable
-    div(class="col-md-2")
-        input(type="checkbox", name="gps", ng-model="metaFeature.HasGPS")
-        label(for="gender_filter") GPS
-    div(class="col-md-10")
-        input(type="checkbox", name="acronym", ng-model="metaFeature.HasCountryAcronyms")
-        label(for="gender_filter") Acrónimo país
-    div(class="col-md-2")
-        input(type="checkbox", name="end_date", ng-model="metaFeature.HasEndDate")
-        label(for="gender_filter") Fecha fin
-    div(class="col-md-10")
-        input(type="checkbox", name="value", ng-model="metaFeature.HasValue")
-        label(for="gender_filter") Valor
-    div(class="col-md-2")
-        input(type="checkbox", name="reflexWeightNext", ng-model="metaFeature.reflexWeightNext")
-        label(for="reflexWeightNext") Peso reflejo posterior
-    div(class="col-md-10")
-        input(type="checkbox", name="reflexWeightPrevious", ng-model="metaFeature.reflexWeightPrevious")
-        label(for="reflexWeightPrevious") Peso reflejo anterior
-    div(class="col-md-2")
-        button(ng-click="updateMetaFeature(metaFeature)") Editar
-div.row(style="margin-top: 25px;")
-    div(class="col-md-6 col-md-offset-3")
-        span.label.black-form Meta relaciones
-        button.btn.btn-default(ng-click="newMetaRelation()") nueva
-        table(class = "table")
-                thead
-                tr: th ir
-                    th 
-                tbody
-                tr(ng-repeat = "(key, metaRelation) in metaRelations")
-                    td: {{metaRelation.name}}
-                    td: button(ng-click="editMetaRelation(metaRelation)") Editar
+div(class="page-title")
+    h2() Metha Caracteristica
+//- END PAGE TITLE
+//- PAGE CONTENT WRAPPER
+div(class="page-content-wrap")
+    //-INICIO
+    div(class="row")
+        div(class="col-md-12")
+            div(class="panel panel-default")
+                div(class="panel-body")
+                    form(class="form-horizontal")
+                        div(class="form-group")
+                            span.col-md-3.col-xs-12.control-label Nombre
+                            div.col-md-6.col-xs-12
+                                input(type="text", name="name",id="name", class="form-control", ng-model="metaFeature.name")
+                        div(class="form-group")
+                            span.col-md-3.col-xs-12.control-label Diccionario
+                            div.col-md-6.col-xs-12
+                                label {{metaFeature.dictionary}}
+                        div(class="form-group")
+                            span.col-md-3.col-xs-12.control-label tipo de Metha Relación
+                            div.col-md-6.col-xs-12         
+                                select.form-control( ng-model="metaFeature.type")
+                                    option Occurs
+                                    option Levels
+                                    option Mesurable
+                        div.col-md-offset-3
+                            div(class="col-md-3")
+                                input(type="checkbox", name="gps", ng-model="metaFeature.HasGPS")
+                                label(for="gender_filter") GPS
+                            div(class="col-md-3")
+                                input(type="checkbox", name="acronym", ng-model="metaFeature.HasCountryAcronyms")
+                                label(for="gender_filter") Acrónimo país
+                            div(class="col-md-6")
+                                input(type="checkbox", name="end_date", ng-model="metaFeature.HasEndDate")
+                                label(for="gender_filter") Fecha fin
+                            div(class="col-md-3")
+                                input(type="checkbox", name="value", ng-model="metaFeature.HasValue")
+                                label(for="gender_filter") Valor
+                            div(class="col-md-3")
+                                input(type="checkbox", name="reflexWeightNext", ng-model="metaFeature.reflexWeightNext")
+                                label(for="reflexWeightNext") Peso reflejo posterior
+                            div(class="col-md-6")
+                                input(type="checkbox", name="reflexWeightPrevious", ng-model="metaFeature.reflexWeightPrevious")
+                                label(for="reflexWeightPrevious") Peso reflejo anterior
+                div.panel-footer
+                                div(class="col-md-2 col-md-offset-8")
+                                    button(class="btn btn-primary mb-control",ng-click="updateMetaFeature(metaFeature)") Editar
+    div(class="row")
+        div(class="col-md-12")
+            div(class="panel panel-default")
+                div(class="panel-body")        
+                    div.row(style="margin-top: 25px;")
+                        div(class="col-md-6 col-md-offset-3")
+                            label Meta relaciones
+                            button.btn.btn-default(ng-click="newMetaRelation()") nueva
+                            table(class = "table")
+                                    thead
+                                    tr: th ir
+                                        th 
+                                    tbody
+                                    tr(ng-repeat = "(key, metaRelation) in metaRelations")
+                                        td: {{metaRelation.name}}
+                                        td: button(class="btn btn-primary mb-control",ng-click="editMetaRelation(metaRelation)") Editar

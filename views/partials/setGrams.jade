@@ -1,45 +1,66 @@
-div(class="col-md-12")
-    div.input.form-group
-        span.label.black-form Primario
-        input(type="text", name="name",id="name", class="form-control", ng-model="primary.er")
-div(class="col-md-12")
-    div.input.form-group
-        span.label.black-form Gps
-        input(type="text", name="name",id="name", class="form-control", ng-model="primary.gps")
-div(class="col-md-6")
-    div.input.form-group
-        span.label.black-form Latitud
-        input(type="text", name="name",id="name", class="form-control", disabled,ng-model="primary.latitud")
-div(class="col-md-6")
-    div.input.form-group
-        span.label.black-form Longitud
-        input(type="text", name="name",id="name", class="form-control", disabled,ng-model="primary.longitud")
-div(class="col-md-12")
-    div.input.form-group
-        span.label.black-form Acrónimo
-        input(type="text", name="name",id="name", class="form-control", ng-model="primary.countryAcronyms")
-div(class="col-md-1")
-    button(ng-click="editGram(primary)") Editar
-div(class="col-md-1")
-    button(ng-click="deleteGram(primary.id,'primary')") Borrar
-div(class="col-md-12")
-    div.input.form-group
-        span.label.black-form Sinonimo
-        input(type="text", name="name", class="form-control", ng-model="newSyn")
-div(class="col-md-offset-11 col-md-1")
-    div.input.form-group
-        span.label.black-form   
-        button(ng-click="createSynonym(newSyn,primary)") Crear
-div(class="col-md-6 col-md-offset-3 bordered-div")
-    span.label.black-form Sinonimos
-    table(class = "table")
-            thead
-            tr: th ir
-                th 
-                th
-            tbody
-            tr(ng-repeat = "(key, synonym) in synonyms")
-                td: {{synonym.er}}
-                td: button(ng-click="editGram(synonym)") Editar
-                td: button(ng-click="deleteGram(synonym,synonym.id,'synonym')") Borrar
-            
+//- PAGE TITLE
+div(class="page-title")
+    h2() Entrada del diccionario
+        span(class="txt-grises", ng-bind="lista.cantidad")
+//- END PAGE TITLE
+//- PAGE CONTENT WRAPPER
+div(class="page-content-wrap")
+    //-INICIO
+    div(class="row")
+        div(class="col-md-12")
+            div(class="panel panel-default")
+                div.panel-heading
+                    h3 Editar Entrada
+                div(class="panel-body")
+                    form(class="form-horizontal")
+                        div(class="form-group")
+                            span.col-md-3.col-xs-12.control-label Primario
+                            div.col-md-6.col-xs-12
+                                input(type="text", name="name",id="name", class="form-control", ng-model="primary.er")
+                        div(class="form-group")
+                            span.col-md-3.col-xs-12.control-label GPS
+                            div.col-md-6.col-xs-12
+                                input(type="text", name="name",id="name", class="form-control", ng-model="primary.gps")                            
+                        div(class="form-group")
+                            span.col-md-3.col-xs-12.control-label Latitud
+                            div.col-md-6.col-xs-12
+                                input(type="text", name="name",id="name", class="form-control", disabled,ng-model="primary.latitud")
+                        div(class="form-group")                            
+                            span.col-md-3.col-xs-12.control-label Longitud
+                            div.col-md-6.col-xs-12
+                                input(type="text", name="name",id="name", class="form-control", disabled,ng-model="primary.longitud")
+                        div(class="form-group")                                 
+                            span.col-md-3.col-xs-12.control-label Acronimo
+                            div.col-md-6.col-xs-12
+                                input(type="text", name="name",id="name", class="form-control", ng-model="primary.countryAcronyms")
+                        div(class="form-group")
+                            div.col-md-1.col-md-offset-7
+                                button(class="btn btn-primary mb-control",ng-click="editGram(primary)") Editar
+                            div.col-md-1
+                                button(class="btn btn-primary mb-control",ng-click="deleteGram(primary.id,'primary')") Borrar
+            div(class="panel panel-default")
+                div.panel-heading
+                    h3 Sinónimos
+                div(class="panel-body")
+                    form(class="form-horizontal")
+                        div(class="form-group")
+                            span.col-md-3.col-xs-12.control-label Nuevo sinónimo
+                            div.col-md-6.col-xs-12
+                                input(type="text", name="name", class="form-control", ng-model="newSyn")
+                            div(class="form-group")
+                                div.col-md-1.col-md-offset-8
+                                    button(class="btn btn-primary mb-control", ng-click="createSynonym(newSyn,primary)") Crear
+                    div(class="col-md-6 col-md-offset-3")
+                        span.label.black-form Sinonimos
+                        table(class = "table")
+                                thead
+                                tr: th ir
+                                    th 
+                                    th
+                                tbody
+                                tr(ng-repeat = "(key, synonym) in synonyms")
+                                    td: label {{synonym.er}}
+                                    td: button(class="btn btn-primary mb-control",ng-click="editGram(synonym)")
+                                            span(class="fa fa-pencil")
+                                    td: button(class="btn btn-danger mb-control",ng-click="deleteGram(synonym,synonym.id,'synonym')")
+                                            span(class="fa fa-trash")
