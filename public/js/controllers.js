@@ -59,6 +59,11 @@ controller('MyCtrl1', function ($scope, $http, Dictionary, $state, termFactory) 
     });
   }
 
+  $scope.pieceWiseSearch = function (entry) {
+    termFactory.setCurrent(entry);
+    $state.go("pieceWiseSearch")
+  }
+
   function getUnresolved() {
     Dictionary.getUnresolved(function (error, data) {
       console.log(data.unresolved)
