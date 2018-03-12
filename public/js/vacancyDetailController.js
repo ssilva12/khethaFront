@@ -12,7 +12,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
     $scope.featuresModified = [];
     $scope.methaFeatures = [];
     $scope.variablesGlobales = {};
-    
+
     $scope.variablesGlobales.estados = [{
         value: "A",
         label: "Asignado"
@@ -165,6 +165,17 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
     $scope.greaterThan = function (prop, val) {
         return function (item) {
             return item[prop] > val;
+        }
+    }
+
+    $scope.greaterThanMultiple = function (prop, prop2, prop3, val) {
+        return function (item) {
+            var value = 0;
+            for (index = 0; index < item[prop].length; index++) {
+                var value2 = item[prop][index] ? item[prop2][index] : item[prop3][index];
+                value = value + value2;
+            }
+            return value > val;
         }
     }
 

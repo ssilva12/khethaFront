@@ -173,7 +173,7 @@ div(class="page-content-wrap")
                                                                                                     span(ng-show="showValue == 'p'") Probab
                                                                                                 th() MFR WEIGHT
                                                                                         tbody()
-                                                                                            tr(ng-repeat="feature in methaFeatures.features | orderBy : ['name'] | filter: greaterThan('topWeight', 0)")
+                                                                                            tr(ng-repeat="feature in methaFeatures.features | orderBy : ['name'] | filter: greaterThanMultiple('isWeightInferred','weightInferred','weightSetted', 0)")
                                                                                                 td() {{ feature.name }}
                                                                                                 td(ng-repeat="levelNames in methaFeatures.levelNames", ng-class="{ 'warning': !feature.isWeightInferred[$index] }") 
                                                                                                     div(title="MR: {{levelNames}}\r\nFrecuencia: {{feature.frequency[$index]}}\r\nFrecuencia Corregida: {{feature.frequencyCorrected[$index].toFixed(2)}}\r\nPeso Inferido: {{feature.weightInferred[$index]}}\r\nProbabilidad: {{feature.probability[$index].toFixed(2)}}") {{ feature.isWeightInferred[$index] ? feature.weightInferred[$index] : feature.weightSetted[$index]}}
