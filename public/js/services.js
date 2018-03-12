@@ -25,6 +25,19 @@ value('version', '0.1')
       });
     }
 
+    this.calculate = (parameters, callback) => {
+      $http({
+        method: 'GET',
+        url: URL.URL_REST_SERVICE + 'api/frequencymatrix/calculate',
+        params: parameters
+      }).
+      then(function onSuccess(response) {
+        callback(null, response.data);
+      }, function onError(response) {
+        callback("Error");
+      });
+    }
+
     this.getForJobAndLastVacancy = (parameters, callback) => {
       $http({
         method: 'GET',
