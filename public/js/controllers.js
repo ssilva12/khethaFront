@@ -487,7 +487,27 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
       });
   }
 
-  $scope.getMethaFeatures = function () {
+  $scope.calculateFrequencyMatrix = function () {
+    $scope.methaFeatures = [];
+
+    frequencyMatrixService.calculate({
+      employer: $scope.employer,
+      job: $scope.job,
+      jobVacancy: $scope.vacancy,
+      referenceYear: $scope.referenceYear,
+      yearsBack: $scope.yearsBack,
+      // candidateType: $scope.candidateType,
+      // minPercentage: $scope.minPercentage
+    }, function (error, data) {
+      console.log(data);
+      if (!error) {
+        $scope.methaFeatures = data;
+        $scope.refreshMatrix();
+      }
+    });
+  }
+
+  $scope.readFrequencyMatrix = function () {
     $scope.methaFeatures = [];
 
     frequencyMatrixService.get({
@@ -680,14 +700,14 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
   }
 
   $scope.getJobs();
-  $scope.getMethaFeatures();
+  $scope.calculateFrequencyMatrix();
   $scope.getVacancies();
 
   $scope.setShowValue = function (val) {
     console.log('setShowValue: ' + val);
     $scope.showValue = val;
     $scope.refreshMatrix();
-    // $scope.getMethaFeatures();
+    // $scope.calculateFrequencyMatrix();
   }
 
   $scope.editWeight = function (featureId, weightIndex) {
@@ -716,7 +736,7 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
     }, function (error, data) {
       console.log(data);
       if (!error) {
-        $scope.getMethaFeatures();
+        $scope.calculateFrequencyMatrix();
       }
     });
     // return false;
@@ -789,7 +809,7 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
         console.log(data);
         if (!error) {
           $('#modalAddFeature').modal('toggle'); // .modal("hide");
-          $scope.getMethaFeatures();
+          $scope.calculateFrequencyMatrix();
           // console.log('$scope.currentFeatureNames');
         }
       });
@@ -816,7 +836,7 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
         console.log(data);
         if (!error) {
           $('#modalDiscarded').modal('toggle');
-          $scope.getMethaFeatures();
+          $scope.calculateFrequencyMatrix();
         }
       });
   }
@@ -855,7 +875,7 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
         console.log(data);
         if (!error) {
           $('#modalAddFeature').modal('toggle'); // .modal("hide");
-          $scope.getMethaFeatures();
+          $scope.calculateFrequencyMatrix();
           // console.log('$scope.currentFeatureNames');
         }
       });

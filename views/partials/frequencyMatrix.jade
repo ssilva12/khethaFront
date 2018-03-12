@@ -42,11 +42,13 @@ div.row
             input(type="text", name="", style="width:50px", ng-model="minPercentage", ng-change="updateVisible()")
         div.col-md-12
             br
-            input(type="button", value="Consultar", style="float:right", ng-click="getMethaFeatures()")
+            input(type="button", value="Consultar", style="float:right", ng-click="readFrequencyMatrix()")
             &nbsp; &nbsp;
-            input(type="button", value="Consultar Job Last Vacancy", style="float:right", ng-click="getMethaFeaturesJobLastVacancy()")
+            input(type="button", value="Calcular", style="float:right", ng-click="calculateFrequencyMatrix()")
             &nbsp; &nbsp;
-            input(type="button", value="Consultar New Vacancy", style="float:right", ng-click="getMethaFeaturesNewVacancy()")
+            //- input(type="button", value="Consultar Job Last Vacancy", style="float:right", ng-click="getMethaFeaturesJobLastVacancy()")
+            //- &nbsp; &nbsp;
+            //- input(type="button", value="Consultar New Vacancy", style="float:right", ng-click="getMethaFeaturesNewVacancy()")
         div.col-md-12
             input(type="button", value="Frecuencia", ng-click="setShowValue('f')") 
             input(type="button", value="Peso", ng-click="setShowValue('w')")
