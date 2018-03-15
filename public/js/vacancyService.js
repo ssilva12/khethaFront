@@ -153,18 +153,153 @@ value('version', '0.2')
             request.send(config, callback);
         };
 
-        vacancyService.getMethaFeatures = function (employer, job, jobVacancy, years, candidateType, minPercentage, callback) {
+        vacancyService.getMethaFeatures = function (employer, job, jobVacancy, referenceYear, yearsBack, callback) {
             var config = {
                 method: 'GET',
                 params: {
                     employer: employer,
                     job: job,
                     jobVacancy: jobVacancy,
-                    years: years,
-                    candidateType: candidateType,
-                    minPercentage: minPercentage
+                    referenceYear: referenceYear,
+                    yearsBack: yearsBack
                 },
                 url: URL.URL_REST_SERVICE + 'api/frequencymatrix/'
+            }
+            request.send(config, callback);
+        }
+
+        vacancyService.calculateFrequencyMatrix = function (employer, job, jobVacancy, referenceYear, yearsBack, callback) {
+            var config = {
+                method: 'GET',
+                params: {
+                    employer: employer,
+                    job: job,
+                    jobVacancy: jobVacancy,
+                    referenceYear: referenceYear,
+                    yearsBack: yearsBack
+                },
+                url: URL.URL_REST_SERVICE + 'api/frequencymatrix/calculate'
+            }
+            request.send(config, callback);
+        }
+
+        vacancyService.getMethaFeaturesJobLastVacancy = function (employer, job, minPercentage, callback) {
+            var config = {
+                method: 'GET',
+                params: {
+                    employer: employer,
+                    job: job,
+                    minPercentage: minPercentage
+                },
+                url: URL.URL_REST_SERVICE + 'api/frequencymatrix/job-lastvacancy'
+            }
+            request.send(config, callback);
+        }
+
+        vacancyService.getJobs = function (employerId, callback) {
+            var config = {
+                method: 'GET',
+                params: {
+                    employerId: employerId
+                },
+                contentType: "application/json",
+                url: URL.URL_REST_SERVICE + 'api/job/all/'
+            }
+            request.send(config, callback);
+        }
+
+        vacancyService.getEmployers = function (callback) {
+            var config = {
+                method: 'GET',
+                contentType: "application/json",
+                url: URL.URL_REST_SERVICE + 'api/employer/all/'
+            }
+            request.send(config, callback);
+        }
+
+        vacancyService.getVacancies = function (employerId, jobId, callback) {
+            var config = {
+                method: 'GET',
+                params: {
+                    employerId: employerId,
+                    jobId: jobId
+                },
+                contentType: "application/json",
+                url: URL.URL_REST_SERVICE + 'api/vacancy/all/'
+            }
+            request.send(config, callback);
+        }
+
+        vacancyService.setFeatureWeight = function (entityId, methaFeatureId, methaRelationId, featureId, featureType, nameId, weight, callback) {
+            var config = {
+                method: 'GET',
+                params: {
+                    entityId: entityId,
+                    methaFeatureId: methaFeatureId,
+                    methaRelationId: methaRelationId,
+                    featureId: featureId,
+                    featureType: featureType,
+                    nameId: nameId,
+                    weight: weight
+                },
+                contentType: "application/json",
+                url: URL.URL_REST_SERVICE + 'api/frequencymatrix/feature-weight/'
+            }
+            request.send(config, callback);
+        }
+
+        vacancyService.getFeatureNames = function (dictionary, callback) {
+            var config = {
+                method: 'GET',
+                params: {
+                    dictionary: dictionary
+                },
+                contentType: "application/json",
+                url: URL.URL_REST_SERVICE + 'api/frequencymatrix/feature-names/'
+            }
+            request.send(config, callback);
+        }
+
+        vacancyService.addFeature = function (entityId, methaFeatureId, methaRelationId, featureType, nameId, callback) {
+            var config = {
+                method: 'GET',
+                params: {
+                    entityId: entityId,
+                    methaFeatureId: methaFeatureId,
+                    methaRelationId: methaRelationId,
+                    featureType: featureType,
+                    nameId: nameId
+                },
+                contentType: "application/json",
+                url: URL.URL_REST_SERVICE + 'api/frequencymatrix/feature-add/'
+            }
+            request.send(config, callback);
+        }
+
+        vacancyService.setFeatureDiscarded = function (entityId, methaFeatureId, featureId, featureType, nameId, discarded, callback) {
+            var config = {
+                method: 'GET',
+                params: {
+                    entityId: entityId,
+                    methaFeatureId: methaFeatureId,
+                    featureId: featureId,
+                    featureType: featureType,
+                    nameId: nameId,
+                    discarded: discarded
+                },
+                contentType: "application/json",
+                url: URL.URL_REST_SERVICE + 'api/frequencymatrix/feature-discarded/'
+            }
+            request.send(config, callback);
+        }
+
+        vacancyService.getCandidatesScore = function (jobVacancy, callback) {
+            var config = {
+                method: 'GET',
+                params: {
+                    jobVacancy: jobVacancy
+                },
+                url: URL.URL_REST_SERVICE + 'api/vacancy/all-candidates-match'
             }
             request.send(config, callback);
         }

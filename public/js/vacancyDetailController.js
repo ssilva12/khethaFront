@@ -12,6 +12,8 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
     $scope.featuresModified = [];
     $scope.methaFeatures = [];
     $scope.variablesGlobales = {};
+    $scope.sortType = '-score';
+    $scope.sortReverse = false;
 
     $scope.variablesGlobales.estados = [{
         value: "A",
@@ -125,8 +127,45 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                 $scope.Dato.tab = $rootScope.activeTabVacancy != null && $rootScope.activeTabVacancy != undefined ? $rootScope.activeTabVacancy : "tab1";
                 $scope.Dato.searched = $rootScope.searchedCandidate != null && $rootScope.searchedCandidate != undefined ? $rootScope.searchedCandidate : "";
                 Mensaje.Esperar();
+                vacancyService.getCandidatesScore(id, function (result) {
+                    Mensaje.Desocupar();
+                    if (!result.error) {
+                        for (var index = 0; index < $scope.Data.concur.length; index++) {
+                            var candidate = buscarScore($scope.Data.concur[index].id, result.data);
+                            if (candidate != null) {
+                                $scope.Data.concur[index].score = candidate.score;
+                                $scope.Data.concur[index].scorePercentage = candidate.scorePercentage;
+                            } else {
+                                $scope.Data.concur[index].score = 0;
+                                $scope.Data.concur[index].scorePercentage = 0;
+                            }
+                        }
+                        for (var index = 0; index < $scope.Data.preselected.length; index++) {
+                            var candidate = buscarScore($scope.Data.preselected[index].id, result.data);
+                            if (candidate != null) {
+                                $scope.Data.preselected[index].score = candidate.score;
+                                $scope.Data.preselected[index].scorePercentage = candidate.scorePercentage;
+                            } else {
+                                $scope.Data.preselected[index].score = 0;
+                                $scope.Data.preselected[index].scorePercentage = 0;
+                            }
+                        }
+                        for (var index = 0; index < $scope.Data.selected.length; index++) {
+                            var candidate = buscarScore($scope.Data.selected[index].id, result.data);
+                            if (candidate != null) {
+                                $scope.Data.selected[index].score = candidate.score;
+                                $scope.Data.selected[index].scorePercentage = candidate.scorePercentage;
+                            } else {
+                                $scope.Data.selected[index].score = 0;
+                                $scope.Data.selected[index].scorePercentage = 0;
+                            }
+                        }
+                    }
+                });
+
+                Mensaje.Esperar();
                 $scope.disableCandidates();
-                vacancyService.getMethaFeatures($scope.Data.vacancy.idEmployer, $scope.Data.vacancy.idJob, $scope.Data.vacancy.id, 1, 'C', 10, function (result) {
+                vacancyService.getMethaFeatures($scope.Data.vacancy.idEmployer, $scope.Data.vacancy.idJob, $scope.Data.vacancy.id, "", "", function (result) {
                     Mensaje.Desocupar();
                     if (!result.error) {
                         $scope.methaFeatures = result.data;
@@ -137,6 +176,17 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                 Mensaje.Alerta("error", result.message);
             }
         });
+    };
+
+    var buscarScore = function (idCandidate, arrayScore) {
+        var valor = null;
+        for (var index = 0; index < arrayScore.length; index++) {
+            if (arrayScore[index].candidateId == idCandidate) {
+                valor = arrayScore[index];
+                break;
+            }
+        }
+        return valor;
     };
 
     $scope.disableCandidates = function () {

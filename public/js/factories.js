@@ -111,11 +111,12 @@ value('version', '0.1')
             n.show();
         };
 
-        Mensaje.Alerta = function (tipo, titulo, mensaje) {
-            $rootScope.open = true;
-            $rootScope.title = titulo;
-            $rootScope.message = mensaje;
-            $rootScope.type = (tipo == null || tipo == undefined) ? 'alert' : tipo;
+        Mensaje.Alerta = function (tipo, mensaje, titulo) {
+            $rootScope.Message = {};
+            $rootScope.Message.open = true;
+            $rootScope.Message.title = titulo;
+            $rootScope.Message.message = mensaje;
+            $rootScope.Message.type = (tipo == null || tipo == undefined) ? 'alert' : tipo;
         }
 
         Mensaje.Confirmacion = function (mensaje, aceptar, cancelar) {
