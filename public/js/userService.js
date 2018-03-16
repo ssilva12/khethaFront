@@ -44,7 +44,7 @@ angular.module('myApp.userService', [])
                 data: {
                     user: user
                 },
-                url: URL.URL_REST_SERVICE + 'api/user/user',
+                url: URL.URL_REST_SERVICE + 'api/user/updateUser',
                 contentType: "application/json"
             }
             request.send(config, callback);

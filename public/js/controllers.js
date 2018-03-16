@@ -7,7 +7,7 @@ controller('AppCtrl', ['$scope', '$http', '$route', '$state', '$cookieStore', 'k
   $scope.$route = $route;
   $scope.sesion = {};
 
-  
+
   if ($cookieStore.get("sesion") != null && $cookieStore.get("sesion") != "") {
     var tokenPayload = jwtHelper.decodeToken($cookieStore.get("sesion"));
     $scope.sesion.userName = tokenPayload.userName;
@@ -15,7 +15,7 @@ controller('AppCtrl', ['$scope', '$http', '$route', '$state', '$cookieStore', 'k
   } else {
     $state.go("login");
   }
-  
+
 
   $scope.Redirect = function (target) {
     $state.go(target);
@@ -72,6 +72,7 @@ controller('MyCtrl1', function ($scope, $http, Dictionary, $state, termFactory) 
       }
     });
   }
+
   function getMeta() {
     Dictionary.getMetaFeatures(function (error, data) {
       if (!error) {
@@ -89,7 +90,7 @@ controller('SynonymsCtrl', function ($scope, $state, Dictionary, termFactory, Up
       $scope.metaRelationSearch.dictionary = null;
     }
     Dictionary.getSynonyms(name, $scope.metaRelationSearch.dictionary, $scope.acronym, function (error, data) {
-      
+
       if (!error) {
         if (!data.primary) {
           $scope.suggested = data.suggested
@@ -194,132 +195,133 @@ controller('SetCtrl', function ($scope, $state, termFactory, Dictionary) {
   }
 }).
 controller('EditCtrl', function ($scope, termFactory, Dictionary) {
-    $scope.current = termFactory.getCurrent();
-    $scope.update = function (er, id) {
-      Dictionary.updateGram(er, id, function (err, res) {
-        console.log(res)
-      })
+  $scope.current = termFactory.getCurrent();
+  $scope.update = function (er, id) {
+    Dictionary.updateGram(er, id, function (err, res) {
+      console.log(res)
+    })
+  }
+}).
+controller('SolveCtrl', function ($scope, Dictionary, termFactory, $state) {
+  $scope.current = termFactory.getCurrent();
+  $scope.synonymsSearch = termFactory.getCurrent().name;
+  Dictionary.getMetaFeatures(function (error, data) {
+    if (!error) {
+      $scope.metaFeatures = data.metaFeatures;
     }
-  })
-  .controller('SolveCtrl', function ($scope, Dictionary, termFactory, $state) {
-    $scope.current = termFactory.getCurrent();
-    $scope.synonymsSearch = termFactory.getCurrent().name;
-    Dictionary.getMetaFeatures(function (error, data) {
+  });
+  getSuggested($scope.synonymsSearch, "null");
+  $scope.getSuggested = function (name, dictionary) {
+    getSuggested(name, dictionary)
+  }
+  $scope.selectPrimary = function (name) {
+    $scope.primary = name;
+    console.log($scope.primary)
+  }
+  $scope.editOriginal = function (name) {
+    document.getElementById("myId").disabled = false;
+  }
+
+  $scope.createPrimary = function (noun) {
+    Dictionary.solveAsNoun(noun.id, noun.name, noun.dictionary, function (err, data) {
+      if (!err) {
+        debugger;
+        termFactory.setSynonyms(data.synonyms);
+        termFactory.setPrimary(data.primary);
+        termFactory.setCurrent(null);
+        $state.go("setGrams")
+      }
+    })
+  };
+
+  function getSuggested(name) {
+    Dictionary.getSynonyms(name, $scope.current.dictionary, "null", function (error, data) {
+      console.log(name)
       if (!error) {
-        $scope.metaFeatures = data.metaFeatures;
+        console.log(data)
+        if (data.suggested) {
+          $scope.suggested = data.suggested;
+          $scope.items = data.suggested;
+        }
+        if (data.primary) {
+          $scope.suggested = [data.primary];
+          $scope.items = [data.primary];
+        }
       }
     });
-    getSuggested($scope.synonymsSearch, "null");
-    $scope.getSuggested = function (name, dictionary) {
-      getSuggested(name, dictionary)
-    }
-    $scope.selectPrimary = function (name) {
-      $scope.primary = name;
-      console.log($scope.primary)
-    }
-    $scope.editOriginal = function (name) {
-      document.getElementById("myId").disabled = false;
-    }
-
-    $scope.createPrimary = function (noun) {
-      Dictionary.solveAsNoun(noun.id, noun.name, noun.dictionary, function (err, data) {
-        if (!err) {
-          debugger;
-          termFactory.setSynonyms(data.synonyms);
-          termFactory.setPrimary(data.primary);
-          termFactory.setCurrent(null);
-          $state.go("setGrams")
+  }
+  $scope.solveAsSynonym = function (id) {
+    Dictionary.solveAsSynonym(id, $scope.current.name, $scope.current.dictionary, $scope.current.id, function (error, data) {
+      if (!error) {
+        if (!data.primary) {
+          //$scope.suggested = data.suggested
+          //$scope.notFound = true
+          $state.go("unresolved");
+        } else {
+          //termFactory.setSynonyms(data.synonyms);
+          //termFactory.setCurrent($scope.current.name);
+          //termFactory.setPrimary(data.primary);
+          $state.go("unresolved");
         }
-      })
-    };
+      }
+    });
+  }
+}).
+controller('pieceWiseSearchCtrl', function ($scope, Dictionary, termFactory, $state, candidatesServices) {
+  $scope.current = termFactory.getCurrent();
+  console.log($scope.current);
+  pieceWiseSearch($scope.current.name, $scope.current.dictionary, $scope.current.id)
 
-    function getSuggested(name) {
-      Dictionary.getSynonyms(name, $scope.current.dictionary, "null", function (error, data) {
-        console.log(name)
-        if (!error) {
-          console.log(data)
-          if (data.suggested) {
-            $scope.suggested = data.suggested;
-            $scope.items = data.suggested;
-          }
-          if (data.primary) {
-            $scope.suggested = [data.primary];
-            $scope.items = [data.primary];
-          }
-        }
-      });
-    }
-    $scope.solveAsSynonym = function (id) {
-      Dictionary.solveAsSynonym(id, $scope.current.name, $scope.current.dictionary, $scope.current.id, function (error, data) {
-        if (!error) {
-          if (!data.primary) {
-            //$scope.suggested = data.suggested
-            //$scope.notFound = true
-            $state.go("unresolved");
-          } else {
-            //termFactory.setSynonyms(data.synonyms);
-            //termFactory.setCurrent($scope.current.name);
-            //termFactory.setPrimary(data.primary);
-            $state.go("unresolved");
-          }
-        }
-      });
-    }
-  }).
-  controller('pieceWiseSearchCtrl', function ($scope, Dictionary, termFactory, $state,candidatesServices) {
-    $scope.current = termFactory.getCurrent();
-    console.log($scope.current);
-    pieceWiseSearch($scope.current.name,$scope.current.dictionary,$scope.current.id)
-    function pieceWiseSearch(name,dictionaryName,id) {
-        Dictionary.pieceWiseSearch(name, dictionaryName,id, function (error, data) {
-            if (!error) {
-                console.log(data)
-								handlePieceWiseFeatures(data.features)
-                $scope.found = $scope.features;
-                $scope.methaRelation = data.methaRelation;
-                $scope.candidateId = data.candidateId;
-                $scope.cndFeature = data.cndFeature;
-            }
-        });
-    }
-    $scope.pieceWiseSolve = function (name) {
-			var data = {};
-			data.dictionary = "JobFunctionName";
-			data.name = name;
-			data.value= $scope.cndFeature.value
-			data.lastDate = $scope.cndFeature.lastDate
-      candidatesServices.createFeature($scope.candidateId, data, function (result) {
-					if (!result.error) {
-							//$scope.cargarCandidato($scope.usuario.candidateInfo.id);
-							//Mensaje.Alerta("success", 'OK', result.message);
-					} else {
-							//$scope.cargarCandidato($scope.usuario.candidateInfo.id);
-							//Mensaje.Alerta("error", 'Error', result.message);
-					}
-			});
-    }
+  function pieceWiseSearch(name, dictionaryName, id) {
+    Dictionary.pieceWiseSearch(name, dictionaryName, id, function (error, data) {
+      if (!error) {
+        console.log(data)
+        handlePieceWiseFeatures(data.features)
+        $scope.found = $scope.features;
+        $scope.methaRelation = data.methaRelation;
+        $scope.candidateId = data.candidateId;
+        $scope.cndFeature = data.cndFeature;
+      }
+    });
+  }
+  $scope.pieceWiseSolve = function (name) {
+    var data = {};
+    data.dictionary = "JobFunctionName";
+    data.name = name;
+    data.value = $scope.cndFeature.value
+    data.lastDate = $scope.cndFeature.lastDate
+    candidatesServices.createFeature($scope.candidateId, data, function (result) {
+      if (!result.error) {
+        //$scope.cargarCandidato($scope.usuario.candidateInfo.id);
+        //Mensaje.Alerta("success", 'OK', result.message);
+      } else {
+        //$scope.cargarCandidato($scope.usuario.candidateInfo.id);
+        //Mensaje.Alerta("error", 'Error', result.message);
+      }
+    });
+  }
 
-		function handlePieceWiseFeatures(array){
-			$scope.features = []
-			array.forEach(function(element){
-					searchInFeatures(element)
-			})
-		}
+  function handlePieceWiseFeatures(array) {
+    $scope.features = []
+    array.forEach(function (element) {
+      searchInFeatures(element)
+    })
+  }
 
-		function searchInFeatures(element){
-			if ($scope.features.length == 0){
-				$scope.features.push(element);
-			}
-			for (var i=0; i < $scope.features.length; i++) {
-        if ($scope.features[i].name === element.name && $scope.features[i].best_weight < element.best_weight) {
-					$scope.features[i]=element;
-        }else if($scope.features[i].name != element.name){
-					$scope.features.push(element);
-				}
-    	}
-		}
+  function searchInFeatures(element) {
+    if ($scope.features.length == 0) {
+      $scope.features.push(element);
+    }
+    for (var i = 0; i < $scope.features.length; i++) {
+      if ($scope.features[i].name === element.name && $scope.features[i].best_weight < element.best_weight) {
+        $scope.features[i] = element;
+      } else if ($scope.features[i].name != element.name) {
+        $scope.features.push(element);
+      }
+    }
+  }
 
-  }).
+}).
 controller('SearchCtrl', function ($scope, termFactory, Dictionary) {
   termFactory.setCurrent(null);
   getMeta();
@@ -500,7 +502,7 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
   $scope.possibleYearsBack = [...Array(maxYearsBack).keys()].map(x => maxYearsBack - x++);
   const currentYear = (new Date()).getFullYear();
   $scope.possibleReferenceYears = [...Array(maxYearsBack).keys()].map(x => currentYear - x++);
-  
+
   $scope.referenceYear = currentYear;
   $scope.yearsBack = maxYearsBack;
 

@@ -30,7 +30,7 @@ controller('userDetailController', ['$scope', '$rootScope', '$stateParams', 'Men
                 Mensaje.Desocupar();
                 if (!result.error) {
                     Mensaje.Alerta("success", 'OK', result.message);
-                    $scope.cargarUser($scope.user.id);
+                    $scope.cargarUser(result.data.id);
                 } else {
                     Mensaje.Alerta("error", 'Error', result.message);
                 }
