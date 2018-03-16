@@ -1,31 +1,41 @@
-
-div(class="col-md-12")
-  div(class="panel panel-default")
-    div(class="panel-body")
-      div.form-group
-        label(for="methaFeatures") Metha Caracteristica
-        select(ng-model="meta", ng-options="x.name for x in metaFeatures", class="form-control")
-          option(value="") Seleccione
-div(class="col-md-12")
-  div(class="panel panel-default")
-    div(class="panel-body")
+//- PAGE TITLE
+div(class="page-title")
+    h2() Sin resolver
+        span(class="txt-grises", ng-bind="titulo")
+//- END PAGE TITLE
+//- PAGE CONTENT WRAPPER
+div(class="page-content-wrap")
+    form(name="userForm", id="userForm")
         div(class="row")
-            div(class="col-sm-12")
-              table(class = "table")
-                thead
-                  tr: th: h4() Nombre
-                      th: h4() Diccionario
-                      th
-                      th
-                      th
-                tbody
-                  tr(ng-repeat="task in unresolved", ng-show="!meta || meta.dictionary==task.dictionary")
-                    td: {{task.name}}
-                    td {{task.dictionary}}
-                    td: button.btn.btn.btn-deffault(ng-click="solve(task)") 
-                      span(class="fa fa-pencil")
-                    td: button.btn.btn.btn-danger(ng-click="discard(task)") 
-                      span(class="fa fa-trash")
-                    td: button.btn.btn.btn-danger(ng-click="pieceWiseSearch(task)") 
-                      |Fraccionar
-                      
+            div(class="col-md-12")
+                //-INICIO
+                div(class="row",ng-hide="Data.vacancy.id")
+                    div(class="col-md-12")
+                        div(class="panel panel-default")
+                            div(class="panel-body")
+                              div.form-group
+                                label(for="methaFeatures") Metha Caracteristica
+                                select(ng-model="meta", ng-options="x.name for x in metaFeatures", class="form-control")
+                                  option(value="") Seleccione
+                    div(class="col-md-12")
+                      div(class="panel panel-default")
+                        div(class="panel-body")
+                            div(class="row")
+                                div(class="col-sm-12")
+                                  table(class = "table")
+                                    thead
+                                      tr: th: h4() Nombre
+                                          th: h4() Diccionario
+                                          th
+                                          th
+                                          th
+                                    tbody
+                                      tr(ng-repeat="task in unresolved", ng-show="!meta || meta.dictionary==task.dictionary")
+                                        td: {{task.name}}
+                                        td {{task.dictionary}}
+                                        td: button.btn.btn.btn-deffault(ng-click="solve(task)") 
+                                          span(class="fa fa-pencil")
+                                        td: button.btn.btn.btn-danger(ng-click="discard(task)") 
+                                          span(class="fa fa-trash")
+                                        td: button.btn.btn.btn-danger(ng-click="pieceWiseSearch(task)") 
+                                          |Fraccionar

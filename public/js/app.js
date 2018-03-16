@@ -9,6 +9,7 @@ angular.module('myApp', [
     'myApp.vacancyCtrl',
     'myApp.vacancyController',
     'myApp.vacancyListCtrl',
+    'myApp.vacancyFrequencyController',
     'myApp.candidatesServices',
     'myApp.candidatesCtrl',
     'myApp.candidatesListCtrl',
@@ -122,6 +123,14 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             controller: 'jobController',
             title: "Job",
             activetab: 'jobDetail'
+        })
+        .state('vacancyFrequency', {
+            parent: 'principal',
+            url: '/vacancyFrequency',
+            templateUrl: 'partials/vacancyFrequency',
+            controller: 'vacancyFrequencyController',
+            title: "Matrices de frequencia",
+            activetab: 'vacancyFrequency'
         })
         //datos anteriores
         .state('unresolved', {

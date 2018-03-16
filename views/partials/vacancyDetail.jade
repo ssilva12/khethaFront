@@ -162,10 +162,6 @@ div(class="page-content-wrap")
                                                                                     table(class="col-sm-12 table")
                                                                                         thead()
                                                                                             tr()
-                                                                                                th()
-                                                                                                th() Metha-Relación
-                                                                                                th()
-                                                                                            tr()
                                                                                                 th(style="width: 200px;") Feature
                                                                                                 th(ng-repeat="levelNames in methaFeatures.levelNames", style="width: 60px;") {{levelNames}}
                                                                                                 th()
@@ -174,7 +170,9 @@ div(class="page-content-wrap")
                                                                                                 th() MFR WEIGHT
                                                                                         tbody()
                                                                                             tr(ng-repeat="feature in methaFeatures.features | orderBy : ['name'] | filter: greaterThanMultiple('isWeightInferred','weightInferred','weightSetted', 0)")
-                                                                                                td() {{ feature.name }}
+                                                                                                td(style="white-space:nowrap;") 
+                                                                                                    span() {{ feature.name }} &nbsp;
+                                                                                                        i(class="fa fa-lock", ng-show="mandatory==true")
                                                                                                 td(ng-repeat="levelNames in methaFeatures.levelNames", ng-class="{ 'warning': !feature.isWeightInferred[$index] }") 
                                                                                                     div(title="MR: {{levelNames}}\r\nFrecuencia: {{feature.frequency[$index]}}\r\nFrecuencia Corregida: {{feature.frequencyCorrected[$index].toFixed(2)}}\r\nPeso Inferido: {{feature.weightInferred[$index]}}\r\nProbabilidad: {{feature.probability[$index].toFixed(2)}}") {{ feature.isWeightInferred[$index] ? feature.weightInferred[$index] : feature.weightSetted[$index]}}
                                                                                                 td() {{ feature.count }}
@@ -211,16 +209,22 @@ div(class="page-content-wrap")
                                                             table(class="table ")
                                                                 thead()
                                                                     tr()
-                                                                        th(class="col-sm-9") Candidato
-                                                                        th(class="col-sm-1") Porcentaje afinidad
+                                                                        th(class="col-sm-9",ng-click="sortType = 'name'; sortReverse = !sortReverse") 
+                                                                            label() Candidato
+                                                                            span(ng-show="sortType == 'name' && !sortReverse", class="fa fa-caret-down")
+                                                                            span(ng-show="sortType == 'name' && sortReverse", class="fa fa-caret-up")
+                                                                        th(class="col-sm-1",ng-click="sortType = 'score'; sortReverse = !sortReverse") 
+                                                                            label() Puntuación
+                                                                            span(ng-show="sortType == 'score' && !sortReverse", class="fa fa-caret-down")
+                                                                            span(ng-show="sortType == 'score' && sortReverse", class="fa fa-caret-up")
                                                                         th(class="col-sm-1") Ver 
                                                                         th(class="col-sm-1") Preseleccionar 
                                                                 tbody()
-                                                                    tr(ng-repeat="candidato in Data.concur", ng-class="Dato.searched == candidato.id ? 'info' : (candidato.disabled == true ? 'active' : '')")
+                                                                    tr(ng-repeat="candidato in Data.concur | orderBy:sortType:sortReverse", ng-class="Dato.searched == candidato.id ? 'info' : (candidato.disabled == true ? 'active' : '')")
                                                                         td() 
                                                                             span(ng-bind="candidato.name")
                                                                         td() 
-                                                                            span(ng-bind="candidato.adaptation")
+                                                                            span(ng-bind="candidato.score | number:2")
                                                                         td() 
                                                                             button(class="btn btn-success btn-condensed", ng-click="buscarDetalle(candidato.id)")
                                                                                 span(class="fa fa-file-text-o")
@@ -238,16 +242,22 @@ div(class="page-content-wrap")
                                                             table(class="table")
                                                                 thead()
                                                                     tr()
-                                                                        th(class="col-sm-9") Candidato
-                                                                        th(class="col-sm-1") Porcentaje afinidad
+                                                                        th(class="col-sm-9",ng-click="sortType = 'name'; sortReverse = !sortReverse") 
+                                                                            label() Candidato
+                                                                            span(ng-show="sortType == 'name' && !sortReverse", class="fa fa-caret-down")
+                                                                            span(ng-show="sortType == 'name' && sortReverse", class="fa fa-caret-up")
+                                                                        th(class="col-sm-1",ng-click="sortType = 'score'; sortReverse = !sortReverse") 
+                                                                            label() Puntuación
+                                                                            span(ng-show="sortType == 'score' && !sortReverse", class="fa fa-caret-down")
+                                                                            span(ng-show="sortType == 'score' && sortReverse", class="fa fa-caret-up")
                                                                         th(class="col-sm-1") Ver 
                                                                         th(class="col-sm-1") Seleccionar
                                                                 tbody()
-                                                                    tr(ng-repeat="candidato in Data.preselected", ng-class=" { 'active' : candidato.disabled }")
+                                                                    tr(ng-repeat="candidato in Data.preselected | orderBy:sortType:sortReverse", ng-class=" { 'active' : candidato.disabled }")
                                                                         td() 
                                                                             span(ng-bind="candidato.name")
                                                                         td() 
-                                                                            span(ng-bind="candidato.adaptation")
+                                                                            span(ng-bind="candidato.score | number:2")
                                                                         td() 
                                                                             button(class="btn btn-success btn-condensed", ng-click="buscarDetalle(candidato.id)")
                                                                                 span(class="fa fa-file-text-o")
@@ -264,15 +274,21 @@ div(class="page-content-wrap")
                                                             table(class="table")
                                                                 thead()
                                                                     tr()
-                                                                        th(class="col-sm-9") Candidato
-                                                                        th(class="col-sm-1") Porcentaje afinidad
+                                                                        th(class="col-sm-9",ng-click="sortType = 'name'; sortReverse = !sortReverse") 
+                                                                            label() Candidato
+                                                                            span(ng-show="sortType == 'name' && !sortReverse", class="fa fa-caret-down")
+                                                                            span(ng-show="sortType == 'name' && sortReverse", class="fa fa-caret-up")
+                                                                        th(class="col-sm-1",ng-click="sortType = 'score'; sortReverse = !sortReverse") 
+                                                                            label() Puntuación
+                                                                            span(ng-show="sortType == 'score' && !sortReverse", class="fa fa-caret-down")
+                                                                            span(ng-show="sortType == 'score' && sortReverse", class="fa fa-caret-up")
                                                                         th(class="col-sm-1") Ver 
                                                                 tbody()
-                                                                    tr(ng-repeat="candidato in Data.selected")
+                                                                    tr(ng-repeat="candidato in Data.selected | orderBy:sortType:sortReverse")
                                                                         td() 
                                                                             span(ng-bind="candidato.name")
                                                                         td() 
-                                                                            span(ng-bind="candidato.adaptation")
+                                                                            span(ng-bind="candidato.score | number:2")
                                                                         td() 
                                                                             button(class="btn btn-success btn-condensed", ng-click="buscarDetalle(candidato.id)")
                                                                                 span(class="fa fa-file-text-o")

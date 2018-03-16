@@ -1,54 +1,62 @@
-div.row.col-md-12
-    div(class="panel panel-default")
-        div(class="panel-body")
-            div.col-md-1.col-md-offset-8
-                label Cargar Diccionario
-            div.col-md-1
-                button(type="button", class="btn btn-default", data-toggle="modal", data-target="#myModal")
-                    span(class="fa fa-cloud-upload")
-            div.col-md-1
-                label Metha Caracteristicas
-            div.col-md-1
-                button(type="button", class="btn btn-default", data-toggle="modal", data-target="#metaModal")
-                    span(class="fa fa-cloud-upload")
-div.row.col-md-12
-    div(class="panel panel-default")
-        div(class="panel-body")
-            div.col-md-6
-                div.input.form-group
-                    label Nombre
-                    input(type="text", name="name",id="name", class="form-control", ng-model="name")
-            div.col-md-3
-                label Diccionario
-                select(ng-model="metaRelationSearch", ng-options="x.name for x in metaFeatures", class="form-control")
-            div.col-md-2
-                label Acrónimo
-                input(type="text", name="acronym",id="name", class="form-control", ng-model="acronym")
-            div.col-md-1
-                label &nbsp
-                button(class="btn btn-default", ng-click="search(name)") Buscar
-div.row.col-md-12(ng-show="notFound")
-    div(class="panel panel-default")
-        div(class="panel-body")
-            div.col-md-5
-                h3 el termino no existe, ¿desea crearlo como una entrada primaria?
-            div.col-md-5
-                label Diccionario
-                <select ng-model="meta" ng-options="x.name for x in metaFeatures" class="form-control">
-                </select>  
-            div.col-md-2
-                label  &nbsp
-                button(id="createPrimary", class="btn btn-default", ng-click="createPrimary(name)") Crear
-            div(class="col-md-12")
-                table.table
-                    thead
-                        tr: th Entrada
-                            th
-                    tbody
-                        tr(ng-repeat="sug in suggested")
-                            td:{{sug.er}}
-                            td: button(ng-click="selectNoun(sug.er)") Seleccionar
-            
+//- PAGE TITLE
+div(class="page-title")
+    h2() Diccionarios
+        span(class="txt-grises", ng-bind="titulo")
+//- END PAGE TITLE
+//- PAGE CONTENT WRAPPER
+div(class="page-content-wrap")
+    form(name="userForm", id="userForm")
+        div(class="row")
+            div.row.col-md-12
+                div(class="panel panel-default")
+                    div(class="panel-body")
+                        div.col-md-8
+                        div.col-md-2
+                            button(type="button", class="btn btn-default", data-toggle="modal", data-target="#myModal")
+                                span(class="fa fa-cloud-upload")
+                                span() Cargar Diccionario
+                        div.col-md-2
+                            button(type="button", class="btn btn-default", data-toggle="modal", data-target="#metaModal")
+                                span(class="fa fa-cloud-upload")
+                                span() Metha Caracteristicas
+            div.row.col-md-12
+                div(class="panel panel-default")
+                    div(class="panel-body")
+                        div.col-md-6
+                            div.input.form-group
+                                label Nombre
+                                input(type="text", name="name",id="name", class="form-control", ng-model="name")
+                        div.col-md-3
+                            label Diccionario
+                            select(ng-model="metaRelationSearch", ng-options="x.name for x in metaFeatures", class="form-control")
+                        div.col-md-2
+                            label Acrónimo
+                            input(type="text", name="acronym",id="name", class="form-control", ng-model="acronym")
+                        div.col-md-1
+                            label &nbsp
+                            button(class="btn btn-default", ng-click="search(name)") Buscar
+            div.row.col-md-12(ng-show="notFound")
+                div(class="panel panel-default")
+                    div(class="panel-body")
+                        div.col-md-5
+                            h3 el termino no existe, ¿desea crearlo como una entrada primaria?
+                        div.col-md-5
+                            label Diccionario
+                            <select ng-model="meta" ng-options="x.name for x in metaFeatures" class="form-control">
+                            </select>  
+                        div.col-md-2
+                            label  &nbsp
+                            button(id="createPrimary", class="btn btn-default", ng-click="createPrimary(name)") Crear
+                        div(class="col-md-12")
+                            table.table
+                                thead
+                                    tr: th Entrada
+                                        th
+                                tbody
+                                    tr(ng-repeat="sug in suggested")
+                                        td:{{sug.er}}
+                                        td: button(ng-click="selectNoun(sug.er)") Seleccionar
+                        
 #myModal.modal.fade(role='dialog')
   .modal-dialog
     .modal-content
@@ -59,7 +67,7 @@ div.row.col-md-12(ng-show="notFound")
         input(type="file", name="image", ngf-select, ng-model="dictionary", name="file" )
         label Diccionario
         select.form-control(ng-model='meta', ng-options='x.name for x in metaFeatures')
-        button(ng-click="uploadFiles(dictionary,'primary')") Subir
+        button(class="btn btn-default",ng-click="uploadFiles(dictionary,'primary')") Subir
       .modal-footer
         button.btn.btn-default(type='button', data-dismiss='modal') Close
 #metaModal.modal.fade(role='dialog')
@@ -70,7 +78,7 @@ div.row.col-md-12(ng-show="notFound")
         h1 Cargar metha caracteristicas
       .modal-body
         input(type="file", name="image", ngf-select, ng-model="meta", name="file" )
-        button(ng-click="uploadFiles(meta)") Subir
+        button(class="btn btn-default",ng-click="uploadFiles(meta)") Subir
       .modal-footer
         button.btn.btn-default(type='button', data-dismiss='modal') Close
     
