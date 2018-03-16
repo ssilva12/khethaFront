@@ -139,7 +139,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$state'
                 if (!result.error) {
                     $scope.buscarDetalle(result.data.id);
                 } else {
-                    Mensaje.Alerta("Error", result.message);
+                    Mensaje.Alerta("Error", "Error", result.message);
                 }
             });
         };
