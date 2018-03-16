@@ -7,7 +7,7 @@ controller('AppCtrl', ['$scope', '$http', '$route', '$state', '$cookieStore', 'k
   $scope.$route = $route;
   $scope.sesion = {};
 
-  /*
+  
   if ($cookieStore.get("sesion") != null && $cookieStore.get("sesion") != "") {
     var tokenPayload = jwtHelper.decodeToken($cookieStore.get("sesion"));
     $scope.sesion.userName = tokenPayload.userName;
@@ -15,7 +15,7 @@ controller('AppCtrl', ['$scope', '$http', '$route', '$state', '$cookieStore', 'k
   } else {
     $state.go("login");
   }
-  // */
+  
 
   $scope.Redirect = function (target) {
     $state.go(target);

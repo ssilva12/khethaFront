@@ -1,0 +1,35 @@
+//- PAGE TITLE
+div(class="page-title")
+    h2() Usuario:&nbsp;
+        span(class="txt-grises", ng-bind="user.userName")
+//- END PAGE TITLE
+//- PAGE CONTENT WRAPPER
+div(class="page-content-wrap")
+    div(class="row")
+        div(class="col-sm-12")
+            form(name="formCandidato", novalidate)
+                div(class="row")
+                    div(class="col-md-12")
+                        div(class="panel panel-default")
+                            div(class="panel-heading")
+                                h3(class="panel-title") Datos del usuario
+                            div(class="panel-body")
+                                div(class="row row-space")
+                                    label(class="col-md-3", style="text-align: right;") Username
+                                    div(class="col-md-6")
+                                        input(type="text", class="form-control", ng-model="user.userName")
+                                div(class="row row-space")
+                                    label(class="col-md-3", style="text-align: right;") Rol
+                                    div(class="col-md-6")
+                                        select(class="form-control", select2="", name="estado", data-ng-model="user.role")
+                                            option(value="") Seleccione
+                                            option(value="1") Administrador
+                                            option(value="2") Ingeniero de caracterizacíon
+                                            option(value="3") Analista de seleccíon
+                                div(class="row row-space")
+                                    div(class="col-md-12")
+                                        button(type="button", class="btn btn-primary pull-right", ng-click="actualizarUser()") 
+                                            li(class="fa fa-save")
+                                            span() Guardar
+
+

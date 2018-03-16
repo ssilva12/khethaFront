@@ -9,7 +9,7 @@ controller('employerController', ['$scope', '$stateParams', 'employerService', '
                 console.log(result.data.employer);
                 $scope.employer = result.data.employer;
             } else {
-                Mensaje.Alerta("error", result.message);
+                Mensaje.Alerta("error", "Error", result.message);
             }
         });
     };

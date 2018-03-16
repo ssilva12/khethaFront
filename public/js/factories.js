@@ -111,7 +111,7 @@ value('version', '0.1')
             n.show();
         };
 
-        Mensaje.Alerta = function (tipo, mensaje, titulo) {
+        Mensaje.Alerta = function (tipo, titulo, mensaje) {
             $rootScope.Message = {};
             $rootScope.Message.open = true;
             $rootScope.Message.title = titulo;

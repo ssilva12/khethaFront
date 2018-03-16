@@ -19,6 +19,9 @@ angular.module('myApp', [
     'myApp.jobService',
     'myApp.jobListCtrl',
     'myApp.jobCtrl',
+    'myApp.userService',
+    'myApp.userListCtrl',
+    'myApp.userController',
     'myApp.filters',
     'myApp.services',
     'myApp.vacancyService',
@@ -35,7 +38,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
     $urlRouterProvider.otherwise('/login');
     $locationProvider.html5Mode(true)
-    
+
     $stateProvider
         .state('login', {
             url: '/login',
@@ -131,6 +134,25 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             controller: 'vacancyFrequencyController',
             title: "Matrices de frequencia",
             activetab: 'vacancyFrequency'
+        })
+        .state('userList', {
+            parent: 'principal',
+            url: '/userList',
+            templateUrl: 'partials/userList',
+            controller: 'userListController',
+            title: "Lista de usuarios",
+            activetab: 'userList'
+        })
+        .state('userDetail', {
+            parent: 'principal',
+            url: '/userDetail?id',
+            params: {
+                id: null
+            },
+            templateUrl: 'partials/userDetail',
+            controller: 'userDetailController',
+            title: "Usuario",
+            activetab: 'userDetail'
         })
         //datos anteriores
         .state('unresolved', {

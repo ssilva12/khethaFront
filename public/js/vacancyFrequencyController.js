@@ -182,7 +182,7 @@ controller('vacancyFrequencyController', ['$scope', '$rootScope', '$stateParams'
         }
 
         if (error != "") {
-            Mensaje.Alerta("warning", "", "Debe completar los siguientes campos:" + error);
+            Mensaje.Alerta("warning", "Debe completar los siguientes campos:" + error);
             return;
         }
         Mensaje.Esperar();

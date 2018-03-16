@@ -116,7 +116,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                     $scope.cargarVacancy($stateParams.vacancyId, $stateParams.id);
                 }
             } else {
-                Mensaje.Alerta("error", result.message);
+                Mensaje.Alerta("error","Error", result.message);
             }
         });
     };
@@ -472,7 +472,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                 if (!result.error) {
                     $scope.cargarCandidato(result.data.id);
                 } else {
-                    Mensaje.Alerta("Error", result.message);
+                    Mensaje.Alerta("Error", "Error", result.message);
                 }
             });
         };

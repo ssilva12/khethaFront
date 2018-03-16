@@ -36,7 +36,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                 console.log(result);
                 $scope.cargarVacante(result.data.id);
             } else {
-                Mensaje.Alerta("error", result.message);
+                Mensaje.Alerta("error", "Error", result.message);
             }
         });
     };
@@ -173,7 +173,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                     }
                 })
             } else {
-                Mensaje.Alerta("error", result.message);
+                Mensaje.Alerta("error", "Error", result.message);
             }
         });
     };
@@ -268,7 +268,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
             if (!result.error) {
                 $scope.cargarVacante($scope.Data.vacancy.id);
             } else {
-                Mensaje.Alerta("error", result.message);
+                Mensaje.Alerta("error", "Error", result.message);
             }
         });
     };
@@ -311,7 +311,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                 if (!result.error) {
                     $scope.agregarCandidato(result.data.id, 'CND_CONCUR');
                 } else {
-                    Mensaje.Alerta("Error", result.message);
+                    Mensaje.Alerta("Error", "Error", result.message);
                 }
             });
         };

@@ -9,7 +9,7 @@ angular.module('myApp.jobCtrl', []).
                     console.log(result.data.job);
                     $scope.job = result.data.job;
                 } else {
-                    Mensaje.Alerta("error", result.message);
+                    Mensaje.Alerta("error", "Error", result.message);
                 }
             });
         };
