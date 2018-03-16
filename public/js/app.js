@@ -169,6 +169,13 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             controller: 'SolveCtrl',
             activetab: 'view2'
         })
+        .state('pieceWiseSearch', {
+            parent: 'principal',
+            url: '/pieceWiseSearch',
+            templateUrl: 'partials/pieceWiseSearch',
+            controller: 'pieceWiseSearchCtrl',
+            activetab: 'view2'
+        })
         .state('synonyms', {
             parent: 'principal',
             url: '/synonyms',

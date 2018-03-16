@@ -266,6 +266,60 @@ controller('EditCtrl', function ($scope, termFactory, Dictionary) {
       });
     }
   }).
+  controller('pieceWiseSearchCtrl', function ($scope, Dictionary, termFactory, $state,candidatesServices) {
+    $scope.current = termFactory.getCurrent();
+    console.log($scope.current);
+    pieceWiseSearch($scope.current.name,$scope.current.dictionary,$scope.current.id)
+    function pieceWiseSearch(name,dictionaryName,id) {
+        Dictionary.pieceWiseSearch(name, dictionaryName,id, function (error, data) {
+            if (!error) {
+                console.log(data)
+								handlePieceWiseFeatures(data.features)
+                $scope.found = $scope.features;
+                $scope.methaRelation = data.methaRelation;
+                $scope.candidateId = data.candidateId;
+                $scope.cndFeature = data.cndFeature;
+            }
+        });
+    }
+    $scope.pieceWiseSolve = function (name) {
+			var data = {};
+			data.dictionary = "JobFunctionName";
+			data.name = name;
+			data.value= $scope.cndFeature.value
+			data.lastDate = $scope.cndFeature.lastDate
+      candidatesServices.createFeature($scope.candidateId, data, function (result) {
+					if (!result.error) {
+							//$scope.cargarCandidato($scope.usuario.candidateInfo.id);
+							//Mensaje.Alerta("success", 'OK', result.message);
+					} else {
+							//$scope.cargarCandidato($scope.usuario.candidateInfo.id);
+							//Mensaje.Alerta("error", 'Error', result.message);
+					}
+			});
+    }
+
+		function handlePieceWiseFeatures(array){
+			$scope.features = []
+			array.forEach(function(element){
+					searchInFeatures(element)
+			})
+		}
+
+		function searchInFeatures(element){
+			if ($scope.features.length == 0){
+				$scope.features.push(element);
+			}
+			for (var i=0; i < $scope.features.length; i++) {
+        if ($scope.features[i].name === element.name && $scope.features[i].best_weight < element.best_weight) {
+					$scope.features[i]=element;
+        }else if($scope.features[i].name != element.name){
+					$scope.features.push(element);
+				}
+    	}
+		}
+
+  }).
 controller('SearchCtrl', function ($scope, termFactory, Dictionary) {
   termFactory.setCurrent(null);
   getMeta();

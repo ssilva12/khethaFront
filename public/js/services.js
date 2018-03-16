@@ -539,4 +539,48 @@ value('version', '0.1')
           callback("Error");
         });
       }
+      this.pieceWiseSearch = function (name, dictionaryName,id, callback) {
+        if (dictionaryName == undefined) {
+          dictionaryName = "null"
+        }
+        $http({
+          method: 'GET',
+          params: {
+            er: name,
+            dictionary: dictionaryName,
+            id: id
+          },
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
+          },
+          url: URL.URL_REST_SERVICE + 'pieceWiseSearch'
+        }).
+        then(function onSuccess(response) {
+          callback(null, response.data);
+        }, function onError(response) {
+          callback("Error");
+        });
+      }
+      this.pieceWiseSolve = function (name, dictionaryName,mrId,cndId, callback) {
+        if (dictionaryName == undefined) {
+          dictionaryName = "null"
+        }
+        $http({
+          method: 'POST',
+          data: {
+            er: name,
+            dictionary: dictionaryName,
+            mrId: mrId,
+            cndId: cndId
+          },
+          url: URL.URL_REST_SERVICE + 'pieceWiseSolve'
+        }).
+        then(function onSuccess(response) {
+          callback(null, response.data);
+        }, function onError(response) {
+          callback("Error");
+        });
+      }
     }]);

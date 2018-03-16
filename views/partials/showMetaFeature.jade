@@ -1,12 +1,10 @@
-div(class="page-title")
-    h2() Metha Caracteristica
-//- END PAGE TITLE
-//- PAGE CONTENT WRAPPER
 div(class="page-content-wrap")
     //-INICIO
     div(class="row")
         div(class="col-md-12")
             div(class="panel panel-default")
+                div.panel-heading
+                    h3 Metha caracteristica
                 div(class="panel-body")
                     form(class="form-horizontal")
                         div(class="form-group")
@@ -49,11 +47,13 @@ div(class="page-content-wrap")
     div(class="row")
         div(class="col-md-12")
             div(class="panel panel-default")
+                div.panel-heading
+                    h3 Metha relaciones
                 div(class="panel-body")        
                     div.row(style="margin-top: 25px;")
                         div(class="col-md-6 col-md-offset-3")
-                            label Meta relaciones
-                            button.btn.btn-default(ng-click="newMetaRelation()") nueva
+                            div.col-md-2.col-md-offset-10
+                                button.btn.btn-default(class="btn btn-primary mb-control", ng-click="newMetaRelation()") nueva
                             table(class = "table")
                                     thead
                                     tr: th ir

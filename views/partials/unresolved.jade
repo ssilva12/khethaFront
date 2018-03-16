@@ -28,6 +28,7 @@ div(class="page-content-wrap")
                                           th: h4() Diccionario
                                           th
                                           th
+                                          th
                                     tbody
                                       tr(ng-repeat="task in unresolved", ng-show="!meta || meta.dictionary==task.dictionary")
                                         td: {{task.name}}
@@ -36,4 +37,5 @@ div(class="page-content-wrap")
                                           span(class="fa fa-pencil")
                                         td: button.btn.btn.btn-danger(ng-click="discard(task)") 
                                           span(class="fa fa-trash")
-                                          
+                                        td: button.btn.btn.btn-danger(ng-click="pieceWiseSearch(task)") 
+                                          |Fraccionar
