@@ -32,7 +32,8 @@ angular.module('myApp', [
     'angularSpinner',
     'ngSanitize',
     'ngRoute',
-    'ui.router'
+    'ui.router',
+    'permission'
 ]).
 config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
@@ -60,7 +61,13 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'partials/candidateDetail',
             controller: 'candidatesController',
             title: "Candidato",
-            activetab: 'detail'
+            activetab: 'detail',
+            data: {
+                permissions: {
+                    only: ['1', '2', '3'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('candidateslist', {
             parent: 'principal',
@@ -68,7 +75,13 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'partials/candidateList',
             controller: 'candidatesListController',
             title: "Lista de candidatos",
-            activetab: 'candidateslist'
+            activetab: 'candidateslist',
+            data: {
+                permissions: {
+                    only: ['1', '2', '3'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('vacancyDetail', {
             parent: 'principal',
@@ -79,7 +92,13 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'partials/vacancyDetail',
             controller: 'vacancyDetailController',
             title: "Ficha de Vacantes",
-            activetab: 'vacancyDetail'
+            activetab: 'vacancyDetail',
+            data: {
+                permissions: {
+                    only: ['1', '2', '3'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('vacancyList', {
             parent: 'principal',
@@ -87,7 +106,13 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'partials/vacancyList',
             controller: 'vacancyListController',
             title: "Lista de fichas de Vacantes",
-            activetab: 'vacancyList'
+            activetab: 'vacancyList',
+            data: {
+                permissions: {
+                    only: ['1', '2', '3'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('employerList', {
             parent: 'principal',
@@ -95,7 +120,13 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'partials/employerList',
             controller: 'employerListController',
             title: "Lista de empleadores",
-            activetab: 'employerList'
+            activetab: 'employerList',
+            data: {
+                permissions: {
+                    only: ['1', '2', '3'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('employerDetail', {
             parent: 'principal',
@@ -106,7 +137,13 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'partials/employerDetail',
             controller: 'employerController',
             title: "Empleador",
-            activetab: 'employerDetail'
+            activetab: 'employerDetail',
+            data: {
+                permissions: {
+                    only: ['1', '2', '3'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('jobList', {
             parent: 'principal',
@@ -114,7 +151,13 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'partials/jobList',
             controller: 'jobListController',
             title: "Lista de jobs",
-            activetab: 'jobList'
+            activetab: 'jobList',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('jobDetail', {
             parent: 'principal',
@@ -125,7 +168,13 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'partials/jobDetail',
             controller: 'jobController',
             title: "Job",
-            activetab: 'jobDetail'
+            activetab: 'jobDetail',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('vacancyFrequency', {
             parent: 'principal',
@@ -133,7 +182,13 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'partials/vacancyFrequency',
             controller: 'vacancyFrequencyController',
             title: "Matrices de frequencia",
-            activetab: 'vacancyFrequency'
+            activetab: 'vacancyFrequency',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('userList', {
             parent: 'principal',
@@ -141,7 +196,13 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'partials/userList',
             controller: 'userListController',
             title: "Lista de usuarios",
-            activetab: 'userList'
+            activetab: 'userList',
+            data: {
+                permissions: {
+                    only: ['1'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('userDetail', {
             parent: 'principal',
@@ -152,7 +213,13 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'partials/userDetail',
             controller: 'userDetailController',
             title: "Usuario",
-            activetab: 'userDetail'
+            activetab: 'userDetail',
+            data: {
+                permissions: {
+                    only: ['1'],
+                    redirectTo: 'login'
+                }
+            }
         })
         //datos anteriores
         .state('unresolved', {
@@ -160,145 +227,281 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/unresolved',
             templateUrl: 'partials/unresolved',
             controller: 'MyCtrl1',
-            activetab: 'unresolved'
+            activetab: 'unresolved',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('solve', {
             parent: 'principal',
             url: '/solve',
             templateUrl: 'partials/solve',
             controller: 'SolveCtrl',
-            activetab: 'view2'
+            activetab: 'view2',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('pieceWiseSearch', {
             parent: 'principal',
             url: '/pieceWiseSearch',
             templateUrl: 'partials/pieceWiseSearch',
             controller: 'pieceWiseSearchCtrl',
-            activetab: 'view2'
+            activetab: 'view2',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('synonyms', {
             parent: 'principal',
             url: '/synonyms',
             templateUrl: 'partials/synonyms',
             controller: 'SynonymsCtrl',
-            activetab: 'synonyms'
+            activetab: 'synonyms',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('addGrams', {
             parent: 'principal',
             url: '/addGrams',
             templateUrl: 'partials/addGrams',
             controller: 'AddCtrl',
-            activetab: 'addGrams'
+            activetab: 'addGrams',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('setGrams', {
             parent: 'principal',
             url: '/addGrams',
             templateUrl: 'partials/setGrams',
             controller: 'SetCtrl',
-            activetab: 'setGrams'
+            activetab: 'setGrams',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('editGram', {
             parent: 'principal',
             url: '/editGram',
             templateUrl: 'partials/editGram',
             controller: 'EditCtrl',
-            activetab: 'editGram'
+            activetab: 'editGram',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('search', {
             parent: 'principal',
             url: '/search',
             templateUrl: 'partials/search',
             controller: 'SearchCtrl',
-            activetab: 'search'
+            activetab: 'search',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('candidates', {
             parent: 'principal',
             url: '/candidates',
             templateUrl: 'partials/candidates',
             controller: 'CandidatesCtrl',
-            activetab: 'candidates'
+            activetab: 'candidates',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('candidate', {
             parent: 'principal',
             url: '/candidate',
             templateUrl: 'partials/candidate',
             controller: 'CandidatesCtrl',
-            activetab: 'candidate'
+            activetab: 'candidate',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('jobs', {
             parent: 'principal',
             url: '/jobs',
             templateUrl: 'partials/jobs',
             controller: 'JobsCtrl',
-            activetab: 'jobs'
+            activetab: 'jobs',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('job', {
             parent: 'principal',
             url: '/job',
             templateUrl: 'partials/job',
             controller: 'JobsCtrl',
-            activetab: 'job'
+            activetab: 'job',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('match', {
             parent: 'principal',
             url: '/match',
             templateUrl: 'partials/match',
             controller: 'JobsCtrl',
-            activetab: 'match'
+            activetab: 'match',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('metaFeatures', {
             parent: 'principal',
             url: '/metaFeatures',
             templateUrl: 'partials/metaFeatures',
             controller: 'metaFeaturesCtrl',
-            activetab: 'metaFeatures'
+            activetab: 'metaFeatures',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('metaFeature', {
             parent: 'principal',
             url: '/metaFeature',
             templateUrl: 'partials/showMetaFeature',
             controller: 'metaFeaturesCtrl',
-            activetab: 'metaFeature'
+            activetab: 'metaFeature',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('newMetaRelation', {
             parent: 'principal',
             url: '/newMetaRelation',
             templateUrl: 'partials/newMetaRelation',
             controller: 'metaFeaturesCtrl',
-            activetab: 'newMetaRelation'
+            activetab: 'newMetaRelation',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('metaRelation', {
             parent: 'principal',
             url: '/metaRelation',
             templateUrl: 'partials/showMetaRelation',
             controller: 'metaFeaturesCtrl',
-            activetab: 'metaRelation'
+            activetab: 'metaRelation',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('frequencyMatrix', {
             parent: 'principal',
             url: '/frequencyMatrix',
             templateUrl: 'partials/frequencyMatrix',
             controller: 'frequencyMatrixCtrl',
-            activetab: 'frequencyMatrix'
+            activetab: 'frequencyMatrix',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('candidateMatching', {
             parent: 'principal',
             url: '/candidateMatching',
             templateUrl: 'partials/candidateMatching',
             controller: 'frequencyMatrixCtrl',
-            activetab: 'candidateMatching'
+            activetab: 'candidateMatching',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         })
         .state('vacancy', {
             parent: 'principal',
             url: '/vacancy',
             templateUrl: 'partials/vacancy',
             controller: 'vacancyCtrl',
-            activetab: 'vacancy'
+            activetab: 'vacancy',
+            data: {
+                permissions: {
+                    only: ['1', '2'],
+                    redirectTo: 'login'
+                }
+            }
         });
 }).
-run(['$location', '$rootScope', function ($location, $rootScope) {
-    $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-        $rootScope.activeTitle = current.$$route.title;
-        $rootScope.activetab = current.$$route.activetab;
-    });
-}]);
+run(function ($rootScope, $state, $transitions) {
+    $transitions.onEnter({}, function (transition, state) {
+        if (state != undefined && state != null) {
+            $rootScope.activeTitle = state.title;
+            $rootScope.activetab = state.activetab;
+        }
+    })
+
+    $transitions.onSuccess({}, function (transition) {
+        if ($state.current.data) {
+            var permission = false;
+            for (var index = 0; index < $state.current.data.permissions.only.length; index++) {
+                if ($state.current.data.permissions.only[index] == $rootScope.sesion.role) {
+                    permission = true;
+                }
+            }
+            if (!permission) {
+                $state.go("login");
+            }
+        }
+    })
+});

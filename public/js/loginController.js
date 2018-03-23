@@ -6,6 +6,10 @@ controller('loginController', ['$scope', '$state', 'loginService', 'keepData', '
     keepData.setCookie("sesion", null);
 
     $scope.login = function () {
+        var SHA512 = new Hashes.SHA512
+        $scope.user.key = SHA512.hex($scope.user.userName + $scope.user.password);
+        $scope.user.password = $scope.user.key;
+
         loginService.login($scope.user, function (result) {
             if (!result.error) {
                 var tokenPayload = jwtHelper.decodeToken(result.data);

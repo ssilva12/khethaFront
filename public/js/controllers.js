@@ -3,15 +3,16 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ['angular-jwt']).
-controller('AppCtrl', ['$scope', '$http', '$route', '$state', '$cookieStore', 'keepData', 'jwtHelper', function ($scope, $http, $route, $state, $cookieStore, keepData, jwtHelper) {
+controller('AppCtrl', ['$scope', '$http', '$route', '$state', '$cookieStore', 'keepData', 'jwtHelper', '$rootScope', 'Mensaje', function ($scope, $http, $route, $state, $cookieStore, keepData, jwtHelper, $rootScope, Mensaje) {
   $scope.$route = $route;
-  $scope.sesion = {};
-
+  $rootScope.sesion = {};
+  $rootScope.Message = {};
+  $rootScope.Message.open = false;
 
   if ($cookieStore.get("sesion") != null && $cookieStore.get("sesion") != "") {
     var tokenPayload = jwtHelper.decodeToken($cookieStore.get("sesion"));
-    $scope.sesion.userName = tokenPayload.userName;
-    $scope.sesion.role = tokenPayload.role;
+    $rootScope.sesion.userName = tokenPayload.userName;
+    $rootScope.sesion.role = tokenPayload.role;
   } else {
     $state.go("login");
   }

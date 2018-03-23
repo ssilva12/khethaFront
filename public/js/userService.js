@@ -50,6 +50,17 @@ angular.module('myApp.userService', [])
             request.send(config, callback);
         };
 
+        userService.getPortfolio = function (name, callback) {
+            var config = {
+                method: 'GET',
+                params: {
+                    name: name
+                },
+                url: URL.URL_REST_SERVICE + 'api/user/portfolio'
+            }
+            request.send(config, callback);
+        };
+
         return userService;
 
     }]);

@@ -151,7 +151,7 @@ value('version', '0.1')
         };
 
         Mensaje.Desocupar = function () {
-            $rootScope.waitModal = false;
+            $rootScope.waitModal = false;            
         };
 
         return Mensaje;
@@ -171,7 +171,7 @@ value('version', '0.1')
         return keepData;
 
     }])
-    .factory('request', ['$cookieStore', '$http', function ($cookieStore, $http) {
+    .factory('request', ['$cookieStore', '$http', '$state', function ($cookieStore, $http, $state) {
         var request = {};
 
         request.send = function (config, callback) {
@@ -183,7 +183,7 @@ value('version', '0.1')
 
             var headers = {
                 'Content-Type': (config.contentType == null ? "text/text" : config.contentType),
-                'Authorization': 'Bearer ' + $cookieStore.get("sesion"),
+                'Authorization': $cookieStore.get("sesion"),
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
                 'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
@@ -207,7 +207,11 @@ value('version', '0.1')
             }, function onError(response) {
                 Result.error = true;
                 Result.status = response.status;
-                switch (status) {
+                switch (response.status) {
+                    case 403:
+                        Result.message = "No posee acceso";
+                        $state.go('login')
+                        break;
                     case 404:
                         Result.message = "Servicio no encontrado(" + config.url + ').';
                         break;

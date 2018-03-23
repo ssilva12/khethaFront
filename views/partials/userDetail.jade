@@ -27,6 +27,16 @@ div(class="page-content-wrap")
                                             option(value="2") Ingeniero de caracterizacíon
                                             option(value="3") Analista de seleccíon
                                 div(class="row row-space")
+                                    label(class="col-md-3", style="text-align: right;") Contraseña
+                                    div(class="col-md-6")
+                                        input(type="password", class="form-control", ng-model="user.password")
+                                div(class="row row-space")
+                                    label(class="col-md-3", style="text-align: right;") Portafolio
+                                    div(class="col-md-6")
+                                        input(name="portafolio",autocomplete="off", class="form-control has-error",ng-focus="onFocus('portafolio',1)",ng-blur="onBlur('portafolio',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(user.portFolio,'EmployerName','dataPortafolio','null','user.portFolio')", ng-model="user.portFolio")
+                                        ul(ng-show="{{ 'portafolio' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                            li(class="list-group-item",ng-mousedown="assign('user.portFolio',item)", ng-repeat="item in dataPortafolio") {{item.name}}
+                                div(class="row row-space")
                                     div(class="col-md-12")
                                         button(type="button", class="btn btn-primary pull-right", ng-click="actualizarUser()") 
                                             li(class="fa fa-save")
