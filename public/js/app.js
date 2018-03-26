@@ -22,6 +22,7 @@ angular.module('myApp', [
     'myApp.userService',
     'myApp.userListCtrl',
     'myApp.userController',
+    'myApp.fuseCtrl',
     'myApp.filters',
     'myApp.services',
     'myApp.vacancyService',
@@ -294,7 +295,15 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'partials/vacancy',
             controller: 'vacancyCtrl',
             activetab: 'vacancy'
+        })
+        .state('fuse', {
+            parent: 'principal',
+            url: '/fuse',
+            templateUrl: 'partials/fuse',
+            controller: 'fuseController',
+            activetab: 'vacancy'
         });
+        
 }).
 run(['$location', '$rootScope', function ($location, $rootScope) {
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
