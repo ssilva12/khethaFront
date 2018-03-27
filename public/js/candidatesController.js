@@ -85,9 +85,10 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         label: "EEUU"
     }];
     //Fin variables globales
-    
+
     $scope.usuario = {};
-    
+    $scope.Opt = {}
+
     $scope.cargarCandidato = function (id) {
         Mensaje.Esperar();
         var allData = candidatesServices.getById(id, function (result) {
@@ -111,92 +112,140 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                 $scope.usuario.estudiosCertificaciones = [];
                 $scope.usuario.caracteristicas = [];
                 $scope.usuario.caracteristicasPsicologicas = [];
-                
+
                 if ($stateParams.vacancyId != null) {
                     $scope.cargarVacancy($stateParams.vacancyId, $stateParams.id);
                 }
             } else {
-                Mensaje.Alerta("error","Error", result.message);
+                Mensaje.Alerta("error", "Error", result.message);
             }
         });
     };
-    
+
     $scope.aplica = function (prop, val, val2) {
         return function (item) {
             return item[prop] < val && item[val2] == true;
         }
     }
-    
+
     $scope.cargarVacancy = function (vacancyId, candidateId) {
         var allData = candidatesServices.getVacancyInfo(vacancyId, candidateId, function (result) {
             Mensaje.Desocupar();
             if (!result.error) {
+                $scope.vacancy = []
+                $scope.vacancy.jobFunctions = []
+                $scope.vacancy.schooling = []
+                $scope.vacancy.jobs = []
+                $scope.vacancy.languages = []
+                $scope.vacancy.skills = []
+                $scope.vacancy.studies = []
+                for (var index2 = 0; index2 < result.data.length; index2++) {
+                    var exist = false;
+                    var addFeature = {}
+                    result.data[index2].features.forEach(feature => {
+                        if (!existe(result.data[index2].name, feature.nameId, feature) && feature.score < 1 && feature.mandatory) {
+                            exist = true;
+                            addFeature = feature;
+                            addFeature.dictionaryName = result.data[index2].name;
+                        }
+                    });
+                    if (exist) {
+                        switch (addFeature.dictionaryName) {
+                            case "Job Function":
+                                $scope.vacancy.jobFunctions.push(addFeature);
+                                break;
+                            case "Educational center":
+                                $scope.vacancy.schooling.push(addFeature);
+                                break;
+                            case "Employer":
+                                $scope.vacancy.jobs.push(addFeature);
+                                break;
+                            case "Language":
+                                $scope.vacancy.languages.push(addFeature);
+                                break;
+                            case "Skill":
+                                $scope.vacancy.skills.push(addFeature);
+                                break;
+                            case "Studies":
+                                $scope.vacancy.studies.push(addFeature);
+                                break;
+                        }
+                    }
+                }
+
+
                 var resultado = result.data;
 
-                for (index2 = 0; index2 < result.data.length; index2++) {
-                    var a = 0;
-                    result.data[index2].features.forEach(feature => {
-                        if (existe(result.data[index2].name, feature.nameId)) {
-                            result.data[index2].features.splice(a, 1);
-                        }
-                        a++;
-                    });
-                }
-                
-                $scope.vacancy = resultado;
+                // for (index2 = 0; index2 < result.data.length; index2++) {
+                //     var a = 0;
+                //     result.data[index2].features.forEach(feature => {
+                //         if (existe(result.data[index2].name, feature.nameId)) {
+                //             result.data[index2].features.splice(a, 1);
+                //         }
+                //         a++;
+                //     });
+                // }
+                // resultado = result.data;
+                // $scope.vacancy = resultado;
             } else {
                 Mensaje.Alerta("error", 'Error', result.message);
             }
         });
     };
 
-    var existe = function (name, id) {
+    var existe = function (name, id, feature) {
         var value = false;
 
         switch (name) {
             case "Job Function":
-                for (index = 0; index < $scope.usuario.jobFunctions.length; index++) {
-                    if ($scope.usuario.jobFunctions[index].nameId == id) {
+                for (var index = 0; index < $scope.usuario.jobFunctions.length; index++) {
+                    if ($scope.usuario.jobFunctions[index].idNoun == id) {
+                        $scope.usuario.jobFunctions[index].score = feature.score;
                         value = true;
                         break;
                     }
                 }
                 break;
             case "Educational center":
-                for (index = 0; index < $scope.usuario.schooling.length; index++) {
-                    if ($scope.usuario.schooling[index].nameId == id) {
+                for (var index = 0; index < $scope.usuario.schooling.length; index++) {
+                    if ($scope.usuario.schooling[index].idNoun == id) {
+                        $scope.usuario.schooling[index].score = feature.score;
                         value = true;
                         break;
                     }
                 }
                 break;
             case "Employer":
-                for (index = 0; index < $scope.usuario.jobs.length; index++) {
-                    if ($scope.usuario.jobs[index].nameId == id) {
+                for (var index = 0; index < $scope.usuario.jobs.length; index++) {
+                    if ($scope.usuario.jobs[index].idNoun == id) {
+                        $scope.usuario.jobs[index].score = feature.score;
                         value = true;
                         break;
                     }
                 }
                 break;
             case "Language":
-                for (index = 0; index < $scope.usuario.languages.length; index++) {
-                    if ($scope.usuario.languages[index].nameId == id) {
+                for (var index = 0; index < $scope.usuario.languages.length; index++) {
+                    if ($scope.usuario.languages[index].idNoun == id) {
+                        $scope.usuario.languages[index].score = feature.score;
                         value = true;
                         break;
                     }
                 }
                 break;
             case "Skill":
-                for (index = 0; index < $scope.usuario.skills.length; index++) {
-                    if ($scope.usuario.skills[index].nameId == id) {
+                for (var index = 0; index < $scope.usuario.skills.length; index++) {
+                    if ($scope.usuario.skills[index].idNoun == id) {
+                        $scope.usuario.skills[index].score = feature.score;
                         value = true;
                         break;
                     }
                 }
                 break;
             case "Studies":
-                for (index = 0; index < $scope.usuario.studies.length; index++) {
-                    if ($scope.usuario.studies[index].nameId == id) {
+                for (var index = 0; index < $scope.usuario.studies.length; index++) {
+                    if ($scope.usuario.studies[index].idNoun == id) {
+                        $scope.usuario.studies[index].score = feature.score;
                         value = true;
                         break;
                     }
@@ -207,6 +256,56 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         return value;
     }
 
+    $scope.getTotal = function (name) {
+        var total = 0;
+        if ($scope.usuario != null && $scope.usuario != undefined) {
+            switch (name) {
+                case "Job Function":
+                    if ($scope.usuario.jobFunctions != null && $scope.usuario.jobFunctions != undefined) {
+                        for (var index = 0; index < $scope.usuario.jobFunctions.length; index++) {
+                            total = total + ($scope.usuario.jobFunctions[index].score == null ? 0 : $scope.usuario.jobFunctions[index].score)
+                        }
+                    }
+                    break;
+                case "Educational center":
+                    if ($scope.usuario.schooling != null && $scope.usuario.schooling != undefined) {
+                        for (var index = 0; index < $scope.usuario.schooling.length; index++) {
+                            total = total + ($scope.usuario.schooling[index].score == null ? 0 : $scope.usuario.schooling[index].score)
+                        }
+                    }
+                    break;
+                case "Employer":
+                    if ($scope.usuario.jobs != null && $scope.usuario.jobs != undefined) {
+                        for (var index = 0; index < $scope.usuario.jobs.length; index++) {
+                            total = total + ($scope.usuario.jobs[index].score == null ? 0 : $scope.usuario.jobs[index].score)
+                        }
+                    }
+                    break;
+                case "Language":
+                    if ($scope.usuario.languages != null && $scope.usuario.languages != undefined) {
+                        for (var index = 0; index < $scope.usuario.languages.length; index++) {
+                            total = total + ($scope.usuario.languages[index].score == null ? 0 : $scope.usuario.languages[index].score)
+                        }
+                    }
+                    break;
+                case "Skill":
+                    if ($scope.usuario.skills != null && $scope.usuario.skills != undefined) {
+                        for (var index = 0; index < $scope.usuario.skills.length; index++) {
+                            total = total + ($scope.usuario.skills[index].score == null ? 0 : $scope.usuario.skills[index].score)
+                        }
+                    }
+                    break;
+                case "Studies":
+                    if ($scope.usuario.studies != null && $scope.usuario.studies != undefined) {
+                        for (var index = 0; index < $scope.usuario.studies.length; index++) {
+                            total = total + ($scope.usuario.studies[index].score == null ? 0 : $scope.usuario.studies[index].score)
+                        }
+                    }
+                    break;
+            }
+            return total;
+        }
+    }
     var init = function () {
         if ($stateParams.id != null) {
             $scope.cargarCandidato($stateParams.id);
@@ -223,12 +322,12 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         }
     };
     init();
-    
+
     $scope.eliminarEstudio = function (estudio) {
         var index = $scope.usuario.studies.indexOf(estudio);
         $scope.usuario.studies.splice(index, 1);
     };
-    
+
     $scope.agregarEstudio = function () {
         var estudio = {
             name: "",
@@ -240,12 +339,12 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         };
         $scope.usuario.studies.push(estudio);
     };
-    
+
     $scope.eliminarCentroEstudio = function (estudio) {
         var index = $scope.usuario.schooling.indexOf(estudio);
         $scope.usuario.schooling.splice(index, 1);
     };
-    
+
     $scope.agregarCentroEstudio = function () {
         var estudio = {
             name: "",
@@ -254,12 +353,12 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         };
         $scope.usuario.schooling.push(estudio);
     };
-    
+
     $scope.eliminarCertificado = function (estudio) {
         var index = $scope.usuario.estudiosCertificaciones.indexOf(estudio);
         $scope.usuario.estudiosCertificaciones.splice(index, 1);
     };
-    
+
     $scope.agregarCertificado = function () {
         var estudio = {
             name: "",
@@ -268,7 +367,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         };
         $scope.usuario.estudiosCertificaciones.push(estudio);
     };
-    
+
     $scope.agregarExperiencia = function () {
         var experiencia = {
             name: "",
@@ -278,12 +377,12 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         };
         $scope.usuario.jobFunctions.push(experiencia);
     };
-    
+
     $scope.eliminarExperiencia = function (experiencia) {
         var index = $scope.usuario.experiencia.indexOf(experiencia);
         $scope.usuario.experiencia.splice(index, 1);
     };
-    
+
     $scope.agregarEmpleador = function () {
         var empleador = {
             job: "",
@@ -293,17 +392,17 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         };
         $scope.usuario.jobs.push(empleador);
     };
-    
+
     $scope.eliminarEmpleador = function (empleador) {
         var index = $scope.usuario.jobs.indexOf(empleador);
         $scope.usuario.jobs.splice(index, 1);
     };
-    
+
     $scope.eliminarIdioma = function (idioma) {
         var index = $scope.usuario.idiomas.indexOf(idioma);
         $scope.usuario.languages.splice(index, 1);
     };
-    
+
     $scope.agregarIdioma = function () {
         var idioma = {
             lenguageName: "",
@@ -312,7 +411,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         };
         $scope.usuario.languages.push(idioma);
     };
-    
+
     $scope.agregarSkill = function () {
         var skill = {
             name: "",
@@ -322,17 +421,17 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         };
         $scope.usuario.skills.push(skill);
     };
-    
+
     $scope.eliminarSkill = function (skill) {
         var index = $scope.usuario.skills.indexOf(skill);
         $scope.usuario.skills.splice(index, 1);
     };
-    
+
     $scope.eliminarCaracteristica = function (caracteristica) {
         var index = $scope.usuario.caracteristicas.indexOf(caracteristica);
         $scope.usuario.caracteristicas.splice(index, 1);
     };
-    
+
     $scope.agregarCaracteristica = function () {
         var caracteristica = {
             nombre: "",
@@ -341,12 +440,12 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         };
         $scope.usuario.caracteristicas.push(caracteristica);
     };
-    
+
     $scope.eliminarCaracteristicaPsicologica = function (caracteristica) {
         var index = $scope.usuario.caracteristicasPsicologicas.indexOf(caracteristica);
         $scope.usuario.caracteristicasPsicologicas.splice(index, 1);
     };
-    
+
     $scope.agregarCaracteristicaPsicologica = function () {
         var caracteristica = {
             nombre: "",
@@ -355,7 +454,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         };
         $scope.usuario.caracteristicasPsicologicas.push(caracteristica);
     };
-    
+
     //INICIO ACTUALIZACIONES DE DATOS
     $scope.actualizarCandidato = function () {
         Mensaje.Esperar("Guardando información");
@@ -380,7 +479,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         }
         $scope.cargarCandidato($scope.usuario.candidateInfo.id);
     };
-    
+
     $scope.actualizarFeature = function (data, dictionary) {
         Mensaje.Esperar("Guardando información");
         if (data.id != null && data.id != undefined) {
@@ -408,7 +507,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
             });
         }
     }
-    
+
     $scope.createFeature = function (data, dictionary) {
         Mensaje.Esperar("Guardando información");
         data.dictionary = dictionary
@@ -423,43 +522,43 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
             }
         });
     }
-    
+
     $scope.actualizarEstudios = function (estudio) {
         $scope.actualizarFeature(estudio, "StudiesName");
     }
-    
+
     $scope.actualizarCentroEducativo = function (centro) {
         $scope.actualizarFeature(centro, "EducationalCenterName");
     }
-    
+
     $scope.actualizarCertificacion = function (certificacion) {
         $scope.actualizarFeature(certificacion, "CertificateName");
     }
-    
+
     $scope.actualizarExperiencia = function (experiencia) {
         $scope.actualizarFeature(experiencia, "JobFunctionName");
     }
-    
+
     $scope.actualizarEmpleador = function (empleador) {
         $scope.actualizarFeature(empleador, "EmployerName");
     }
-    
+
     $scope.actualizarIdioma = function (idioma) {
         $scope.actualizarFeature(idioma, "LanguageName");
     }
-    
+
     $scope.actualizarSkill = function (skill) {
         $scope.actualizarFeature(skill, "SkillName");
     }
-    
+
     $scope.actualizarCaracteristica = function (caracteristica) {
         $scope.actualizarFeature(caracteristica, "");
     }
-    
+
     $scope.actualizarCaracteristicaPsicologica = function (caracteristica) {
         $scope.actualizarFeature(caracteristica, "PsychologicalCharacteristicsName");
     }
-    
+
     $scope.uploadFile = function (files) {
         Mensaje.Esperar("Subiendo curriculum");
         var fd = new FormData();
@@ -483,7 +582,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
 
     $scope.uploadFormat = function (files) {
         console.log("subio formato")
-         Mensaje.Esperar("Subiendo curriculum");
+        Mensaje.Esperar("Subiendo curriculum");
         var fd = new FormData();
         fd.append("file", files[0]);
         var reader = new FileReader();
@@ -502,7 +601,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
             console.log('Error: ', error);
         };
     };
-    
+
     //FIN ACTUALIZACION DE DATOS
     $scope.data = [];
     $scope.autocompletarInput = function (string, tipo, datos, acronimo) {
@@ -525,13 +624,13 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
             }
         });
     };
-    
+
     $scope.getAcronym = function (item) {
         $scope.usuario.candidateInfo.country = item.er;
         $scope.usuario.candidateInfo.acronym = item.acronym;
         console.log(item);
     };
-    
+
     //EVENTOS AUTOCOMPLETAR
     $scope.onFocus = function (variable, index) {
         $parse(variable + index).assign($scope, true);
@@ -541,14 +640,14 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
             $parse(variable + index).assign($scope, false);
         }, 125);
     }
-    
-    $scope.solveAsAsociation = function (idNoun,name,dictionary,id) {
-        Dictionary.solveAsAsociation(idNoun,name,dictionary,id,function(error,result){
+
+    $scope.solveAsAsociation = function (idNoun, name, dictionary, id) {
+        Dictionary.solveAsAsociation(idNoun, name, dictionary, id, function (error, result) {
             if (!error) {
                 $scope.cargarCandidato($scope.usuario.candidateInfo.id);
             }
         })
     }
-    
-    
+
+
 }]);
