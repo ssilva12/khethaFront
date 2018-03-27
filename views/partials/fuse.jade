@@ -1,0 +1,28 @@
+//- PAGE TITLE
+div(class="page-title")
+    h2() Fusionar
+        span(class="txt-grises", ng-bind="lista.cantidad")
+//- END PAGE TITLE
+//- PAGE CONTENT WRAPPER
+div(class="page-content-wrap")
+    //-INICIO
+    div(class="row")
+        div(class="col-md-12")
+            div(class="panel panel-default")
+                div(class="panel-body")
+                    form(class="form-horizontal")
+                        div(class="form-group")
+                            span.col-md-3.col-xs-12.control-label Diccionario
+                            div.col-md-6.col-xs-12
+                                select(ng-model="metaRelationSearch", ng-options="x.name for x in metaFeatures", class="form-control")
+                        div.form-group
+                            span.col-md-3.col-xs-12.control-label Metha relación
+                            div.col-md-6.col-xs-12
+                                input.form-control(type="text", id="methaRelation", name="methaRelation", ng-model="metaRelation.name") 
+                        div.form-group
+                            span.col-md-3.col-xs-12.control-label Posición
+                            div.col-md-6.col-xs-12
+                                input.form-control(type="text", id="orderNumber", name="orderNumber",ng-model="metaRelation.orderNumber") 
+                        div(class="form-group")
+                            div.col-md-1.col-md-offset-8
+                                button(class="btn btn-primary mb-control",ng-click="") Fusionar
