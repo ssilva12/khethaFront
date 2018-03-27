@@ -64,6 +64,12 @@ div(class="page-content-wrap")
                                         div(class="input-group", ng-hide="usuario.candidateInfo.id")
                                             label(class="file-input-wrapper btn btn-default fileinput btn-primary")
                                                 i(class="fa fa-upload", aria-hidden="true")
+                                                span() cv formato
+                                                input(type="file", id="format", accept="image/pdf", class="custom-file-input", onchange="angular.element(this).scope().uploadFormat(this.files)")
+                                    li()
+                                        div(class="input-group", ng-hide="usuario.candidateInfo.id")
+                                            label(class="file-input-wrapper btn btn-default fileinput btn-primary")
+                                                i(class="fa fa-upload", aria-hidden="true")
                                                 span() Importar curriculum
                                                 input(type="file", id="file", accept="image/pdf", class="custom-file-input", onchange="angular.element(this).scope().uploadFile(this.files)")
                             div(id="collapse1", class="panel-collapse collapse in")
