@@ -7,6 +7,7 @@ controller('userDetailController', ['$scope', '$rootScope', '$stateParams', 'Men
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.user = result.data[0];
+                $scope.user.password = $scope.user.key;
             } else {
                 Mensaje.Alerta("error", "Error", result.message);
             }
@@ -16,6 +17,15 @@ controller('userDetailController', ['$scope', '$rootScope', '$stateParams', 'Men
     $scope.actualizarUser = function () {
         Mensaje.Esperar("Guardando información");
         if ($scope.user.id != null || $scope.user.id != undefined) {
+            if ($scope.user.key != $scope.user.password) {
+                var SHA512 = new Hashes.SHA512
+                $scope.user.key = SHA512.hex($scope.user.userName + "" + $scope.user.password);
+                $scope.user.password = $scope.user.key;
+            }
+            else{
+                $scope.user.key = "";
+                $scope.user.password = "";
+            }
             userService.updateInformation($scope.user, function (result) {
                 Mensaje.Desocupar();
                 if (!result.error) {
@@ -26,11 +36,14 @@ controller('userDetailController', ['$scope', '$rootScope', '$stateParams', 'Men
                 }
             });
         } else {
+            var SHA512 = new Hashes.SHA512
+            $scope.user.key = SHA512.hex($scope.user.userName + "" + $scope.user.password);
+            $scope.user.password = $scope.user.key;
             userService.createUser($scope.user, function (result) {
                 Mensaje.Desocupar();
                 if (!result.error) {
                     Mensaje.Alerta("success", 'OK', result.message);
-                    $scope.cargarUser($scope.user.id);
+                    $scope.cargarUser(result.data.id);
                 } else {
                     Mensaje.Alerta("error", 'Error', result.message);
                 }
@@ -38,6 +51,38 @@ controller('userDetailController', ['$scope', '$rootScope', '$stateParams', 'Men
         }
     };
 
+    $scope.onFocus = function (variable, index) {
+        $parse(variable + index).assign($scope, true);
+    }
+    $scope.onBlur = function (variable, index) {
+        $timeout(function () {
+            $parse(variable + index).assign($scope, false);
+        }, 125);
+    }
+    $scope.assign = function (variable, item) {
+        var model = $parse(variable);
+        var modelSelect = $parse(variable + "Selected");
+        model.assign($scope, item.name);
+        modelSelect.assign($scope, item);
+    }
+    $scope.data = [];
+    $scope.autocompletarInput = function (string, tipo, datos, acronimo, selected) {
+        var model = $parse(datos);
+        var modelSelect = $parse(selected + "Selected");
+        modelSelect.assign($scope, "");
+        var data = userService.getPortfolio(string, function (result) {
+            if (!result.error) {
+                if (result.data) {
+                    model.assign($scope, result.data);
+                } else {
+                    model.assign($scope, []);
+                }
+            } else {
+                Mensaje.Alerta("error", 'Error', '');
+                model.assign($scope, []);
+            }
+        });
+    };
     //INIT
     var init = function () {
         if ($stateParams.id != null) {

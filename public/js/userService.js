@@ -44,8 +44,19 @@ angular.module('myApp.userService', [])
                 data: {
                     user: user
                 },
-                url: URL.URL_REST_SERVICE + 'api/user/user',
+                url: URL.URL_REST_SERVICE + 'api/user/updateUser',
                 contentType: "application/json"
+            }
+            request.send(config, callback);
+        };
+
+        userService.getPortfolio = function (name, callback) {
+            var config = {
+                method: 'GET',
+                params: {
+                    name: name
+                },
+                url: URL.URL_REST_SERVICE + 'api/user/portfolio'
             }
             request.send(config, callback);
         };
