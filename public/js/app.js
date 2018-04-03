@@ -64,7 +64,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'detail',
             data: {
                 permissions: {
-                    only: ['1', '2', '3'],
+                    only: ['0', '1', '2', '3', '4', '5'],
                     redirectTo: 'login'
                 }
             }
@@ -78,7 +78,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'candidateslist',
             data: {
                 permissions: {
-                    only: ['1', '2', '3'],
+                    only: ['0', '1', '2', '3', '4', '5'],
                     redirectTo: 'login'
                 }
             }
@@ -95,7 +95,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'vacancyDetail',
             data: {
                 permissions: {
-                    only: ['1', '2', '3'],
+                    only: ['0', '1', '2', '3', '4', '5'],
                     redirectTo: 'login'
                 }
             }
@@ -109,7 +109,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'vacancyList',
             data: {
                 permissions: {
-                    only: ['1', '2', '3'],
+                    only: ['0', '1', '2', '3', '4', '5'],
                     redirectTo: 'login'
                 }
             }
@@ -123,7 +123,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'employerList',
             data: {
                 permissions: {
-                    only: ['1', '2', '3'],
+                    only: ['0', '1', '2', '3', '4', '5'],
                     redirectTo: 'login'
                 }
             }
@@ -140,7 +140,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'employerDetail',
             data: {
                 permissions: {
-                    only: ['1', '2', '3'],
+                    only: ['0', '1', '2', '3', '4', '5'],
                     redirectTo: 'login'
                 }
             }
@@ -154,7 +154,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'jobList',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -171,7 +171,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'jobDetail',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -185,7 +185,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'vacancyFrequency',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -199,7 +199,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'userList',
             data: {
                 permissions: {
-                    only: ['1'],
+                    only: ['5'],
                     redirectTo: 'login'
                 }
             }
@@ -216,7 +216,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'userDetail',
             data: {
                 permissions: {
-                    only: ['1'],
+                    only: ['5'],
                     redirectTo: 'login'
                 }
             }
@@ -230,7 +230,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'unresolved',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -243,7 +243,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'view2',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -256,7 +256,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'view2',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -269,7 +269,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'synonyms',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -282,7 +282,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'addGrams',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -295,7 +295,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'setGrams',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -308,7 +308,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'editGram',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -321,7 +321,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'search',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -334,7 +334,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'candidates',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -347,7 +347,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'candidate',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -360,7 +360,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'jobs',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -373,7 +373,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'job',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -386,7 +386,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'match',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -399,7 +399,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'metaFeatures',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -412,7 +412,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'metaFeature',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -425,7 +425,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'newMetaRelation',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -438,7 +438,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'metaRelation',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -451,7 +451,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'frequencyMatrix',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -464,7 +464,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'candidateMatching',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -477,7 +477,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             activetab: 'vacancy',
             data: {
                 permissions: {
-                    only: ['1', '2'],
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }

@@ -49,9 +49,12 @@ div(class="page-content-wrap")
                                                 tr(ng-repeat="user in lista.users")
                                                     td() {{user.userName}}
                                                     td() 
-                                                        span(ng-if="user.role == '1'") Administrador
-                                                        span(ng-if="user.role == '2'") Ingeniero de caracterizacíon
-                                                        span(ng-if="user.role == '3'") Analista de seleccíon
+                                                        span(ng-if="user.role == '5'") Administrador
+                                                        span(ng-if="user.role == '4'") Ingeniero de caracterizacíon
+                                                        span(ng-if="user.role == '3'") Ingeniero de caracterizacíon general
+                                                        span(ng-if="user.role == '2'") Analista de seleccíon
+                                                        span(ng-if="user.role == '1'") Analista de seleccíon general
+                                                        span(ng-if="user.role == '0'") Consulta
                                                     td() 
                                                         div(class="btn-group")
                                                             button(class="btn btn-default btn-condensed", ng-click="buscarDetalle(user.id)")

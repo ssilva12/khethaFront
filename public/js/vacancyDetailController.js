@@ -135,9 +135,11 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                             if (candidate != null) {
                                 $scope.Data.concur[index].score = candidate.score;
                                 $scope.Data.concur[index].scorePercentage = candidate.scorePercentage;
+                                $scope.Data.concur[index].missingMandatory = candidate.missingMandatory;
                             } else {
                                 $scope.Data.concur[index].score = 0;
                                 $scope.Data.concur[index].scorePercentage = 0;
+                                $scope.Data.concur[index].missingMandatory = 0;
                             }
                         }
                         for (var index = 0; index < $scope.Data.preselected.length; index++) {
@@ -145,9 +147,11 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                             if (candidate != null) {
                                 $scope.Data.preselected[index].score = candidate.score;
                                 $scope.Data.preselected[index].scorePercentage = candidate.scorePercentage;
+                                $scope.Data.preselected[index].missingMandatory = candidate.missingMandatory;
                             } else {
                                 $scope.Data.preselected[index].score = 0;
                                 $scope.Data.preselected[index].scorePercentage = 0;
+                                $scope.Data.preselected[index].missingMandatory = 0;
                             }
                         }
                         for (var index = 0; index < $scope.Data.selected.length; index++) {
@@ -155,9 +159,11 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                             if (candidate != null) {
                                 $scope.Data.selected[index].score = candidate.score;
                                 $scope.Data.selected[index].scorePercentage = candidate.scorePercentage;
+                                $scope.Data.selected[index].missingMandatory = candidate.missingMandatory;
                             } else {
                                 $scope.Data.selected[index].score = 0;
                                 $scope.Data.selected[index].scorePercentage = 0;
+                                $scope.Data.selected[index].missingMandatory = 0;
                             }
                         }
                     }
