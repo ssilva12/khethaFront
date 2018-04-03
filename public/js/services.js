@@ -204,7 +204,7 @@ value('version', '0.1')
     }
 
   }])
-  .service('Dictionary', ['$http', 'URL', function ($http, URL) {
+  .service('Dictionary', ['$http', 'URL','$cookieStore', function ($http, URL,$cookieStore) {
       //var url = "http://localhost:9000/"
       //var url = "http://guarded-atoll-31281.herokuapp.com/"
 
@@ -250,7 +250,8 @@ value('version', '0.1')
             metaDictionary: metaFeature.dictionary
           },
           headers: {
-            'Access-Control-Allow-Origin': 'true'
+            'Access-Control-Allow-Origin': 'true',
+            'Authorization': $cookieStore.get("sesion"),
           },
           url: URL.URL_REST_SERVICE + 'createPrimary'
         }).
@@ -337,7 +338,11 @@ value('version', '0.1')
       this.getMetaFeatures = function (callback) {
         $http({
           method: 'GET',
-          url: URL.URL_REST_SERVICE + 'getMetaFeatures'
+          url: URL.URL_REST_SERVICE + 'getMetaFeatures',
+          headers: {
+            'Access-Control-Allow-Origin': 'true',
+            'Authorization': $cookieStore.get("sesion"),
+          }
         }).
         then(function onSuccess(response) {
           callback(null, response.data);
