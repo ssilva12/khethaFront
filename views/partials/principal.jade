@@ -27,7 +27,7 @@ div(class="page-container page-navigation-top-fixed",ng-controller="AppCtrl")
         a(href="",ng-click="Redirect('employerList')") 
           i(class="glyphicon glyphicon-user", aria-hidden="true") 
           span(class="xn-text") &nbsp;Empleadores
-      li(class="xn-openable", ng-hide="sesion.role == '3'")
+      li(class="xn-openable", ng-show="sesion.role=='5' || sesion.role=='4' || sesion.role=='3'")
         a(href="")
           i(class="fa fa-wrench", aria-hidden="true") 
           span(class="xn-text") &nbsp;Feature engineering
@@ -60,7 +60,7 @@ div(class="page-container page-navigation-top-fixed",ng-controller="AppCtrl")
             a(href="",ng-click="Redirect('jobList')") 
               i(class="fa fa-desktop", aria-hidden="true") 
               span(class="xn-title") &nbsp;Jobs     
-      li(class="xn-openable", ng-show="sesion.role == '1'")
+      li(class="xn-openable", ng-show="sesion.role == '5'")
         a(href="")
           i(class="fa fa-gears", aria-hidden="true") 
           span(class="xn-text") &nbsp;Ajustes y mantenimiento
