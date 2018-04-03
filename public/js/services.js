@@ -204,7 +204,7 @@ value('version', '0.1')
     }
 
   }])
-  .service('Dictionary', ['$http', 'URL', function ($http, URL) {
+  .service('Dictionary', ['$http', 'URL', '$cookieStore', function ($http, URL, $cookieStore) {
       //var url = "http://localhost:9000/"
       //var url = "http://guarded-atoll-31281.herokuapp.com/"
 
@@ -223,6 +223,7 @@ value('version', '0.1')
             acronym: acronym
           },
           headers: {
+            'Authorization': $cookieStore.get("sesion"),
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
