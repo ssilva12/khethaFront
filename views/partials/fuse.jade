@@ -16,13 +16,17 @@ div(class="page-content-wrap")
                             div.col-md-6.col-xs-12
                                 select(ng-model="metaRelationSearch", ng-options="x.name for x in metaFeatures", class="form-control")
                         div.form-group
-                            span.col-md-3.col-xs-12.control-label Metha relación
+                            span.col-md-3.col-xs-12.control-label Noun 1
                             div.col-md-6.col-xs-12
-                                input.form-control(type="text", id="methaRelation", name="methaRelation", ng-model="metaRelation.name") 
+                                input(class="form-control",ng-focus="onFocus('firstNounVisible',1)",ng-blur="onBlur('firstNounVisible',1)", ng-model-options="{ debounce: 1000 }",ng-change="autocompletarInput(firstNoun.er,'JobFunctionName','dataNoun1','null')", ng-model="firstNoun.er")
+                                ul(ng-show="{{ 'firstNounVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                    li(class="list-group-item",ng-mousedown="assignValue('firstNoun' ,persona)", ng-repeat="persona in dataNoun1"){{persona.er}}
                         div.form-group
-                            span.col-md-3.col-xs-12.control-label Posición
+                            span.col-md-3.col-xs-12.control-label Noun 2
                             div.col-md-6.col-xs-12
-                                input.form-control(type="text", id="orderNumber", name="orderNumber",ng-model="metaRelation.orderNumber") 
+                                input(class="form-control",ng-focus="onFocus('NombreVisible',1)",ng-blur="onBlur('NombreVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(secondNoun.er,'JobFunctionName','dataNoun2','null')", ng-model="secondNoun.er")
+                                ul(ng-show="{{ 'NombreVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                    li(class="list-group-item",ng-mousedown="assignValue('secondNoun' ,persona)", ng-repeat="persona in dataNoun2") {{persona.er}}
                         div(class="form-group")
                             div.col-md-1.col-md-offset-8
-                                button(class="btn btn-primary mb-control",ng-click="") Fusionar
+                                button(class="btn btn-primary mb-control",ng-click="fuseNouns(firstNoun,secondNoun)") Fusionar

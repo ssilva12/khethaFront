@@ -204,7 +204,7 @@ value('version', '0.1')
     }
 
   }])
-  .service('Dictionary', ['$http', 'URL','$cookieStore', function ($http, URL,$cookieStore) {
+  .service('Dictionary', ['$http', 'URL', '$cookieStore', function ($http, URL, $cookieStore) {
       //var url = "http://localhost:9000/"
       //var url = "http://guarded-atoll-31281.herokuapp.com/"
 
@@ -223,6 +223,7 @@ value('version', '0.1')
             acronym: acronym
           },
           headers: {
+            'Authorization': $cookieStore.get("sesion"),
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
@@ -320,6 +321,27 @@ value('version', '0.1')
           callback(null, response.data);
         }, function onError(response) {
           console.log(response.data);
+          callback("Error");
+        });
+      }
+      this.fuse = function (firstNounId, secondNounId,callback) {
+        $http({
+          method: 'GET',
+          params: {
+            nouLeft: firstNounId.id,
+            nouDer: secondNounId.id,
+          },
+          headers: {
+            'Authorization': $cookieStore.get("sesion"),
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
+          },
+          url: URL.URL_REST_SERVICE + 'test_fusion'
+        }).
+        then(function onSuccess(response) {
+          callback(null, response.data);
+        }, function onError(response) {
           callback("Error");
         });
       }
