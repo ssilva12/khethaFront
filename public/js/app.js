@@ -23,6 +23,7 @@ angular.module('myApp', [
     'myApp.userListCtrl',
     'myApp.userController',
     'myApp.fuseCtrl',
+    'myApp.unfoldCtrl',
     'myApp.filters',
     'myApp.services',
     'myApp.vacancyService',
@@ -489,6 +490,13 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/fuse',
             templateUrl: 'partials/fuse',
             controller: 'fuseController',
+            activetab: 'vacancy'
+        })
+        .state('unfold', {
+            parent: 'principal',
+            url: '/unfold',
+            templateUrl: 'partials/unfold',
+            controller: 'unfoldController',
             activetab: 'vacancy'
         });
         

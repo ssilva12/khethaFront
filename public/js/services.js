@@ -345,6 +345,27 @@ value('version', '0.1')
           callback("Error");
         });
       }
+      this.unfold = function (noun, nGram,callback) {
+        $http({
+          method: 'GET',
+          params: {
+            unfoldNoun: noun.id,
+            unfoldNgram: nGram.id,
+          },
+          headers: {
+            'Authorization': $cookieStore.get("sesion"),
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
+          },
+          url: URL.URL_REST_SERVICE + 'test_unfold'
+        }).
+        then(function onSuccess(response) {
+          callback(null, response.data);
+        }, function onError(response) {
+          callback("Error");
+        });
+      }
       this.getUnresolved = function (callback) {
         $http({
           method: 'GET',
@@ -488,6 +509,12 @@ value('version', '0.1')
           method: 'PUT',
           data: {
             noun: noun
+          },
+          headers: {
+            'Authorization': $cookieStore.get("sesion"),
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
           },
           url: URL.URL_REST_SERVICE + 'noun'
         }).

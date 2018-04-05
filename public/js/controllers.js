@@ -128,7 +128,7 @@ controller('SynonymsCtrl', function ($scope, $state, Dictionary, termFactory, Up
   }
 
   $scope.unfold = function() {
-    console.log("desdoblar");
+    $state.go("unfold");
   }
 
   var url = 'http://polar-garden-35450.herokuapp.com'
