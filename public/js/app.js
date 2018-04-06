@@ -10,6 +10,7 @@ angular.module('myApp', [
     'myApp.vacancyController',
     'myApp.vacancyListCtrl',
     'myApp.vacancyFrequencyController',
+    'myApp.vacancyCharacterizationController',
     'myApp.candidatesServices',
     'myApp.candidatesCtrl',
     'myApp.candidatesListCtrl',
@@ -220,6 +221,20 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             data: {
                 permissions: {
                     only: ['5'],
+                    redirectTo: 'login'
+                }
+            }
+        })
+        .state('candidateMatching', {
+            parent: 'principal',
+            url: '/candidateMatching',
+            templateUrl: 'partials/candidateMatching',
+            controller: 'vacancyCharacterizationCtrl',
+            title: "Caracterización de vacantes",
+            activetab: 'candidateMatching',
+            data: {
+                permissions: {
+                    only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
@@ -459,19 +474,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
                 }
             }
         })
-        .state('candidateMatching', {
-            parent: 'principal',
-            url: '/candidateMatching',
-            templateUrl: 'partials/candidateMatching',
-            controller: 'frequencyMatrixCtrl',
-            activetab: 'candidateMatching',
-            data: {
-                permissions: {
-                    only: ['5', '4', '3'],
-                    redirectTo: 'login'
-                }
-            }
-        })
+        
         .state('vacancy', {
             parent: 'principal',
             url: '/vacancy',

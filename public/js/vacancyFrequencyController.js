@@ -196,6 +196,7 @@ controller('vacancyFrequencyController', ['$scope', '$rootScope', '$stateParams'
 
     var init = function () {
         $scope.getEmployers();
+        $scope.getJobs();
         $scope.calculateFrequencyMatrix();
     };
     init();
