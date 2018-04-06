@@ -131,6 +131,16 @@ controller('SynonymsCtrl', function ($scope, $state, Dictionary, termFactory, Up
   $scope.selectNoun = function (er) {
     $scope.name = er
   }
+
+  $scope.fuse = function() {
+    console.log("fusionar");
+    $state.go("fuse");
+  }
+
+  $scope.unfold = function() {
+    console.log("desdoblar");
+  }
+
   var url = 'http://polar-garden-35450.herokuapp.com'
   //var url = 'http://localhost:3000'
   $scope.uploadFiles = function (file, type) {
@@ -170,6 +180,7 @@ controller('SynonymsCtrl', function ($scope, $state, Dictionary, termFactory, Up
       }
     });
   }
+  
 }).
 controller('SetCtrl', function ($scope, $state, termFactory, Dictionary) {
   $scope.newSyn = "";

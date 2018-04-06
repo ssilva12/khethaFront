@@ -10,7 +10,13 @@ div(class="page-content-wrap")
             div.row.col-md-12
                 div(class="panel panel-default")
                     div(class="panel-body")
-                        div.col-md-8
+                        div.col-md-1
+                            button(type="button", class="btn btn-default", ng-click="fuse()")
+                                span() Fusionar
+                        div.col-md-1
+                            button(type="button", class="btn btn-default", ng-click="unfold()")
+                                span() Desdoblar
+                        div.col-md-6
                         div.col-md-2
                             button(type="button", class="btn btn-default", data-toggle="modal", data-target="#myModal")
                                 span(class="fa fa-cloud-upload")

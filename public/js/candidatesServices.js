@@ -44,6 +44,41 @@ angular.module('myApp.candidatesServices', [])
             });
         };
 
+        candidatesServices.uploadFormat = function (file, callback) {
+            var fd = new FormData();
+            fd.append('format', file);
+            var uploadUrl = URL.URL_REST_SERVICE + 'api/format/uploadFormat';
+            $http.post(uploadUrl, fd, {
+                transformRequest: angular.identity,
+                headers: {
+                    'Content-Type': undefined
+                }
+            }).
+            then(function onSuccess(response) {
+                Result.error = false;
+                Result.status = response.status;
+                Result.message = "OK";
+                Result.data = response.data;
+                callback(Result);
+            }, function onError(response) {
+                Result.error = true;
+                Result.status = response.status;
+                switch (status) {
+                    case 404:
+                        Result.message = "Servicio no encontrado(" + URL.URL_REST_SERVICE + 'getCandidates).';
+                        break;
+                    case 500:
+                        Result.message = "Error en el servicio.";
+                        break;
+                    default:
+                        Result.message = "Error.";
+                        break;
+                }
+                Result.data = response.data;
+                callback(Result);
+            });
+        };
+
         candidatesServices.getAll = function (callback) {
             var config = {
                 method: 'GET',

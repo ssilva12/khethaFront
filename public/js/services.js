@@ -251,7 +251,8 @@ value('version', '0.1')
             metaDictionary: metaFeature.dictionary
           },
           headers: {
-            'Access-Control-Allow-Origin': 'true'
+            'Access-Control-Allow-Origin': 'true',
+            'Authorization': $cookieStore.get("sesion"),
           },
           url: URL.URL_REST_SERVICE + 'createPrimary'
         }).
@@ -323,6 +324,27 @@ value('version', '0.1')
           callback("Error");
         });
       }
+      this.fuse = function (firstNounId, secondNounId,callback) {
+        $http({
+          method: 'GET',
+          params: {
+            nouLeft: firstNounId.id,
+            nouDer: secondNounId.id,
+          },
+          headers: {
+            'Authorization': $cookieStore.get("sesion"),
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
+          },
+          url: URL.URL_REST_SERVICE + 'test_fusion'
+        }).
+        then(function onSuccess(response) {
+          callback(null, response.data);
+        }, function onError(response) {
+          callback("Error");
+        });
+      }
       this.getUnresolved = function (callback) {
         $http({
           method: 'GET',
@@ -338,7 +360,11 @@ value('version', '0.1')
       this.getMetaFeatures = function (callback) {
         $http({
           method: 'GET',
-          url: URL.URL_REST_SERVICE + 'getMetaFeatures'
+          url: URL.URL_REST_SERVICE + 'getMetaFeatures',
+          headers: {
+            'Access-Control-Allow-Origin': 'true',
+            'Authorization': $cookieStore.get("sesion"),
+          }
         }).
         then(function onSuccess(response) {
           callback(null, response.data);

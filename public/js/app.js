@@ -22,6 +22,7 @@ angular.module('myApp', [
     'myApp.userService',
     'myApp.userListCtrl',
     'myApp.userController',
+    'myApp.fuseCtrl',
     'myApp.filters',
     'myApp.services',
     'myApp.vacancyService',
@@ -477,13 +478,22 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'partials/vacancy',
             controller: 'vacancyCtrl',
             activetab: 'vacancy',
+            activetab: 'vacancy',
             data: {
                 permissions: {
                     only: ['5', '4', '3'],
                     redirectTo: 'login'
                 }
             }
+        })
+        .state('fuse', {
+            parent: 'principal',
+            url: '/fuse',
+            templateUrl: 'partials/fuse',
+            controller: 'fuseController',
+            activetab: 'vacancy'
         });
+        
 }).
 run(function ($rootScope, $state, $transitions, $cookieStore, $translate) {
     var userLang = navigator.languages && navigator.languages[0] ||
