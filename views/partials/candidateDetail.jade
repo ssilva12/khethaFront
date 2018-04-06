@@ -1,64 +1,20 @@
 //- PAGE TITLE
 div(class="page-title")
-    h2() Candidato:&nbsp;
+    h2() {{ 'CANDIDATE' | translate }}:&nbsp;
         span(class="txt-grises", ng-bind="usuario.candidateInfo.name")
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
 div(class="page-content-wrap")
     div(class="row")
         div(class="col-sm-12")
-            div(class="row")
-                div(class="col-md-12")
-                    div(class="alert alert-danger", role="alert", style="display: none")
-                        button(type="button", class="close", data-dismiss="alert")
-                            span(aria-hidden="true") x
-                            span(class="sr-only") Close
-                        strong() Importante!
-                        span() &nbsp;Aqui se podrán visualizar todos los mensajes de alerta según las acciones que estemos efectuando en la pantalla.
             //- CANDIDATOS
             form(name="formCandidato", novalidate)
                 div(class="row")
-                    div(class="col-md-3",style="display:none;")
-                        //- START PANEL WITH STATIC CONTROLS
-                        div(class="panel panel-default")
-                            div(class="panel-heading")
-                                div(class="form-group")
-                                    div(class="col-md-9 col-xs-9")
-                                        h3(class="profile-data-name", ng-bind="usuario.candidateInfo.name")
-                                        div(class="profile-data-title", ng-bind="usuario.candidateInfo.title")
-                                    div(class="col-md-3 col-xs-3")
-                                        ul(class="panel-controls")
-                                            li()
-                                                a(class="panel-edit", ng-hide="usuario.edit", ng-click="usuario.edit = !usuario.edit")
-                                                    span(class="fa fa-pencil")
-                                                a(class="panel-edit", ng-show="usuario.edit", ng-click="actualizarCandidato()")
-                                                    span(class="fa fa-save")
-                            div(class="panel-body")
-                                div(class="text-center profilecand", id="user_image")
-                                    img(src="assets/images/users/user2.jpg", class="img-thumbnail")
-                                br()
-                                div(class="form-group")
-                                    div(class="col-md-4 col-xs-4")
-                                        label(for="") #ID
-                                    div(class="col-md-8 col-xs-8")
-                                        p(ng-bind="usuario.candidateInfo.id")
-                                div(class="form-group")
-                                    div(class="col-md-4 col-xs-4")
-                                        label(for="") UserName
-                                    div(class="col-md-8 col-xs-8")
-                                        p(ng-bind="usuario.candidateInfo.username")
-                                div(class="form-group")
-                                    div(div class="col-md-4 col-xs-4")
-                                        label(for="") Email
-                                    div(class="col-md-8 col-xs-8")
-                                        p()
-                                            a(href="#", ng-bind="usuario.candidateInfo.email")
-                        //- END PANEL WITH STATIC CONTROLS
                     div(class="col-md-9", ng-class="{'col-md-12': variablesGlobales.expandir,'col-md-9' : !variablesGlobales.expandir}")
                         //- START PANEL WITH STATIC CONTROLS
                         div(class="panel panel-default")
                             div(class="panel-heading")
-                                h3(class="panel-title") Ficha del candidato
+                                h3(class="panel-title") {{ 'CANDIDATE_FILE' | translate }}
                                 ul(class="panel-controls")
                                     li()
                                         div(class="input-group", ng-hide="usuario.candidateInfo.id")
@@ -70,137 +26,122 @@ div(class="page-content-wrap")
                                         div(class="input-group", ng-hide="usuario.candidateInfo.id")
                                             label(class="file-input-wrapper btn btn-default fileinput btn-primary")
                                                 i(class="fa fa-upload", aria-hidden="true")
-                                                span() Importar curriculum
+                                                span() {{ 'IMPORT_CV' | translate }}
                                                 input(type="file", id="file", accept="image/pdf", class="custom-file-input", onchange="angular.element(this).scope().uploadFile(this.files)")
                             div(id="collapse1", class="panel-collapse collapse in")
                                 div(class="panel-body")
                                     div(class="form-group clearfix", ng-class="{ 'has-error' : formCandidato.nombre.$invalid && !formCandidato.nombre.$pristine }")   
-                                        label(class="col-md-3 control-label") Nombre Completo:
+                                        label(class="col-md-3 control-label") {{ 'FULL_NAME' | translate }}:
                                         div(class="col-md-9") 
                                             input(class="form-control",ng-focus="onFocus('NombreVisible',1)",ng-blur="onBlur('NombreVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.name,'Name','dataName','null')", ng-model="usuario.candidateInfo.name")
                                             ul(ng-show="{{ 'NombreVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                 li(class="list-group-item",ng-mousedown="usuario.candidateInfo.name = persona.er", ng-repeat="persona in dataName") {{persona.er}}
                                     div(class="form-group clearfix")
-                                        label(class="col-md-3 control-label") Sexo:
-                                        //-select(style="height: 36px; padding: 0px 10px !important", class="form-control",data-ng-model="user.sexo", data-ng-options="sexo.value as sexo.label for sexo in variablesGlobales.sexo")
+                                        label(class="col-md-3 control-label") {{ 'GENDER' | translate }}:
                                         div(class="col-md-9").
                                                 <select class="form-control" select2="", name="sexo" data-ng-model="usuario.candidateInfo.sex" >
-                                                    <option value="">Seleccione</option>
-                                                    <option ng-repeat="c in variablesGlobales.sexo" value="{{c.value}}">{{c.label}}</option>
+                                                    <option value="">{{ 'SELECT' | translate}}</option>
+                                                    <option ng-repeat="c in variablesGlobales.sexo" value="{{c.value}}">{{ c.label | translate}}</option>
                                                 </select>
                                     div(class="form-group clearfix")
-                                        label(class="col-md-3 control-label") Estatus:
+                                        label(class="col-md-3 control-label") {{ 'STATUS' | translate}}:
                                         div(class="col-md-9")
-                                                //- div(class="input-group")
-                                                //- span(class="input-group-btn")
-                                                //-     button(class="btn btn-default", type="button")
-                                                //-         i(class="fa fa-circle status-disponible")
                                                 select(class="form-control", select2="", name="estado", data-ng-model="usuario.candidateInfo.status")
-                                                    option(value="") Seleccione
-                                                    option(ng-repeat="estado in variablesGlobales.estados", value="{{estado.value}}") {{estado.label}}
+                                                    option(value="") {{ 'SELECT' | translate}}
+                                                    option(ng-repeat="estado in variablesGlobales.estados", value="{{estado.value}}") {{ estado.label | translate}}
                                     div(class="form-group clearfix")
-                                        label(class="col-md-3 control-label") Número de identificación:
+                                        label(class="col-md-3 control-label") {{ 'IDENTIFICATION_NUMBER' | translate}}:
                                         div(class="col-md-9")
                                             input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.idNumber")
                                     div(class="form-group clearfix")
-                                        label(class="col-md-3 control-label") Teléfono:
+                                        label(class="col-md-3 control-label") {{ 'TELEPHONE' | translate}}:
                                         div(class="col-md-9")
                                             input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.formattedNumber")
                                     div(class="form-group clearfix", ng-class="{ 'has-error' : formCandidato.email.$invalid && !formCandidato.email.$pristine }")
-                                        label(class="col-md-3 control-label") E-mail:
+                                        label(class="col-md-3 control-label") {{ 'EMAIL' | translate}}:
                                         div(class="col-md-9")
                                             input(name="email", type="email", class="form-control", placeholder="", ng-model="usuario.candidateInfo.email")
                                     div(class="form-group clearfix")
-                                        label(class="col-md-3 control-label") Dirección:
+                                        label(class="col-md-3 control-label") {{ 'ADDRESS' | translate}}:
                                         div(class="col-md-9")
                                             input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.addressLine")   
                                     div(class="form-group clearfix")
-                                        label(class="col-md-3 control-label") País:
+                                        label(class="col-md-3 control-label") {{ 'COUNTRY' | translate}}:
                                         div(class="col-md-9")
                                             input(class="form-control",ng-focus="onFocus('paisVisible',1)",ng-blur="onBlur('paisVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.country,'CountryName','dataPais','null'); usuario.candidateInfo.cityName =''; usuario.candidateInfo.postalCode =''", ng-model="usuario.candidateInfo.country")
                                             ul(ng-show="{{ 'paisVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                 li(class="list-group-item",ng-mousedown="getAcronym(pais)", ng-repeat="pais in dataPais") {{pais.er}}                 
                                     div(class="form-group clearfix")
-                                        label(class="col-md-3 control-label") Población:
+                                        label(class="col-md-3 control-label") {{ 'CITY' | translate}}:
                                         div(class="col-md-9")
                                             input(class="form-control",ng-focus="onFocus('poblacionVisible',1)",ng-blur="onBlur('poblacionVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.cityName,'CityName','dataCity',usuario.candidateInfo.acronym)", ng-model="usuario.candidateInfo.cityName", ng-disabled="!usuario.candidateInfo.country")
                                             ul(ng-show="{{ 'poblacionVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                 li(class="list-group-item",ng-mousedown="usuario.candidateInfo.cityName = city.er", ng-repeat="city in dataCity") {{city.er}}
                                     div(class="form-group clearfix")
-                                        label(class="col-md-3 control-label") Código postal:
+                                        label(class="col-md-3 control-label") {{ 'POSTAL_CODE' | translate}}:
                                         div(class="col-md-9")
                                             input(type="text", class="form-control", placeholder="", ng-model="usuario.candidateInfo.postalCode", ng-disabled="!usuario.candidateInfo.country") 
                                     div(class="form-group clearfix")
-                                        label(class="col-md-3 control-label") Fecha de nacimiento:
+                                        label(class="col-md-3 control-label") {{ 'BIRTHDATE' | translate}}:
                                         div(class="col-md-9")
                                             adm-dtp(ng-model='usuario.candidateInfo.birthdate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
                                     div(class="form-group")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="actualizarCandidato()") 
                                                 li(class="fa fa-save")
-                                                span() Guardar
+                                                span() {{ 'SAVE' | translate}}
                         //- END PANEL WITH STATIC CONTROLS
                     div(class="col-md-3")
                         //- START PANEL WITH STATIC CONTROLS
                         div(class="panel panel-default")
                             div(class="panel-heading")
-                                h3(class="panel-title") Información Adicional
+                                h3(class="panel-title") {{ 'ADDITIONAL_INFO' | translate}}
                             div(class="panel-body")
-                                h4(class="txt-redAlert") Esta información no se puede editar
+                                h4(class="txt-redAlert") {{ 'NO_EDIT_INFO' | translate}}
                                 div(class="form-group")
                                     div(class="col-md-12")
-                                        label(for="") Coordenadas GPS
+                                        label(for="") {{ 'GPS_COORDINATES' | translate}}
                                     div(class="col-md-12")
                                         p.
-                                            &nbsp; &nbsp;<strong>Long:</strong> {{usuario.candidateInfo.long}}
+                                            &nbsp; &nbsp;<strong>{{ 'LONG' | translate}}:</strong> {{usuario.candidateInfo.long}}
                                         p.
-                                            &nbsp; &nbsp;<strong>Lat:</strong> {{usuario.candidateInfo.lat}}
+                                            &nbsp; &nbsp;<strong>{{ 'LAT' | translate}}:</strong> {{usuario.candidateInfo.lat}}
                                 div(class="form-group")
                                     div(class="col-md-4 col-xs-4")
-                                        label(for="") Desde
+                                        label(for="") {{ 'SINCE' | translate}}
                                     div(class="col-md-8 col-xs-8")
                                         p(ng-bind="usuario.candidateInfo.registrationDate")
                                 div(class="form-group")
                                     div(class="col-md-4 col-xs-4")
-                                        label(for="") Última Actualización
+                                        label(for="") {{ 'LAST_UPDATE' | translate}}
                                     div(class="col-md-8 col-xs-8")
                                         p(ng-bind="usuario.candidateInfo.lastUpdate")
                         div(class="panel panel-default")
                             div(class="panel-body")
                                 div(class="form-group")
                                     div(class="col-md-4 col-xs-4")
-                                        label(for="") Edad
+                                        label(for="") {{ 'AGE' | translate}}
                                     div(class="col-md-8 col-xs-8")
                                         p(ng-bind="usuario.candidateInfo.age")
                                 div(class="form-group")
                                     div(class="col-md-4 col-xs-4")
-                                        label(for="") Grado
+                                        label(for="") {{ 'GRADE' | translate}}
                                     div(class="col-md-8 col-xs-8")
                                         p(ng-bind="usuario.candidateInfo.maxDegree")
                         div(class="panel panel-default", ng-show="vacancy")
                             div(class="panel-body")
                                 div(class="form-group")
                                     div(class="col-md-4 col-xs-4")
-                                        label(for="") Vacante
+                                        label(for="") {{ 'VACANCY' | translate}}
                                     div(class="col-md-8 col-xs-8")
                                         p(ng-bind="vacancy.name")
-                        //- END PANEL WITH STATIC CONTROLS
-                        div(class="panel panel-default", style="display:none;")
-                            div(class="panel-heading")
-                                h3(class="panel-title") Categorias del candidato
-                            div(class="panel-body")
-                                ul(class="list-tags")
-                                    li(ng-repeat="categoria in user.categorias")
-                                        a(href="#")
-                                            span(class="fa fa-tag")
-                                            span(ng-bind="categoria")
             //- FIN CANDIDATOS
             div(class="row")    
                 div(class="col-sm-12")
                     div(class="panel panel-default nav-tabs-vertical")
                         ul(class="nav nav-tabs")
                             li(style="border-bottom: 1px solid #ddd;", ng-repeat="item in usuario.metaFeatures | orderBy : '-oredr'")
-                                a(data-toggle="tab", ng-attr-data-target="{{ '#tab' + item.id }}") {{item.name}}
+                                a(data-toggle="tab", ng-attr-data-target="{{ '#tab' + item.id }}") {{item.name | translate}}
                                     span(class="badge", ng-if="item.name == 'Job Function' && vacancy.jobFunctions.length > 0") {{vacancy.jobFunctions.length}}
                                     span(class="badge", ng-if="item.name == 'Educational center' && vacancy.schooling.length > 0") {{vacancy.schooling.length}}
                                     span(class="badge", ng-if="item.name == 'Employer' && vacancy.jobs.length > 0") {{vacancy.jobs.length}}
@@ -208,21 +149,21 @@ div(class="page-content-wrap")
                                     span(class="badge", ng-if="item.name == 'Skill' && vacancy.skills.length > 0") {{vacancy.skills.length}}
                                     span(class="badge", ng-if="item.name == 'Studies' && vacancy.studies.length > 0") {{vacancy.studies.length}}
                             li(style="border-bottom: 1px solid #ddd;")
-                                a(data-toggle="tab", data-target="#tabPostulaciones") Cargos a los que se ha postulado
+                                a(data-toggle="tab", data-target="#tabPostulaciones") {{ 'POSTULATED_JOBS' | translate}}
                             li(style="border-bottom: 1px solid #ddd;")
-                                a(data-toggle="tab", data-target="#tabSinResolver") Sin resolver
+                                a(data-toggle="tab", data-target="#tabSinResolver") {{ 'UNRESOLVED' | translate}}
                         div(class="tab-content", style="min-height:100vh; border-left: 1px solid #ddd;")
                             div(id="tab6397", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-1") 
-                                            label(ng-show="vacancy") Puntaje:
+                                            label(ng-show="vacancy") {{ 'SCORE' | translate}}:
                                         div(class="col-md-3") 
                                             span(class="badge", ng-show="vacancy") {{getTotal('Studies') | number : 2}}
                                         div(class="col-md-8")
                                             button(type="button", class="btn btn-default pull-right", ng-click="agregarEstudio()") 
                                                 li(class="fa fa-plus")
-                                                span() Agregar
+                                                span() {{ 'ADD' | translate}}
                                     div(class="form-group")
                                         div(class="row", style="display: flex; flex-wrap: wrap;")
                                             div(class="col-md-6", ng-repeat="feature in vacancy.studies")
@@ -234,7 +175,7 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space", ng-class="{ 'has-error' : formEstudio.estudio.$invalid && !formEstudio.estudio.$pristine }")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Estudio
+                                                                                label(for="") {{ 'EDUCATION' | translate}}
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
                                                                                     input(class="form-control",ng-focus="onFocus('featureestudioNombre',$index)",ng-blur="onBlur('featureestudioNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(feature.name,'StudiesName','dataEstudio','null')", ng-model="feature.name")
@@ -242,14 +183,14 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="feature.name = item.er", ng-repeat="item in dataEstudio") {{item.er}}  
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Grado
+                                                                                label(for="") {{ 'GRADE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
                                                                                     select(select2="", ng-model="feature.levelOrOrder", class="form-control")  
-                                                                                        option(value="0") Básico
-                                                                                        option(value="1") Bachillerato
-                                                                                        option(value="2") Form. Profesional
-                                                                                        option(value="3") Licenciatura
+                                                                                        option(value="0") {{ 'BASIC' | translate}}
+                                                                                        option(value="1") {{ 'BACHELOR' | translate}}
+                                                                                        option(value="2") {{ 'JOB_TRAINING' | translate}}
+                                                                                        option(value="3") {{ 'DEGREE' | translate}}
                                                                                         option(value="4") Pregrado
                                                                                         option(value="5") Máster
                                                                                         option(value="6") Post grado

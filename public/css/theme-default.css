@@ -6862,6 +6862,13 @@ td.dataTables_empty {
     background-image: url(../img/flags/cn.png);
 }
 
+.flag.flag-en {
+    background-image: url(../img/flags/us.png);
+}
+
+.flag.flag-es {
+    background-image: url(../img/flags/es.png);
+}
 
 /* END FLAGS */
 

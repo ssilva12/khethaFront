@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ['angular-jwt']).
-controller('AppCtrl', ['$scope', '$http', '$route', '$state', '$cookieStore', 'keepData', 'jwtHelper', '$rootScope', 'Mensaje', function ($scope, $http, $route, $state, $cookieStore, keepData, jwtHelper, $rootScope, Mensaje) {
+controller('AppCtrl', ['$scope', '$http', '$route', '$state', '$cookieStore', 'keepData', 'jwtHelper', '$rootScope', 'Mensaje', '$translate', function ($scope, $http, $route, $state, $cookieStore, keepData, jwtHelper, $rootScope, Mensaje, $translate) {
   $scope.$route = $route;
   $rootScope.sesion = {};
   $rootScope.Message = {};
@@ -21,6 +21,16 @@ controller('AppCtrl', ['$scope', '$http', '$route', '$state', '$cookieStore', 'k
   $scope.Redirect = function (target) {
     $state.go(target);
   }
+
+  $scope.changeLanguage = function (langKey) {
+    $translate.use(langKey);
+  };
+
+  $rootScope.$on('$translateChangeSuccess', function (event, data) {
+    var language = data.language;
+    $rootScope.Language.lang = language;
+    $cookieStore.put("language", $rootScope.Language);
+  });
 
   onload();
 

@@ -35,7 +35,9 @@ angular.module('myApp', [
     'ngSanitize',
     'ngRoute',
     'ui.router',
-    'permission'
+    'permission',
+    'pascalprecht.translate',
+    'ngCookies'
 ]).
 config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
@@ -62,7 +64,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             },
             templateUrl: 'partials/candidateDetail',
             controller: 'candidatesController',
-            title: "Candidato",
+            title: "CANDIDATE",
             activetab: 'detail',
             data: {
                 permissions: {
@@ -76,7 +78,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/candidateslist',
             templateUrl: 'partials/candidateList',
             controller: 'candidatesListController',
-            title: "Lista de candidatos",
+            title: "CANDIDATE_LIST",
             activetab: 'candidateslist',
             data: {
                 permissions: {
@@ -501,10 +503,25 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         });
         
 }).
-run(function ($rootScope, $state, $transitions) {
+run(function ($rootScope, $state, $transitions, $cookieStore, $translate) {
+    var userLang = navigator.languages && navigator.languages[0] ||
+        navigator.language ||
+        navigator.userLanguage;
+    var localeArray = userLang.split(/[\-_]/);
+    var lang_code = localeArray[0]
+
+    if ($cookieStore.get("language") != null && $cookieStore.get("language") != "") {
+        $rootScope.Language = $cookieStore.get("language")
+    } else {
+        $rootScope.Language = {}
+        $rootScope.Language.lang = lang_code
+
+    }
+    $translate.use($rootScope.Language.lang);
+
     $transitions.onEnter({}, function (transition, state) {
         if (state != undefined && state != null) {
-            $rootScope.activeTitle = state.title;
+            $rootScope.activeTitle = state.title
             $rootScope.activetab = state.activetab;
         }
     })
@@ -522,4 +539,171 @@ run(function ($rootScope, $state, $transitions) {
             }
         }
     })
-});
+}).
+config(['$translateProvider', function ($translateProvider) {
+
+    $translateProvider
+        .translations('es', {
+            'VACANCYS': 'Vacantes',
+            'VACANCY': 'Vacante',
+            'CANDIDATES': 'Candidatos',
+            'CANDIDATES2': 'Candidato(s)',
+            'CANDIDATE': 'Candidato',
+            'EMPLOYERS': 'Empleadores',
+            'FEATURE_ENGINEERING': 'Ingeniería de características',
+            'DICTIONARIES': 'Diccionarios',
+            'METHAFEATURES': 'Metha características',
+            'UNRESOLVED': 'Sin resolver',
+            'FREQUENCY_MATRICES': 'Matrices de frecuencia',
+            'VACANCY_CHARACTERIZATION': 'Caracterización vacantes',
+            'JOBS': 'Cargos',
+            'CONFIGURATION_MAINTENANCE': 'Ajustes y mantenimiento',
+            'USERS': 'Usuarios',
+            'SYSTEM_PARAMETERS': 'Parametros del sistema',
+            'SEARCH': 'Buscar',
+            'LOG_OFF': 'Cerrar sesión',
+            'HOME': 'Inicio',
+            'CANDIDATE_LIST': 'Lista de candidatos',
+            'CLOSE': 'Cerrar',
+            'USE_SEARCH': 'Usa la búsqueda para encontrar candidatos. Puede buscar por: nombre, dirección, teléfono o usa la búsqueda avanzada.',
+            'WHO_SEARCH': '¿A quién estás buscando?',
+            'FILTER': 'Filtrar',
+            'CLEAR_FILTER': 'Limpiar filtro',
+            'NEW_CANDIDATE': 'Crear candidato',
+            'COUNTRY': 'País',
+            'STATUS': 'Estatus',
+            'SELECT': 'Seleccione',
+            'SKILL': 'Habilidad',
+            'JOB_FUNCTION': 'Puesto/Función',
+            'JOB': 'Cargo',
+            'FILTERS': 'Filtros',
+            'NAME': 'Nombre',
+            'ASSIGNED': 'Asignado',
+            'SELECTION_PROCESS': 'En proceso de selección',
+            'AVAILABLE': 'Disponible',
+            'UNAVAILABLE': 'No disponible',
+            'IDENTIFICATION_NUMBER': 'Nº Identificación',
+            'TELEPHONE': 'Teléfono',
+            'EMAIL': 'E-mail',
+            'NEXT': 'Siguiente',
+            'PREVIOUS': 'Anterior',
+            'CANDIDATE_FILE': 'Ficha del candidato',
+            'IMPORT_CV': 'Importar currículum',
+            'FULL_NAME': 'Nombre Completo',
+            'GENDER': 'Genero',
+            'MALE': 'Hombre',
+            'FEMALE': 'Mujer',
+            'ADDRESS': 'Dirección',
+            'CITY': 'Población',
+            'POSTAL_CODE': 'Código postal',
+            'BIRTHDATE': 'Fecha de nacimiento',
+            'SAVE': 'Guardar',
+            'ADDITIONAL_INFO': 'Información Adicional',
+            'NO_EDIT_INFO': 'Esta información no se puede editar',
+            'GPS_COORDINATES': 'Coordenadas GPS',
+            'LONG': 'Long',
+            'LAT': 'Lat',
+            'SINCE': 'Desde',
+            'LAST_UPDATE': 'Última Actualización',
+            'AGE': 'Edad',
+            'GRADE': 'Grado',
+            'Job Function': 'Funciones del cargo',
+            'Educational center': 'Centro educativo',
+            'Employer': 'Empleadores',
+            'Language': 'Idiomas',
+            'Skill': 'Habilidades',
+            'Studies': 'Estudios',
+            'Certificate': 'Certificados',
+            'Psychological Characteristics': 'Características psicológicas',
+            'POSTULATED_JOBS': 'Cargos a los que se ha postulado',
+            'SCORE': 'Puntaje',
+            'ADD': 'Agregar',
+            'EDUCATION': 'Estudio',
+            'BASIC': 'Básico',
+            'BACHELOR': 'Bachillerato',
+            'JOB_TRAINING': 'Form. Profesional',
+            'DEGREE': 'Licenciatura',
+        })
+        .translations('en', {
+            'VACANCYS': 'Vacancies',
+            'VACANCY': 'Vacancy',
+            'CANDIDATES': 'Candidates',
+            'CANDIDATES2': 'Candidate(s)',
+            'CANDIDATE': 'Candidate',
+            'EMPLOYERS': 'Employers',
+            'FEATURE_ENGINEERING': 'Feature engineering',
+            'DICTIONARIES': 'Dictionaries',
+            'METHAFEATURES': 'Metha features',
+            'UNRESOLVED': 'Un resolved',
+            'FREQUENCY_MATRICES': 'Frequency matrices',
+            'VACANCY_CHARACTERIZATION': 'Vacancy characterization',
+            'JOBS': 'Jobs',
+            'CONFIGURATION_MAINTENANCE': 'Configuration and maintenance',
+            'USERS': 'Users',
+            'SYSTEM_PARAMETERS': 'System parameters',
+            'SEARCH': 'Search',
+            'LOG_OFF': 'Log out',
+            'HOME': 'Home',
+            'CANDIDATE_LIST': 'Candidates list',
+            'CLOSE': 'Close',
+            'USE_SEARCH': 'Use the search to find candidates. You can search by: name, address, phone or use the advanced search.',
+            'WHO_SEARCH': 'Who are you looking for?',
+            'FILTER': 'Filter',
+            'CLEAR_FILTER': 'Clear filter',
+            'NEW_CANDIDATE': 'New candidate',
+            'COUNTRY': 'Country',
+            'STATUS': 'Status',
+            'SELECT': 'Select',
+            'SKILL': 'Skill',
+            'JOB_FUNCTION': 'Job/Function',
+            'JOB': 'Job',
+            'FILTERS': 'Filters',
+            'NAME': 'Name',
+            'ASSIGNED': 'Assigned',
+            'SELECTION_PROCESS': 'In selection process',
+            'AVAILABLE': 'Available',
+            'UNAVAILABLE': 'Unavailable',
+            'IDENTIFICATION_NUMBER': 'Identification',
+            'TELEPHONE': 'Telephone',
+            'EMAIL': 'E-mail',
+            'NEXT': 'Next',
+            'PREVIOUS': 'Previous',
+            'CANDIDATE_FILE': 'Candidate\'s file',
+            'IMPORT_CV': 'Import curriculum',
+            'FULL_NAME': 'Full name',
+            'GENDER': 'Gender',
+            'MALE': 'Male',
+            'FEMALE': 'Female',
+            'ADDRESS': 'Address',
+            'CITY': 'City',
+            'POSTAL_CODE': 'Postal code',
+            'BIRTHDATE': 'Birthdate',
+            'SAVE': 'Save',
+            'ADDITIONAL_INFO': 'Additional info',
+            'NO_EDIT_INFO': 'This information can not be edited',
+            'GPS_COORDINATES': 'GPS coordinates',
+            'LONG': 'Long',
+            'LAT': 'Lat',
+            'SINCE': 'Since',
+            'LAST_UPDATE': 'Last update',
+            'AGE': 'Age',
+            'GRADE': 'Grade',
+            'Job Function': 'Job Function',
+            'Educational center': 'Educational center',
+            'Employer': 'Employer',
+            'Language': 'Language',
+            'Skill': 'Skill',
+            'Studies': 'Studies',
+            'Certificate': 'Certificate',
+            'Psychological Characteristics': 'Psychological Characteristics',
+            'POSTULATED_JOBS': 'Postulated jobs',
+            'SCORE': 'Score',
+            'ADD': 'Add',
+            'EDUCATION': 'Education',
+            'BASIC': 'Basic',
+            'BACHELOR': 'Bachelor\'s degree',
+            'JOB_TRAINING': 'Job training',
+            'DEGREE': 'Degree',
+        })
+        .preferredLanguage('es')
+}]);
