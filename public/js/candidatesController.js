@@ -46,43 +46,23 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
     }];
     $scope.variablesGlobales.sexo = [{
         value: 0,
-        label: "Hombre"
+        label: "MALE"
     }, {
         value: 1,
-        label: "Mujer"
+        label: "FEMALE"
     }];
     $scope.variablesGlobales.estados = [{
         value: "A",
-        label: "Asignado"
+        label: "ASSIGNED"
     }, {
         value: "P",
-        label: "En proceso de selección"
+        label: "SELECTION_PROCESS"
     }, {
         value: "F",
-        label: "Disponible"
+        label: "AVAILABLE"
     }, {
         value: "N",
-        label: "No disponible"
-    }];
-    $scope.variablesGlobales.poblacion = [{
-        value: 1,
-        label: "Norte"
-    }, {
-        value: 2,
-        label: "Centro"
-    }, {
-        value: 3,
-        label: "Sur"
-    }];
-    $scope.variablesGlobales.paises = [{
-        value: 1,
-        label: "Colombia"
-    }, {
-        value: 2,
-        label: "España"
-    }, {
-        value: 3,
-        label: "EEUU"
+        label: "UNAVAILABLE"
     }];
     //Fin variables globales
 

@@ -13,16 +13,16 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$state'
     $scope.variablesGlobales = {};
     $scope.variablesGlobales.estados = [{
         value: "A",
-        label: "Asignado"
+        label: "ASSIGNED"
     }, {
         value: "P",
-        label: "En proceso de selección"
+        label: "SELECTION_PROCESS"
     }, {
         value: "F",
-        label: "Disponible"
+        label: "AVAILABLE"
     }, {
         value: "N",
-        label: "No disponible"
+        label: "UNAVAILABLE"
     }];
 
 
@@ -45,7 +45,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$state'
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.lista.candidatos = result.data.candidates;
-                $scope.lista.cantidad = " (" + result.data.total + " candidato(s))";
+                $scope.lista.cantidad = result.data.total;
                 $scope.lista.currentPage = page;
                 $scope.lista.totalItems = result.data.total;
                 $scope.lista.entryLimit = itemsPerPage;

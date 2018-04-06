@@ -55,8 +55,8 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
     };
 
     $scope.getAcronym = function (item) {
-        $scope.pais = item.er;
-        $scope.acronym = item.acronym;
+        $scope.Data.vacancy.pais = item.er;
+        $scope.Data.vacancy.acronym = item.acronym;
     };
 
     $scope.data = [];
@@ -130,6 +130,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                 vacancyService.getCandidatesScore(id, function (result) {
                     Mensaje.Desocupar();
                     if (!result.error) {
+                        var promedioConcur = 0
                         for (var index = 0; index < $scope.Data.concur.length; index++) {
                             var candidate = buscarScore($scope.Data.concur[index].id, result.data);
                             if (candidate != null) {
@@ -141,7 +142,9 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                                 $scope.Data.concur[index].scorePercentage = 0;
                                 $scope.Data.concur[index].missingMandatory = 0;
                             }
+                            promedioConcur = promedioConcur + $scope.Data.concur[index].score
                         }
+                        var promedioPreselected = 0
                         for (var index = 0; index < $scope.Data.preselected.length; index++) {
                             var candidate = buscarScore($scope.Data.preselected[index].id, result.data);
                             if (candidate != null) {
@@ -153,7 +156,9 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                                 $scope.Data.preselected[index].scorePercentage = 0;
                                 $scope.Data.preselected[index].missingMandatory = 0;
                             }
+                            promedioPreselected = promedioPreselected + $scope.Data.preselected[index].score
                         }
+                        var promedioSelected = 0
                         for (var index = 0; index < $scope.Data.selected.length; index++) {
                             var candidate = buscarScore($scope.Data.selected[index].id, result.data);
                             if (candidate != null) {
@@ -165,7 +170,11 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                                 $scope.Data.selected[index].scorePercentage = 0;
                                 $scope.Data.selected[index].missingMandatory = 0;
                             }
+                            promedioSelected = promedioSelected + $scope.Data.selected[index].score
                         }
+                        $scope.Data.promedioConcur = $scope.Data.concur.length == 0 ? 0 : (promedioConcur / $scope.Data.concur.length)
+                        $scope.Data.promedioPreSelected = $scope.Data.preselected.length == 0 ? 0 : (promedioPreselected / $scope.Data.preselected.length)
+                        $scope.Data.promedioSelected = $scope.Data.selected.length == 0 ? 0 : (promedioSelected / $scope.Data.selected.length)
                     }
                 });
 

@@ -18,61 +18,57 @@ div(class="page-container page-navigation-top-fixed",ng-controller="AppCtrl")
       li(ng-class="{'active' : activetab == 'vacancyList'}")
         a(href="",ng-click="Redirect('vacancyList')") 
           i(class="fa fa-briefcase", aria-hidden="true") 
-          span(class="xn-text") &nbsp;Vacantes
+          span(class="xn-text") &nbsp;{{ 'VACANCYS' | translate }}
       li(ng-class="{'active' : activeId == 'candidateList'}")
         a(href="",ng-click="Redirect('candidateslist')") 
           i(class="fa fa-users", aria-hidden="true") 
-          span(class="xn-text") &nbsp;Candidatos
+          span(class="xn-text") &nbsp;{{ 'CANDIDATES' | translate }}
       li(ng-class="{'active' : activeId == 'employerList'}")
         a(href="",ng-click="Redirect('employerList')") 
           i(class="glyphicon glyphicon-user", aria-hidden="true") 
-          span(class="xn-text") &nbsp;Empleadores
+          span(class="xn-text") &nbsp;{{ 'EMPLOYERS' | translate }}
       li(class="xn-openable", ng-show="sesion.role=='5' || sesion.role=='4' || sesion.role=='3'")
         a(href="")
           i(class="fa fa-wrench", aria-hidden="true") 
-          span(class="xn-text") &nbsp;Feature engineering
+          span(class="xn-text") &nbsp;{{ 'FEATURE_ENGINEERING' | translate }}
         ul()
           li(ng-class="{'active' : activeId == 'synonyms'}")
             a(href="",ng-click="Redirect('synonyms')") 
               i(class="fa fa-copy", aria-hidden="true") 
-              span(class="xn-title") &nbsp;Diccionarios
+              span(class="xn-title") &nbsp;{{ 'DICTIONARIES' | translate }}
           li(ng-class="{'active' : activeId == 'metaFeatures'}")
             a(href="",ng-click="Redirect('metaFeatures')") 
               i(class="fa fa-tag", aria-hidden="true") 
-              span(class="xn-title") &nbsp;Metha características
+              span(class="xn-title") &nbsp;{{ 'METHAFEATURES' | translate }}
           li(ng-class="{'active' : activeId == 'unresolved'}")
             a(href="",ng-click="Redirect('unresolved')") 
               i(class="fa fa-exclamation-triangle", aria-hidden="true") 
-              span(class="xn-title") &nbsp;Sin resolver  
-          //- li(ng-class="{'active' : activeId == 'frequencyMatrix'}")
-          //-   a(href="",ng-click="Redirect('frequencyMatrix')") 
-          //-     i(class="fa fa-th", aria-hidden="true") 
-          //-     span(class="xn-title") &nbsp;Matrices de frecuencia 
+              span(class="xn-title") &nbsp;{{ 'UNRESOLVED' | translate }}  
           li(ng-class="{'active' : activeId == 'vacancyFrequency'}")
             a(href="",ng-click="Redirect('vacancyFrequency')") 
               i(class="fa fa-th", aria-hidden="true") 
-              span(class="xn-title") &nbsp;Matrices de frecuencia 
+              span(class="xn-title") &nbsp;{{ 'FREQUENCY_MATRICES' | translate }}
           li(ng-class="{'active' : activeId == 'candidateMatching'}")
             a(href="",ng-click="Redirect('candidateMatching')") 
               i(class="fa fa-th", aria-hidden="true") 
-              span(class="xn-title") &nbsp;Caracterización Vacantes 
+              span(class="xn-title") &nbsp;{{ 'VACANCY_CHARACTERIZATION' | translate }}
           li(ng-class="{'active' : activeId == 'jobList'}")
             a(href="",ng-click="Redirect('jobList')") 
               i(class="fa fa-desktop", aria-hidden="true") 
-              span(class="xn-title") &nbsp;Jobs     
+              span(class="xn-title") &nbsp;{{ 'JOBS' | translate }}     
       li(class="xn-openable", ng-show="sesion.role == '5'")
         a(href="")
           i(class="fa fa-gears", aria-hidden="true") 
-          span(class="xn-text") &nbsp;Ajustes y mantenimiento
+          span(class="xn-text") &nbsp;{{ 'CONFIGURATION_MAINTENANCE' | translate }}   
         ul()
           li(ng-class="{'active' : activeId == 'userList'}")
             a(href="",ng-click="Redirect('userList')") 
               i(class="fa fa-user", aria-hidden="true") 
-              span(class="xn-title") &nbsp;Usuarios
+              span(class="xn-title") &nbsp;{{ 'USERS' | translate }} 
           li(ng-class="{'active' : activeId == 'users'}")
             a(href="") 
               i(class="fa fa-cog", aria-hidden="true") 
-              span(class="xn-title") &nbsp;Parametros del sistema
+              span(class="xn-title") &nbsp;{{ 'SYSTEM_PARAMETERS' | translate }} 
       li()  
         br()
         
@@ -83,7 +79,7 @@ div(class="page-container page-navigation-top-fixed",ng-controller="AppCtrl")
           span(class="fa fa-dedent")
       li(class="xn-search")
         form(role="form")
-          input(type="text", name="search", placeholder="Search...") 
+          input(type="text", name="search", placeholder="{{ 'SEARCH' | translate }}...") 
       li(class="xn-icon-button pull-right last")
         a(href="")
           span(class="fa fa-power-off")
@@ -91,7 +87,7 @@ div(class="page-container page-navigation-top-fixed",ng-controller="AppCtrl")
           li()
             a(href="/") 
               span(class="fa fa-sign-out")
-              span() Cerrar sesión
+              span() {{ 'LOG_OFF' | translate }}
       li(class="xn-icon-button pull-right", style="display:none;")
         a(href="")
           span(class="fa fa-comments")
@@ -161,20 +157,18 @@ div(class="page-container page-navigation-top-fixed",ng-controller="AppCtrl")
               small(class="text-success") Done
           div(class="panel-footer text-center")
             a(href="pages-tasks.html") Show all tasks   
-      li(class="xn-icon-button pull-right", style="display:none;")
+      li(class="xn-icon-button pull-right")
         a(href="")
-          span(class="flag flag-gb")
+          span(ng-show="Language.lang == 'es'", class="flag flag-es") 
+          span(ng-show="Language.lang == 'en'", class="flag flag-en") 
         ul(class="xn-drop-left xn-drop-white animated zoomIn")
           li()
-            a(href="")
-              span(class="flag flag-gb")
+            a(href="", ng-click="changeLanguage('en')")
+              span(class="flag flag-en")
               span() English
-            a(href="")
-              span(class="flag flag-de")
-              span() Deutsch
-            a(href="")
-              span(class="flag flag-cn")
-              span() Chinese
+            a(href="", ng-click="changeLanguage('es')")
+              span(class="flag flag-es")
+              span() Español
     //- START LOADING
     div(id="wait", ng-show="waitModal")
       div(class="page-sidebar page-sidebar-fixed scroll row", style="width:100%")
@@ -185,9 +179,9 @@ div(class="page-container page-navigation-top-fixed",ng-controller="AppCtrl")
     //- START BREADCRUMB
     ul(class="breadcrumb")
       li()
-        a(href="") Inicio
+        a(href="") {{ 'HOME' | translate }}
       li()
-        a(ng-bind="activeTitle")
+        a(ng-bind="activeTitle | translate")
     //- END BREADCRUMB
     div(class="row")
       <div ui-view></div>
@@ -213,11 +207,11 @@ div(class="page-container page-navigation-top-fixed",ng-controller="AppCtrl")
       div(class="mb-middle")
         div(class="mb-title")
           //-span(class="fa fa-check")
-          span() {{Message.title}}
+          span() {{Message.title | translate}}
         div(class="mb-content")
-          p() {{Message.message}}
+          p() {{Message.message | translate}}
         div(class="mb-footer")
-          button(class="btn btn-default btn-lg pull-right mb-control-close", ng-click="Message.open = false;") Close
+          button(class="btn btn-default btn-lg pull-right mb-control-close", ng-click="Message.open = false;") {{ 'CLOSE' | translate}}
   //- END MESSAGE BOX
 
 script(src='js/actions.js')  
