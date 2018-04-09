@@ -26,11 +26,12 @@ angular.module('myApp.userService', [])
             request.send(config, callback);
         };
 
-        userService.createUser = function (user, callback) {
+        userService.createUser = function (user, createPortfolio, callback) {
             var config = {
                 method: 'POST',
                 data: {
-                    user: user
+                    user: user,
+                    createPortfolio: createPortfolio
                 },
                 url: URL.URL_REST_SERVICE + 'api/user/createUser',
                 contentType: "application/json"
@@ -38,11 +39,12 @@ angular.module('myApp.userService', [])
             request.send(config, callback);
         };
 
-        userService.updateInformation = function (user, callback) {
+        userService.updateInformation = function (user, createPortfolio, callback) {
             var config = {
                 method: 'PUT',
                 data: {
-                    user: user
+                    user: user,
+                    createPortfolio: createPortfolio
                 },
                 url: URL.URL_REST_SERVICE + 'api/user/updateUser',
                 contentType: "application/json"

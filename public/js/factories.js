@@ -111,12 +111,16 @@ value('version', '0.1')
             n.show();
         };
 
-        Mensaje.Alerta = function (tipo, titulo, mensaje) {
+        Mensaje.Alerta = function (tipo, titulo, mensaje, aceptar, cancelar, textoAceptar, textoCancelar) {
             $rootScope.Message = {};
             $rootScope.Message.open = true;
             $rootScope.Message.title = titulo;
             $rootScope.Message.message = mensaje;
             $rootScope.Message.type = (tipo == null || tipo == undefined) ? 'alert' : tipo;
+            $rootScope.Message.acept = aceptar;
+            $rootScope.Message.cancel = cancelar;
+            $rootScope.Message.aceptText = (textoAceptar == null || textoAceptar == undefined) ? 'ACEPT' : tipo;
+            $rootScope.Message.cancelText = (textoCancelar == null || textoCancelar == undefined) ? 'CANCEL' : tipo;
         }
 
         Mensaje.Confirmacion = function (mensaje, aceptar, cancelar) {
@@ -151,7 +155,7 @@ value('version', '0.1')
         };
 
         Mensaje.Desocupar = function () {
-            $rootScope.waitModal = false;            
+            $rootScope.waitModal = false;
         };
 
         return Mensaje;
@@ -199,10 +203,10 @@ value('version', '0.1')
                 headers: headers
             }).
             then(function onSuccess(response) {
-                Result.error = false;
-                Result.status = response.status;
-                Result.message = "OK";
-                Result.data = response.data;
+                Result.error = response.data.error != null ? response.data.error : false;
+                Result.status = response.data.code != null ? response.data.code : response.status;
+                Result.message = response.data.message != null ? response.data.message : "OK";
+                Result.data = response.data.data != null ? response.data.data : response.data;
                 callback(Result);
             }, function onError(response) {
                 Result.error = true;
