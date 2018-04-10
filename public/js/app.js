@@ -232,6 +232,11 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             controller: 'vacancyCharacterizationCtrl',
             title: "Caracterización de vacantes",
             activetab: 'candidateMatching',
+            params: {
+                vacancyId: null,
+                employerId: null,
+                jobId: null
+            },
             data: {
                 permissions: {
                     only: ['5', '4', '3'],

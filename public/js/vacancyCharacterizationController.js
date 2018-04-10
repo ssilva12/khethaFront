@@ -25,7 +25,7 @@ controller('vacancyCharacterizationCtrl', ['$scope', '$rootScope', '$stateParams
                 Mensaje.Desocupar();
                 if (!result.error) {
                     $scope.Dato.jobs = result.data;
-                    $scope.Dato.job = '';
+                    //$scope.Dato.job = '';
                     //$scope.getVacancies();
                 } else {
                     Mensaje.Alerta("error", result.message);
@@ -40,7 +40,7 @@ controller('vacancyCharacterizationCtrl', ['$scope', '$rootScope', '$stateParams
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.Dato.employers = result.data;
-                $scope.Dato.employer = '';
+                //$scope.Dato.employer = '';
                 //$scope.getVacancies();
             } else {
                 Mensaje.Alerta("error", result.message);
@@ -59,7 +59,7 @@ controller('vacancyCharacterizationCtrl', ['$scope', '$rootScope', '$stateParams
                 Mensaje.Desocupar();
                 if (!result.error) {
                     $scope.Dato.vacancies = result.data;
-                    $scope.Dato.vacancy = '';
+                    //$scope.Dato.vacancy = '';
                 } else {
                     Mensaje.Alerta("error", result.message);
                 }
@@ -210,7 +210,14 @@ controller('vacancyCharacterizationCtrl', ['$scope', '$rootScope', '$stateParams
 
     var init = function () {
         $scope.getEmployers();
-        //$scope.calculateFrequencyMatrix();
+        if ($stateParams.vacancyId != null && $stateParams.employerId != null && $stateParams.jobId != null) {
+            $scope.Dato.employer = $stateParams.employerId;
+            $scope.getJobs();
+            $scope.Dato.job = $stateParams.jobId;
+            $scope.getVacancies();
+            $scope.Dato.vacancy = $stateParams.vacancyId;
+            $scope.getMethaFeatures();
+        }
     };
     init();
 
