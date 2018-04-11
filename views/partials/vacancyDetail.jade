@@ -1,7 +1,8 @@
 //- PAGE TITLE
 div(class="page-title")
-    h2() Ficha de vacantes 
-        span(class="txt-grises", ng-bind="titulo")
+    h2() {{ 'VACANCY_FILE' | translate}}
+        span(class="txt-grises") &nbsp;- {{titulo | translate}}
+        //-span(class="txt-grises", ng-bind="titulo")
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
 div(class="page-content-wrap")
@@ -16,13 +17,13 @@ div(class="page-content-wrap")
                                 form(class="form-horizontal")
                                     div(class="row row-space")
                                         div(class="col-md-1") 
-                                            label() Empleador
+                                            label() {{ 'EMPLOYER' | translate}}
                                         div(class="col-md-5")
                                             input(name="employer",autocomplete="off", class="form-control has-error",ng-focus="onFocus('empleador',1)",ng-blur="onBlur('empleador',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.employer,'EmployerName','dataEmpleador','null','Dato.employer')", ng-model="Dato.employer",ng-required="Dato.employerSelected")
                                             ul(ng-show="{{ 'empleador' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                 li(class="list-group-item",ng-mousedown="assign('Dato.employer',item)", ng-repeat="item in dataEmpleador") {{item.er}}
                                         div(class="col-md-1") 
-                                            label() Oficio
+                                            label() {{ 'JOB' | translate}}
                                         div(class="col-md-5")
                                             input(class="form-control",autocomplete="off", ng-focus="onFocus('oficio',1)",ng-blur="onBlur('oficio',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.job,'JobName','dataJob','null','Dato.job')", ng-model="Dato.job", ng-required="Dato.jobSelected")
                                             ul(ng-show="{{ 'oficio' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
@@ -31,7 +32,7 @@ div(class="page-content-wrap")
                                         div(class="col-sm-12 pull-right", ng-if="Dato.employerSelected && Dato.jobSelected", ng-hide="Data.vacancy.id")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="crearVacante()")
                                                 li(class="fa fa-save")
-                                                span() Crear vacante
+                                                span() {{ 'NEW_VACANCY' | translate}}
                 div(class="row",ng-show="Data.vacancy.id")
                     //- div(class="row")
                     div(class="col-md-12")
@@ -40,109 +41,109 @@ div(class="page-content-wrap")
                                 form(class="form-horizontal")
                                     div(class="row row-space")
                                         div(class="col-sm-11") 
-                                            H3() Empleador: {{Data.vacancy.employer}} - Job: {{Data.vacancy.job}}
+                                            H3() {{ 'EMPLOYER' | translate}}: {{Data.vacancy.employer}} - {{ 'JOB' | translate}}: {{Data.vacancy.job}}
                                         div(class="col-sm-1")
                                             button(type="button", class="btn btn-primary pull-right", ng-click="guardarDatos()")
                                                 li(class="fa fa-save")
-                                                span() Guardar
+                                                span() {{ 'SAVE' | translate}}
                                     div(class="panel panel-default tabs")
                                         ul(class="nav nav-tabs nav-justified")
                                             li(ng-class="{'active' : Dato.tab == 'tab1'}")
-                                                a(data-toggle="tab", data-target="#tab1",ng-click="setActive('tab1')") Información
+                                                a(data-toggle="tab", data-target="#tab1",ng-click="setActive('tab1')") {{ 'INFO' | translate}}
                                             li(ng-class="{'active' : Dato.tab == 'tab3'}")
-                                                a(data-toggle="tab", data-target="#tab3",ng-click="setActive('tab3')") Matriz de caracterización
+                                                a(data-toggle="tab", data-target="#tab3",ng-click="setActive('tab3')") {{ 'CHARAC_MATRIX' | translate}}
                                             li(class="dropdown",ng-class="{'active' : Dato.tab == 'tab4'}")
-                                                a(class="dropdown-toggle", data-toggle="dropdown") Lista de selección
+                                                a(class="dropdown-toggle", data-toggle="dropdown") {{ 'SELECTION_LIST' | translate}}
                                                     ul(class="dropdown-menu")
                                                         li()
-                                                            a(data-toggle="tab", data-target="#tab4",ng-click="setActive('tab4')") Concurren
+                                                            a(data-toggle="tab", data-target="#tab4",ng-click="setActive('tab4')") {{ 'CONCUR' | translate}}
                                                         li()
-                                                            a(data-toggle="tab", data-target="#tab5",ng-click="setActive('tab5')") Preseleccionados
+                                                            a(data-toggle="tab", data-target="#tab5",ng-click="setActive('tab5')") {{ 'PRESELECTED' | translate}}
                                                         li()
-                                                            a(data-toggle="tab", data-target="#tab6",ng-click="setActive('tab6')") Seleccionados
+                                                            a(data-toggle="tab", data-target="#tab6",ng-click="setActive('tab6')") {{ 'SELECTED_S' | translate}}
                                         div(class="tab-content", style="min-height:100vh; border-left: 1px solid #ddd;")
                                             div(id="tab1", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab1'}")
                                                 div(class="panel-body")
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
-                                                            label() Código
+                                                            label() {{ 'CODE' | translate}}
                                                         div(class="col-md-4")
                                                             input(type='text', class="form-control", data-ng-model="Data.vacancy.code")
                                                         div(class="col-md-2")
-                                                            label() Número de vacantes
+                                                            label() {{ 'VACANCY_NUMBER' | translate}}
                                                         div(class="col-md-4")
                                                             input(type='text', class="form-control", data-ng-model="Data.vacancy.vacanciesNumber")
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
-                                                            label() Estatus
+                                                            label() {{ 'STATUS' | translate}}
                                                         div(class="col-sm-4")
                                                             select(class="form-control", select2="", name="estado", data-ng-model="Data.vacancy.status")
-                                                                option(value="") Seleccione
-                                                                option(ng-repeat="estado in variablesGlobales.estados", value="{{estado.value}}") {{estado.label}}
+                                                                option(value="") {{ 'SELECT' | translate}}
+                                                                option(ng-repeat="estado in variablesGlobales.estados", value="{{estado.value}}") {{estado.label | translate}}
                                                         div(class="col-md-2")
-                                                            label() Fecha de inicio
+                                                            label() {{ 'START_DATE' | translate}}
                                                         div(class="col-md-4")
                                                             adm-dtp(ng-model='Data.vacancy.fromDate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
-                                                            label() Fecha fin
+                                                            label() {{ 'END_DATE' | translate}}
                                                         div(class="col-sm-4")
                                                             adm-dtp(ng-model='Data.vacancy.toDate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
                                                         div(class="col-md-2")
-                                                            label() Salario previsto
+                                                            label() {{ 'EXPECTED_SALARY' | translate}}
                                                         div(class="col-md-4")
                                                             input(type='text', class="form-control", data-ng-model="Data.vacancy.salary")
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
-                                                            label() Dirección
+                                                            label() {{ 'ADDRESS' | translate}}
                                                         div(class="col-sm-4")
                                                             input(type='text', class="form-control", data-ng-model="Data.vacancy.address")
                                                         div(class="col-md-2")
-                                                            label() País
+                                                            label() {{ 'COUNTRY' | translate}}
                                                         div(class="col-md-4")
                                                             input(class="form-control",ng-focus="onFocus('paisVisible',1)",ng-blur="onBlur('paisVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Data.vacancy.country,'CountryName','dataPais','null','Data.vacancy.country'); cityName =''; postalCode =''", ng-model="Data.vacancy.country", ng-required="Data.vacancy.countrySelected")
                                                             ul(ng-show="{{ 'paisVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                 li(class="list-group-item",ng-mousedown="assign('Data.vacancy.country',pais); getAcronym(pais)", ng-repeat="pais in dataPais") {{pais.er}}
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
-                                                            label() Código postal
+                                                            label() {{ 'POSTAL_CODE' | translate}}
                                                         div(class="col-sm-4")
                                                             input(type='text', class="form-control", ng-model="Data.vacancy.postalCode", ng-disabled="!Data.vacancy.country")
                                                         div(class="col-md-2")
-                                                            label() Población
+                                                            label() {{ 'CITY' | translate}}
                                                         div(class="col-md-4")
                                                             input(class="form-control",ng-focus="onFocus('poblacionVisible',1)",ng-blur="onBlur('poblacionVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Data.vacancy.city,'CityName','dataCity',Data.vacancy.acronym,'Data.vacancy.city')", ng-model="Data.vacancy.city", ng-required="Data.vacancy.citySelected", ng-disabled="!Data.vacancy.country")
                                                             ul(ng-show="{{ 'poblacionVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                 li(class="list-group-item",ng-mousedown="assign('Data.vacancy.city',city)", ng-repeat="city in dataCity") {{city.er}}
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
-                                                            label() Cargo
+                                                            label() {{ 'JOB_FUNCTION' | translate}}
                                                         div(class="col-sm-4")
                                                             input(type='text', class="form-control",ng-model="Data.vacancy.jobDescription")
                                                         div(class="col-md-2")
-                                                            label() Analista
+                                                            label() {{ 'ANALIST' | translate}}
                                                         div(class="col-md-4")
                                                             input(class="form-control", ng-focus="onFocus('analista',1)",ng-blur="onBlur('analista',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Data.vacancy.analist,'Name','dataAnalista','null','Data.vacancy.analist')", ng-model="Data.vacancy.analist")
                                                             ul(ng-show="{{ 'analista' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                 li(class="list-group-item",ng-mousedown="assign('Data.vacancy.analist',item)", ng-repeat="item in dataAnalista") {{item.er}}
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
-                                                            label() Persona de contacto
+                                                            label() {{ 'CONTACT_PERSON' | translate}}
                                                         div(class="col-sm-4")
                                                             input(class="form-control", ng-focus="onFocus('persona',1)",ng-blur="onBlur('persona',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Data.vacancy.contact,'Name','dataPersona','null','Data.vacancy.contact')", ng-model="Data.vacancy.contact")
                                                             ul(ng-show="{{ 'persona' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                 li(class="list-group-item",ng-mousedown="assign('Data.vacancy.contact',item)", ng-repeat="item in dataPersona") {{item.er}}
                                                         div(class="col-md-2")
-                                                            label() Probabilidad condicional
+                                                            label() {{ 'CONDITIONAL_PROBABILITY' | translate}}
                                                         div(class="col-md-4")
                                                             input(type='checkbox', data-ng-model="Data.vacancy.conditionalProbability", value="true")
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
-                                                            label() Coordenadas GPS
+                                                            label() {{ 'GPS_COORDINATES' | translate}}
                                                         div(class="col-sm-4")
                                                             input(type='text', class="form-control", data-ng-model="Data.vacancy.gps")
                                                         div(class="col-md-2")
-                                                            label() Última actualización
+                                                            label() {{ 'LAST_UPDATE' | translate}}
                                                         div(class="col-md-4")
                                                             input(type='text', class="form-control", data-ng-model="Data.vacancy.lastUpdate")
                                             div(id="tab3", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab3'}")
@@ -151,7 +152,7 @@ div(class="page-content-wrap")
                                                         div(class="col-sm-12")
                                                             button(type="button", class="btn btn-primary pull-right", ng-click="irCaracterizacion()", ng-show="sesion.role=='5' || sesion.role=='4' || sesion.role=='3'")
                                                                 li(class="fa fa-mail-forward")
-                                                                span() Caracterizar
+                                                                span() {{ 'CHARACTERIZE' | translate}}
                                                     div(class="row")
                                                         div(class="col-sm-12")
                                                             table(class="col-sm-12")
@@ -161,13 +162,13 @@ div(class="page-content-wrap")
                                                                             div(class="panel panel-primary")
                                                                                 div(class="panel-heading") 
                                                                                     h4() 
-                                                                                        span() {{methaFeatures.name}}
-                                                                                        span(class="pull-right") Peso: {{methaFeatures.mfrWeight}}
+                                                                                        span() {{methaFeatures.name | translate}}
+                                                                                        span(class="pull-right") {{ 'WEIGHT' | translate}}: {{methaFeatures.mfrWeight}}
                                                                                 div(class="panel-body")
                                                                                     table(class="col-sm-12 table")
                                                                                         thead()
                                                                                             tr()
-                                                                                                th(style="width: 200px;") Feature
+                                                                                                th(style="width: 200px;") {{ 'FEATURE' | translate}}
                                                                                                 th(ng-repeat="levelNames in methaFeatures.levelNames", style="width: 60px;") {{levelNames}}
                                                                                                 th()
                                                                                                     span(ng-show="showValue != 'p'") Count
@@ -185,7 +186,7 @@ div(class="page-content-wrap")
                                             div(id="tab4", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab4'}")
                                                 div(class="panel-body")
                                                     div(class="row row-space")
-                                                        h3() Candidatos que concurren
+                                                        h3() {{ 'CANDIDATES_CONCUR' | translate}}
                                                     div(class="row row-space")
                                                         div(class="col-md-8") 
                                                             div(class="input-group")
@@ -197,18 +198,18 @@ div(class="page-content-wrap")
                                                         div(class="col-md-2") 
                                                             button(class="btn btn-default btn-block mb-control",ng-click="agregarCandidato(candidatoSelected.id,'CND_CONCUR')")
                                                                 span(class="fa fa-plus")
-                                                                span() Agregar
+                                                                span() {{ 'ADD' | translate}}
                                                         div(class="col-md-2") 
                                                             label(class="file-input-wrapper btn btn-default btn-block mb-control fileinput btn-default")
                                                                 i(class="fa fa-cloud-upload", aria-hidden="true")
-                                                                span() Importar CV
+                                                                span() {{ 'IMPORT_CV' | translate}}
                                                                 input(type="file", id="file", accept="image/pdf", class="custom-file-input", onchange="angular.element(this).scope().uploadFile(this.files)")
                                                     div(class="row row-space")
                                                         div(class="col-md-8") 
                                                         div(class="col-md-4") 
                                                                 button(class="btn btn-default btn-block mb-control", data-toggle="modal", data-target="#myModal", data-backdrop="static")
                                                                     span(class="fa fa-search")
-                                                                    span() Búsqueda avanzada
+                                                                    span() {{ 'ADVANCE_SEARCH' | translate}}
                                                     div(class="row row-space")
                                                         div(class="col-sm-12")
                                                             div(class="col-sm-9")
@@ -219,17 +220,17 @@ div(class="page-content-wrap")
                                                                                 thead()
                                                                                     tr()
                                                                                         th(class="col-sm-8",ng-click="sortType = 'name'; sortReverse = !sortReverse") 
-                                                                                            label() Candidato
+                                                                                            label() {{ 'CANDIDATE' | translate}}
                                                                                             span(ng-show="sortType == 'name' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'name' && sortReverse", class="fa fa-caret-up")
                                                                                         th(class="col-sm-1") 
-                                                                                            label() Pendientes
+                                                                                            label() {{ 'PENDING' | translate}}
                                                                                         th(class="col-sm-1",ng-click="sortType = 'score'; sortReverse = !sortReverse") 
-                                                                                            label() Puntuación
+                                                                                            label() {{ 'SCORE' | translate}}
                                                                                             span(ng-show="sortType == 'score' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'score' && sortReverse", class="fa fa-caret-up")
-                                                                                        th(class="col-sm-1") Ver 
-                                                                                        th(class="col-sm-1") Preseleccionar 
+                                                                                        th(class="col-sm-1") {{ 'DETAIL' | translate}} 
+                                                                                        th(class="col-sm-1") {{ 'PRESELECT' | translate}}  
                                                                                 tbody()
                                                                                     tr(ng-repeat="candidato in Data.concur | orderBy:sortType:sortReverse", ng-class="Dato.searched == candidato.id ? 'info' : (candidato.disabled == true ? 'warning' : '')")
                                                                                         td() 
@@ -247,16 +248,16 @@ div(class="page-content-wrap")
                                                             div(class="col-sm-3")  
                                                                 div(class="panel panel-default")  
                                                                     div(class="panel-body")
-                                                                        h3() Estadísticas
+                                                                        h3() {{ 'STADISTICS' | translate}}
                                                                         div(class="links")
-                                                                            a() Concurrentes
+                                                                            a() {{ 'CONCURRENT' | translate}}
                                                                                 span(class="label label-primary") {{Data.concur.length}}
-                                                                            a() Puntaje promedio
+                                                                            a() {{ 'AVERAGE_SCORE' | translate}}
                                                                                 span(class="label label-info") {{Data.promedioConcur | number:2}}
                                             div(id="tab5", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab5'}")     
                                                 div(class="panel-body")      
                                                     div(class="row row-space")
-                                                        h3() Candidatos pre seleccionados
+                                                        h3() {{ 'PRESELECTED_CANDIDATES' | translate}}
                                                     div(class="row row-space")
                                                         div(class="col-sm-12")
                                                             div(class="col-sm-9")
@@ -267,17 +268,17 @@ div(class="page-content-wrap")
                                                                                 thead()
                                                                                     tr()
                                                                                         th(class="col-sm-8",ng-click="sortType = 'name'; sortReverse = !sortReverse") 
-                                                                                            label() Candidato
+                                                                                            label() {{ 'CANDIDATE' | translate}}
                                                                                             span(ng-show="sortType == 'name' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'name' && sortReverse", class="fa fa-caret-up")
                                                                                         th(class="col-sm-1") 
-                                                                                            label() Pendientes
+                                                                                            label() {{ 'PENDING' | translate}}
                                                                                         th(class="col-sm-1",ng-click="sortType = 'score'; sortReverse = !sortReverse") 
-                                                                                            label() Puntuación
+                                                                                            label() {{ 'SCORE2' | translate}}
                                                                                             span(ng-show="sortType == 'score' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'score' && sortReverse", class="fa fa-caret-up")
-                                                                                        th(class="col-sm-1") Ver 
-                                                                                        th(class="col-sm-1") Seleccionar
+                                                                                        th(class="col-sm-1") {{ 'DETAIL' | translate}} 
+                                                                                        th(class="col-sm-1") {{ 'SELECT2' | translate}} 
                                                                                 tbody()
                                                                                     tr(ng-repeat="candidato in Data.preselected | orderBy:sortType:sortReverse", ng-class="Dato.searched == candidato.id ? 'info' : (candidato.disabled == true ? 'warning' : '')")
                                                                                         td() 
@@ -295,18 +296,18 @@ div(class="page-content-wrap")
                                                             div(class="col-sm-3")  
                                                                 div(class="panel panel-default")  
                                                                     div(class="panel-body")
-                                                                        h3() Estadísticas
+                                                                        h3() {{ 'STADISTICS' | translate}}
                                                                         div(class="links")
-                                                                            a() Pre seleccionados
+                                                                            a() {{ 'PRESELECTED' | translate}}
                                                                                 span(class="label label-primary") {{Data.preselected.length}}
-                                                                            a() Concurrentes
+                                                                            a() {{ 'CONCURRENT' | translate}}
                                                                                 span(class="label label-primary") {{Data.concur.length}}
-                                                                            a() Puntaje promedio
+                                                                            a() {{ 'AVERAGE_SCORE' | translate}}
                                                                                 span(class="label label-info") {{Data.promedioPreSelected | number:2}}
                                             div(id="tab6", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab6'}")  
                                                 div(class="panel-body")
                                                     div(class="row row-space")
-                                                        h3() Candidatos seleccionados
+                                                        h3() {{ 'SELECTED_CANDIDATES' | translate}}
                                                     div(class="row row-space")
                                                         div(class="col-sm-12")
                                                             div(class="col-sm-9")
@@ -317,16 +318,16 @@ div(class="page-content-wrap")
                                                                                 thead()
                                                                                     tr()
                                                                                         th(class="col-sm-8",ng-click="sortType = 'name'; sortReverse = !sortReverse") 
-                                                                                            label() Candidato
+                                                                                            label() {{ 'CANDIDATE' | translate}}
                                                                                             span(ng-show="sortType == 'name' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'name' && sortReverse", class="fa fa-caret-up")
                                                                                         th(class="col-sm-1") 
-                                                                                            label() Pendientes
+                                                                                            label() {{ 'PENDING' | translate}}
                                                                                         th(class="col-sm-1",ng-click="sortType = 'score'; sortReverse = !sortReverse") 
-                                                                                            label() Puntuación
+                                                                                            label() {{ 'SCORE2' | translate}}
                                                                                             span(ng-show="sortType == 'score' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'score' && sortReverse", class="fa fa-caret-up")
-                                                                                        th(class="col-sm-1") Ver 
+                                                                                        th(class="col-sm-1") {{ 'DETAIL' | translate}}  
                                                                                 tbody()
                                                                                     tr(ng-repeat="candidato in Data.selected | orderBy:sortType:sortReverse", ng-class="Dato.searched == candidato.id ? 'info' : (candidato.disabled == true ? 'warning' : '')")
                                                                                         td() 
@@ -341,13 +342,13 @@ div(class="page-content-wrap")
                                                             div(class="col-sm-3")  
                                                                 div(class="panel panel-default")  
                                                                     div(class="panel-body")
-                                                                        h3() Estadísticas
+                                                                        h3() {{ 'STADISTICS' | translate}}
                                                                         div(class="links")
-                                                                            a() Seleccionados
+                                                                            a() {{ 'SELECTED_S' | translate}}
                                                                                 span(class="label label-primary") {{Data.selected.length}}
-                                                                            a() Pre seleccionados
+                                                                            a() {{ 'PRESELECTED' | translate}}
                                                                                 span(class="label label-primary") {{Data.preselected.length}}
-                                                                            a() Puntaje promedio
+                                                                            a() {{ 'AVERAGE_SCORE' | translate}}
                                                                                 span(class="label label-info") {{Data.promedioSelected | number:2}}
                                                              
                 
@@ -364,37 +365,37 @@ div(class="page-content-wrap")
                         div(class="modal-content") 
                             div(class="modal-header")
                                 button(type="button", class="close", data-dismiss="modal") &times;
-                                h4(class="modal-title") Búsqueda avanzada
+                                h4(class="modal-title") {{ 'ADVANCE_SEARCH' | translate}}
                             div(class="modal-body")
                                 div(class="dd-handle clearfix")
                                     div(class="row row-space")
                                         div(class="col-sm-1") 
-                                            label(for="") Pais
+                                            label(for="") {{ 'COUNTRY' | translate}}
                                         div(class="col-sm-3")
                                             input(class="form-control",ng-focus="onFocus('pais',1)",ng-blur="onBlur('pais',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.country,'CountryName','dataPais','null','Dato.country')", ng-model="Dato.country")
                                             ul(ng-show="{{ 'pais' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                 li(class="list-group-item",ng-mousedown="assign('Dato.country',item)", ng-repeat="item in dataPais") {{item.er}}
                                         div(class="col-sm-1") 
-                                            label(for="") Estatus
+                                            label(for="") {{ 'STATUS' | translate}}
                                         div(class="col-sm-3")
                                             select(style="width:100%",class="form-control", select2="", name="estatus", ng-model="Dato.status")
                                                 option(value="") Seleccione
                                                 option(ng-repeat="estado in variablesGlobales.estados", value="{{estado.value}}") {{estado.label}}
                                         div(class="col-sm-1") 
-                                            label(for="") Skill
+                                            label(for="") {{ 'SKILL' | translate}}
                                         div(class="col-sm-3")
                                             input(class="form-control",ng-focus="onFocus('skill',1)",ng-blur="onBlur('skill',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.skill,'SkillName','dataSkills','null','Dato.skill')", ng-model="Dato.skill")
                                             ul(ng-show="{{ 'skill' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                 li(class="list-group-item",ng-mousedown="assign('Dato.skill',item)", ng-repeat="item in dataSkills") {{item.er}}
                                     div(class="row row-space")
                                         div(class="col-sm-1") 
-                                            label(for="") Job/Function
+                                            label(for="") {{ 'JOB_FUNCTION' | translate}}
                                         div(class="col-sm-3")
                                             input(class="form-control",ng-focus="onFocus('jobFunction',1)",ng-blur="onBlur('jobFunction',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.jobFunction,'JobFunctionName','dataJobFuncion','null','Dato.jobFunction')", ng-model="Dato.jobFunction")
                                             ul(ng-show="{{ 'jobFunction' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                 li(class="list-group-item",ng-mousedown="assign('Dato.jobFunction',item)", ng-repeat="item in dataJobFuncion") {{item.er}}
                                         div(class="col-sm-1") 
-                                            label(for="") Jobs
+                                            label(for="") {{ 'JOBS' | translate}}
                                         div(class="col-sm-3")
                                             input(class="form-control",ng-focus="onFocus('job',1)",ng-blur="onBlur('job',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.jobs,'JobName','dataJobs','null','Dato.jobs')", ng-model="Dato.jobs")
                                             ul(ng-show="{{ 'job' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
@@ -408,8 +409,8 @@ div(class="page-content-wrap")
                                                 table(class="table table-striped", style="height: 100px;")
                                                     thead()
                                                         tr()
-                                                            th(class="col-sm-10") Candidato
-                                                            th(class="col-sm-2") Agregar 
+                                                            th(class="col-sm-10") {{ 'CANDIDATE' | translate}}
+                                                            th(class="col-sm-2") {{ 'ADD' | translate}} 
                                                     tbody()
                                                         tr(ng-repeat="candidato in lista.candidatos")
                                                             td() 
@@ -418,4 +419,4 @@ div(class="page-content-wrap")
                                                                 button(class="btn btn-default btn-condensed",ng-click="agregarCandidato(candidato.id,'CND_CONCUR')")
                                                                     span(class="fa fa-file-text-o")
                             div(class="modal-footer")
-                                button(type="button", class="btn btn-default", data-dismiss="modal") Cerrar
+                                button(type="button", class="btn btn-default", data-dismiss="modal") {{ 'CLOSE' | translate}} 

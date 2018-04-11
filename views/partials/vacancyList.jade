@@ -1,7 +1,7 @@
 //- PAGE TITLE
 div(class="page-title")
-    h2() Lista de fichas de Vacantes
-        span(class="txt-grises", ng-bind="lista.cantidad")
+    h2() {{ 'VACANCY_LIST' | translate}}
+        span(class="txt-grises") &nbsp;({{lista.cantidad}} {{ 'CANDIDATES2' | translate}})
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
 div(class="page-content-wrap")
@@ -12,7 +12,7 @@ div(class="page-content-wrap")
                 div(class="col-md-12")
                     div(class="panel panel-default")
                         div(class="panel-body")
-                            p() Usa la búsqueda para encontrar vacantes
+                            p() {{ 'USE_SEARCH_VACANCY' | translate}}
                             form(class="form-horizontal")
                                 div(class="form-group")
                                     div(class="col-md-6")
@@ -21,98 +21,98 @@ div(class="page-content-wrap")
                                                 span(class="fa fa-search")
                                             input(class="form-control", placeholder="¿Que estás buscando?", type="text", ng-model="Dato.name")
                                             div(class="input-group-btn")
-                                                button(class="btn btn-primary mb-control", data-box="#message-box-success",ng-click="advSearch(Dato.name,Dato.employer,Dato.job,Dato.status,Dato.analist,Dato.country,Dato.fromDate,Dato.toDate,1,12)", ng-hide="busquedaAvanzada") Buscar
+                                                button(class="btn btn-primary mb-control", data-box="#message-box-success",ng-click="advSearch(Dato.name,Dato.employer,Dato.job,Dato.status,Dato.analist,Dato.country,Dato.fromDate,Dato.toDate,1,12)", ng-hide="busquedaAvanzada") {{ 'SEARCH' | translate}}
                                     div(class="col-md-2")
                                         button(class="btn btn-default btn-block mb-control", ng-click="busquedaAvanzada = !busquedaAvanzada")
                                             span(class="fa fa-filter")
-                                            span() Filtrar
+                                            span() {{ 'FILTER' | translate}}
                                     div(class="col-md-2")
                                         button(ng-click="clearFilter()", class="btn btn-default btn-block")
                                             i(class="fa fa-eraser", aria-hidden="true")
-                                            span() Limpiar filtro
+                                            span() {{ 'CLEAR_FILTER' | translate}}
                                     div(class="col-md-2")
                                         button(class="btn btn-default btn-block mb-control", ng-click="crearNuevo()")
                                             span(class="fa fa-plus")
-                                            span() Crear vacante
+                                            span() {{ 'NEW_VACANCY' | translate}}
                                 div(class="form-group", ng-show="busquedaAvanzada")
                                     div(class="dd-handle clearfix")
                                         div(class="row row-space")
                                             div(class="col-sm-1") 
-                                                label(for="") Empleador
+                                                label(for="") {{ 'EMPLOYER' | translate}}
                                             div(class="col-sm-3")
                                                 input(class="form-control",ng-focus="onFocus('employer',1)",ng-blur="onBlur('employer',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.employer,'EmployerName','dataEmployer')", ng-model="Dato.employer")
                                                 ul(ng-show="{{ 'employer' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                     li(class="list-group-item",ng-mousedown="Dato.employer = item.er", ng-repeat="item in dataEmployer") {{item.er}}
                                             div(class="col-sm-1") 
-                                                label(for="") Job
+                                                label(for="") {{ 'JOB' | translate}}
                                             div(class="col-sm-3")
                                                 input(class="form-control",ng-focus="onFocus('job',1)",ng-blur="onBlur('job',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.job,'JobName','dataJob')", ng-model="Dato.job")
                                                 ul(ng-show="{{ 'job' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                     li(class="list-group-item",ng-mousedown="Dato.job = item.er", ng-repeat="item in dataJob") {{item.er}}
                                             div(class="col-sm-1") 
-                                                label(for="") Desde
+                                                label(for="") {{ 'SINCE' | translate}}
                                             div(class="col-sm-3")
                                                 adm-dtp(ng-model='Dato.fromDate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
                                         div(class="row row-space")
                                             div(class="col-sm-1") 
-                                                label(for="") Analista
+                                                label(for="") {{ 'ANALIST' | translate}}
                                             div(class="col-sm-3")
                                                 input(class="form-control",ng-focus="onFocus('analist',1)",ng-blur="onBlur('analist',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.analist,'Name','dataAnalist')", ng-model="Dato.analist")
                                                 ul(ng-show="{{ 'analist' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                     li(class="list-group-item",ng-mousedown="Dato.analist = item.er", ng-repeat="item in dataAnalist") {{item.er}}
                                             div(class="col-sm-1") 
-                                                label(for="") Pais
+                                                label(for="") {{ 'COUNTRY' | translate}}
                                             div(class="col-sm-3")
                                                 input(class="form-control",ng-focus="onFocus('country',1)",ng-blur="onBlur('country',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.country,'CountryName','dataCountry')", ng-model="Dato.country")
                                                 ul(ng-show="{{ 'country' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                     li(class="list-group-item",ng-mousedown="Dato.country = item.er", ng-repeat="item in dataCountry") {{item.er}}
                                             div(class="col-sm-1") 
-                                                label(for="") Hasta
+                                                label(for="") {{ 'UNTIL' | translate}}
                                             div(class="col-sm-3") 
                                                 adm-dtp(ng-model='Dato.toDate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
                                         div(class="row row-space")
                                             div(class="col-sm-1") 
-                                                label(for="") Estatus
+                                                label(for="") {{ 'STATUS' | translate}}
                                             div(class="col-sm-3")
                                                 select(style="width:100%",class="form-control", select2="", name="estatus", ng-model="Dato.status")
-                                                    option(value="") Seleccione
-                                                    option(ng-repeat="estado in variablesGlobales.estados", value="{{estado.value}}") {{estado.label}}
+                                                    option(value="") {{ 'SELECT' | translate}}
+                                                    option(ng-repeat="estado in variablesGlobales.estados", value="{{estado.value}}") {{ estado.label | translate}}
                                             div(class="col-sm-8")
                                                 button(class="btn btn-primary mb-control pull-right",ng-click="advSearch(Dato.name,Dato.employer,Dato.job,Dato.status,Dato.analist,Dato.country,Dato.fromDate,Dato.toDate,1,12)", data-box="#message-box-success") Buscar
                                 div(class="form-group")
                                     div(class="col-sm-12", ng-show="Dato.namePaginado || Dato.countryPaginado || Dato.statusPaginado || Dato.analistPaginado || Dato.employerPaginado || Dato.jobPaginado || Dato.fromDatePaginado || Dato.toDatePaginado")
                                         span()
                                             span(class="fa fa-filter")
-                                            label() Filtros:
+                                            label() {{ 'FILTERS' | translate}}:
                                         ul(class="list-tags")
                                             li(ng-show="Dato.namePaginado")
                                                 a()
-                                                    span() Nombre: {{Dato.namePaginado}}
+                                                    span() {{ 'NAME' | translate}}: {{Dato.namePaginado}}
                                             li(ng-show="Dato.employerPaginado")
                                                 a()
-                                                    span() Empleador: {{Dato.employerPaginado}}
+                                                    span() {{ 'EMPLOYER' | translate}}: {{Dato.employerPaginado}}
                                             li(ng-show="Dato.jobPaginado")
                                                 a()
-                                                    span() Job: {{Dato.jobPaginado}}
+                                                    span() {{ 'JOB' | translate}}: {{Dato.jobPaginado}}
                                             li(ng-show="Dato.statusPaginado")
                                                 a()
-                                                    span(ng-if="Dato.statusPaginado == 'A'") Estatus: Asignada
-                                                    span(ng-if="Dato.statusPaginado == 'P'") Estatus: En proceso
-                                                    span(ng-if="Dato.statusPaginado == 'C'") Estatus: Cerrada
-                                                    span(ng-if="Dato.statusPaginado == 'D'") Estatus: Anulada
-                                                    span(ng-if="Dato.statusPaginado == 'S'") Estatus: Inferida
+                                                    span(ng-if="Dato.statusPaginado == 'A'") {{ 'STATUS' | translate}}: {{ 'ASSIGNED_A' | translate}}
+                                                    span(ng-if="Dato.statusPaginado == 'P'") {{ 'STATUS' | translate}}: {{ 'IN_PROCESS' | translate}}
+                                                    span(ng-if="Dato.statusPaginado == 'C'") {{ 'STATUS' | translate}}: {{ 'CLOSED' | translate}}
+                                                    span(ng-if="Dato.statusPaginado == 'D'") {{ 'STATUS' | translate}}: {{ 'CANCELED' | translate}}
+                                                    span(ng-if="Dato.statusPaginado == 'S'") {{ 'STATUS' | translate}}: {{ 'INFERRED' | translate}}
                                             li(ng-show="Dato.analistPaginado")
                                                 a()
-                                                    span() Analista: {{Dato.analistPaginado}}
+                                                    span() {{ 'ANALIST' | translate}}: {{Dato.analistPaginado}}
                                             li(ng-show="Dato.countryPaginado")
                                                 a()
-                                                    span() Pais: {{Dato.countryPaginado}}
+                                                    span() {{ 'COUNTRY' | translate}}: {{Dato.countryPaginado}}
                                             li(ng-show="Dato.fromDatePaginado")
                                                 a()
-                                                    span() Desde: {{Dato.fromDatePaginado}}
+                                                    span() {{ 'SINCE' | translate}}: {{Dato.fromDatePaginado}}
                                             li(ng-show="Dato.toDatePaginado")
                                                 a()
-                                                    span() Hasta: {{Dato.toDatePaginado}}
+                                                    span() {{ 'UNTIL' | translate}}: {{Dato.toDatePaginado}}
             div(class="row")
                 div(class="col-md-12")
                     div(class="panel panel-default")
@@ -124,17 +124,17 @@ div(class="page-content-wrap")
                                             thead()
                                                 tr()
                                                     td(class="col-md-1") 
-                                                        h4() Fecha
+                                                        h4() {{ 'DATE' | translate}}
                                                     td(class="col-md-4") 
-                                                        h4() Ficha de Vacantes
+                                                        h4() {{ 'VACANCY_FILE' | translate}}
                                                     td(class="col-md-2") 
-                                                        h4() Empleador
+                                                        h4() {{ 'EMPLOYER' | translate}}
                                                     td(class="col-md-2") 
-                                                        h4() Job
+                                                        h4() {{ 'JOB' | translate}}
                                                     td(class="col-md-1") 
-                                                        h4() Estatus
+                                                        h4() {{ 'STATUS' | translate}}
                                                     td(class="col-md-1") 
-                                                        h4() Analista
+                                                        h4() {{ 'ANALIST' | translate}}
                                                     td(class="col-md-1")
                                             tbody()
                                                 tr(ng-repeat="vacante in lista.vacantes")
@@ -144,11 +144,11 @@ div(class="page-content-wrap")
                                                     td() {{vacante.employer}}
                                                     td() {{vacante.job}}
                                                     td() 
-                                                        span(ng-if="vacante.status == 'A'") Asignada
-                                                        span(ng-if="vacante.status == 'P'") En proceso
-                                                        span(ng-if="vacante.status == 'C'") Cerrada
-                                                        span(ng-if="vacante.status == 'D'") Anulada
-                                                        span(ng-if="vacante.status == 'S'") Inferida
+                                                        span(ng-if="vacante.status == 'A'") {{ 'ASSIGNED_A' | translate}}
+                                                        span(ng-if="vacante.status == 'P'") {{ 'IN_PROCESS' | translate}}
+                                                        span(ng-if="vacante.status == 'C'") {{ 'CLOSED' | translate}}
+                                                        span(ng-if="vacante.status == 'D'") {{ 'CANCELED' | translate}}
+                                                        span(ng-if="vacante.status == 'S'") {{ 'INFERRED' | translate}}
                                                     td() {{vacante.analist}}
                                                     td() 
                                                         div(class="btn-group")
@@ -158,7 +158,7 @@ div(class="page-content-wrap")
                                                                 span(class="fa fa-copy")
                             div(class="row")
                                 div(class="col-sm-12")
-                                    pagination(class="pagination pagination-sm",page="currentPage", max-size="noOfPages", total-items="totalItems", items-per-page="entryLimit")
+                                    pagination(class="pagination pagination-sm",page="currentPage", max-size="noOfPages", total-items="totalItems", items-per-page="entryLimit", next-text="{{ 'NEXT' | translate}}", previous-text="{{ 'PREVIOUS' | translate}}")
 
 
 

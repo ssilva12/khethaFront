@@ -17,16 +17,19 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
 
     $scope.variablesGlobales.estados = [{
         value: "A",
-        label: "Asignado"
+        label: "ASSIGNED_A"
     }, {
         value: "P",
-        label: "En proceso de selección"
+        label: "IN_PROCESS"
     }, {
-        value: "F",
-        label: "Disponible"
+        value: "C",
+        label: "CLOSED"
     }, {
-        value: "N",
-        label: "No disponible"
+        value: "D",
+        label: "CANCELED"
+    }, {
+        value: "S",
+        label: "INFERRED"
     }];
 
     $scope.crearVacante = function () {
@@ -255,22 +258,22 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
     $scope.setActive = function (tab) {
         switch (tab) {
             case "tab1":
-                $scope.titulo = " - Información";
+                $scope.titulo = "INFO";
                 break;
             case "tab2":
-                $scope.titulo = " - Metha características";
+                $scope.titulo = "METHAFEATURES";
                 break;
             case "tab3":
-                $scope.titulo = " - Matriz de caracterización";
+                $scope.titulo = "CHARAC_MATRIX";
                 break;
             case "tab4":
-                $scope.titulo = " - Candidatos que concurren";
+                $scope.titulo = "CANDIDATES_CONCUR";
                 break;
             case "tab5":
-                $scope.titulo = " - Candidatos pre-seleccionados";
+                $scope.titulo = "PRESELECTED_CANDIDATES";
                 break;
             case "tab6":
-                $scope.titulo = " - Candidatos seleccionados";
+                $scope.titulo = "SELECTED_CANDIDATES";
                 break;
         }
         keepData.set('activeTabVacancy', tab);

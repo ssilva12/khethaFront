@@ -11,19 +11,19 @@ controller('vacancyListController', ['$scope', '$state', 'filterFilter', 'Mensaj
     $scope.variablesGlobales = {};
     $scope.variablesGlobales.estados = [{
         value: "A",
-        label: "Asignada"
+        label: "ASSIGNED_A"
     }, {
         value: "P",
-        label: "En proceso"
+        label: "IN_PROCESS"
     }, {
         value: "C",
-        label: "Cerrada"
+        label: "CLOSED"
     }, {
         value: "D",
-        label: "Anulada"
+        label: "CANCELED"
     }, {
         value: "S",
-        label: "Inferida"
+        label: "INFERRED"
     }];
 
     $scope.data = [];
@@ -74,7 +74,7 @@ controller('vacancyListController', ['$scope', '$state', 'filterFilter', 'Mensaj
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.lista.vacantes = result.data.vacancies;
-                $scope.lista.cantidad = " (" + result.data.total + " vacante(s))";
+                $scope.lista.cantidad = result.data.total;
                 $scope.lista.currentPage = page;
                 $scope.lista.totalItems = result.data.total;
                 $scope.lista.entryLimit = itemsPerPage;

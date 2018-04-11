@@ -95,7 +95,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             },
             templateUrl: 'partials/vacancyDetail',
             controller: 'vacancyDetailController',
-            title: "Ficha de Vacantes",
+            title: "VACANCY_FILE",
             activetab: 'vacancyDetail',
             data: {
                 permissions: {
@@ -109,7 +109,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/vacancyList',
             templateUrl: 'partials/vacancyList',
             controller: 'vacancyListController',
-            title: "Lista de fichas de Vacantes",
+            title: "VACANCY_LIST",
             activetab: 'vacancyList',
             data: {
                 permissions: {
