@@ -335,6 +335,14 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
         };
     };
 
+    $scope.irCaracterizacion = function () {
+        $state.go('candidateMatching', {
+            "vacancyId": $scope.Data.vacancy.id,
+            "employerId": $scope.Data.vacancy.idEmployer,
+            "jobId": $scope.Data.vacancy.idJob
+        });
+    };
+    
     //INIT
     var init = function () {
         if ($stateParams.id != null) {

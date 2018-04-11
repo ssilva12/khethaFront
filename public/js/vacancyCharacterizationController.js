@@ -1,5 +1,5 @@
-angular.module('myApp.vacancyFrequencyController', []).
-controller('vacancyFrequencyController', ['$scope', '$rootScope', '$stateParams', 'Mensaje', 'Dictionary', 'vacancyService', '$state', 'keepData', function ($scope, $rootScope, $stateParams, Mensaje, Dictionary, vacancyService, $state, keepData) {
+angular.module('myApp.vacancyCharacterizationController', []).
+controller('vacancyCharacterizationCtrl', ['$scope', '$rootScope', '$stateParams', 'Mensaje', 'Dictionary', 'vacancyService', '$state', 'keepData', function ($scope, $rootScope, $stateParams, Mensaje, Dictionary, vacancyService, $state, keepData) {
     $scope.Dato = {};
     $scope.Dato.employer = '';
     $scope.Dato.job = '';
@@ -14,16 +14,24 @@ controller('vacancyFrequencyController', ['$scope', '$rootScope', '$stateParams'
 
     $scope.getJobs = function () {
         Mensaje.Esperar();
-        vacancyService.getJobs($scope.Dato.employer, function (result) {
+        if ($scope.Dato.employer == "") {
+            $scope.Dato.jobs = null;
+            $scope.Dato.job = '';
+            $scope.Dato.vacancies = null;
+            $scope.Dato.vacancy = '';
             Mensaje.Desocupar();
-            if (!result.error) {
-                $scope.Dato.jobs = result.data;
-                $scope.Dato.job = '';
-                $scope.getVacancies();
-            } else {
-                Mensaje.Alerta("error", result.message);
-            }
-        });
+        } else {
+            vacancyService.getJobs($scope.Dato.employer, function (result) {
+                Mensaje.Desocupar();
+                if (!result.error) {
+                    $scope.Dato.jobs = result.data;
+                    //$scope.Dato.job = '';
+                    //$scope.getVacancies();
+                } else {
+                    Mensaje.Alerta("error", result.message);
+                }
+            });
+        }
     }
 
     $scope.getEmployers = function () {
@@ -32,8 +40,8 @@ controller('vacancyFrequencyController', ['$scope', '$rootScope', '$stateParams'
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.Dato.employers = result.data;
-                $scope.Dato.employer = '';
-                $scope.getVacancies();
+                //$scope.Dato.employer = '';
+                //$scope.getVacancies();
             } else {
                 Mensaje.Alerta("error", result.message);
             }
@@ -42,15 +50,21 @@ controller('vacancyFrequencyController', ['$scope', '$rootScope', '$stateParams'
 
     $scope.getVacancies = function () {
         Mensaje.Esperar();
-        vacancyService.getVacancies($scope.Dato.employer, $scope.Dato.job, function (result) {
+        if ($scope.Dato.job == "") {
+            $scope.Dato.vacancies = null;
+            $scope.Dato.vacancy = '';
             Mensaje.Desocupar();
-            if (!result.error) {
-                $scope.Dato.vacancies = result.data;
-                $scope.Dato.vacancy = '';
-            } else {
-                Mensaje.Alerta("error", result.message);
-            }
-        });
+        } else {
+            vacancyService.getVacancies($scope.Dato.employer, $scope.Dato.job, function (result) {
+                Mensaje.Desocupar();
+                if (!result.error) {
+                    $scope.Dato.vacancies = result.data;
+                    //$scope.Dato.vacancy = '';
+                } else {
+                    Mensaje.Alerta("error", result.message);
+                }
+            });
+        }
     }
 
     $scope.getMethaFeatures = function () {
@@ -196,8 +210,14 @@ controller('vacancyFrequencyController', ['$scope', '$rootScope', '$stateParams'
 
     var init = function () {
         $scope.getEmployers();
-        $scope.getJobs();
-        $scope.calculateFrequencyMatrix();
+        if ($stateParams.vacancyId != null && $stateParams.employerId != null && $stateParams.jobId != null) {
+            $scope.Dato.employer = $stateParams.employerId;
+            $scope.getJobs();
+            $scope.Dato.job = $stateParams.jobId;
+            $scope.getVacancies();
+            $scope.Dato.vacancy = $stateParams.vacancyId;
+            $scope.getMethaFeatures();
+        }
     };
     init();
 
