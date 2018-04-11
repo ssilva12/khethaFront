@@ -33,7 +33,9 @@ controller('fuseController', ['$scope', '$state', 'Mensaje', '$rootScope', 'Dict
     $scope.fuseNouns = function (firstNoun,secondNoun) {
         Dictionary.fuse(firstNoun,secondNoun,function (error, data) {
             if (!error) {
-                debugger;
+                $state.reload();
+                Mensaje.Alerta("success", 'OK', "OK");
+                
             }
         });
     }

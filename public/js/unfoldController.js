@@ -50,8 +50,9 @@ controller('unfoldController', ['$scope', '$state', 'Mensaje', '$rootScope', 'Di
 
     $scope.unfold = function (noun,nGram) {
         Dictionary.unfold(noun,nGram,function (error, data) {
-            if (!error) {
-                debugger;
+            if (!error) {          
+                Mensaje.Alerta("success", 'OK', "OK");
+                $state.reload();
             }
         });
     }
