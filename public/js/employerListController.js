@@ -14,7 +14,7 @@ controller('employerListController', ['$scope', 'Mensaje', 'employerService', '$
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.lista.empleadores = result.data.employers;
-                $scope.lista.cantidad = " (" + result.data.total + " empleador(es))";
+                $scope.lista.cantidad = result.data.total;
                 $scope.lista.currentPage = page;
                 $scope.lista.totalItems = result.data.total;
                 $scope.lista.entryLimit = itemsPerPage;

@@ -1,7 +1,6 @@
 //- PAGE TITLE
 div(class="page-title")
-    h2() Sin resolver
-        span(class="txt-grises", ng-bind="titulo")
+    h2() {{ 'UNRESOLVED' | translate }}
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
 div(class="page-content-wrap")
@@ -14,9 +13,9 @@ div(class="page-content-wrap")
                         div(class="panel panel-default")
                             div(class="panel-body")
                               div.form-group
-                                label(for="methaFeatures") Metha Caracteristica
+                                label(for="methaFeatures") {{ 'METHAFEATURE' | translate }}
                                 select(ng-model="meta", ng-options="x.name for x in metaFeatures", class="form-control")
-                                  option(value="") Seleccione
+                                  option(value="") {{ 'SELECT' | translate }}
                     div(class="col-md-12")
                       div(class="panel panel-default")
                         div(class="panel-body")
@@ -24,8 +23,8 @@ div(class="page-content-wrap")
                                 div(class="col-sm-12")
                                   table(class = "table")
                                     thead
-                                      tr: th: h4() Nombre
-                                          th: h4() Diccionario
+                                      tr: th: h4() {{ 'NAME' | translate }}
+                                          th: h4() {{ 'DICTIONARY' | translate }}
                                           th
                                           th
                                           th
@@ -38,4 +37,4 @@ div(class="page-content-wrap")
                                         td: button.btn.btn.btn-danger(ng-click="discard(task)") 
                                           span(class="fa fa-trash")
                                         td: button.btn.btn.btn-danger(ng-click="pieceWiseSearch(task)") 
-                                          |Fraccionar
+                                          |{{ 'FRACTIONATE' | translate }}

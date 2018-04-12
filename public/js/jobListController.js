@@ -14,7 +14,7 @@ angular.module('myApp.jobListCtrl', ['ui.select']).
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.lista.jobs = result.data.jobs;
-                $scope.lista.cantidad = " (" + result.data.total + " job(s))";
+                $scope.lista.cantidad = result.data.total;
                 $scope.lista.currentPage = page;
                 $scope.lista.totalItems = result.data.total;
                 $scope.lista.entryLimit = itemsPerPage;

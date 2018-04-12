@@ -1,7 +1,6 @@
 //- PAGE TITLE
 div(class="page-title")
-    h2() Diccionarios
-        span(class="txt-grises", ng-bind="titulo")
+    h2() {{ 'DICTIONARY' | translate }}
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
 div(class="page-content-wrap")
@@ -12,79 +11,79 @@ div(class="page-content-wrap")
                     div(class="panel-body")
                         div.col-md-1
                             button(type="button", class="btn btn-default", ng-click="fuse()")
-                                span() Fusionar
+                                span() {{ 'FUSE' | translate }}
                         div.col-md-1
                             button(type="button", class="btn btn-default", ng-click="unfold()")
-                                span() Desdoblar
+                                span() {{ 'UNFOLD' | translate }}
                         div.col-md-6
                         div.col-md-2
                             button(type="button", class="btn btn-default", data-toggle="modal", data-target="#myModal")
                                 span(class="fa fa-cloud-upload")
-                                span() Cargar Diccionario
+                                span() {{ 'UPLOAD_DICTIONARY' | translate }}
                         div.col-md-2
                             button(type="button", class="btn btn-default", data-toggle="modal", data-target="#metaModal")
                                 span(class="fa fa-cloud-upload")
-                                span() Metha Caracteristicas
+                                span() {{ 'METHAFEATURES' | translate }}
             div.row.col-md-12
                 div(class="panel panel-default")
                     div(class="panel-body")
                         div.col-md-6
                             div.input.form-group
-                                label Nombre
+                                label {{ 'NAME' | translate }}
                                 input(type="text", name="name",id="name", class="form-control", ng-model="name")
                         div.col-md-3
-                            label Diccionario
+                            label {{ 'DICTIONARY' | translate }}
                             select(ng-model="metaRelationSearch", ng-options="x.name for x in metaFeatures", class="form-control")
                         div.col-md-2
-                            label Acrónimo
+                            label {{ 'ACRONYM' | translate }}
                             input(type="text", name="acronym",id="name", class="form-control", ng-model="acronym")
                         div.col-md-1
                             label &nbsp
-                            button(class="btn btn-default", ng-click="search(name)") Buscar
+                            button(class="btn btn-default", ng-click="search(name)") {{ 'SEARCH' | translate }}
             div.row.col-md-12(ng-show="notFound")
                 div(class="panel panel-default")
                     div(class="panel-body")
                         div.col-md-5
-                            h3 el termino no existe, ¿desea crearlo como una entrada primaria?
+                            h3 {{ 'TERM_EXIST' | translate }}
                         div.col-md-5
-                            label Diccionario
+                            label {{ 'DICTIONARY' | translate }}
                             <select ng-model="meta" ng-options="x.name for x in metaFeatures" class="form-control">
                             </select>  
                         div.col-md-2
                             label  &nbsp
-                            button(id="createPrimary", class="btn btn-default", ng-click="createPrimary(name)") Crear
+                            button(id="createPrimary", class="btn btn-default", ng-click="createPrimary(name)") {{ 'CREATE' | translate }}
                         div(class="col-md-12")
                             table.table
                                 thead
-                                    tr: th Entrada
+                                    tr: th {{ 'ENTRY' | translate }}
                                         th
                                 tbody
                                     tr(ng-repeat="sug in suggested")
                                         td:{{sug.er}}
-                                        td: button(ng-click="selectNoun(sug.er)") Seleccionar
+                                        td: button(ng-click="selectNoun(sug.er)") {{ 'SELECT' | translate }}
                         
 #myModal.modal.fade(role='dialog')
   .modal-dialog
     .modal-content
       .modal-header
         button.close(type='button', data-dismiss='modal') ×
-        h1 Cargar Diccionario
+        h1 {{ 'UPLOAD_DICTIONARY' | translate }}
       .modal-body
         input(type="file", name="image", ngf-select, ng-model="dictionary", name="file" )
-        label Diccionario
+        label {{ 'DICTIONARY' | translate }}
         select.form-control(ng-model='meta', ng-options='x.name for x in metaFeatures')
-        button(class="btn btn-default",ng-click="uploadFiles(dictionary,'primary')") Subir
+        button(class="btn btn-default",ng-click="uploadFiles(dictionary,'primary')") {{ 'UPLOAD' | translate }}
       .modal-footer
-        button.btn.btn-default(type='button', data-dismiss='modal') Close
+        button.btn.btn-default(type='button', data-dismiss='modal') {{ 'CLOSE' | translate }}
 #metaModal.modal.fade(role='dialog')
   .modal-dialog
     .modal-content
       .modal-header
         button.close(type='button', data-dismiss='modal') ×
-        h1 Cargar metha caracteristicas
+        h1 {{ 'UPLOAD_METHAFEATURE' | translate }}
       .modal-body
         input(type="file", name="image", ngf-select, ng-model="meta", name="file" )
-        button(class="btn btn-default",ng-click="uploadFiles(meta)") Subir
+        button(class="btn btn-default",ng-click="uploadFiles(meta)") {{ 'UPLOAD' | translate }}
       .modal-footer
-        button.btn.btn-default(type='button', data-dismiss='modal') Close
+        button.btn.btn-default(type='button', data-dismiss='modal') {{ 'CLOSE' | translate }}
     

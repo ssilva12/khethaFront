@@ -1,7 +1,7 @@
 //- PAGE TITLE
 div(class="page-title")
-    h2() Lista de usuarios
-        span(class="txt-grises", ng-bind="lista.cantidad")
+    h2() {{'USER_LIST' | translate}}
+        span(class="txt-grises") &nbsp;({{lista.cantidad}} {{ 'USER2' | translate}})
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
 div(class="page-content-wrap")
@@ -12,24 +12,24 @@ div(class="page-content-wrap")
                 div(class="col-md-12")
                     div(class="panel panel-default")
                         div(class="panel-body")
-                            p() Usa la búsqueda para encontrar usuarios
+                            p() {{'USE_SEARCH_USER' | translate}}
                             form(class="form-horizontal")
                                 div(class="form-group")
                                     div(class="col-md-8")
                                         div(class="input-group")
                                             div(class="input-group-addon")
                                                 span(class="fa fa-search")
-                                            input(class="form-control", placeholder="¿Que estás buscando?", type="text", ng-model="Dato.name")
+                                            input(class="form-control", placeholder="{{'WHO_SEARCH' | translate}}", type="text", ng-model="Dato.name")
                                             div(class="input-group-btn")
                                                 button(class="btn btn-primary mb-control", data-box="#message-box-success",ng-click="advSearch(Dato.name,1,12)") Buscar
                                     div(class="col-md-2")
                                         button(ng-click="clearFilter()", class="btn btn-default btn-block")
                                             i(class="fa fa-eraser", aria-hidden="true")
-                                            span() Limpiar filtro
+                                            span() {{'CLEAR_FILTER' | translate}}
                                     div(class="col-md-2")
                                         button(class="btn btn-default btn-block mb-control", ng-click="crearNuevo()")
                                             span(class="fa fa-plus")
-                                            span() Crear usuario
+                                            span() {{'NEW_USER' | translate}}
             div(class="row")
                 div(class="col-md-12")
                     div(class="panel panel-default")
@@ -41,24 +41,24 @@ div(class="page-content-wrap")
                                             thead()
                                                 tr()
                                                     td(class="col-md-6") 
-                                                        h4() Nombre
+                                                        h4() {{'NAME' | translate}}
                                                     td(class="col-md-5") 
-                                                        h4() Rol 
+                                                        h4() {{'ROLE' | translate}} 
                                                     td(class="col-md-1")                                                                                                    
                                             tbody()
                                                 tr(ng-repeat="user in lista.users")
                                                     td() {{user.userName}}
                                                     td() 
-                                                        span(ng-if="user.role == '5'") Administrador
-                                                        span(ng-if="user.role == '4'") Ingeniero de caracterizacíon
-                                                        span(ng-if="user.role == '3'") Ingeniero de caracterizacíon general
-                                                        span(ng-if="user.role == '2'") Analista de seleccíon
-                                                        span(ng-if="user.role == '1'") Analista de seleccíon general
-                                                        span(ng-if="user.role == '0'") Consulta
+                                                        span(ng-if="user.role == '5'") {{'ADMINISTRATOR' | translate}}
+                                                        span(ng-if="user.role == '4'") {{'FEATURE_ENGINEER' | translate}}
+                                                        span(ng-if="user.role == '3'") {{'FEATURE_ENGINEER_GENERAL' | translate}}
+                                                        span(ng-if="user.role == '2'") {{'SELECTION_ANALIST' | translate}}
+                                                        span(ng-if="user.role == '1'") {{'SELECTION_ANALIST_GENERAL' | translate}}
+                                                        span(ng-if="user.role == '0'") {{'QUERY' | translate}}
                                                     td() 
                                                         div(class="btn-group")
                                                             button(class="btn btn-default btn-condensed", ng-click="buscarDetalle(user.id)")
                                                                 span(class="fa fa-pencil")
                             div(class="row")
                                 div(class="col-sm-12")
-                                     pagination(class="pagination pagination-sm",page="lista.currentPage", max-size="lista.noOfPages", total-items="lista.totalItems", items-per-page="lista.entryLimit", ng-click="pagination()")
+                                     pagination(class="pagination pagination-sm",page="lista.currentPage", max-size="lista.noOfPages", total-items="lista.totalItems", items-per-page="lista.entryLimit", ng-click="pagination()", next-text="{{ 'NEXT' | translate}}", previous-text="{{ 'PREVIOUS' | translate}}")
