@@ -212,10 +212,22 @@
     "USERNAME": "Usuario",
     "PASSWORD": "Contraseña",
     "PORTFOLIO": "Portafolio",
+    "SUGGESTED": "Sugeridos",
     "HAS_FEATURE": "El candidato ya posee la característica",
     "OK": "Ok",
     "ACEPT": "Aceptar",
     "CANCEL": "Cancelar",
     "YES": "Si",
-    "NO": "No"
+    "NO": "No",
+    "SAVING_DATA": "Guardando información",
+    "UPLOADING_CV": "Subiendo currículum",
+    "CREATE_PORTFOLIO": "¿Desea crear el portafolio?",
+    "COMPLETE_FIELDS": "Debe completar los siguientes campos:",
+    "CREATING_VACANCY": "Creando vacante",
+    "SELECT_FEATURE": "Seleccione una característica",
+    "SELECT_DATA": "Seleccione un empleador, un oficio o una vacante",
+    "NO_ACCESS": "No posee acceso",
+    "404": "Servicio no encontrado",
+    "500": "Error en el servicio",
+    "LOADING": "Cargando"  
 }

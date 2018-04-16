@@ -111,7 +111,6 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$state'
             if (!error) {
                 console.log(result)
                 if (result.suggested) {
-                    console.log("como primario")
                     //$scope.data = [result.primary];
                     model.assign($scope, result.suggested);
                 } else {
@@ -128,7 +127,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$state'
     };
 
     $scope.uploadFile = function (files) {
-        Mensaje.Esperar("Subiendo curriculum");
+        Mensaje.Esperar("UPLOADING_CV");
         var fd = new FormData();
         fd.append("file", files[0]);
         var reader = new FileReader();

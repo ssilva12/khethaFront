@@ -7,15 +7,27 @@
 // In this case it is a simple value service.
 angular.module('myApp.services', []).
 value('version', '0.1')
-  .service('frequencyMatrixService', ['$http', 'URL', function ($http, URL) {
+  .service('frequencyMatrixService', ['$http', 'URL', '$cookieStore', function ($http, URL, $cookieStore) {
     // var url = "http://localhost:9000/"
     // URL.URL_REST_SERVICE = "http://localhost:9000/";
     // var url = "http://guarded-atoll-31281.herokuapp.com/"
+
+    var headers = {
+      'Content-Type': "text/text",
+      'Authorization': $cookieStore.get("sesion"),
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
+    }
+    if ($cookieStore.get("sesion") == null || $cookieStore.get("sesion") == "") {
+      delete headers["Authorization"];
+    }
 
     this.get = (parameters, callback) => {
       $http({
         method: 'GET',
         url: URL.URL_REST_SERVICE + 'api/frequencymatrix/',
+        headers: headers,
         params: parameters
       }).
       then(function onSuccess(response) {
@@ -29,6 +41,7 @@ value('version', '0.1')
       $http({
         method: 'GET',
         url: URL.URL_REST_SERVICE + 'api/frequencymatrix/calculate',
+        headers: headers,
         params: parameters
       }).
       then(function onSuccess(response) {
@@ -42,6 +55,7 @@ value('version', '0.1')
       $http({
         method: 'GET',
         url: URL.URL_REST_SERVICE + 'api/frequencymatrix/job-lastvacancy',
+        headers: headers,
         params: parameters
       }).
       then(function onSuccess(response) {
@@ -55,6 +69,7 @@ value('version', '0.1')
       $http({
         method: 'GET',
         url: URL.URL_REST_SERVICE + +'api/frequencymatrix/new-vacancy',
+        headers: headers,
         params: parameters
       }).
       then(function onSuccess(response) {
@@ -69,6 +84,7 @@ value('version', '0.1')
       $http({
         method: 'GET',
         url: URL.URL_REST_SERVICE + 'api/employer/all/',
+        headers: headers,
       }).
       then(function onSuccess(response) {
         callback(null, response.data);
@@ -87,11 +103,7 @@ value('version', '0.1')
       $http({
         method: 'GET',
         url: URL.URL_REST_SERVICE + 'api/job/all/',
-        headers: {
-          'Access-Control-Allow-Origin': '*', // 'true', // '*',
-          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
-        },
+        headers: headers,
         params: parameters // {user_id: user.id}
       }).
       then(function onSuccess(response) {
@@ -106,6 +118,7 @@ value('version', '0.1')
       $http({
         method: 'GET',
         url: URL.URL_REST_SERVICE + 'api/vacancy/all/',
+        headers: headers,
         params: parameters
       }).
       then(function onSuccess(response) {
@@ -120,6 +133,7 @@ value('version', '0.1')
       $http({
         method: 'GET',
         url: URL.URL_REST_SERVICE + 'api/frequencymatrix/feature-names/',
+        headers: headers,
         params: parameters
       }).
       then(function onSuccess(response) {
@@ -134,6 +148,7 @@ value('version', '0.1')
       $http({
         method: 'GET',
         url: URL.URL_REST_SERVICE + 'api/frequencymatrix/feature-weight/',
+        headers: headers,
         params: parameters
       }).
       then(function onSuccess(response) {
@@ -147,6 +162,7 @@ value('version', '0.1')
       $http({
         method: 'GET',
         url: URL.URL_REST_SERVICE + 'api/candidate/all/',
+        headers: headers,
         params: parameters,
       }).
       then(function onSuccess(response) {
@@ -166,6 +182,7 @@ value('version', '0.1')
       $http({
         method: 'GET',
         url: URL.URL_REST_SERVICE + 'api/frequencymatrix/feature-add/',
+        headers: headers,
         params: parameters
       }).
       then(function onSuccess(response) {
@@ -180,6 +197,7 @@ value('version', '0.1')
       $http({
         method: 'GET',
         url: URL.URL_REST_SERVICE + 'api/frequencymatrix/feature-discarded/',
+        headers: headers,
         params: parameters
       }).
       then(function onSuccess(response) {
@@ -194,6 +212,7 @@ value('version', '0.1')
       $http({
         method: 'GET',
         url: URL.URL_REST_SERVICE + 'api/vacancy/candidate-match',
+        headers: headers,
         params: parameters
       }).
       then(function onSuccess(response) {

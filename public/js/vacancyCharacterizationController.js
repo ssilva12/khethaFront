@@ -1,5 +1,5 @@
 angular.module('myApp.vacancyCharacterizationController', []).
-controller('vacancyCharacterizationCtrl', ['$scope', '$rootScope', '$stateParams', 'Mensaje', 'Dictionary', 'vacancyService', '$state', 'keepData', function ($scope, $rootScope, $stateParams, Mensaje, Dictionary, vacancyService, $state, keepData) {
+controller('vacancyCharacterizationCtrl', ['$scope', '$rootScope', '$stateParams', 'Mensaje', 'Dictionary', 'vacancyService', '$state', 'keepData', '$filter', function ($scope, $rootScope, $stateParams, Mensaje, Dictionary, vacancyService, $state, keepData, $filter) {
     $scope.Dato = {};
     $scope.Dato.employer = '';
     $scope.Dato.job = '';
@@ -123,7 +123,7 @@ controller('vacancyCharacterizationCtrl', ['$scope', '$rootScope', '$stateParams
     $scope.addFeature = function () {
         $scope.Dato.addFeatureError = '';
         if (!$scope.Dato.featureToAdd) {
-            $scope.Dato.addFeatureError = 'Seleccione una característica.';
+            $scope.Dato.addFeatureError = $filter('translate')('SELECT_FEATURE') + '.';
             return;
         }
 
@@ -139,7 +139,7 @@ controller('vacancyCharacterizationCtrl', ['$scope', '$rootScope', '$stateParams
             entityId = $scope.Dato.employer;
             featureType = 'EmployerFeature';
         } else {
-            $scope.Dato.addFeatureError = 'Seleccione un empleador, un oficio o una vacante.'
+            $scope.Dato.addFeatureError = $filter('translate')('SELECT_DATA') + '.'
             return;
         }
         $("#modalAddFeature").modal("hide");
@@ -189,14 +189,14 @@ controller('vacancyCharacterizationCtrl', ['$scope', '$rootScope', '$stateParams
         //$scope.methaFeatures = [];
         var error = "";
         if ($scope.Dato.employer == "") {
-            error = "\nEmpleador";
+            error = "\n" + $filter('translate')('EMPLOYER');
         }
         if ($scope.Dato.job == "") {
-            error += "\nOficio";
+            error += "\n" + $filter('translate')('JOB');
         }
 
         if (error != "") {
-            Mensaje.Alerta("warning", "Debe completar los siguientes campos:" + error);
+            Mensaje.Alerta("warning", $filter('translate')('COMPLETE_FIELDS') + error);
             return;
         }
         Mensaje.Esperar();

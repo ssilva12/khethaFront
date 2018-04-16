@@ -1,7 +1,7 @@
 //- PAGE TITLE
 div(class="page-title")
     h2() {{ 'VACANCY_LIST' | translate}}
-        span(class="txt-grises") &nbsp;({{lista.cantidad}} {{ 'CANDIDATES2' | translate}})
+        span(class="txt-grises") &nbsp;({{lista.cantidad}} {{ 'VACANCY2' | translate}})
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
 div(class="page-content-wrap")
@@ -154,8 +154,8 @@ div(class="page-content-wrap")
                                                         div(class="btn-group")
                                                             button(class="btn btn-default btn-condensed", ng-click="buscarDetalle(vacante.id)")
                                                                 span(class="fa fa-pencil")
-                                                            button(class="btn btn-default btn-condensed")
-                                                                span(class="fa fa-copy")
+                                                            //- button(class="btn btn-default btn-condensed")
+                                                            //-     span(class="fa fa-copy")
                             div(class="row")
                                 div(class="col-sm-12")
                                     pagination(class="pagination pagination-sm",page="currentPage", max-size="noOfPages", total-items="totalItems", items-per-page="entryLimit", next-text="{{ 'NEXT' | translate}}", previous-text="{{ 'PREVIOUS' | translate}}")

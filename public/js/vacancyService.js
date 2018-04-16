@@ -304,5 +304,16 @@ value('version', '0.2')
             request.send(config, callback);
         }
 
+        vacancyService.getSuggesteds = function (idVacancy, callback) {
+            var config = {
+                method: 'GET',
+                params: {
+                    jobVacancy: idVacancy
+                },
+                url: URL.URL_REST_SERVICE + 'api/vacancy/candidate-filter'
+            }
+            request.send(config, callback);
+        }
+
         return vacancyService;
     }]);

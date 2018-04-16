@@ -22,7 +22,7 @@ controller('userDetailController', ['$scope', '$rootScope', '$stateParams', 'Men
                 Mensaje.Desocupar();
                 if (!result.error) {
                     if (result.data.length == 0) {
-                        Mensaje.Alerta("confirm", "", "¿Desea crear el portafolio?", function () {
+                        Mensaje.Alerta("confirm", "", "CREATE_PORTFOLIO", function () {
                             create(true);
                         }, function () {
                             create(false);

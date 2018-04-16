@@ -16,7 +16,7 @@ controller('employerController', ['$scope', '$stateParams', 'employerService', '
 
 
     $scope.actualizarEmpleador = function () {
-        Mensaje.Esperar("Guardando información");
+        Mensaje.Esperar("SAVING_DATA");
         debugger
         $scope.employer.sectorName = $scope.employer.sectorNameSelected != "" ? $scope.employer.sectorNameSelected : $scope.employer.sectorName;
         if ($scope.employer.id != null || $scope.employer.id != undefined) {
