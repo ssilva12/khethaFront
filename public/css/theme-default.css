@@ -6870,6 +6870,13 @@ td.dataTables_empty {
     background-image: url(../img/flags/es.png);
 }
 
+.flag.flag-fr {
+    background-image: url(../img/flags/fr.png);
+}
+
+.flag.flag-jp {
+    background-image: url(../img/flags/jp.png);
+}
 /* END FLAGS */
 
 

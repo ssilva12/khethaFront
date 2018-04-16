@@ -229,5 +229,6 @@
     "NO_ACCESS": "Sie haben keinen Zugriff",
     "404": "Service nicht gefunden",
     "500": "Wartungsfehler",
-    "LOADING": "Wird geladen"
+    "LOADING": "Wird geladen",
+    "CHOOSE_ROLE": "Sie müssen eine Rolle auswählen"
 }

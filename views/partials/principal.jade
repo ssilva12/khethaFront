@@ -162,6 +162,8 @@ div(class="page-container page-navigation-top-fixed",ng-controller="AppCtrl")
           span(ng-show="Language.lang == 'es'", class="flag flag-es") 
           span(ng-show="Language.lang == 'en'", class="flag flag-en") 
           span(ng-show="Language.lang == 'de'", class="flag flag-de") 
+          span(ng-show="Language.lang == 'fr'", class="flag flag-fr") 
+          span(ng-show="Language.lang == 'jp'", class="flag flag-jp") 
         ul(class="xn-drop-left xn-drop-white animated zoomIn")
           li()
             a(href="", ng-click="changeLanguage('en')")
@@ -173,6 +175,12 @@ div(class="page-container page-navigation-top-fixed",ng-controller="AppCtrl")
             a(href="", ng-click="changeLanguage('de')")
               span(class="flag flag-de")
               span() Deutsch
+            a(href="", ng-click="changeLanguage('fr')")
+              span(class="flag flag-fr")
+              span() Français
+            a(href="", ng-click="changeLanguage('jp')")
+              span(class="flag flag-jp")
+              span() 日本
     //- START LOADING
     div(id="wait", ng-show="waitModal")
       div(class="page-sidebar page-sidebar-fixed scroll row", style="width:100%")

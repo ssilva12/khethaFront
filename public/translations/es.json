@@ -229,5 +229,6 @@
     "NO_ACCESS": "No posee acceso",
     "404": "Servicio no encontrado",
     "500": "Error en el servicio",
-    "LOADING": "Cargando"  
+    "LOADING": "Cargando",  
+    "CHOOSE_ROLE": "Debe escoger un rol"  
 }

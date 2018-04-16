@@ -1,5 +1,5 @@
 angular.module('myApp.userController', ['ui.select', 'ADM-dateTimePicker', 'ui.bootstrap']).
-controller('userDetailController', ['$scope', '$rootScope', '$stateParams', 'Mensaje', 'Dictionary', '$parse', '$timeout', 'userService', '$state', 'keepData', function ($scope, $rootScope, $stateParams, Mensaje, Dictionary, $parse, $timeout, userService, $state, keepData) {
+controller('userDetailController', ['$scope', '$rootScope', '$stateParams', 'Mensaje', 'Dictionary', '$parse', '$timeout', 'userService', '$state', 'keepData', '$filter', function ($scope, $rootScope, $stateParams, Mensaje, Dictionary, $parse, $timeout, userService, $state, keepData, $filter) {
 
     $scope.cargarUser = function (id) {
         Mensaje.Esperar();
@@ -15,25 +15,29 @@ controller('userDetailController', ['$scope', '$rootScope', '$stateParams', 'Men
     };
 
     $scope.actualizarUser = function () {
-        if ($scope.user.portFolio == null || $scope.user.portFolio == undefined) {
-            create(false);
+        if ($scope.user.role == null || $scope.user.role == undefined) {
+            Mensaje.Alerta("error", "Error", $filter('translate')('CHOOSE_ROLE'))
         } else {
-            userService.getPortfolio($scope.user.portFolio, function (result) {
-                Mensaje.Desocupar();
-                if (!result.error) {
-                    if (result.data.length == 0) {
-                        Mensaje.Alerta("confirm", "", "CREATE_PORTFOLIO", function () {
-                            create(true);
-                        }, function () {
+            if ($scope.user.portFolio == null || $scope.user.portFolio == undefined) {
+                create(false);
+            } else {
+                userService.getPortfolio($scope.user.portFolio, function (result) {
+                    Mensaje.Desocupar();
+                    if (!result.error) {
+                        if (result.data.length == 0) {
+                            Mensaje.Alerta("confirm", "", $filter('translate')('CREATE_PORTFOLIO'), function () {
+                                create(true);
+                            }, function () {
+                                create(false);
+                            }, "YES", "NO")
+                        } else {
                             create(false);
-                        }, "YES", "NO")
+                        }
                     } else {
-                        create(false);
+                        Mensaje.Alerta("error", 'Error', result.message);
                     }
-                } else {
-                    Mensaje.Alerta("error", 'Error', result.message);
-                }
-            });
+                });
+            }
         }
     };
 

@@ -101,11 +101,11 @@ div(class="page-content-wrap")
                                                 span() {{ 'JOB' | translate}}: {{Dato.jobsPaginado}}
         //- CANDIDATOS
         div(class="row")
-            div(class="col-sm-12", style="display: flex; flex-wrap: wrap;")
+            div(class="col-sm-12", style="display: flex; flex-wrap: wrap; ")
                 div(class="col-md-3", ng-repeat="candidato in lista.candidatos")
                     //- CONTACT ITEM
                     div(class="panel panel-default", ng-click="buscarDetalle(candidato.id)", style="cursor: pointer;")
-                        div(class="panel-body profileCandidato")
+                        div(class="panel-body profileCandidato", style="height: 150px")
                             div(class="profile-image")
                                 //-img(src="assets/images/users/avatar.jpg", alt="John Doe")
                                 i(ng-if="candidato.sex == '1'", style="color: #FFFFFF", class="fa fa-5x fa-female")

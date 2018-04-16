@@ -119,8 +119,8 @@ value('version', '0.1')
             $rootScope.Message.type = (tipo == null || tipo == undefined) ? 'alert' : tipo;
             $rootScope.Message.acept = aceptar;
             $rootScope.Message.cancel = cancelar;
-            $rootScope.Message.aceptText = (textoAceptar == null || textoAceptar == undefined) ? 'ACEPT' : tipo;
-            $rootScope.Message.cancelText = (textoCancelar == null || textoCancelar == undefined) ? 'CANCEL' : tipo;
+            $rootScope.Message.aceptText = (textoAceptar == null || textoAceptar == undefined) ? 'ACEPT' : textoAceptar;
+            $rootScope.Message.cancelText = (textoCancelar == null || textoCancelar == undefined) ? 'CANCEL' : textoCancelar;
         }
 
         Mensaje.Confirmacion = function (mensaje, aceptar, cancelar) {
