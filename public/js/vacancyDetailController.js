@@ -33,7 +33,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
     }];
 
     $scope.crearVacante = function () {
-        Mensaje.Esperar("Creando vacante");
+        Mensaje.Esperar("CREATING_VACANCY");
         var vacante = vacancyService.createVacancy($scope.Dato.employerSelected.id, $scope.Dato.jobSelected.id, function (result) {
             if (!result.error) {
                 console.log(result);
@@ -45,7 +45,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
     };
 
     $scope.guardarDatos = function () {
-        Mensaje.Esperar("Guardando información");
+        Mensaje.Esperar("SAVING_DATA");
         var allData = vacancyService.updateInformation($scope.Data.vacancy, function (result) {
             Mensaje.Desocupar();
             if (!result.error) {
@@ -324,7 +324,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.lista.candidatos = result.data.candidates;
-                $scope.lista.cantidad = " (" + result.data.total + " candidato(s))";
+                $scope.lista.cantidad = result.data.total;
                 $scope.lista.currentPage = page;
                 $scope.lista.totalItems = result.data.total;
                 $scope.lista.entryLimit = itemsPerPage;
@@ -345,7 +345,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
     }
 
     $scope.uploadFile = function (files) {
-        Mensaje.Esperar("Subiendo curriculum");
+        Mensaje.Esperar("UPLOADING_CV");
         var fd = new FormData();
         fd.append("file", files[0]);
         var reader = new FileReader();

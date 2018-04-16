@@ -437,7 +437,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
 
     //INICIO ACTUALIZACIONES DE DATOS
     $scope.actualizarCandidato = function () {
-        Mensaje.Esperar("Guardando información");
+        Mensaje.Esperar("SAVING_DATA");
         if ($scope.usuario.candidateInfo.id != null || $scope.usuario.candidateInfo.id != undefined) {
             var allData = candidatesServices.updateInformation($scope.usuario, function (result) {
                 Mensaje.Desocupar();
@@ -461,7 +461,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
     };
 
     $scope.actualizarFeature = function (data, dictionary) {
-        Mensaje.Esperar("Guardando información");
+        Mensaje.Esperar("SAVING_DATA");
         if (data.id != null && data.id != undefined) {
             var allData = candidatesServices.updateFeature(data, function (result) {
                 Mensaje.Desocupar();
@@ -489,7 +489,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
     }
 
     $scope.createFeature = function (data, dictionary) {
-        Mensaje.Esperar("Guardando información");
+        Mensaje.Esperar("SAVING_DATA");
         data.dictionary = dictionary
         candidatesServices.createFeature($scope.usuario.candidateInfo.id, data, function (result) {
             //Mensaje.Desocupar();
@@ -540,7 +540,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
     }
 
     $scope.uploadFile = function (files) {
-        Mensaje.Esperar("Subiendo curriculum");
+        Mensaje.Esperar("UPLOADING_CV");
         var fd = new FormData();
         fd.append("file", files[0]);
         var reader = new FileReader();
@@ -561,8 +561,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
     };
 
     $scope.uploadFormat = function (files) {
-        console.log("subio formato")
-        Mensaje.Esperar("Subiendo curriculum");
+        Mensaje.Esperar("UPLOADING_CV");
         var fd = new FormData();
         fd.append("file", files[0]);
         var reader = new FileReader();
@@ -590,7 +589,6 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
             if (!error) {
                 console.log(result)
                 if (result.suggested) {
-                    console.log("como primario")
                     //$scope.data = [result.primary];
                     model.assign($scope, result.suggested);
                 } else {

@@ -16,7 +16,7 @@ angular.module('myApp.jobCtrl', []).
 
 
         $scope.actualizarJob = function () {
-            Mensaje.Esperar("Guardando información");
+            Mensaje.Esperar("SAVING_DATA");
             debugger
             $scope.job.sectorName = $scope.job.sectorNameSelected != "" ? $scope.job.sectorNameSelected : $scope.job.sectorName;
             if ($scope.job.id != null || $scope.job.id != undefined) {

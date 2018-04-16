@@ -14,7 +14,7 @@ controller('userListController', ['$scope', '$state', 'Mensaje', '$rootScope', '
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.lista.users = result.data.users;
-                $scope.lista.cantidad = " (" + result.data.total + " usuario(s))";
+                $scope.lista.cantidad = result.data.total;
                 $scope.lista.currentPage = page;
                 $scope.lista.totalItems = result.data.total;
                 $scope.lista.entryLimit = itemsPerPage;

@@ -151,7 +151,7 @@ value('version', '0.1')
 
         Mensaje.Esperar = function (mensaje) {
             $rootScope.waitModal = true;
-            $rootScope.waitModalMessage = (mensaje != null && mensaje != undefined ? mensaje : 'Cargando');
+            $rootScope.waitModalMessage = (mensaje != null && mensaje != undefined ? mensaje : 'LOADING');
         };
 
         Mensaje.Desocupar = function () {
@@ -175,7 +175,7 @@ value('version', '0.1')
         return keepData;
 
     }])
-    .factory('request', ['$cookieStore', '$http', '$state', function ($cookieStore, $http, $state) {
+    .factory('request', ['$cookieStore', '$http', '$state', '$filter', function ($cookieStore, $http, $state, $filter) {
         var request = {};
 
         request.send = function (config, callback) {
@@ -213,14 +213,14 @@ value('version', '0.1')
                 Result.status = response.status;
                 switch (response.status) {
                     case 403:
-                        Result.message = "No posee acceso";
+                        Result.message = $filter('translate')('NO_ACCESS');
                         $state.go('login')
                         break;
                     case 404:
-                        Result.message = "Servicio no encontrado(" + config.url + ').';
+                        Result.message = $filter('translate')('404') + "(" + config.url + ').';
                         break;
                     case 500:
-                        Result.message = "Error en el servicio.";
+                        Result.message = $filter('translate')('500') + '.';
                         break;
                     default:
                         Result.message = "Error.";
