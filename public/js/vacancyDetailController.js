@@ -178,11 +178,24 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                         $scope.Data.promedioConcur = $scope.Data.concur.length == 0 ? 0 : (promedioConcur / $scope.Data.concur.length)
                         $scope.Data.promedioPreSelected = $scope.Data.preselected.length == 0 ? 0 : (promedioPreselected / $scope.Data.preselected.length)
                         $scope.Data.promedioSelected = $scope.Data.selected.length == 0 ? 0 : (promedioSelected / $scope.Data.selected.length)
+                        
+                        vacancyService.getSuggesteds(id, function (result) {
+                            Mensaje.Desocupar();
+                            if (!result.error) {
+                                $scope.Data.suggested = result.data;
+                                $scope.disableCandidates();
+                            } else {
+                                Mensaje.Alerta("error", "Error", result.message);
+                            }
+                        });
+
+                    } else {
+                        Mensaje.Alerta("error", "Error", result.message);
                     }
                 });
 
                 Mensaje.Esperar();
-                $scope.disableCandidates();
+                
                 vacancyService.getMethaFeatures($scope.Data.vacancy.idEmployer, $scope.Data.vacancy.idJob, $scope.Data.vacancy.id, "", "", function (result) {
                     Mensaje.Desocupar();
                     if (!result.error) {
@@ -208,25 +221,36 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
     };
 
     $scope.disableCandidates = function () {
-        for (index = 0; index < $scope.Data.selected.length; index++) {
+        for (var index = 0; index < $scope.Data.selected.length; index++) {
             for (index2 = 0; index2 < $scope.Data.preselected.length; index2++) {
                 if ($scope.Data.selected[index].id == $scope.Data.preselected[index2].id) {
                     $scope.Data.preselected[index2].disabled = true;
                 }
             }
-            for (index2 = 0; index2 < $scope.Data.concur.length; index2++) {
+            for (var index2 = 0; index2 < $scope.Data.concur.length; index2++) {
                 if ($scope.Data.selected[index].id == $scope.Data.concur[index2].id) {
                     $scope.Data.concur[index2].disabled = true;
                 }
             }
+            for (var index2 = 0; index2 < $scope.Data.suggested.length; index2++) {
+                if ($scope.Data.selected[index].id == $scope.Data.suggested[index2].candidateId) {
+                    $scope.Data.suggested[index2].disabled = true;
+                }
+            }
         }
-        for (index = 0; index < $scope.Data.preselected.length; index++) {
-            for (index2 = 0; index2 < $scope.Data.concur.length; index2++) {
+        for (var index = 0; index < $scope.Data.preselected.length; index++) {
+            for (var index2 = 0; index2 < $scope.Data.concur.length; index2++) {
                 if ($scope.Data.preselected[index].id == $scope.Data.concur[index2].id) {
                     $scope.Data.concur[index2].disabled = true;
                 }
             }
+            for (var index2 = 0; index2 < $scope.Data.concur.length; index2++) {
+                if ($scope.Data.preselected[index].id == $scope.Data.suggested[index2].candidateId) {
+                    $scope.Data.suggested[index2].disabled = true;
+                }
+            }
         }
+        
     }
 
 
@@ -274,6 +298,9 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                 break;
             case "tab6":
                 $scope.titulo = "SELECTED_CANDIDATES";
+                break;
+            case "tab7":
+                $scope.titulo = "SUGGESTED";
                 break;
         }
         keepData.set('activeTabVacancy', tab);
@@ -345,7 +372,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
             "jobId": $scope.Data.vacancy.idJob
         });
     };
-    
+
     //INIT
     var init = function () {
         if ($stateParams.id != null) {
