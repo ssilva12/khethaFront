@@ -4,61 +4,61 @@ div(class="page-content-wrap")
         div(class="col-md-12")
             div(class="panel panel-default")
                 div.panel-heading
-                    h3 Metha caracteristica
+                    h3 {{'METHAFEATURE' | translate}}
                 div(class="panel-body")
                     form(class="form-horizontal")
                         div(class="form-group")
-                            span.col-md-3.col-xs-12.control-label Nombre
+                            span.col-md-3.col-xs-12.control-label {{'NAME' | translate}}
                             div.col-md-6.col-xs-12
                                 input(type="text", name="name",id="name", class="form-control", ng-model="metaFeature.name")
                         div(class="form-group")
-                            span.col-md-3.col-xs-12.control-label Diccionario
+                            span.col-md-3.col-xs-12.control-label {{'DICTIONARY' | translate}}
                             div.col-md-6.col-xs-12
                                 label {{metaFeature.dictionary}}
                         div(class="form-group")
-                            span.col-md-3.col-xs-12.control-label tipo de Metha Relación
+                            span.col-md-3.col-xs-12.control-label {{'METHARELATION_TYPE' | translate}}
                             div.col-md-6.col-xs-12         
                                 select.form-control( ng-model="metaFeature.type")
-                                    option Occurs
-                                    option Levels
-                                    option Mesurable
+                                    option {{'OCCURS' | translate}}
+                                    option {{'LEVELS' | translate}}
+                                    option {{'MEASURABLE' | translate}}
                         div.col-md-offset-3
                             div(class="col-md-3")
                                 input(type="checkbox", name="gps", ng-model="metaFeature.HasGPS")
-                                label(for="gender_filter") GPS
+                                label(for="gender_filter") {{'GPS' | translate}}
                             div(class="col-md-3")
                                 input(type="checkbox", name="acronym", ng-model="metaFeature.HasCountryAcronyms")
-                                label(for="gender_filter") Acrónimo país
+                                label(for="gender_filter") {{'COUNTRY_ACRONYM' | translate}}
                             div(class="col-md-6")
                                 input(type="checkbox", name="end_date", ng-model="metaFeature.HasEndDate")
-                                label(for="gender_filter") Fecha fin
+                                label(for="gender_filter") {{'END_DATE' | translate}}
                             div(class="col-md-3")
                                 input(type="checkbox", name="value", ng-model="metaFeature.HasValue")
-                                label(for="gender_filter") Valor
+                                label(for="gender_filter") {{'VALUE' | translate}}
                             div(class="col-md-3")
                                 input(type="checkbox", name="reflexWeightNext", ng-model="metaFeature.reflexWeightNext")
-                                label(for="reflexWeightNext") Peso reflejo posterior
+                                label(for="reflexWeightNext") {{'POSTERIOR_WEIGHT' | translate}}
                             div(class="col-md-6")
                                 input(type="checkbox", name="reflexWeightPrevious", ng-model="metaFeature.reflexWeightPrevious")
-                                label(for="reflexWeightPrevious") Peso reflejo anterior
+                                label(for="reflexWeightPrevious") {{'PREVIOUS_WEIGHT' | translate}}
                 div.panel-footer
                                 div(class="col-md-2 col-md-offset-8")
-                                    button(class="btn btn-primary mb-control",ng-click="updateMetaFeature(metaFeature)") Editar
+                                    button(class="btn btn-primary mb-control",ng-click="updateMetaFeature(metaFeature)") {{'EDIT' | translate}}
     div(class="row")
         div(class="col-md-12")
             div(class="panel panel-default")
                 div.panel-heading
-                    h3 Metha relaciones
+                    h3 {{'METHARELATIONS' | translate}}
                 div(class="panel-body")        
                     div.row(style="margin-top: 25px;")
                         div(class="col-md-6 col-md-offset-3")
                             div.col-md-2.col-md-offset-10
-                                button.btn.btn-default(class="btn btn-primary mb-control", ng-click="newMetaRelation()") nueva
+                                button.btn.btn-default(class="btn btn-primary mb-control", ng-click="newMetaRelation()") {{'NEW' | translate}}
                             table(class = "table")
                                     thead
-                                    tr: th ir
+                                    tr: th {{'DETAIL' | translate}}
                                         th 
                                     tbody
                                     tr(ng-repeat = "(key, metaRelation) in metaRelations")
                                         td: {{metaRelation.name}}
-                                        td: button(class="btn btn-primary mb-control",ng-click="editMetaRelation(metaRelation)") Editar
+                                        td: button(class="btn btn-primary mb-control",ng-click="editMetaRelation(metaRelation)") {{'EDIT' | translate}}

@@ -1,6 +1,6 @@
 //- PAGE TITLE
 div(class="page-title")
-    h2() Usuario:&nbsp;
+    h2() {{'USER' | translate}}:&nbsp;
         span(class="txt-grises", ng-bind="user.userName")
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
@@ -12,29 +12,29 @@ div(class="page-content-wrap")
                     div(class="col-md-12")
                         div(class="panel panel-default")
                             div(class="panel-heading")
-                                h3(class="panel-title") Datos del usuario
+                                h3(class="panel-title") {{'USER_DATA' | translate}}
                             div(class="panel-body")
                                 div(class="row row-space")
-                                    label(class="col-md-3", style="text-align: right;") Username
+                                    label(class="col-md-3", style="text-align: right;") {{'USER_NAME' | translate}}
                                     div(class="col-md-6")
                                         input(type="text", class="form-control", ng-model="user.userName")
                                 div(class="row row-space")
-                                    label(class="col-md-3", style="text-align: right;") Rol
+                                    label(class="col-md-3", style="text-align: right;") {{'ROL' | translate}}
                                     div(class="col-md-6")
                                         select(class="form-control", select2="", name="estado", data-ng-model="user.role")
-                                            option(value="") Seleccione
-                                            option(value="5") Administrador
-                                            option(value="4") Ingeniero de caracterizacíon
-                                            option(value="3") Ingeniero de caracterizacíon general
-                                            option(value="2") Analista de seleccíon
-                                            option(value="1") Analista de seleccíon general
-                                            option(value="0") Consulta
+                                            option(value="") {{'SELECT' | translate}}
+                                            option(value="5") {{'ADMINISTRATOR' | translate}}
+                                            option(value="4") {{'FEATURE_ENGINEER' | translate}}
+                                            option(value="3") {{'FEATURE_ENGINEER_GENERAL' | translate}}
+                                            option(value="2") {{'SELECTION_ANALIST' | translate}}
+                                            option(value="1") {{'SELECTION_ANALIST_GENERAL' | translate}}
+                                            option(value="0") {{'QUERY' | translate}}
                                 div(class="row row-space")
-                                    label(class="col-md-3", style="text-align: right;") Contraseña
+                                    label(class="col-md-3", style="text-align: right;") {{'PASSWORD' | translate}}
                                     div(class="col-md-6")
                                         input(type="password", class="form-control", ng-model="user.password")
                                 div(class="row row-space")
-                                    label(class="col-md-3", style="text-align: right;") Portafolio
+                                    label(class="col-md-3", style="text-align: right;") {{'PORTFOLIO' | translate}}
                                     div(class="col-md-6")
                                         input(name="portafolio",autocomplete="off", class="form-control has-error",ng-focus="onFocus('portafolio',1)",ng-blur="onBlur('portafolio',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(user.portFolio,'EmployerName','dataPortafolio','null','user.portFolio')", ng-model="user.portFolio")
                                         ul(ng-show="{{ 'portafolio' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
@@ -43,6 +43,6 @@ div(class="page-content-wrap")
                                     div(class="col-md-12")
                                         button(type="button", class="btn btn-primary pull-right", ng-click="actualizarUser()") 
                                             li(class="fa fa-save")
-                                            span() Guardar
+                                            span() {{'SAVE' | translate}}
 
 

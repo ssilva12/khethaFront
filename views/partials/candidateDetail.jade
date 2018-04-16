@@ -191,12 +191,12 @@ div(class="page-content-wrap")
                                                                                         option(value="1") {{ 'BACHELOR' | translate}}
                                                                                         option(value="2") {{ 'JOB_TRAINING' | translate}}
                                                                                         option(value="3") {{ 'DEGREE' | translate}}
-                                                                                        option(value="4") Pregrado
-                                                                                        option(value="5") Máster
-                                                                                        option(value="6") Post grado
+                                                                                        option(value="4") {{ 'PREGRADE' | translate}}
+                                                                                        option(value="5") {{ 'MASTER' | translate}}
+                                                                                        option(value="6") {{ 'POSTGRADE' | translate}}
                                                                         div(class="form-group row row-space")    
                                                                             div(class="col-md-3")
-                                                                                label(for="") Fecha de terminación
+                                                                                label(for="") {{ 'ENDDATE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 adm-dtp(ng-model='feature.lastDate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
                                                                     div(class="col-md-3")
@@ -214,7 +214,7 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space", ng-class="{ 'has-error' : formEstudio.estudio.$invalid && !formEstudio.estudio.$pristine }")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Estudio
+                                                                                label(for="") {{ 'EDUCATION' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.name", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
@@ -223,28 +223,28 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="estudio.name = item.er", ng-repeat="item in dataEstudio") {{item.er}}  
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Grado
+                                                                                label(for="") {{ 'GRADE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.mrName", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
                                                                                     select(select2="", ng-model="estudio.levelOrOrder", class="form-control")  
-                                                                                        option(value="0") Básico
-                                                                                        option(value="1") Bachillerato
-                                                                                        option(value="2") Form. Profesional
-                                                                                        option(value="3") Licenciatura
-                                                                                        option(value="4") Pregrado
-                                                                                        option(value="5") Máster
-                                                                                        option(value="6") Post grado
+                                                                                        option(value="0") {{ 'BASIC' | translate}}
+                                                                                        option(value="1") {{ 'BACHELOR' | translate}}
+                                                                                        option(value="2") {{ 'JOB_TRAINING' | translate}}
+                                                                                        option(value="3") {{ 'DEGREE' | translate}}
+                                                                                        option(value="4") {{ 'PREGRADE' | translate}}
+                                                                                        option(value="5") {{ 'MASTER' | translate}}
+                                                                                        option(value="6") {{ 'POSTGRADE' | translate}}
                                                                         div(class="form-group row row-space")    
                                                                             div(class="col-md-3")
-                                                                                label(for="") Fecha de terminación
+                                                                                label(for="") {{ 'ENDDATE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.lastDate", ng-hide="estudio.edit")
                                                                                 //- input(datetime-picker="", date-format="yyyy-MM-dd", ng-model="estudio.lastDate", ng-show="estudio.edit", date-only="", class="form-control")
                                                                                 adm-dtp(ng-model='estudio.lastDate', ng-show="estudio.edit", options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
                                                                         div(class="form-group row row-space", style="display:none;")
                                                                             div(class="col-md-3")
-                                                                                label(for="") País
+                                                                                label(for="") {{ 'COUNTRY' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.pais", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
@@ -253,7 +253,7 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="estudio.pais = estudio.er", ng-repeat="estudio in dataEstudioPais") {{estudio.er}}
                                                                         div(class="form-group row row-space", ng-show="vacancy.studies")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Puntaje
+                                                                                label(for="") {{ 'SCORE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 span(class="badge") {{estudio.score | number : 2}}
                                                                     div(class="col-md-3")
@@ -270,25 +270,25 @@ div(class="page-content-wrap")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-default pull-right", ng-click="agregarEstudio()") 
                                                 li(class="fa fa-plus")
-                                                span() Agregar
+                                                span() {{ 'ADD' | translate}}
                             div(id="tab6366", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-1") 
-                                            label(ng-show="vacancy") Puntaje:
+                                            label(ng-show="vacancy") {{ 'SCORE' | translate}}:
                                         div(class="col-md-3") 
                                             span(class="badge", ng-show="vacancy") {{getTotal('Educational center') | number : 2}}
                                         div(class="col-md-8")
                                             div(class="btn-group pull-right")
                                                 button(type="button", class="btn btn-default", ng-click="showUnresolved=true")
                                                     li(class="fa fa-exclamation-triangle")
-                                                    span() Sin resolver
+                                                    span() {{ 'UNRESOLVED' | translate}}
                                                 button(type="button", class="btn btn-default ", ng-click="showUnresolved=false") 
                                                     li(class="fa fa-check")
-                                                    span() Resueltas
+                                                    span() {{ 'RESOLVED' | translate}}
                                                 button(type="button", class="btn btn-default", ng-click="agregarCentroEstudio()") 
                                                     li(class="fa fa-plus")
-                                                    span() Agregar
+                                                    span() {{ 'ADD' | translate}}
                                     div(class="form-group")
                                         div(class="row", style="display: flex; flex-wrap: wrap;")
                                             div(class="col-md-6", ng-repeat="feature in vacancy.schooling")
@@ -300,7 +300,7 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Nombre
+                                                                                label(for="") {{ 'NAME' | translate}}
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
                                                                                     input(class="form-control",ng-focus="onFocus('featurecentroNombre',$index)",ng-blur="onBlur('featurecentroNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(feature.name,'EducationalCenterName','dataEstudioName','null')", ng-model="feature.name")
@@ -308,7 +308,7 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="feature.name = item.er", ng-repeat="item in dataEstudioName") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") País
+                                                                                label(for="") {{ 'COUNTRY' | translate}}
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
                                                                                     input(class="form-control",ng-focus="onFocus('featurecentroPais',$index)",ng-blur="onBlur('featurecentroPais',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(feature.pais,'CountryName','dataEstudioPais','null')", ng-model="feature.pais")
@@ -329,7 +329,7 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Nombre
+                                                                                label(for="") {{ 'NAME' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.name", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
@@ -338,7 +338,7 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="estudio.name = item.er", ng-repeat="item in dataEstudioName") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") País
+                                                                                label(for="") {{ 'COUNTRY' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.pais", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
@@ -347,15 +347,15 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="estudio.pais = item.er", ng-repeat="item in dataEstudioPais") {{item.er}}
                                                                         div(class="form-group row row-space", style="display:none")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Meta Relación
+                                                                                label(for="") {{ 'METHARELATION' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.methaRelation", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
                                                                                     select(select2="", ng-model="estudio.methaRelation", class="form-control")  
-                                                                                        option(value="0",selected="") Unike                                                                              
+                                                                                        option(value="0",selected="") {{ 'UNIQUE' | translate}}                                                                              
                                                                         div(class="form-group row row-space", ng-show="vacancy.schooling")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Puntaje
+                                                                                label(for="") {{ 'SCORE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 span(class="badge") {{estudio.score | number : 2}}
                                                                     div(class="col-md-3")
@@ -407,25 +407,25 @@ div(class="page-content-wrap")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-default pull-right", ng-click="agregarCentroEstudio()") 
                                                 li(class="fa fa-plus")
-                                                span() Agregar
+                                                span() {{ 'ADD' | translate}}
                             div(id="tab6370", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-1") 
-                                            label(ng-show="vacancy") Puntaje:
+                                            label(ng-show="vacancy") {{ 'SCORE' | translate}}:
                                         div(class="col-md-3") 
                                             span(class="badge", ng-show="vacancy") {{getTotal('Certificate') | number : 2}}
                                         div(class="col-md-8")
                                             div(class="btn-group pull-right")
                                                 button(type="button", class="btn btn-default", ng-click="showUnresolved=true")
                                                     li(class="fa fa-exclamation-triangle")
-                                                    span() Sin resolver
+                                                    span() {{ 'UNRESOLVED' | translate}}
                                                 button(type="button", class="btn btn-default", ng-click="showUnresolved=false") 
                                                     li(class="fa fa-check")
-                                                    span() Resueltas
+                                                    span() {{ 'RESOLVED' | translate}}
                                                 button(type="button", class="btn btn-default", ng-click="agregarCertificado()") 
                                                     li(class="fa fa-plus")
-                                                    span() Agregar
+                                                    span() {{ 'ADD' | translate}}
                                     div(class="form-group")
                                         div(class="row", style="display: flex; flex-wrap: wrap;")
                                             div(class="col-md-6", ng-repeat="feature in vacancy.certificate")
@@ -437,7 +437,7 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Estudio
+                                                                                label(for="") {{ 'EDUCATION' | translate}}
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
                                                                                     input(class="form-control",ng-focus="onFocus('featurecertificadoNombre',$index)",ng-blur="onBlur('featurecertificadoNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(feature.name,'CertificateName','dataCertificadoEstudio','null')", ng-model="feature.name")
@@ -445,7 +445,7 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="feature.name = item.er", ng-repeat="item in dataCertificadoEstudio") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") País
+                                                                                label(for="") {{ 'COUNTRY' | translate}}
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
                                                                                     input(class="form-control",ng-focus="onFocus('featurecertificadoPais',$index)",ng-blur="onBlur('featurecertificadoPais',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(feature.pais,'CountryName','dataCertificadoPais','null')", ng-model="feature.pais")
@@ -466,7 +466,7 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Estudio
+                                                                                label(for="") {{ 'EDUCATION' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.name", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
@@ -475,7 +475,7 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="estudio.name = item.er", ng-repeat="item in dataCertificadoEstudio") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") País
+                                                                                label(for="") {{ 'COUNTRY' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.pais", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
@@ -484,15 +484,15 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="estudio.pais = item.er", ng-repeat="item in dataCertificadoPais") {{item.er}}
                                                                         div(class="form-group row row-space", style="display:none")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Meta Relación
+                                                                                label(for="") {{ 'METHARELATION' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="estudio.methaRelation", ng-hide="estudio.edit")
                                                                                 div(style="width:100%", ng-show="estudio.edit")
                                                                                     select(select2="", ng-model="estudio.methaRelation", class="form-control")  
-                                                                                        option(value="0", selected="") Unike
+                                                                                        option(value="0", selected="") {{ 'UNIQUE' | translate}}
                                                                         div(class="form-group row row-space", ng-show="vacancy.certificate")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Puntaje
+                                                                                label(for="") {{ 'SCORE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 span(class="badge") {{estudio.score | number : 2}}
                                                                     div(class="col-md-3")
@@ -514,17 +514,17 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Caracteristica
+                                                                                label(for="") {{ 'CHARACTERIST' | translate}}
                                                                             div(class="col-md-9")                        
                                                                                 input(type="text",ng-model="caracteristica.name",class="form-control")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Diccionario
+                                                                                label(for="") {{ 'DICTIONARY' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="caracteristica.dictionary")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Resolver
+                                                                                label(for="") {{ 'RESOLVE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
                                                                                     input(class="form-control",ng-focus="onFocus('caracteristicasPsicologicasNombre',$index)",ng-blur="onBlur('caracteristicasPsicologicasNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(caracteristica.nombre,caracteristica.dictionary,'dataUnresolved','null')", ng-model="caracteristica.nombre")
@@ -545,25 +545,25 @@ div(class="page-content-wrap")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-default pull-right", ng-click="agregarCertificado()") 
                                                 li(class="fa fa-plus")
-                                                span() Agregar
+                                                span() {{ 'ADD' | translate}}
                             div(id="tab6373", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-1") 
-                                            label(ng-show="vacancy") Puntaje:
+                                            label(ng-show="vacancy") {{ 'SCORE' | translate}}:
                                         div(class="col-md-3") 
                                             span(class="badge", ng-show="vacancy") {{getTotal('Job Function') | number : 2}}
                                         div(class="col-md-8")
                                             div(class="btn-group pull-right")
                                                 button(type="button", class="btn btn-default", ng-click="showUnresolved=true")
                                                     li(class="fa fa-exclamation-triangle")
-                                                    span() Sin resolver
+                                                    span() {{ 'UNRESOLVED' | translate}}
                                                 button(type="button", class="btn btn-default", ng-click="showUnresolved=false") 
                                                     li(class="fa fa-check")
-                                                    span() Resueltas
+                                                    span() {{ 'RESOLVED' | translate}}
                                                 button(type="button", class="btn btn-default", ng-click="agregarExperiencia()") 
                                                     li(class="fa fa-plus")
-                                                    span() Agregar
+                                                    span() {{ 'ADD' | translate}}
                                     div(class="form-group")
                                         div(class="row", style="display: flex; flex-wrap: wrap;")
                                             div(class="col-md-6", ng-repeat="feature in vacancy.jobFunctions")
@@ -575,7 +575,7 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Trabajo
+                                                                                label(for="") {{ 'JOB' | translate}}
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
                                                                                     input(class="form-control",ng-focus="onFocus('featureexperienciaNombreVisible',$index)",ng-blur="onBlur('featureexperienciaNombreVisible',$index)", ng-attr-list="{{ 'featureexperienciaNombre' + $index }}", ng-attr-name="{{ 'featureexperienciaNombre' + $index }}",ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(feature.name,'JobFunctionName','dataExperienciaNombre','null')", ng-model="feature.name")
@@ -583,12 +583,12 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="feature.name = item.er", ng-repeat="item in dataExperienciaNombre") {{item.er}} 
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Fecha
+                                                                                label(for="") {{ 'DATE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 adm-dtp(ng-model='feature.lastDate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Meses
+                                                                                label(for="") {{ 'MONTHS' | translate}}
                                                                             div(class="col-md-9")
                                                                                 input(ng-model="feature.value", type="text", class="form-control")
                                                                     div(class="col-md-3")
@@ -606,7 +606,7 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Trabajo
+                                                                                label(for="") {{ 'JOB' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="exp.name", ng-hide="exp.edit")
                                                                                 div(style="width:100%", ng-show="exp.edit")
@@ -615,20 +615,20 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="exp.name = item.er", ng-repeat="item in dataExperienciaNombre") {{item.er}} 
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Fecha
+                                                                                label(for="") {{ 'DATE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="exp.lastDate", ng-hide="exp.edit")
                                                                                 //- input(datetime-picker="", date-format="yyyy-MM-dd", ng-model="exp.lastDate", ng-show="exp.edit", date-only="", class="form-control")
                                                                                 adm-dtp(ng-model='exp.lastDate', ng-show="exp.edit", options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Meses
+                                                                                label(for="") {{ 'MONTHS' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="exp.value", ng-hide="exp.edit")
                                                                                 input(ng-model="exp.value", type="text", class="form-control", ng-show="exp.edit")
                                                                         div(class="form-group row row-space", ng-show="vacancy.jobFunctions")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Puntaje
+                                                                                label(for="") {{ 'SCORE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 span(class="badge") {{exp.score | number : 2}}
                                                                     div(class="col-md-3")
@@ -650,17 +650,17 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Caracteristica
+                                                                                label(for="") {{ 'CHARACTERIST' | translate}}
                                                                             div(class="col-md-9")                        
                                                                                 input(type="text",ng-model="caracteristica.name",class="form-control")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Diccionario
+                                                                                label(for="") {{ 'DICTIONARY' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="caracteristica.dictionary")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Resolver
+                                                                                label(for="") {{ 'RESOLVE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
                                                                                     input(class="form-control",ng-focus="onFocus('caracteristicasPsicologicasNombre',$index)",ng-blur="onBlur('caracteristicasPsicologicasNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(caracteristica.nombre,caracteristica.dictionary,'dataUnresolved','null')", ng-model="caracteristica.nombre")
@@ -680,25 +680,25 @@ div(class="page-content-wrap")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-default pull-right", ng-click="agregarExperiencia()") 
                                                 li(class="fa fa-plus")
-                                                span() Agregar
+                                                span() {{ 'ADD' | translate}}
                             div(id="tab6369", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-1") 
-                                            label(ng-show="vacancy") Puntaje:
+                                            label(ng-show="vacancy") {{ 'SCORE' | translate}}:
                                         div(class="col-md-3") 
                                             span(class="badge", ng-show="vacancy") {{getTotal('Employer') | number : 2}}
                                         div(class="col-md-8")
                                             div(class="btn-group pull-right")
                                                 button(type="button", class="btn btn-default", ng-click="showUnresolved=true")
                                                     li(class="fa fa-exclamation-triangle")
-                                                    span() Sin resolver
+                                                    span() {{ 'UNRESOLVED' | translate}}
                                                 button(type="button", class="btn btn-default", ng-click="showUnresolved=false") 
                                                     li(class="fa fa-check")
-                                                    span() Resueltas
+                                                    span() {{ 'RESOLVED' | translate}}
                                                 button(type="button", class="btn btn-default", ng-click="agregarEmpleador()") 
                                                     li(class="fa fa-plus")
-                                                    span() Agregar
+                                                    span() {{ 'ADD' | translate}}
                                     div(class="form-group")
                                         div(class="row", style="display: flex; flex-wrap: wrap;")
                                             div(class="col-md-6", ng-repeat="feature in vacancy.jobs")
@@ -710,19 +710,19 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Nombre
+                                                                                label(for="") {{ 'NAME' | translate}}
                                                                             div(class="col-md-9")
                                                                                 input(class="form-control",ng-focus="onFocus('featureempleadorNombre',$index)",ng-blur="onBlur('featureempleadorNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(feature.name,'EmployerName','dataEmpleadorNombre','null')", ng-model="feature.name")
                                                                                 ul(ng-show="{{ 'featureempleadorNombre' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                                     li(class="list-group-item",ng-mousedown="feature.name = item.er", ng-repeat="item in dataEmpleadorNombre") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Fecha
+                                                                                label(for="") {{ 'DATE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 adm-dtp(ng-model='feature.lastDate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Meses
+                                                                                label(for="") {{ 'MONTHS' | translate}}
                                                                             div(class="col-md-9")
                                                                                 input(ng-model="feature.value", type="text", class="form-control")
                                                                     div(class="col-md-3")
@@ -740,7 +740,7 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Nombre
+                                                                                label(for="") {{ 'NAME' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="exp.name", ng-hide="exp.edit")
                                                                                 input(class="form-control",ng-focus="onFocus('empleadorNombre',$index)",ng-blur="onBlur('empleadorNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(exp.name,'EmployerName','dataEmpleadorNombre','null')", ng-model="exp.name", ng-show="exp.edit")
@@ -748,29 +748,29 @@ div(class="page-content-wrap")
                                                                                     li(class="list-group-item",ng-mousedown="exp.name = item.er", ng-repeat="item in dataEmpleadorNombre") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Fecha
+                                                                                label(for="") {{ 'DATE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="exp.lastDate", ng-hide="exp.edit")
                                                                                 //- input(datetime-picker="", date-format="yyyy-MM-dd", ng-model="exp.lastDate", ng-show="exp.edit", date-only="", class="form-control")
                                                                                 adm-dtp(ng-model='exp.lastDate', ng-show="exp.edit", options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Meses
+                                                                                label(for="") {{ 'MONTHS' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="exp.value", ng-hide="exp.edit")
                                                                                 input(ng-model="exp.value", type="text", class="form-control", ng-show="exp.edit")
                                                                         div(class="form-group row row-space", style="display:none")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Meta Relación
+                                                                                label(for="") {{ 'METHARELATION' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="exp.methaRelation", ng-hide="exp.edit")
                                                                                 div(style="width:100%", ng-show="exp.edit")
                                                                                     select(select2="", ng-model="exp.methaRelation", class="form-control")  
-                                                                                        option(value="0", selected="") Empleado por
-                                                                                        option(value="1") Empleado para
+                                                                                        option(value="0", selected="") {{ 'EMPLOYED_BY' | translate}}
+                                                                                        option(value="1") {{ 'EMPLOYED_FOR' | translate}}
                                                                         div(class="form-group row row-space", ng-show="vacancy.jobs")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Puntaje
+                                                                                label(for="") {{ 'SCORE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 span(class="badge") {{exp.score | number : 2}}
                                                                     div(class="col-md-3")
@@ -792,17 +792,17 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Caracteristica
+                                                                                label(for="") {{ 'CHARACTERIST' | translate}}
                                                                             div(class="col-md-9")                        
                                                                                 input(type="text",ng-model="caracteristica.name",class="form-control")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Diccionario
+                                                                                label(for="") {{ 'DICTIONARY' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="caracteristica.dictionary")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Resolver
+                                                                                label(for="") {{ 'RESOLVE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
                                                                                     input(class="form-control",ng-focus="onFocus('caracteristicasPsicologicasNombre',$index)",ng-blur="onBlur('caracteristicasPsicologicasNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(caracteristica.nombre,caracteristica.dictionary,'dataUnresolved','null')", ng-model="caracteristica.nombre")
@@ -823,18 +823,18 @@ div(class="page-content-wrap")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-default pull-right", ng-click="agregarEmpleador()") 
                                                 li(class="fa fa-plus")
-                                                span() Agregar
+                                                span() {{ 'ADD' | translate}}
                             div(id="tab6371", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-1") 
-                                            label(ng-show="vacancy") Puntaje:
+                                            label(ng-show="vacancy") {{ 'SCORE' | translate}}:
                                         div(class="col-md-3") 
                                             span(class="badge", ng-show="vacancy") {{getTotal('Language') | number : 2}}
                                         div(class="col-md-8")
                                             button(type="button", class="btn btn-default pull-right", ng-click="agregarIdioma()") 
                                                 li(class="fa fa-plus")
-                                                span() Agregar
+                                                span() {{ 'ADD' | translate}}
                                     div(class="form-group")
                                         div(class="row", style="display: flex; flex-wrap: wrap;")
                                             div(class="col-md-6", ng-repeat="feature in vacancy.languages")
@@ -846,7 +846,7 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Idioma
+                                                                                label(for="") {{ 'LANGUAGE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
                                                                                     input(class="form-control",ng-focus="onFocus('featureidiomaNombre',$index)",ng-blur="onBlur('featureidiomaNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(feature.name,'LanguageName','dataIdioma','null')", ng-model="feature.name")
@@ -854,13 +854,13 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="feature.name = item.er", ng-repeat="item in dataIdioma") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Meta Relación
+                                                                                label(for="") {{ 'METHARELATION' | translate}}
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
                                                                                     select(select2="", ng-model="feature.level", class="form-control")  
-                                                                                        option(value="0") Hablado
-                                                                                        option(value="1") Escrito
-                                                                                        option(value="2") Leído
+                                                                                        option(value="0") {{ 'SPEAK' | translate}}
+                                                                                        option(value="1") {{ 'WRITE' | translate}}
+                                                                                        option(value="2") {{ 'READ' | translate}}
                                                                     div(class="col-md-3")
                                                                         ul(class="panel-controls")
                                                                             li()
@@ -876,7 +876,7 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Idioma
+                                                                                label(for="") {{ 'LANGUAGE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="idioma.name", ng-hide="idioma.edit")
                                                                                 div(style="width:100%", ng-show="idioma.edit")
@@ -885,17 +885,17 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="idioma.name = item.er", ng-repeat="item in dataIdioma") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Meta Relación
+                                                                                label(for="") {{ 'METHARELATION' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="idioma.mfName", ng-hide="idioma.edit")
                                                                                 div(style="width:100%", ng-show="idioma.edit")
                                                                                     select(select2="", ng-model="idioma.level", class="form-control")  
-                                                                                        option(value="0") Hablado
-                                                                                        option(value="1") Escrito
-                                                                                        option(value="2") Leído
+                                                                                        option(value="0") {{ 'SPEAK' | translate}}
+                                                                                        option(value="1") {{ 'WRITE' | translate}}
+                                                                                        option(value="2") {{ 'READ' | translate}}
                                                                         div(class="form-group row row-space", ng-show="vacancy.languages")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Puntaje
+                                                                                label(for="") {{ 'SCORE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 span(class="badge") {{idioma.score | number : 2}}
                                                                     div(class="col-md-3")
@@ -913,25 +913,25 @@ div(class="page-content-wrap")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-default pull-right", ng-click="agregarIdioma()") 
                                                 li(class="fa fa-plus")
-                                                span() Agregar
+                                                span() {{ 'ADD' | translate}}
                             div(id="tab6394", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-1") 
-                                            label(ng-show="vacancy") Puntaje:
+                                            label(ng-show="vacancy") {{ 'SCORE' | translate}}:
                                         div(class="col-md-3") 
                                             span(class="badge", ng-show="vacancy") {{getTotal('Skill') | number : 2}}
                                         div(class="col-md-8")
                                             div(class="btn-group pull-right")
                                                 button(type="button", class="btn btn-default", ng-click="showUnresolved=true")
                                                     li(class="fa fa-exclamation-triangle")
-                                                    span() Sin resolver
+                                                    span() {{ 'UNRESOLVED' | translate}}
                                                 button(type="button", class="btn btn-default", ng-click="showUnresolved=false") 
                                                     li(class="fa fa-check")
-                                                    span() Resueltas
+                                                    span() {{ 'RESOLVED' | translate}}
                                                 button(type="button", class="btn btn-default", ng-click="agregarSkill()") 
                                                     li(class="fa fa-plus")
-                                                    span() Agregar
+                                                    span() {{ 'ADD' | translate}}
                                     div(class="form-group")
                                         div(class="row", style="display: flex; flex-wrap: wrap;")
                                             div(class="col-md-6", ng-repeat="feature in vacancy.skills")
@@ -943,7 +943,7 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Habilidad
+                                                                                label(for="") {{ 'SKILL' | translate}}
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
                                                                                     input(class="form-control",ng-focus="onFocus('featureskillNombre',$index)",ng-blur="onBlur('featureskillNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(feature.name,'SkillName','dataSkill','null')", ng-model="feature.name")
@@ -951,12 +951,12 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="feature.name = item.er", ng-repeat="item in dataSkill") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Meses
+                                                                                label(for="") {{ 'MONTHS' | translate}}
                                                                             div(class="col-md-9")
                                                                                 input(ng-model="feature.value", type="text", class="form-control")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Fecha
+                                                                                label(for="") {{ 'DATE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 adm-dtp(ng-model='feature.lastDate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
                                                                         
@@ -975,7 +975,7 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Habilidad
+                                                                                label(for="") {{ 'SKILL' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="skill.name", ng-hide="skill.edit")
                                                                                 div(style="width:100%", ng-show="skill.edit")
@@ -984,20 +984,19 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="skill.name = item.er", ng-repeat="item in dataSkill") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Meses
+                                                                                label(for="") {{ 'MONTHS' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="skill.value", ng-hide="skill.edit")
                                                                                 input(ng-model="skill.value", type="text", class="form-control", ng-show="skill.edit")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Fecha
+                                                                                label(for="") {{ 'DATE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="skill.lastDate", ng-hide="skill.edit")
-                                                                                //- input(datetime-picker="", date-format="yyyy-MM-dd", ng-model="skill.lastDate", ng-show="skill.edit", date-only="", class="form-control")
                                                                                 adm-dtp(ng-model='skill.lastDate', ng-show="skill.edit", options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
                                                                         div(class="form-group row row-space", ng-show="vacancy.skills")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Puntaje
+                                                                                label(for="") {{ 'SCORE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 span(class="badge") {{skill.score | number : 2}}
                                                                     div(class="col-md-3")
@@ -1019,7 +1018,7 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Habilidad
+                                                                                label(for="") {{ 'SKILL' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="skill.name", ng-hide="skill.edit")
                                                                                 div(style="width:100%", ng-show="skill.edit")
@@ -1028,13 +1027,13 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="skill.name = item.er", ng-repeat="item in dataSkill") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Meses
+                                                                                label(for="") {{ 'MONTHS' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="skill.value", ng-hide="skill.edit")
                                                                                 input(ng-model="skill.value", type="text", class="form-control", ng-show="skill.edit")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Fecha
+                                                                                label(for="") {{ 'DATE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="skill.lastDate", ng-hide="skill.edit")
                                                                                 input(datetime-picker="", date-format="yyyy-MM-dd", ng-model="skill.lastDate", ng-show="skill.edit", date-only="", class="form-control")
@@ -1056,7 +1055,7 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Habilidad
+                                                                                label(for="") {{ 'SKILL' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="skill.name", ng-hide="skill.edit")
                                                                                 div(style="width:100%", ng-show="skill.edit")
@@ -1065,13 +1064,13 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="skill.name = item.er", ng-repeat="item in dataSkill") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Meses
+                                                                                label(for="") {{ 'MONTHS' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="skill.value", ng-hide="skill.edit")
                                                                                 input(ng-model="skill.value", type="text", class="form-control", ng-show="skill.edit")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Fecha
+                                                                                label(for="") {{ 'DATE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="skill.lastDate", ng-hide="skill.edit")
                                                                                 input(datetime-picker="", date-format="yyyy-MM-dd", ng-model="skill.lastDate", ng-show="skill.edit", date-only="", class="form-control")
@@ -1089,14 +1088,14 @@ div(class="page-content-wrap")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-default pull-right", ng-click="agregarSkill()") 
                                                 li(class="fa fa-plus")
-                                                span() Agregar 
+                                                span() {{ 'ADD' | translate}} 
                             div(id="tab6373", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-default pull-right", ng-click="agregarCaracteristica()") 
                                                 li(class="fa fa-plus")
-                                                span() Agregar
+                                                span() {{ 'ADD' | translate}}
                                     div(class="form-group")
                                         div(class="row", style="display: flex; flex-wrap: wrap;")
                                             div(class="col-md-6", ng-repeat="caracteristica in usuario.caracteristicas")
@@ -1108,7 +1107,7 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Caracteristica
+                                                                                label(for="") {{ 'CHARACTERIST' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="caracteristica.name", ng-hide="caracteristica.edit")
                                                                                 div(style="width:100%", ng-show="caracteristica.edit")
@@ -1117,7 +1116,7 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="caracteristica.name = item.er", ng-repeat="item in dataJob") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Valor
+                                                                                label(for="") {{ 'VALUE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="caracteristica.valor", ng-hide="caracteristica.edit")
                                                                                 input(ng-model="caracteristica.valor", type="text", class="form-control", ng-show="caracteristica.edit")
@@ -1135,14 +1134,14 @@ div(class="page-content-wrap")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-default pull-right", ng-click="agregarCaracteristica()") 
                                                 li(class="fa fa-plus")
-                                                span() Agregar
+                                                span() {{ 'ADD' | translate}}
                             div(id="tab6424", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-default pull-right", ng-click="agregarCaracteristicaPsicologica()") 
                                                 li(class="fa fa-plus")
-                                                span() Agregar
+                                                span() {{ 'ADD' | translate}}
                                     div(class="form-group")
                                         div(class="row", style="display: flex; flex-wrap: wrap;")
                                             div(class="col-md-6", ng-repeat="caracteristica in usuario.caracteristicasPsicologicas")
@@ -1154,7 +1153,7 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Caracteristica
+                                                                                label(for="") {{ 'CHARACTERIST' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="caracteristica.name", ng-hide="caracteristica.edit")
                                                                                 div(style="width:100%", ng-show="caracteristica.edit")
@@ -1163,7 +1162,7 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="caracteristica.name = item.er", ng-repeat="item in dataJobFunction") {{item.er}}
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Valor
+                                                                                label(for="") {{ 'VALUE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="caracteristica.valor", ng-hide="caracteristica.edit")
                                                                                 input(ng-model="caracteristica.valor", type="text", class="form-control", ng-show="caracteristica.edit")
@@ -1181,7 +1180,7 @@ div(class="page-content-wrap")
                                         div(class="col-md-12")
                                             button(type="button", class="btn btn-default pull-right", ng-click="agregarCaracteristicaPsicologica()") 
                                                 li(class="fa fa-plus")
-                                                span() Agregar
+                                                span() {{ 'ADD' | translate}}
                             div(id="tabPostulaciones", class="tab-pane fade")
                                 div(class="panel-body")
                                     div(class="form-group")
@@ -1190,23 +1189,23 @@ div(class="page-content-wrap")
                                                 form(role="form", class="form-horizontal")
                                                     div(class="panel panel-default")
                                                         div(class="form-group")
-                                                            label(class="col-sm-2") Cargo:
+                                                            label(class="col-sm-2") {{ 'JOB' | translate}}:
                                                             div(class="col-md-10")
                                                                 p(class="form-control-static", ng-bind="postulacion.jobDescription")
                                                         div(class="form-group")
-                                                            label(class="col-sm-2") Empresa:
+                                                            label(class="col-sm-2") {{ 'COMPANY' | translate}}:
                                                             div(class="col-md-10")
                                                                 p(class="form-control-static", ng-bind="postulacion.employer")
                                                         div(class="form-group")
-                                                            label(class="col-sm-2") Fecha:
+                                                            label(class="col-sm-2") {{ 'DATE' | translate}}:
                                                             div(class="col-md-10")
                                                                 p(class="form-control-static", ng-bind="postulacion.fromDate +'-'+ postulacion.toDate")
                                                         div(class="form-group")
-                                                            label(class="col-sm-2") Ranking
+                                                            label(class="col-sm-2") {{ 'RANKING' | translate}}
                                                             div(class="col-md-10")
                                                                 p(class="form-control-static", ng-bind="postulacion.ranking")
                                                         div(class="form-group")
-                                                            label(class="col-sm-2") Seleccionado
+                                                            label(class="col-sm-2") {{ 'SELECTED' | translate}} 
                                                             div(class="col-md-10").
                                                                 <p>Si
                                                                     <input type="radio" class="icheckbox" checked="checked" value="true" ng-model="postulacion.selected" disabled="disabled"/> No
@@ -1225,17 +1224,17 @@ div(class="page-content-wrap")
                                                                     div(class="col-md-9")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Caracteristica
+                                                                                label(for="") {{ 'CHARACTERIST' | translate}}
                                                                             div(class="col-md-9")                        
                                                                                 input(type="text",ng-model="caracteristica.name",class="form-control")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Diccionario
+                                                                                label(for="") {{ 'DICTIONARY' | translate}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="caracteristica.dictionary")
                                                                         div(class="form-group row row-space")
                                                                             div(class="col-md-3")
-                                                                                label(for="") Resolver
+                                                                                label(for="") {{ 'RESOLVE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
                                                                                     input(class="form-control",ng-focus="onFocus('caracteristicasPsicologicasNombre',$index)",ng-blur="onBlur('caracteristicasPsicologicasNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(caracteristica.nombre,caracteristica.dictionary,'dataUnresolved','null')", ng-model="caracteristica.nombre")

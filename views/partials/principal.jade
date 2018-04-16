@@ -216,7 +216,7 @@ div(class="page-container page-navigation-top-fixed",ng-controller="AppCtrl")
             button(ng-show="Message.type == 'confirm'", class="btn btn-success btn-lg mb-control-close", ng-click="Message.open = false; Message.acept()") {{ Message.aceptText | translate}}
           div(class="col-sm-2")
             button(ng-show="Message.type == 'confirm'", class="btn btn-danger btn-lg pull-right mb-control-close", ng-click="Message.open = false; Message.cancel()") {{ Message.cancelText | translate}}
-            button(ng-hide="Message.type == 'confirm'", class="btn btn-default btn-lg pull-right mb-control-close", ng-click="Message.open = false;") {{ 'CLOSE' | translate}}
+            button(ng-hide="Message.type == 'confirm'", class="btn btn-default btn-lg pull-right mb-control-close", ng-click="Message.open = false; Message.acept()") {{ 'CLOSE' | translate}}
   //- END MESSAGE BOX
 
 script(src='js/actions.js')  

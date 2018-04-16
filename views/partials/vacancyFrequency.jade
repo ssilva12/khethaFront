@@ -1,6 +1,6 @@
 //- PAGE TITLE
 div(class="page-title")
-    h2() Matrices de frequencia
+    h2() {{ 'FREQUENCY_MATRICES' | translate }}
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
 div(class="page-content-wrap")
@@ -15,38 +15,38 @@ div(class="page-content-wrap")
                                 div(class="form-group")
                                     div(class="row row-space")
                                         div(class="col-sm-1")
-                                            label() Empleador:
+                                            label() {{ 'EMPLOYER' | translate }}:
                                         div(class="col-sm-3")
                                             select(class="form-control", ng-model="Dato.employer", ng-change="getJobs()")
-                                                option(value="") Todos
+                                                option(value="") {{ 'ALL' | translate }}
                                                 option(ng-repeat="emp in Dato.employers")(value="{{ emp.id }}") {{ emp.name }}
                                         div(class="col-sm-1")
-                                            label() Oficio:
+                                            label() {{ 'JOB' | translate }}:
                                         div(class="col-sm-3")
                                             select(class="form-control", ng-model="Dato.job", ng-change="getVacancies()")
-                                                option(value="") Todos
+                                                option(value="") {{ 'ALL' | translate }}
                                                 option(ng-repeat="job in Dato.jobs")(value="{{ job.id }}") {{ job.name }}
                                         div(class="col-sm-1")
-                                            label() Años atras:
+                                            label() {{ 'YEARS_AGO' | translate }}:
                                         div(class="col-sm-3")
                                             select(class="form-control", ng-model="Dato.yearsBack")
                                                 option(value="")
                                                 option(ng-repeat="y in Dato.possibleYearsBack", value="{{ y }}") {{ y }} 
                                     div(class="row row-space")
-                                        div(class="col-sm-6") Total candidatos: {{ methaFeatures[0].totalCount }}
+                                        div(class="col-sm-6") {{ 'TOTAL_CANDIDATES' | translate }}: {{ methaFeatures[0].totalCount }}
                                         div(class="col-sm-6")
                                             div(class="btn-group pull-right")
                                                 button(type="button", class="btn btn-default", ng-click="getMethaFeatures()") 
                                                     li(class="fa fa-search")
-                                                    span() Consultar
+                                                    span() {{ 'CONSULT' | translate }}
                                     div(class="row")
                                         div(class="col-sm-12")
                                             div(class="panel panel-default tabs")
                                                 ul(class="nav nav-tabs")
                                                     li(ng-class="{'active' : Dato.tab == 'tab1'}")
-                                                        a(data-toggle="tab", data-target="#tab1") Frecuencia
+                                                        a(data-toggle="tab", data-target="#tab1") {{ 'FREQUENCY' | translate }}
                                                     li(ng-class="{'active' : Dato.tab == 'tab4'}")
-                                                        a(data-toggle="tab", data-target="#tab4") Probabilidad
+                                                        a(data-toggle="tab", data-target="#tab4") {{ 'PROBABILITY' | translate }}
                                                 div(class="panel-body tab-content", style="min-height:100vh; border-left: 1px solid #ddd;")
                                                     div(id="tab1", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab1'}")
                                                         div(ng-repeat="methaFeatures in methaFeatures |  orderBy : ['methaFeatureOrder', 'name']", class="panel panel-primary")
@@ -60,7 +60,7 @@ div(class="page-content-wrap")
                                                                     table(class="table table-bordered table-condensed")
                                                                         thead(style="text-align: center;")
                                                                             tr(style="text-align: center;")
-                                                                                th() Feature
+                                                                                th() {{ 'FEATURE' | translate }}
                                                                                 th() MR1
                                                                                 th() MR2
                                                                                 th() MR3
@@ -118,7 +118,7 @@ div(class="page-content-wrap")
                                                                     table(class="table table-bordered table-condensed")
                                                                         thead()
                                                                             tr()
-                                                                                th() Feature
+                                                                                th() {{ 'FEATURE' | translate }}
                                                                                 th() MR1
                                                                                 th() MR2
                                                                                 th() MR3

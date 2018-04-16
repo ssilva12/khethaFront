@@ -1,6 +1,6 @@
 //- PAGE TITLE
 div(class="page-title")
-    h2() Empleador:&nbsp;
+    h2() {{ 'EMPLOYER' | translate }}:&nbsp;
         span(class="txt-grises", ng-bind="employer.name")
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
@@ -12,18 +12,18 @@ div(class="page-content-wrap")
                     div(class="col-md-12")
                         div(class="panel panel-default")
                             div(class="panel-heading")
-                                h3(class="panel-title") Datos del empleador
+                                h3(class="panel-title") {{ 'EMPLOYER_DATA' | translate }}
                             div(class="panel-body")
                                 div(class="row row-space")
-                                    label(class="col-md-3", style="text-align: right;") Código
+                                    label(class="col-md-3", style="text-align: right;") {{ 'CODE' | translate }}
                                     div(class="col-md-6")
                                         input(type="text", class="form-control", ng-model="employer.code")
                                 div(class="row row-space")
-                                    label(class="col-md-3", style="text-align: right;") Nombre
+                                    label(class="col-md-3", style="text-align: right;") {{ 'NAME' | translate }}
                                     div(class="col-md-6")
                                         input(type="text", class="form-control", ng-model="employer.name")
                                 div(class="row row-space")
-                                    label(class="col-md-3", style="text-align: right;") Sector
+                                    label(class="col-md-3", style="text-align: right;") {{ 'SECTOR' | translate }}
                                     div(class="col-md-6")
                                         input(class="form-control",ng-focus="onFocus('Sector',1)",ng-blur="onBlur('Sector',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(employer.sectorName,'SectorName','dataSector','null','employer.sectorName')", ng-model="employer.sectorName", ng-required="employer.sectorNameSelected")
                                         ul(ng-show="{{ 'Sector' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
@@ -32,6 +32,6 @@ div(class="page-content-wrap")
                                     div(class="col-md-12")
                                         button(type="button", class="btn btn-primary pull-right", ng-click="actualizarEmpleador()") 
                                             li(class="fa fa-save")
-                                            span() Guardar
+                                            span() {{ 'SAVE' | translate }}
 
 

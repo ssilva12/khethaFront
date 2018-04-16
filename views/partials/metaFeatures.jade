@@ -1,7 +1,6 @@
 //- PAGE TITLE
 div(class="page-title")
-    h2() Metha Características
-        span(class="txt-grises", ng-bind="titulo")
+    h2() {{'METHAFEATURES' | translate}}
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
 div(class="page-content-wrap")
@@ -19,9 +18,9 @@ div(class="page-content-wrap")
                                                 thead()
                                                     tr()
                                                         td(class="col-md-6") 
-                                                            h4() Nombre
+                                                            h4() {{'NAME' | translate}}
                                                         td(class="col-md-5") 
-                                                            h4() Diccionario
+                                                            h4() {{'DICTIONARY' | translate}}
                                                         td(class="col-md-1")
                                                 tbody()
                                                     tr(ng-repeat="metaFeature in metaFeatures")

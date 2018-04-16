@@ -1,12 +1,12 @@
 div(class="form-gorup")  
   div(class="col-md-12")
-    label: h4 Entrada
+    label: h4 {{ 'ENTRY' | translate }}
   div(class="col-md-10")
     input(type="text",id="myId", disabled="true",class="form-control", ng-model="current.name")
   div(class="col-md-1")
-    button(ng-click="editOriginal()") Editar
+    button(ng-click="editOriginal()") {{ 'EDIT' | translate }}
   div(class="col-md-1")
-    button(ng-click="createPrimary(current)") Crear
+    button(ng-click="createPrimary(current)") {{ 'CREATE' | translate }}
 div(class="col-md-12", ng-show="current.dictionary == 'SkillName' || current.dictionary == 'JobFunctionName'")
   input(type='radio', ng-model="current.dictionary",name='dictionary', value='JobFunctionName', ng-checked="current.dictionary == 'JobFunctionName'") 
   |JobFunctionName
@@ -14,19 +14,19 @@ div(class="col-md-12", ng-show="current.dictionary == 'SkillName' || current.dic
   |SkillName
 div(class="form-gorup")
   div.col-md-12
-    label: h4 Busqueda de sinonimos
+    label: h4 {{ 'SYNONYM_SEARCH' | translate }}
   div.col-md-12
     input(type="text",class="form-control", ng-model="synonymsSearch",ng-change="getSuggested(synonymsSearch)")
  
 div.col-md-12
-  h4 Sugerencias
+  h4 {{ 'SUGGESTIONS' | translate }}
 div(class="col-md-10 col-md-offset-1")
   {{current}}
   table(class = "table")
     thead
-      tr: th Nombre
+      tr: th {{ 'NAME' | translate }}
           th   
     tbody
       tr(ng-repeat="entry in suggested")
         td: {{entry.er}}
-        td: button(ng-click="solveAsSynonym(entry.id)") seleccionar
+        td: button(ng-click="solveAsSynonym(entry.id)") {{ 'SELECT' | translate }}

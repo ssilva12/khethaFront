@@ -1,6 +1,6 @@
 //- PAGE TITLE
 div(class="page-title")
-    h2() Caracterización de vacantes
+    h2() {{'VACANCY_CHARACTERIZATION' | translate}}
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
 div(class="page-content-wrap")
@@ -15,65 +15,65 @@ div(class="page-content-wrap")
                                 div(class="form-group")
                                     div(class="row row-space")
                                         div(class="col-sm-1")
-                                            label() Empleador:
+                                            label() {{'EMPLOYER' | translate}}:
                                         div(class="col-sm-3")
                                             select(class="form-control", ng-model="Dato.employer", ng-change="getJobs()")
-                                                option(value="") Todos
+                                                option(value="") {{'ALL' | translate}}
                                                 option(ng-repeat="emp in Dato.employers")(value="{{ emp.id }}") {{ emp.name }}
                                         div(class="col-sm-1")
-                                            label() Oficio:
+                                            label() {{'JOB' | translate}}:
                                         div(class="col-sm-3")
                                             select(class="form-control", ng-model="Dato.job", ng-change="getVacancies()")
-                                                option(value="") Todos
+                                                option(value="") {{'ALL' | translate}}
                                                 option(ng-repeat="job in Dato.jobs")(value="{{ job.id }}") {{ job.name }}
                                         div(class="col-sm-1")
-                                            label() Vacante:
+                                            label() {{'VACANCY' | translate}}:
                                         div(class="col-sm-3")
                                             select(class="form-control", ng-model="Dato.vacancy")
-                                                option(value="") Todos
+                                                option(value="") {{'ALL' | translate}}
                                                 option(ng-repeat="vac in Dato.vacancies")(value="{{ vac.id }}") {{ vac.name }}
                                     div(class="row row-space")
                                         div(class="col-sm-2")
-                                            label() Año de referencia:
+                                            label() {{'REFERENCE_YEAR' | translate}}:
                                         div(class="col-sm-2")
                                             select(class="form-control", ng-model="Dato.referenceYear")
                                                 option(value="")
                                                 option(ng-repeat="y in Dato.possibleReferenceYears", value="{{ y }}") {{ y }} 
                                         div(class="col-sm-2")
-                                            label() Años atras:
+                                            label() {{'YEARS_AGO' | translate}}:
                                         div(class="col-sm-2")
                                             select(class="form-control", ng-model="Dato.yearsBack")
                                                 option(value="")
                                                 option(ng-repeat="y in Dato.possibleYearsBack", value="{{ y }}") {{ y }} 
                                         div(class="col-sm-3")
-                                            label() Porcentaje ocurrencias(%):
+                                            label() {{'OCCURRENCE_PERCENTAGE' | translate}}(%):
                                         div(class="col-sm-1")
                                             input(class="form-control", type="text", ng-model="Dato.minPercentage")
                                     div(class="row row-space")
-                                        div(class="col-sm-6") Total candidatos: {{ methaFeatures[0].totalCount }}
+                                        div(class="col-sm-6") {{'TOTAL_CANDIDATES' | translate}}: {{ methaFeatures[0].totalCount }}
                                         div(class="col-sm-6")
                                             div(class="btn-group pull-right")
                                                 button(type="button", class="btn btn-default", ng-click="getMethaFeaturesJobLastVacancy()")
                                                     li(class="fa fa-search")
-                                                    span() Consultar Job Last Vacancy
+                                                    span() {{'CONSULT_LAST_VACANCY' | translate}}
                                                 button(type="button", class="btn btn-default", ng-click="calculateFrequencyMatrix()") 
                                                     li(class="fa fa-search")
-                                                    span() Calcular
+                                                    span() {{'CALCULATE' | translate}}
                                                 button(type="button", class="btn btn-default", ng-click="getMethaFeatures()") 
                                                     li(class="fa fa-search")
-                                                    span() Consultar
+                                                    span() {{'CONSULT' | translate}}
                                     div(class="row")
                                         div(class="col-sm-12")
                                             div(class="panel panel-default tabs")
                                                 ul(class="nav nav-tabs")
                                                     li(ng-class="{'active' : Dato.tab == 'tab1'}")
-                                                        a(data-toggle="tab", data-target="#tab1") Frecuencia
+                                                        a(data-toggle="tab", data-target="#tab1") {{'FREQUENCY' | translate}}
                                                     li(ng-class="{'active' : Dato.tab == 'tab2'}")
-                                                        a(data-toggle="tab", data-target="#tab2") Peso
+                                                        a(data-toggle="tab", data-target="#tab2") {{'WEIGHT' | translate}}
                                                     li(ng-class="{'active' : Dato.tab == 'tab3'}",ng-show="Dato.vacancy != ''")
-                                                        a(data-toggle="tab", data-target="#tab3") Peso establecido
+                                                        a(data-toggle="tab", data-target="#tab3") {{'SETTED_WEIGHT' | translate}}
                                                     li(ng-class="{'active' : Dato.tab == 'tab4'}")
-                                                        a(data-toggle="tab", data-target="#tab4") Probabilidad
+                                                        a(data-toggle="tab", data-target="#tab4") {{'PROBABILITY' | translate}}
                                                 div(class="panel-body tab-content", style="min-height:100vh; border-left: 1px solid #ddd;")
                                                     div(id="tab1", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab1'}")
                                                         div(ng-repeat="methaFeatures in methaFeatures |  orderBy : ['methaFeatureOrder', 'name']", class="panel panel-primary")
@@ -84,13 +84,13 @@ div(class="page-content-wrap")
                                                                 div(class="col-sm-2")
                                                                     button(type="button", class="btn btn-default pull-right", ng-click="showAddFeature(methaFeatures)", data-toggle="modal", data-target="#modalAddFeature") 
                                                                         li(class="fa fa-plus")
-                                                                        span() Agregar
+                                                                        span() {{'ADD' | translate}}
                                                             div(class="panel-body panel-body-table")
                                                                 div(class="table-responsive", style="overflow-x: scroll;")
                                                                     table(class="table table-bordered table-condensed")
                                                                         thead(style="text-align: center;")
                                                                             tr(style="text-align: center;")
-                                                                                th() Feature
+                                                                                th() {{'FEATURE' | translate}}
                                                                                 th() MR1
                                                                                 th() MR2
                                                                                 th() MR3
@@ -106,11 +106,11 @@ div(class="page-content-wrap")
                                                                                 th()
                                                                                     span(ng-show="showValue != 'p'") Count
                                                                                     span(ng-show="showValue == 'p'") Probab
-                                                                                th() Discarded
-                                                                                th() Mandatory
-                                                                                th() Top Weight
-                                                                                th() MFR WEIGHT
-                                                                                th() Point Value
+                                                                                th() {{'DISCARDED' | translate}}
+                                                                                th() {{'MANDATORY' | translate}}
+                                                                                th() {{'TOP_WEIGHT' | translate}}
+                                                                                th() {{'MFR_WEIGHT' | translate}}
+                                                                                th() {{'POINT_VALUE' | translate}}
                                                                         tbody()
                                                                             tr(ng-repeat="feature in methaFeatures.features | orderBy : ['name']", ng-show="feature.count >= (methaFeatures.totalCount * Dato.minPercentage / 100)")
                                                                                 td() {{ feature.name }}
@@ -157,13 +157,13 @@ div(class="page-content-wrap")
                                                                 div(class="col-sm-2")
                                                                     button(type="button", class="btn btn-default pull-right", ng-click="showAddFeature(methaFeatures)", data-toggle="modal", data-target="#modalAddFeature") 
                                                                         li(class="fa fa-plus")
-                                                                        span() Agregar
+                                                                        span() {{'ADD' | translate}}
                                                             div(class="panel-body panel-body-table")
                                                                 div(class="table-responsive", style="overflow-x: scroll;")
                                                                     table(class="table table-bordered table-condensed")
                                                                         thead()
                                                                             tr()
-                                                                                th() Feature
+                                                                                th() {{'FEATURE' | translate}}
                                                                                 th() MR1
                                                                                 th() MR2
                                                                                 th() MR3
@@ -179,11 +179,11 @@ div(class="page-content-wrap")
                                                                                 th()
                                                                                     span(ng-show="showValue != 'p'") Count
                                                                                     span(ng-show="showValue == 'p'") Probab
-                                                                                th() Discarded
-                                                                                th() Mandatory
-                                                                                th() Top Weight
-                                                                                th() MFR WEIGHT
-                                                                                th() Point Value
+                                                                                th() {{'DISCARDED' | translate}}
+                                                                                th() {{'MANDATORY' | translate}}
+                                                                                th() {{'TOP_WEIGHT' | translate}}
+                                                                                th() {{'MFR_WEIGHT' | translate}}
+                                                                                th() {{'POINT_VALUE' | translate}}
                                                                         tbody()
                                                                             tr(ng-repeat="feature in methaFeatures.features | orderBy : ['name']", ng-show="feature.count >= (methaFeatures.totalCount * Dato.minPercentage / 100)")
                                                                                 td() {{ feature.name }}
@@ -230,13 +230,13 @@ div(class="page-content-wrap")
                                                                 div(class="col-sm-2")
                                                                     button(type="button", class="btn btn-default pull-right", ng-click="showAddFeature(methaFeatures)", data-toggle="modal", data-target="#modalAddFeature") 
                                                                         li(class="fa fa-plus")
-                                                                        span() Agregar
+                                                                        span() {{'ADD' | translate}}
                                                             div(class="panel-body panel-body-table")
                                                                 div(class="table-responsive", style="overflow-x: scroll;")
                                                                     table(class="table table-bordered table-condensed")
                                                                         thead()
                                                                             tr()
-                                                                                th() Feature
+                                                                                th() {{'FEATURE' | translate}}
                                                                                 th() MR1
                                                                                 th() MR2
                                                                                 th() MR3
@@ -252,11 +252,11 @@ div(class="page-content-wrap")
                                                                                 th()
                                                                                     span(ng-show="showValue != 'p'") Count
                                                                                     span(ng-show="showValue == 'p'") Probab
-                                                                                th() Discarded
-                                                                                th() Mandatory
-                                                                                th() Top Weight
-                                                                                th() MFR WEIGHT
-                                                                                th() Point Value
+                                                                                th() {{'DISCARDED' | translate}}
+                                                                                th() {{'MANDATORY' | translate}}
+                                                                                th() {{'TOP_WEIGHT' | translate}}
+                                                                                th() {{'MFR_WEIGHT' | translate}}
+                                                                                th() {{'POINT_VALUE' | translate}}
                                                                         tbody()
                                                                             tr(ng-repeat="feature in methaFeatures.features | orderBy : ['name']", ng-show="feature.count >= (methaFeatures.totalCount * Dato.minPercentage / 100)")
                                                                                 td() {{ feature.name }}
@@ -327,13 +327,13 @@ div(class="page-content-wrap")
                                                                 div(class="col-sm-2")
                                                                     button(type="button", class="btn btn-default pull-right", ng-click="showAddFeature(methaFeatures)", data-toggle="modal", data-target="#modalAddFeature") 
                                                                         li(class="fa fa-plus")
-                                                                        span() Agregar
+                                                                        span() {{'ADD' | translate}}
                                                             div(class="panel-body panel-body-table")
                                                                 div(class="table-responsive", style="overflow-x: scroll;")
                                                                     table(class="table table-bordered table-condensed")
                                                                         thead()
                                                                             tr()
-                                                                                th() Feature
+                                                                                th() {{'FEATURE' | translate}}
                                                                                 th() MR1
                                                                                 th() MR2
                                                                                 th() MR3
@@ -349,11 +349,11 @@ div(class="page-content-wrap")
                                                                                 th()
                                                                                     span(ng-show="showValue != 'p'") Count
                                                                                     span(ng-show="showValue == 'p'") Probab
-                                                                                th() Discarded
-                                                                                th() Mandatory
-                                                                                th() Top Weight
-                                                                                th() MFR WEIGHT
-                                                                                th() Point Value
+                                                                                th() {{'DISCARDED' | translate}}
+                                                                                th() {{'MANDATORY' | translate}}
+                                                                                th() {{'TOP_WEIGHT' | translate}}
+                                                                                th() {{'MFR_WEIGHT' | translate}}
+                                                                                th() {{'POINT_VALUE' | translate}}
                                                                         tbody()
                                                                             tr(ng-repeat="feature in methaFeatures.features | orderBy : ['name']", ng-show="feature.count >= (methaFeatures.totalCount * Dato.minPercentage / 100)")
                                                                                 td() {{ feature.name }}
@@ -397,21 +397,21 @@ div(class="modal", id="modalWeight", role="dialog")
                 button(type="button", data-dismiss="modal", class="close")
                     span(aria-hidden="true") &times;
                     span(class="sr-only") Close
-                h4(class="modal-title", id="weightLabel") Editar peso
+                h4(class="modal-title", id="weightLabel") {{'EDIT_WEIGHT' | translate}}
             div(class="modal-body")
                 div() 
-                    label() Metha feature:&nbsp;
+                    label() {{'METHAFEATURE' | translate}}:&nbsp;
                     span() {{ Dato.featureEdit.methaFeature.name }},&nbsp; 
-                    label() Feature:&nbsp;
+                    label() {{'FEATURE' | translate}}:&nbsp;
                     span() {{ Dato.featureEdit.name }},&nbsp;
                     label() MR:&nbsp;
                     span() {{ Dato.methaRelationEdit }}
                 div(class="form-group")
-                    label(for='weight') Peso:
+                    label(for='weight') {{'WEIGHT' | translate}}:
                     input(id="weight", class="form-control", type='text', placeholder='peso', name='weight', ng-model="Dato.weightPopupEdit")
             div(class="modal-footer")
-                button(class="btn btn-default", type="button", ng-click="saveWeight()", data-dismiss="modal") Guardar
-                button(class="btn btn-default", type="button", data-dismiss="modal") Cancelar
+                button(class="btn btn-default", type="button", ng-click="saveWeight()", data-dismiss="modal") {{'SAVE' | translate}}
+                button(class="btn btn-default", type="button", data-dismiss="modal") {{'CANCEL' | translate}}
 div(class="modal", id="modalAddFeature", role="dialog")
     div(class="modal-dialog", role="document") 
         div(class="modal-content")
@@ -419,19 +419,19 @@ div(class="modal", id="modalAddFeature", role="dialog")
                 button(type="button", data-dismiss="modal", class="close")
                     span(aria-hidden="true") &times;
                     span(class="sr-only") Close
-                h4(class="modal-title", id="weightLabel") Agregar característica
+                h4(class="modal-title", id="weightLabel") {{'ADD_FEATURE' | translate}}
             div(class="modal-body")
                 div() 
-                    label() Metha feature:&nbsp;
+                    label() {{'METHAFEATURE' | translate}}:&nbsp;
                     span() {{ Dato.currentMethaFeatureName }}
                 div(class="form-group")
-                    label(for='feature') Caracteristica:
+                    label(for='feature') {{'FEATURE' | translate}}:
                     select(ng-model="Dato.featureToAdd")
                         option(ng-repeat="f in Dato.currentFeatureNames")(value="{{ f.id }}") {{ f.name }}
                 div(class="alert alert-danger", ng-show="Dato.addFeatureError") {{ Dato.addFeatureError }}
             div(class="modal-footer")
-                button(class="btn btn-default", type="button", ng-click="addFeature()") Guardar
-                button(class="btn btn-default", type="button", data-dismiss="modal") Cancelar
+                button(class="btn btn-default", type="button", ng-click="addFeature()") {{'SAVE' | translate}}
+                button(class="btn btn-default", type="button", data-dismiss="modal") {{'CANCEL' | translate}}
 div(class="modal", id="modalDiscarded", role="dialog")
     div(class="modal-dialog", role="document")
         div(class="modal-content")
@@ -439,15 +439,15 @@ div(class="modal", id="modalDiscarded", role="dialog")
                 button(type="button", data-dismiss="modal", class="close")
                     span(aria-hidden="true") &times;
                     span(class="sr-only") Close
-                h4(class="modal-title") Modificar discarded
+                h4(class="modal-title") {{'EDIT_DISCARDED' | translate}}
             div(class="modal-body")
                 div() 
-                    label() Metha feature:&nbsp; 
+                    label() {{'METHAFEATURE' | translate}}:&nbsp; 
                     span() {{ Dato.featureEdit.methaFeature.name }}, 
-                    label() Feature:&nbsp;
+                    label() {{'FEATURE' | translate}}:&nbsp;
                     span() {{ Dato.featureEdit.name }}
-                div() Cambiar discarded a: {{ !Dato.featureEdit.discarded }}
+                div() {{'CHANGE_DISCARDED' | translate}}: {{ !Dato.featureEdit.discarded }}
                 div(class="alert alert-danger",ng-show="Dato.editDiscardedError") {{ Dato.editDiscardedError }}
             div(class="modal-footer")
-                button(class="btn btn-default", type="button", ng-click="saveDiscarded()") Confirmar
-                button(class="btn btn-default", type="button", data-dismiss="modal") Cancelar
+                button(class="btn btn-default", type="button", ng-click="saveDiscarded()") {{'SAVE' | translate}}
+                button(class="btn btn-default", type="button", data-dismiss="modal") {{'CANCEL' | translate}}

@@ -96,7 +96,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             },
             templateUrl: 'partials/vacancyDetail',
             controller: 'vacancyDetailController',
-            title: "Ficha de Vacantes",
+            title: "VACANCY_FILE",
             activetab: 'vacancyDetail',
             data: {
                 permissions: {
@@ -110,7 +110,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/vacancyList',
             templateUrl: 'partials/vacancyList',
             controller: 'vacancyListController',
-            title: "Lista de fichas de Vacantes",
+            title: "VACANCY_LIST",
             activetab: 'vacancyList',
             data: {
                 permissions: {
@@ -124,7 +124,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/employerList',
             templateUrl: 'partials/employerList',
             controller: 'employerListController',
-            title: "Lista de empleadores",
+            title: "EMPLOYER_LIST",
             activetab: 'employerList',
             data: {
                 permissions: {
@@ -141,7 +141,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             },
             templateUrl: 'partials/employerDetail',
             controller: 'employerController',
-            title: "Empleador",
+            title: "EMPLOYER",
             activetab: 'employerDetail',
             data: {
                 permissions: {
@@ -155,7 +155,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/jobList',
             templateUrl: 'partials/jobList',
             controller: 'jobListController',
-            title: "Lista de jobs",
+            title: "JOB_LIST",
             activetab: 'jobList',
             data: {
                 permissions: {
@@ -172,7 +172,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             },
             templateUrl: 'partials/jobDetail',
             controller: 'jobController',
-            title: "Job",
+            title: "JOB",
             activetab: 'jobDetail',
             data: {
                 permissions: {
@@ -186,7 +186,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/vacancyFrequency',
             templateUrl: 'partials/vacancyFrequency',
             controller: 'vacancyFrequencyController',
-            title: "Matrices de frequencia",
+            title: "FREQUENCY_MATRICES",
             activetab: 'vacancyFrequency',
             data: {
                 permissions: {
@@ -200,7 +200,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/userList',
             templateUrl: 'partials/userList',
             controller: 'userListController',
-            title: "Lista de usuarios",
+            title: "USER_LIST",
             activetab: 'userList',
             data: {
                 permissions: {
@@ -217,7 +217,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             },
             templateUrl: 'partials/userDetail',
             controller: 'userDetailController',
-            title: "Usuario",
+            title: "USER",
             activetab: 'userDetail',
             data: {
                 permissions: {
@@ -231,7 +231,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/candidateMatching',
             templateUrl: 'partials/candidateMatching',
             controller: 'vacancyCharacterizationCtrl',
-            title: "Caracterización de vacantes",
+            title: "VACANCY_CHARACTERIZATION",
             activetab: 'candidateMatching',
             params: {
                 vacancyId: null,
@@ -252,6 +252,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'partials/unresolved',
             controller: 'MyCtrl1',
             activetab: 'unresolved',
+            title: 'UNRESOLVED',
             data: {
                 permissions: {
                     only: ['5', '4', '3'],
@@ -291,6 +292,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'partials/synonyms',
             controller: 'SynonymsCtrl',
             activetab: 'synonyms',
+            title: 'DICTIONARY',
             data: {
                 permissions: {
                     only: ['5', '4', '3'],
@@ -421,6 +423,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'partials/metaFeatures',
             controller: 'metaFeaturesCtrl',
             activetab: 'metaFeatures',
+            title: 'METHAFEATURES',
             data: {
                 permissions: {
                     only: ['5', '4', '3'],
@@ -434,6 +437,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: 'partials/showMetaFeature',
             controller: 'metaFeaturesCtrl',
             activetab: 'metaFeature',
+            title: 'METHAFEATURE',
             data: {
                 permissions: {
                     only: ['5', '4', '3'],
