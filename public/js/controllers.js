@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ['angular-jwt']).
-controller('AppCtrl', ['$scope', '$http', '$route', '$state', '$cookieStore', 'keepData', 'jwtHelper', '$rootScope', 'Mensaje', '$translate', function ($scope, $http, $route, $state, $cookieStore, keepData, jwtHelper, $rootScope, Mensaje, $translate) {
+controller('AppCtrl', ['$scope', '$http', '$route', '$state', '$cookieStore', 'keepData', 'jwtHelper', '$rootScope', 'Mensaje', '$translate', 'userService', function ($scope, $http, $route, $state, $cookieStore, keepData, jwtHelper, $rootScope, Mensaje, $translate, userService) {
   $scope.$route = $route;
   $rootScope.sesion = {};
   $rootScope.Message = {};
@@ -13,10 +13,24 @@ controller('AppCtrl', ['$scope', '$http', '$route', '$state', '$cookieStore', 'k
     var tokenPayload = jwtHelper.decodeToken($cookieStore.get("sesion"));
     $rootScope.sesion.userName = tokenPayload.userName;
     $rootScope.sesion.role = tokenPayload.role;
+    $rootScope.sesion.portFolio = tokenPayload.portFolio;
+
+    Mensaje.Esperar();
+    userService.getPortfolio("", function (result) {
+      Mensaje.Desocupar();
+      if (!result.error) {
+        $rootScope.sesion.portFolios = result.data
+        if ($rootScope.sesion.portFolio == "" && result.data.length > 0) {
+          $rootScope.sesion.portFolio = result.data[0].id
+        }
+      } else {
+        Mensaje.Alerta("error", 'Error', result.message);
+      }
+    });
+
   } else {
     $state.go("login");
   }
-
 
   $scope.Redirect = function (target) {
     $state.go(target);
@@ -132,12 +146,12 @@ controller('SynonymsCtrl', function ($scope, $state, Dictionary, termFactory, Up
     $scope.name = er
   }
 
-  $scope.fuse = function() {
+  $scope.fuse = function () {
     console.log("fusionar");
     $state.go("fuse");
   }
 
-  $scope.unfold = function() {
+  $scope.unfold = function () {
     $state.go("unfold");
   }
 
@@ -180,7 +194,7 @@ controller('SynonymsCtrl', function ($scope, $state, Dictionary, termFactory, Up
       }
     });
   }
-  
+
 }).
 controller('SetCtrl', function ($scope, $state, termFactory, Dictionary) {
   $scope.newSyn = "";

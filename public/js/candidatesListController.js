@@ -1,5 +1,5 @@
 angular.module('myApp.candidatesListCtrl', ['ui.bootstrap', 'ngCookies']).
-controller('candidatesListController', ['$scope', 'candidatesServices', '$state', 'Mensaje', '$rootScope', 'Dictionary', '$parse', '$timeout', 'keepData', function ($scope, candidatesServices, $state, Mensaje, $rootScope, Dictionary, $parse, $timeout, keepData) {
+controller('candidatesListController', ['$scope', 'candidatesServices', '$state', 'Mensaje', '$rootScope', 'Dictionary', '$parse', '$timeout', 'keepData', 'userService', function ($scope, candidatesServices, $state, Mensaje, $rootScope, Dictionary, $parse, $timeout, keepData, userService) {
     $scope.lista = {};
     $scope.lista.candidatos = [];
     $scope.lista.currentPage = 1;
@@ -71,27 +71,40 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$state'
         $scope.advSearch($scope.Dato.namePaginado, $scope.Dato.countryPaginado, $scope.Dato.statusPaginado, $scope.Dato.skillPaginado, $scope.Dato.jobFunctionPaginado, $scope.Dato.jobsPaginado, $scope.lista.currentPage, 12);
     };
 
-    var datosCookies = $rootScope.filtroCandidato;
-    if (datosCookies != null && datosCookies != undefined) {
-        var datos = datosCookies;
-        //$scope.busquedaAvanzada = true;
-        $scope.Dato.namePaginado = datos.namePaginado != undefined ? datos.namePaginado : "";
-        $scope.Dato.countryPaginado = datos.countryPaginado != undefined ? datos.countryPaginado : "";
-        $scope.Dato.statusPaginado = datos.statusPaginado != undefined ? datos.statusPaginado : "";
-        $scope.Dato.skillPaginado = datos.skillPaginado != undefined ? datos.skillPaginado : "";
-        $scope.Dato.jobFunctionPaginado = datos.jobFunctionPaginado != undefined ? datos.jobFunctionPaginado : "";
-        $scope.Dato.jobsPaginado = datos.jobsPaginado != undefined ? datos.jobsPaginado : "";
+    Mensaje.Esperar();
+    userService.getPortfolio("", function (result) {
+        Mensaje.Desocupar();
+        if (!result.error) {
+            $rootScope.sesion.portFolios = result.data
+            if ($rootScope.sesion.portFolio == "" && result.data.length > 0) {
+                $rootScope.sesion.portFolio = result.data[0].id                
+            }
+            var datosCookies = $rootScope.filtroCandidato;
+            if (datosCookies != null && datosCookies != undefined) {
+                var datos = datosCookies;
+                //$scope.busquedaAvanzada = true;
+                $scope.Dato.namePaginado = datos.namePaginado != undefined ? datos.namePaginado : "";
+                $scope.Dato.countryPaginado = datos.countryPaginado != undefined ? datos.countryPaginado : "";
+                $scope.Dato.statusPaginado = datos.statusPaginado != undefined ? datos.statusPaginado : "";
+                $scope.Dato.skillPaginado = datos.skillPaginado != undefined ? datos.skillPaginado : "";
+                $scope.Dato.jobFunctionPaginado = datos.jobFunctionPaginado != undefined ? datos.jobFunctionPaginado : "";
+                $scope.Dato.jobsPaginado = datos.jobsPaginado != undefined ? datos.jobsPaginado : "";
 
-        $scope.Dato.name = $scope.Dato.namePaginado;
-        $scope.Dato.country = $scope.Dato.countryPaginado;
-        $scope.Dato.status = $scope.Dato.statusPaginado;
-        $scope.Dato.skill = $scope.Dato.skillPaginado;
-        $scope.Dato.jobFunction = $scope.Dato.jobFunctionPaginado;
-        $scope.Dato.job = $scope.Dato.jobsPaginado;
-        $scope.pagination();
-    } else {
-        $scope.advSearch("", "", "", "", "", "", 1, 12);
-    }
+                $scope.Dato.name = $scope.Dato.namePaginado;
+                $scope.Dato.country = $scope.Dato.countryPaginado;
+                $scope.Dato.status = $scope.Dato.statusPaginado;
+                $scope.Dato.skill = $scope.Dato.skillPaginado;
+                $scope.Dato.jobFunction = $scope.Dato.jobFunctionPaginado;
+                $scope.Dato.job = $scope.Dato.jobsPaginado;
+                $scope.pagination();
+            } else {
+                $scope.advSearch("", "", "", "", "", "", 1, 12);
+            }
+        } else {
+            Mensaje.Alerta("error", 'Error', result.message);
+        }
+    });
+
 
     $scope.clearFilter = function () {
         $scope.Dato.name = "";

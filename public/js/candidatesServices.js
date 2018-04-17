@@ -1,5 +1,5 @@
 angular.module('myApp.candidatesServices', [])
-    .factory('candidatesServices', ['$http', 'URL', 'request', function ($http, URL, request) {
+    .factory('candidatesServices', ['$http', 'URL', 'request', '$rootScope', function ($http, URL, request, $rootScope) {
 
         var candidatesServices = {};
 
@@ -159,7 +159,8 @@ angular.module('myApp.candidatesServices', [])
                     jobFunction: jobFunction,
                     jobs: jobs,
                     page: page,
-                    itemsPerPage: itemsPerPage
+                    itemsPerPage: itemsPerPage,
+                    portFolio: $rootScope.sesion.portFolio
                 },
                 url: URL.URL_REST_SERVICE + 'paginatedSearch'
             }
