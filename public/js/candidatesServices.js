@@ -1,5 +1,5 @@
 angular.module('myApp.candidatesServices', [])
-    .factory('candidatesServices', ['$http', 'URL', 'request', '$rootScope', function ($http, URL, request, $rootScope) {
+    .factory('candidatesServices', ['$http', 'URL', 'request', '$rootScope', '$cookieStore', function ($http, URL, request, $rootScope, $cookieStore) {
 
         var candidatesServices = {};
 
@@ -12,11 +12,13 @@ angular.module('myApp.candidatesServices', [])
         candidatesServices.uploadFile = function (file, callback) {
             var fd = new FormData();
             fd.append('curriculum', file);
+            fd.append('portFolio', $rootScope.sesion.portFolio);
             var uploadUrl = URL.URL_REST_SERVICE + 'uploadCv';
             $http.post(uploadUrl, fd, {
                 transformRequest: angular.identity,
                 headers: {
-                    'Content-Type': undefined
+                    'Content-Type': undefined,
+                    'Authorization': $cookieStore.get("sesion")
                 }
             }).
             then(function onSuccess(response) {
@@ -115,7 +117,8 @@ angular.module('myApp.candidatesServices', [])
             var config = {
                 method: 'POST',
                 data: {
-                    candidateInfo: usuario.candidateInfo
+                    candidateInfo: usuario.candidateInfo,
+                    portFolio: $rootScope.sesion.portFolio
                 },
                 url: URL.URL_REST_SERVICE + 'candidate',
                 contentType: "application/json"
