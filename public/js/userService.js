@@ -2,11 +2,12 @@ angular.module('myApp.userService', [])
     .factory('userService', ['request', 'URL', function (request, URL) {
         var userService = {};
 
-        userService.advSearch = function (name, page, itemsPerPage, callback) {
+        userService.advSearch = function (name, portFolio, page, itemsPerPage, callback) {
             var config = {
                 method: 'GET',
                 params: {
                     name: name,
+                    portFolio: portFolio,
                     page: page,
                     itemsPerPage: itemsPerPage
                 },

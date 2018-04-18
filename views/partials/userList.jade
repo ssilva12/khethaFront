@@ -15,13 +15,17 @@ div(class="page-content-wrap")
                             p() {{'USE_SEARCH_USER' | translate}}
                             form(class="form-horizontal")
                                 div(class="form-group")
-                                    div(class="col-md-8")
+                                    div(class="col-md-6")
                                         div(class="input-group")
                                             div(class="input-group-addon")
                                                 span(class="fa fa-search")
                                             input(class="form-control", placeholder="{{'WHO_SEARCH' | translate}}", type="text", ng-model="Dato.name")
                                             div(class="input-group-btn")
-                                                button(class="btn btn-primary mb-control", data-box="#message-box-success",ng-click="advSearch(Dato.name,1,12)") Buscar
+                                                button(class="btn btn-primary mb-control", data-box="#message-box-success",ng-click="advSearch(Dato.name,Dato.portFolio,1,12)", ng-hide="busquedaAvanzada") {{'SEARCH' | translate}}
+                                    div(class="col-md-2")
+                                        button(class="btn btn-default btn-block mb-control", ng-click="busquedaAvanzada = !busquedaAvanzada")
+                                            span(class="fa fa-filter")
+                                            span() {{ 'FILTER' | translate}}
                                     div(class="col-md-2")
                                         button(ng-click="clearFilter()", class="btn btn-default btn-block")
                                             i(class="fa fa-eraser", aria-hidden="true")
@@ -30,6 +34,17 @@ div(class="page-content-wrap")
                                         button(class="btn btn-default btn-block mb-control", ng-click="crearNuevo()")
                                             span(class="fa fa-plus")
                                             span() {{'NEW_USER' | translate}}
+                                div(class="form-group", ng-show="busquedaAvanzada")
+                                    div(class="dd-handle clearfix")
+                                        div(class="row row-space")
+                                            div(class="col-sm-1") 
+                                                label(for="") {{ 'PORTFOLIO' | translate}}
+                                            div(class="col-sm-3")
+                                                input(name="portafolio",autocomplete="off", class="form-control has-error",ng-focus="onFocus('portafolio',1)",ng-blur="onBlur('portafolio',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Dato.portFolio,'EmployerName','dataPortafolio','null','Dato.portFolio')", ng-model="Dato.portFolio")
+                                                ul(ng-show="{{ 'portafolio' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                                    li(class="list-group-item",ng-mousedown="assign('Dato.portFolio',item)", ng-repeat="item in dataPortafolio") {{item.name}}
+                                            div(class="col-sm-8")
+                                                button(class="btn btn-primary mb-control pull-right", data-box="#message-box-success",ng-click="advSearch(Dato.name,Dato.portFolio,1,12)") {{'SEARCH' | translate}}
             div(class="row")
                 div(class="col-md-12")
                     div(class="panel panel-default")
@@ -40,14 +55,17 @@ div(class="page-content-wrap")
                                         table(class="table table-striped")
                                             thead()
                                                 tr()
-                                                    td(class="col-md-6") 
-                                                        h4() {{'NAME' | translate}}
                                                     td(class="col-md-5") 
+                                                        h4() {{'NAME' | translate}}
+                                                    td(class="col-md-2") 
+                                                        h4() {{'PORTFOLIO' | translate}} 
+                                                    td(class="col-md-4") 
                                                         h4() {{'ROLE' | translate}} 
                                                     td(class="col-md-1")                                                                                                    
                                             tbody()
                                                 tr(ng-repeat="user in lista.users")
                                                     td() {{user.userName}}
+                                                    td() {{user.portFolio}}
                                                     td() 
                                                         span(ng-if="user.role == '5'") {{'ADMINISTRATOR' | translate}}
                                                         span(ng-if="user.role == '4'") {{'FEATURE_ENGINEER' | translate}}
