@@ -9,10 +9,11 @@ angular.module('myApp.candidatesServices', [])
         Result.message = "";
         Result.data = null;
 
-        candidatesServices.uploadFile = function (file, callback) {
+        candidatesServices.uploadFile = function (file, paisCV, callback) {
             var fd = new FormData();
             fd.append('curriculum', file);
             fd.append('portFolio', $rootScope.sesion.portFolio);
+            fd.append('countryCV', paisCV);
             var uploadUrl = URL.URL_REST_SERVICE + 'uploadCv';
             $http.post(uploadUrl, fd, {
                 transformRequest: angular.identity,

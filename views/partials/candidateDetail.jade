@@ -17,7 +17,12 @@ div(class="page-content-wrap")
                                 h3(class="panel-title") {{ 'CANDIDATE_FILE' | translate }}
                                 ul(class="panel-controls")
                                     li()
-                                        div(class="input-group", ng-hide="usuario.candidateInfo.id")
+                                        div(class="col-sm-12", ng-hide="usuario.candidateInfo.id")
+                                            input(class="form-control",ng-focus="onFocus('paisCVVisible',1)",ng-blur="onBlur('paisCVVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.paisCV,'CountryName','dataPaisCV','null');", ng-model="usuario.paisCV")
+                                            ul(ng-show="{{ 'paisCVVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                                li(class="list-group-item",ng-mousedown="usuario.paisCV = pais.er", ng-repeat="pais in dataPaisCV") {{pais.er}}
+                                    li()
+                                        div(class="input-group", ng-hide="usuario.candidateInfo.id", style="display:none;")
                                             label(class="file-input-wrapper btn btn-default fileinput btn-primary")
                                                 i(class="fa fa-upload", aria-hidden="true")
                                                 span() cv formato
