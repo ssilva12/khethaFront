@@ -13,7 +13,7 @@ value('version', '0.1')
   // var url = "http://guarded-atoll-31281.herokuapp.com/"
   
   var headers = {
-    
+    'Content-Type': "text/text",
     'Authorization': $cookieStore.get("sesion"),
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -587,7 +587,13 @@ value('version', '0.1')
     });
   }
   this.solveAsAsociation = function (nounId, synonymEr, synonymDictionary, featureId, callback) {
-    
+    var headersJson = {
+      'Content-Type': "application/json",
+      'Authorization': $cookieStore.get("sesion"),
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
+    }
     $http({
       method: 'POST',
       data: {
@@ -596,7 +602,7 @@ value('version', '0.1')
         dictionary: synonymDictionary,
         featureId: featureId
       },
-      headers: headers,
+      headers: headersJson,
       url: URL.URL_REST_SERVICE + 'solveAsAsociation'
     }).
     then(function onSuccess(response) {
