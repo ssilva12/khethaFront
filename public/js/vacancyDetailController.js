@@ -351,7 +351,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
         var reader = new FileReader();
         reader.readAsDataURL(files[0]);
         reader.onload = function () {
-            var resultado = candidatesServices.uploadFile(files[0], function (result) {
+            var resultado = candidatesServices.uploadFile(files[0],"", function (result) {
                 Mensaje.Desocupar();
                 if (!result.error) {
                     $scope.agregarCandidato(result.data.id, 'CND_CONCUR');
