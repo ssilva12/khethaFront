@@ -8,13 +8,13 @@ controller('AppCtrl', ['$scope', '$http', '$route', '$state', '$cookieStore', 'k
   $rootScope.sesion = {};
   $rootScope.Message = {};
   $rootScope.Message.open = false;
-
+  
   if ($cookieStore.get("sesion") != null && $cookieStore.get("sesion") != "") {
     var tokenPayload = jwtHelper.decodeToken($cookieStore.get("sesion"));
     $rootScope.sesion.userName = tokenPayload.userName;
     $rootScope.sesion.role = tokenPayload.role;
     $rootScope.sesion.portFolio = tokenPayload.portFolio;
-
+    
     Mensaje.Esperar();
     userService.getPortfolio("", function (result) {
       Mensaje.Desocupar();
@@ -27,29 +27,29 @@ controller('AppCtrl', ['$scope', '$http', '$route', '$state', '$cookieStore', 'k
         Mensaje.Alerta("error", 'Error', result.message);
       }
     });
-
+    
   } else {
     $state.go("login");
   }
-
+  
   $scope.Redirect = function (target) {
     $state.go(target);
   }
-
+  
   $scope.changeLanguage = function (langKey) {
     $translate.use(langKey);
   };
-
+  
   $rootScope.$on('$translateChangeSuccess', function (event, data) {
     var language = data.language;
     $rootScope.Language.lang = language;
     $cookieStore.put("language", $rootScope.Language);
   });
-
+  
   onload();
-
+  
   $(".page-sidebar.scroll").mCustomScrollbar("update");
-
+  
 }]).
 controller('MyCtrl1', function ($scope, $http, Dictionary, $state, termFactory) {
   termFactory.setCurrent(null);
@@ -68,13 +68,13 @@ controller('MyCtrl1', function ($scope, $http, Dictionary, $state, termFactory) 
       }
     });
   }
-
+  
   $scope.solve = function (name) {
     termFactory.setCurrent(name);
     console.log(termFactory.getCurrent());
     $state.go("solve")
   }
-
+  
   $scope.discard = function (entry) {
     Dictionary.deleteCandidateFeature(entry, function (error, data) {
       if (!error) {
@@ -83,12 +83,12 @@ controller('MyCtrl1', function ($scope, $http, Dictionary, $state, termFactory) 
       }
     });
   }
-
+  
   $scope.pieceWiseSearch = function (entry) {
     termFactory.setCurrent(entry);
     $state.go("pieceWiseSearch")
   }
-
+  
   function getUnresolved() {
     Dictionary.getUnresolved(function (error, data) {
       console.log(data.unresolved)
@@ -97,7 +97,7 @@ controller('MyCtrl1', function ($scope, $http, Dictionary, $state, termFactory) 
       }
     });
   }
-
+  
   function getMeta() {
     Dictionary.getMetaFeatures(function (error, data) {
       if (!error) {
@@ -115,7 +115,7 @@ controller('SynonymsCtrl', function ($scope, $state, Dictionary, termFactory, Up
       $scope.metaRelationSearch.dictionary = null;
     }
     Dictionary.getSynonyms(name, $scope.metaRelationSearch.dictionary, $scope.acronym, function (error, data) {
-
+      
       if (!error) {
         if (!data.primary) {
           $scope.suggested = data.suggested
@@ -131,7 +131,7 @@ controller('SynonymsCtrl', function ($scope, $state, Dictionary, termFactory, Up
       }
     });
   }
-
+  
   $scope.createPrimary = function (name) {
     Dictionary.createPrimary(name, $scope.meta, $scope.acronym, function (err, data) {
       if (!err) {
@@ -141,20 +141,20 @@ controller('SynonymsCtrl', function ($scope, $state, Dictionary, termFactory, Up
       }
     })
   };
-
+  
   $scope.selectNoun = function (er) {
     $scope.name = er
   }
-
+  
   $scope.fuse = function () {
     console.log("fusionar");
     $state.go("fuse");
   }
-
+  
   $scope.unfold = function () {
     $state.go("unfold");
   }
-
+  
   var url = 'http://polar-garden-35450.herokuapp.com'
   //var url = 'http://localhost:3000'
   $scope.uploadFiles = function (file, type) {
@@ -172,7 +172,7 @@ controller('SynonymsCtrl', function ($scope, $state, Dictionary, termFactory, Up
         meta: meta
       },
     });
-
+    
     file.upload.then(function (response) {
       alert("Archivo subido correctamente");
       $timeout(function () {
@@ -180,13 +180,13 @@ controller('SynonymsCtrl', function ($scope, $state, Dictionary, termFactory, Up
       });
     }, function (response) {
       if (response.status > 0)
-        $scope.errorMsg = response.status + ': ' + response.data;
+      $scope.errorMsg = response.status + ': ' + response.data;
     }, function (evt) {
       // Math.min is to fix IE which reports 200% sometimes
       file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
     });
   }
-
+  
   function getMeta() {
     Dictionary.getMetaFeatures(function (error, data) {
       if (!error) {
@@ -194,7 +194,7 @@ controller('SynonymsCtrl', function ($scope, $state, Dictionary, termFactory, Up
       }
     });
   }
-
+  
 }).
 controller('SetCtrl', function ($scope, $state, termFactory, Dictionary) {
   $scope.newSyn = "";
@@ -219,13 +219,13 @@ controller('SetCtrl', function ($scope, $state, termFactory, Dictionary) {
     //$location.path("/editGram");
   }
   $scope.deleteGram = function (synonym, id, type) {
-
+    
     var index = $scope.synonyms.indexOf(synonym);
     if (index > -1) {
       $scope.synonyms.splice(index, 1);
     }
     Dictionary.deleteGram(id, type, function (err, res) {
-
+      
       console.log(res)
     });
   }
@@ -257,11 +257,10 @@ controller('SolveCtrl', function ($scope, Dictionary, termFactory, $state) {
   $scope.editOriginal = function (name) {
     document.getElementById("myId").disabled = false;
   }
-
+  
   $scope.createPrimary = function (noun) {
     Dictionary.solveAsNoun(noun.id, noun.name, noun.dictionary, function (err, data) {
       if (!err) {
-        debugger;
         termFactory.setSynonyms(data.synonyms);
         termFactory.setPrimary(data.primary);
         termFactory.setCurrent(null);
@@ -269,7 +268,7 @@ controller('SolveCtrl', function ($scope, Dictionary, termFactory, $state) {
       }
     })
   };
-
+  
   function getSuggested(name) {
     Dictionary.getSynonyms(name, $scope.current.dictionary, "null", function (error, data) {
       console.log(name)
@@ -307,7 +306,7 @@ controller('pieceWiseSearchCtrl', function ($scope, Dictionary, termFactory, $st
   $scope.current = termFactory.getCurrent();
   console.log($scope.current);
   pieceWiseSearch($scope.current.name, $scope.current.dictionary, $scope.current.id)
-
+  
   function pieceWiseSearch(name, dictionaryName, id) {
     Dictionary.pieceWiseSearch(name, dictionaryName, id, function (error, data) {
       if (!error) {
@@ -320,7 +319,37 @@ controller('pieceWiseSearchCtrl', function ($scope, Dictionary, termFactory, $st
       }
     });
   }
-  $scope.pieceWiseSolve = function (name) {
+  $scope.pieceWiseSolve = function (entries) {
+    for(var i=0;i<entries.length;i++){
+      if(entries[i].solveAs == 0){
+        var data = {};
+        name = entries[i]
+        data.dictionary = "JobFunctionName";
+        data.name = name;
+        data.value = $scope.cndFeature.value
+        data.lastDate = $scope.cndFeature.lastDate
+        candidatesServices.createFeature($scope.candidateId, data, function (result) {
+          if (!result.error) {
+            //$scope.cargarCandidato($scope.usuario.candidateInfo.id);
+            //Mensaje.Alerta("success", 'OK', result.message);
+          }
+        });
+      }else{
+        /*Dictionary.deleteCandidateFeature(entries[i], function (error, data) {
+          if (!error) {
+            console.log("deleted!")
+            getUnresolved();
+          }
+        }); */ 
+      }
+      Dictionary.deleteCandidateFeature($scope.cndFeature, function (error, data) {
+        if (!error) {
+          console.log("deleted!");
+          $state.go("unresolved");
+          getUnresolved();
+        }
+      });
+    }
     var data = {};
     data.dictionary = "JobFunctionName";
     data.name = name;
@@ -336,14 +365,14 @@ controller('pieceWiseSearchCtrl', function ($scope, Dictionary, termFactory, $st
       }
     });
   }
-
+  
   function handlePieceWiseFeatures(array) {
     $scope.features = []
     array.forEach(function (element) {
       searchInFeatures(element)
     })
   }
-
+  
   function searchInFeatures(element) {
     if ($scope.features.length == 0) {
       $scope.features.push(element);
@@ -356,7 +385,7 @@ controller('pieceWiseSearchCtrl', function ($scope, Dictionary, termFactory, $st
       }
     }
   }
-
+  
 }).
 controller('SearchCtrl', function ($scope, termFactory, Dictionary) {
   termFactory.setCurrent(null);
@@ -367,7 +396,7 @@ controller('SearchCtrl', function ($scope, termFactory, Dictionary) {
       $scope.output = res.primary;
     })
   }
-
+  
   function getMeta() {
     Dictionary.getMetaFeatures(function (error, data) {
       if (!error) {
@@ -429,28 +458,28 @@ controller('metaFeaturesCtrl', function ($scope, $state, metaFeaturesFactory, Di
   $scope.metaRelation = metaFeaturesFactory.getCurrentMetaRelation();
   if ($scope.metaFeature) {
     showMetaFeature($scope.metaFeature.id, function () {
-
+      
     });
   }
-
+  
   Dictionary.getMetaFeatures(function (error, data) {
     if (!error) {
       $scope.metaFeatures = data.metaFeatures;
     }
   });
-
+  
   $scope.showMetaFeature = function (id) {
     showMetaFeature(id, function () {
       $state.go("metaFeature")
     });
-
+    
   }
-
+  
   $scope.newMetaRelation = function () {
     metaFeaturesFactory.setCurrentMetaRelation(null);
     $state.go("newMetaRelation")
   }
-
+  
   $scope.saveMetaRelation = function (metaFeature, metaRelation) {
     Dictionary.saveMetaRelation(metaFeature, metaRelation, function (error, data) {
       if (!error) {
@@ -463,7 +492,7 @@ controller('metaFeaturesCtrl', function ($scope, $state, metaFeaturesFactory, Di
     metaFeaturesFactory.setCurrentMetaRelation(metaRelation);
     $state.go("metaRelation")
   }
-
+  
   $scope.updateMetaFeature = function (metaFeature) {
     Dictionary.updateMetaFeature(metaFeature, function (error, data) {
       if (!error) {
@@ -472,7 +501,7 @@ controller('metaFeaturesCtrl', function ($scope, $state, metaFeaturesFactory, Di
       }
     });
   }
-
+  
   $scope.updateMetaRelation = function (metaRelation) {
     Dictionary.updateMetaRelation(metaRelation, function (error, data) {
       if (!error) {
@@ -481,7 +510,7 @@ controller('metaFeaturesCtrl', function ($scope, $state, metaFeaturesFactory, Di
       }
     });
   }
-
+  
   function showMetaFeature(id, callback) {
     Dictionary.getMetaFeature(id, function (error, data) {
       if (!error) {
@@ -508,7 +537,7 @@ controller('metaFeaturesCtrl', function ($scope, $state, metaFeaturesFactory, Di
             return parseFloat(a.Number) - parseFloat(b.Number);
           });
         }
-
+        
         metaFeaturesFactory.setMetaFeature(data.metaFeatures);
         metaFeaturesFactory.setMetaRelations(data.metaRelations);
         $scope.metaRelations = metaFeaturesFactory.getMetaRelations();
@@ -519,7 +548,7 @@ controller('metaFeaturesCtrl', function ($scope, $state, metaFeaturesFactory, Di
 }).
 controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, frequencyMatrixFactory, frequencyMatrixService, usSpinnerService) {
   console.log("frequencyMatrixCtrl");
-
+  
   $scope.employer = '';
   $scope.job = '';
   $scope.vacancy = '';
@@ -533,60 +562,60 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
   $scope.currentMethaFeatureFirstMethaRelationId = '';
   $scope.currentFeatureNames = [];
   $scope.currentDiscarded = false;
-
+  
   const maxYearsBack = 10;
   $scope.possibleYearsBack = [...Array(maxYearsBack).keys()].map(x => maxYearsBack - x++);
   const currentYear = (new Date()).getFullYear();
   $scope.possibleReferenceYears = [...Array(maxYearsBack).keys()].map(x => currentYear - x++);
-
+  
   $scope.referenceYear = currentYear;
   $scope.yearsBack = maxYearsBack;
-
+  
   $scope.featureEdit = undefined;
   $scope.weightIndexEdit = undefined;
   $scope.weightPopupEdit = '';
   $scope.methaRelationEdit = '';
-
+  
   $scope.candidate = '';
-
+  
   let employers = frequencyMatrixService.getEmployers({}, function (error, data) {
     console.log(data);
     if (!error) {
       $scope.employers = data;
     }
   })
-
+  
   $scope.getJobs = function () {
     frequencyMatrixService.getJobs({
-        employerId: $scope.employer
-      },
-      function (error, data) {
-        console.log(data);
-        if (!error) {
-          $scope.jobs = data;
-          $scope.job = '';
-          $scope.getVacancies();
-        }
-      });
+      employerId: $scope.employer
+    },
+    function (error, data) {
+      console.log(data);
+      if (!error) {
+        $scope.jobs = data;
+        $scope.job = '';
+        $scope.getVacancies();
+      }
+    });
   }
-
+  
   $scope.getVacancies = function () {
     frequencyMatrixService.getVacancies({
-        employerId: $scope.employer,
-        jobId: $scope.job
-      },
-      function (error, data) {
-        console.log(data);
-        if (!error) {
-          $scope.vacancies = data;
-          $scope.vacancy = '';
-        }
-      });
+      employerId: $scope.employer,
+      jobId: $scope.job
+    },
+    function (error, data) {
+      console.log(data);
+      if (!error) {
+        $scope.vacancies = data;
+        $scope.vacancy = '';
+      }
+    });
   }
-
+  
   $scope.calculateFrequencyMatrix = function () {
     $scope.methaFeatures = [];
-
+    
     frequencyMatrixService.calculate({
       employer: $scope.employer,
       job: $scope.job,
@@ -603,10 +632,10 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
       }
     });
   }
-
+  
   $scope.readFrequencyMatrix = function () {
     $scope.methaFeatures = [];
-
+    
     frequencyMatrixService.get({
       employer: $scope.employer,
       job: $scope.job,
@@ -623,14 +652,14 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
       }
     });
   }
-
-
+  
+  
   $scope.getMethaFeaturesJobLastVacancy = function () {
     console.log('Consultar click... ' + $scope.employer + ', ' + $scope.job +
-      ', ' + $scope.minPercentage);
-
+    ', ' + $scope.minPercentage);
+    
     $scope.methaFeatures = [];
-
+    
     frequencyMatrixService.getForJobAndLastVacancy({
       employer: $scope.employer,
       job: $scope.job,
@@ -643,13 +672,13 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
       }
     });
   }
-
+  
   $scope.getMethaFeaturesNewVacancy = function () {
     console.log('Consultar click... ' + $scope.employer + ', ' + $scope.job +
-      ', ' + $scope.minPercentage);
-
+    ', ' + $scope.minPercentage);
+    
     $scope.methaFeatures = [];
-
+    
     frequencyMatrixService.getForNewVacancy({
       employer: $scope.employer,
       job: $scope.job,
@@ -661,7 +690,7 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
       }
     });
   }
-
+  
   $scope.refreshMatrix = function () {
     $scope.featuresModified = [];
     $scope.methaFeatures.forEach(mf => {
@@ -683,24 +712,24 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
           pointValue: mf.pointValue,
           ...f,
         };
-
+        
         let vacancySelected = $scope.vacancy !== '';
         for (var i = 0; i < featureModified.levelNames.length; i++) {
           featureModified.tdClass[i] = !featureModified.isWeightInferred[i] && featureModified.levelNames[i] && vacancySelected ? 'weightSetted' : '';
           featureModified.tdTitle[i] =
-            'MR: ' + featureModified.levelNames[i] +
-            '\r\nFrecuencia: ' + featureModified.frequency[i] +
-            '\r\nFrecuencia Corregida: ' + featureModified.frequencySelectCorrected[i].toFixed(2) +
-            '\r\nFrecuencia Preselect: ' + featureModified.frequencyPreselect[i] +
-            '\r\nFrecuencia Preselect Corregida: ' + featureModified.frequencyPreselectCorrected[i].toFixed(2) +
-            (vacancySelected ? '\r\nPeso establecido: ' + featureModified.weightSetted[i] : '') +
-            '\r\nPeso Inferido: ' + featureModified.weightInferred[i] +
-            '\r\nProbabilidad: ' + featureModified.probability[i].toFixed(2) +
-            '\r\nProbabilidad Condicionada: ' + featureModified.conditionalProbability[i].toFixed(2);
+          'MR: ' + featureModified.levelNames[i] +
+          '\r\nFrecuencia: ' + featureModified.frequency[i] +
+          '\r\nFrecuencia Corregida: ' + featureModified.frequencySelectCorrected[i].toFixed(2) +
+          '\r\nFrecuencia Preselect: ' + featureModified.frequencyPreselect[i] +
+          '\r\nFrecuencia Preselect Corregida: ' + featureModified.frequencyPreselectCorrected[i].toFixed(2) +
+          (vacancySelected ? '\r\nPeso establecido: ' + featureModified.weightSetted[i] : '') +
+          '\r\nPeso Inferido: ' + featureModified.weightInferred[i] +
+          '\r\nProbabilidad: ' + featureModified.probability[i].toFixed(2) +
+          '\r\nProbabilidad Condicionada: ' + featureModified.conditionalProbability[i].toFixed(2);
           featureModified.tdContent[i] = '';
           featureModified.tdEditWeight[i] = false;
         }
-
+        
         if ($scope.showValue === 'f') {
           for (var i = 0; i < featureModified.frequency.length; i++) {
             featureModified.tdContent[i] = featureModified.frequency[i] > 0 ? featureModified.frequency[i] : '';
@@ -709,7 +738,7 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
           for (var i = 0; i < featureModified.levelNames.length; i++) {
             if (featureModified.levelNames[i]) {
               featureModified.tdContent[i] = !vacancySelected ? featureModified.weightInferred[i] :
-                (featureModified.isWeightInferred[i] ? featureModified.weightInferred[i] : featureModified.weightSetted[i]);
+              (featureModified.isWeightInferred[i] ? featureModified.weightInferred[i] : featureModified.weightSetted[i]);
               // featureModified.tdEditWeight[i] = true;
               // '<span class="editWeight" data-toggle="modal" data-target="#modalWeight" ng-click="editWeight(' + featureModified.id + ', 0)">' +
               // ' <i class="glyphicon glyphicon-edit"></i>' +
@@ -720,37 +749,37 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
           for (var i = 0; i < featureModified.weightSetted.length; i++) {
             if (featureModified.levelNames[i]) {
               featureModified.tdContent[i] = featureModified.weightSetted[i] > 0 ? featureModified.weightSetted[i] : '';
-
+              
               /*
               featureModified.tdContent[i] = $compile((featureModified.weightSetted[i] > 0 ? featureModified.weightSetted[i] : '') +
-                '<span class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(' +
-                  featureModified.id + ', ' + i + ')">' + 
-                  '<i class="glyphicon glyphicon-edit"></i>' +
-                '</span>');
+              '<span class="editWeight", data-toggle="modal", data-target="#modalWeight", ng-click="editWeight(' +
+              featureModified.id + ', ' + i + ')">' + 
+              '<i class="glyphicon glyphicon-edit"></i>' +
+              '</span>');
               // $(rows[rows.length - 1]).after(addButton);
               // */
-
+              
               featureModified.tdEditWeight[i] = true;
             }
           }
         } else if ($scope.showValue === 'p') {
           for (var i = 0; i < featureModified.probability.length; i++) {
             featureModified.tdContent[i] = featureModified.levelNames[i] && featureModified.probability[i] > 0 ?
-              featureModified.probability[i].toFixed(2) : '';
+            featureModified.probability[i].toFixed(2) : '';
           }
         }
-
+        
         $scope.featuresModified.push(featureModified);
       });
     });
-
+    
     // console.log('features refreshed');
     // console.log($scope.featuresModified);
-
+    
     $scope.updateVisible();
     // $timeout($scope.handleRows(), 0);        
   }
-
+  
   $scope.updateVisible = function () {
     console.log("perc: " + $scope.minPercentage);
     // $(rows).find('td.mf_name').attr('rowspan', 1);
@@ -759,7 +788,7 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
       // console.log("f.totalCount * $scope.minPercentage: " + f.totalCount * $scope.minPercentage / 100);
       f.visible = f.count >= (f.totalCount * $scope.minPercentage / 100)
     })
-
+    
     var handleRows = function () {
       var flagColor = 0;
       var backColors = ['#f1f1f1', '#d1d1d1'];
@@ -771,7 +800,7 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
         let rows = $('.mf_tr_' + mf.id);
         rows.attr('bgcolor', backColors[flagColor]);
         flagColor = (flagColor === 0 ? 1 : 0);
-
+        
         let tdsAll = $(rows).find('td.mf_name');
         tdsAll.attr('rowspan', 1);
         tdsAll.show();
@@ -781,43 +810,43 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
         for (var i = 1; i < tds.length; i++) {
           $(tds[i]).hide(); //.remove();
         }
-
+        
         // if ($scope.vacancy)
-
+        
         // var el = $compile( "<test text='n'></test>" )( $scope );
         let addButton = $compile('<tr class="addFeatureButton" bgcolor="' + $(rows[0]).attr('bgcolor') + '"><td colspan="16">' +
-          '<input type="button" value="+" ng-click="showAddFeature(' + mf.id + ')" data-toggle="modal", data-target="#modalAddFeature",> ' +
-          '</td><td>' + mf.topWeightSum + '</td></tr>')($scope);
+        '<input type="button" value="+" ng-click="showAddFeature(' + mf.id + ')" data-toggle="modal", data-target="#modalAddFeature",> ' +
+        '</td><td>' + mf.topWeightSum + '</td></tr>')($scope);
         $(rows[rows.length - 1]).after(addButton);
       });
     };
-
+    
     $timeout(handleRows, 0);
     // $scope.handleRows();
   }
-
+  
   $scope.getJobs();
   $scope.calculateFrequencyMatrix();
   $scope.getVacancies();
-
+  
   $scope.setShowValue = function (val) {
     console.log('setShowValue: ' + val);
     $scope.showValue = val;
     $scope.refreshMatrix();
     // $scope.calculateFrequencyMatrix();
   }
-
+  
   $scope.editWeight = function (featureId, weightIndex) {
     $scope.featureEdit = $scope.featuresModified.filter(f => f.id === featureId)[0];
     console.log('feature edit');
     console.log($scope.featureEdit);
     $scope.weightIndexEdit = weightIndex;
     $scope.weightPopupEdit = $scope.featureEdit.isWeightInferred[weightIndex] ?
-      $scope.featureEdit.weightInferred[weightIndex] : $scope.featureEdit.weightSetted[weightIndex]; // .toFixed(0);
+    $scope.featureEdit.weightInferred[weightIndex] : $scope.featureEdit.weightSetted[weightIndex]; // .toFixed(0);
     $scope.methaRelationEdit = $scope.featureEdit.levelNames[$scope.weightIndexEdit];
     console.log($scope.featureEdit);
   };
-
+  
   $scope.saveWeight = function () {
     let featureId = $scope.featureEdit.featureIds[$scope.weightIndexEdit];
     console.log('feauter Id real');
@@ -838,7 +867,7 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
     });
     // return false;
   };
-
+  
   $scope.showAddFeature = function (methaFeatureId) {
     $scope.addFeatureError = '';
     $scope.featureToAdd = '';
@@ -852,33 +881,33 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
     // console.log($scope.methaFeatures);
     //*
     frequencyMatrixService.getFeatureNames({
-        dictionary: mf.dictionary,
-      },
-      function (error, data) {
-        console.log(data);
-        if (!error) {
-          // let names = mf.featuresMap.map(f => f.name);
-          let names = [];
-          for (var fm in mf.featuresMap) {
-            console.log(fm);
-            console.log(fm.name);
-            names.push(fm);
-          }
-          console.log(names);
-          $scope.currentFeatureNames = data.filter(f => $.inArray(f.name, names) < 0);
-          console.log('$scope.currentFeatureNames');
-          console.log($scope.currentFeatureNames);
+      dictionary: mf.dictionary,
+    },
+    function (error, data) {
+      console.log(data);
+      if (!error) {
+        // let names = mf.featuresMap.map(f => f.name);
+        let names = [];
+        for (var fm in mf.featuresMap) {
+          console.log(fm);
+          console.log(fm.name);
+          names.push(fm);
         }
-      });
+        console.log(names);
+        $scope.currentFeatureNames = data.filter(f => $.inArray(f.name, names) < 0);
+        console.log('$scope.currentFeatureNames');
+        console.log($scope.currentFeatureNames);
+      }
+    });
   }
-
+  
   $scope.addFeature = function () {
     $scope.addFeatureError = '';
     if (!$scope.featureToAdd) {
       $scope.addFeatureError = 'Seleccione una característica.';
       return;
     }
-
+    
     let entityId = '';
     let featureType = '';
     if ($scope.vacancy !== '') {
@@ -894,24 +923,24 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
       $scope.addFeatureError = 'Seleccione un empleador, un oficio o una vacante.'
       return;
     }
-
+    
     frequencyMatrixService.addFeature({
-        entityId,
-        methaFeatureId: $scope.currentMethaFeatureId,
-        methaRelationId: $scope.currentMethaFeatureFirstMethaRelationId,
-        featureType,
-        nameId: $scope.featureToAdd,
-      },
-      function (error, data) {
-        console.log(data);
-        if (!error) {
-          $('#modalAddFeature').modal('toggle'); // .modal("hide");
-          $scope.calculateFrequencyMatrix();
-          // console.log('$scope.currentFeatureNames');
-        }
-      });
+      entityId,
+      methaFeatureId: $scope.currentMethaFeatureId,
+      methaRelationId: $scope.currentMethaFeatureFirstMethaRelationId,
+      featureType,
+      nameId: $scope.featureToAdd,
+    },
+    function (error, data) {
+      console.log(data);
+      if (!error) {
+        $('#modalAddFeature').modal('toggle'); // .modal("hide");
+        $scope.calculateFrequencyMatrix();
+        // console.log('$scope.currentFeatureNames');
+      }
+    });
   }
-
+  
   // *
   // $scope.currentDiscarded
   $scope.showDiscarded = function (featureId, discarded) {
@@ -919,32 +948,32 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
     console.log('feature discarded');
     console.log(discarded);
   }
-
+  
   $scope.saveDiscarded = function () {
     frequencyMatrixService.setFeatureDiscarded({
-        entityId: $scope.featureEdit.entityId,
-        methaFeatureId: $scope.featureEdit.methaFeatureId,
-        featureId: $scope.featureEdit.id,
-        featureType: $scope.featureEdit.type,
-        nameId: $scope.featureEdit.nameId,
-        discarded: !$scope.discarded,
-      },
-      function (error, data) {
-        console.log(data);
-        if (!error) {
-          $('#modalDiscarded').modal('toggle');
-          $scope.calculateFrequencyMatrix();
-        }
-      });
+      entityId: $scope.featureEdit.entityId,
+      methaFeatureId: $scope.featureEdit.methaFeatureId,
+      featureId: $scope.featureEdit.id,
+      featureType: $scope.featureEdit.type,
+      nameId: $scope.featureEdit.nameId,
+      discarded: !$scope.discarded,
+    },
+    function (error, data) {
+      console.log(data);
+      if (!error) {
+        $('#modalDiscarded').modal('toggle');
+        $scope.calculateFrequencyMatrix();
+      }
+    });
   }
-
+  
   $scope.addFeature = function () {
     $scope.addFeatureError = '';
     if (!$scope.featureToAdd) {
       $scope.addFeatureError = 'Seleccione una característica.';
       return;
     }
-
+    
     let entityId = '';
     let featureType = '';
     if ($scope.vacancy !== '') {
@@ -960,56 +989,56 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
       $scope.addFeatureError = 'Seleccione un empleador, un oficio o una vacante.'
       return;
     }
-
+    
     frequencyMatrixService.addFeature({
-        entityId,
-        methaFeatureId: $scope.currentMethaFeatureId,
-        methaRelationId: $scope.currentMethaFeatureFirstMethaRelationId,
-        featureType,
-        nameId: $scope.featureToAdd,
-      },
-      function (error, data) {
-        console.log(data);
-        if (!error) {
-          $('#modalAddFeature').modal('toggle'); // .modal("hide");
-          $scope.calculateFrequencyMatrix();
-          // console.log('$scope.currentFeatureNames');
-        }
-      });
+      entityId,
+      methaFeatureId: $scope.currentMethaFeatureId,
+      methaRelationId: $scope.currentMethaFeatureFirstMethaRelationId,
+      featureType,
+      nameId: $scope.featureToAdd,
+    },
+    function (error, data) {
+      console.log(data);
+      if (!error) {
+        $('#modalAddFeature').modal('toggle'); // .modal("hide");
+        $scope.calculateFrequencyMatrix();
+        // console.log('$scope.currentFeatureNames');
+      }
+    });
   }
   // */
-
+  
   $timeout(function () {
     usSpinnerService.stop();
     $scope.match = true;
   }, 3000);
   // $location.path("/frequencyMatrix");
-
-
+  
+  
   // Candidate related functions
   $scope.getCandidates = function () {
     console.log('getCandidates');
     console.log($scope.vacancy);
     $scope.candidates = [];
     $scope.candidate = '';
-
+    
     if ($scope.vacancy !== '') {
       frequencyMatrixService.getCandidates({
-          vacancyId: $scope.vacancy
-        },
-        function (error, data) {
-          console.log(data);
-          if (!error) {
-            $scope.candidates = data;
-            // $scope.candidate = '';
-          }
-        });
+        vacancyId: $scope.vacancy
+      },
+      function (error, data) {
+        console.log(data);
+        if (!error) {
+          $scope.candidates = data;
+          // $scope.candidate = '';
+        }
+      });
     }
   }
-
+  
   $scope.getCandidateMethaFeatures = function () {
     $scope.candidateMethaFeatures = [];
-
+    
     frequencyMatrixService.getCandidateMethaFeatures({
       jobVacancy: $scope.vacancy,
       candidate: $scope.candidate,
@@ -1022,7 +1051,7 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
       }
     });
   }
-
+  
   // *
   $scope.refreshCandidateMatrix = function () {
     $scope.candidateFeaturesModified = [];
@@ -1044,10 +1073,10 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
           topWeightSum: mf.topWeightSum,
           ...f,
         };
-
+        
         $scope.candidateMaxScoreTotal += f.maxScore;
         $scope.candidateScoreTotal += f.score;
-
+        
         //*
         for (var i = 0; i < featureModified.levelNames.length; i++) {
           featureModified.tdContent[i] = '';
@@ -1056,19 +1085,19 @@ controller('frequencyMatrixCtrl', function ($scope, $timeout, $state, $compile, 
           }
         }
         //*/
-
+        
         $scope.candidateFeaturesModified.push(featureModified);
       });
     });
-
+    
     $scope.candidateScorePercentage = 100 * $scope.candidateScoreTotal / $scope.candidateMaxScoreTotal;
-
-
+    
+    
     // $scope.candidateFeaturesModified.forEach(f => $scope.candidateMaxScoreTotal += f.maxScore);
-
+    
     console.log('candidate features refreshed');
     console.log($scope.candidateFeaturesModified);
-
+    
     // $scope.updateVisible();
   }
   // */

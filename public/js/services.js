@@ -19,6 +19,13 @@ value('version', '0.1')
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
   }
+  var headersJson = {
+      'Content-Type': "application/json",
+      'Authorization': $cookieStore.get("sesion"),
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
+    }
   if ($cookieStore.get("sesion") == null || $cookieStore.get("sesion") == "") {
     delete headers["Authorization"];
   }
@@ -230,6 +237,13 @@ value('version', '0.1')
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
+  }
+  var headersJson = {
+      'Content-Type': "application/json",
+      'Authorization': $cookieStore.get("sesion"),
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
   }
   if ($cookieStore.get("sesion") == null || $cookieStore.get("sesion") == "") {
     delete headers["Authorization"];
@@ -618,7 +632,7 @@ value('version', '0.1')
       data: {
         featureId: feature.id
       },
-      headers: headers,
+      headers: headersJson,
       url: URL.URL_REST_SERVICE + 'deleteCandidateFeature'
     }).
     then(function onSuccess(response) {
@@ -660,7 +674,7 @@ value('version', '0.1')
         mrId: mrId,
         cndId: cndId
       },
-      headers: headers,
+      headers: headersJson,
       url: URL.URL_REST_SERVICE + 'pieceWiseSolve'
     }).
     then(function onSuccess(response) {

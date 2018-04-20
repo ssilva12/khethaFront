@@ -13,5 +13,9 @@ div(class="col-md-12")
               tr(ng-repeat="entry in found")
                 td: {{entry.name}}
                 td: {{entry.best_weight}}
-                td: button.btn.btn.btn-deffault(ng-click="pieceWiseSolve(entry.name)") 
+                td: button.btn.btn.btn-deffault(ng-click="entry.solveAs=0",ng-class="entry.solveAs == 0  ? 'btn-success':'btn-deffault'") 
                   span(class="fa fa-check")
+                td: button.btn.btn.btn-danger(ng-click="entry.solveAs=1",ng-class="entry.solveAs == 1  ? 'btn-success':'btn-danger'") 
+                  span(class="fa fa-trash")
+div(class="col-md-1 col-md-offset-10")
+  button.btn.btn-primary.mb-control(ng-click="pieceWiseSolve(found)") Guardar
