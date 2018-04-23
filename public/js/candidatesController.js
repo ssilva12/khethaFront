@@ -443,6 +443,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                 Mensaje.Desocupar();
                 if (!result.error) {
                     Mensaje.Alerta("success", 'OK', result.message);
+                    $scope.cargarCandidato($scope.usuario.candidateInfo.id);
                 } else {
                     Mensaje.Alerta("error", 'Error', result.message);
                 }
@@ -452,12 +453,12 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                 Mensaje.Desocupar();
                 if (!result.error) {
                     Mensaje.Alerta("success", 'OK', result.message);
+                    $scope.cargarCandidato($scope.usuario.candidateInfo.id);
                 } else {
                     Mensaje.Alerta("error", 'Error', result.message);
                 }
             });
         }
-        $scope.cargarCandidato($scope.usuario.candidateInfo.id);
     };
 
     $scope.actualizarFeature = function (data, dictionary) {
