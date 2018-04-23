@@ -463,6 +463,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
     $scope.actualizarFeature = function (data, dictionary) {
         Mensaje.Esperar("SAVING_DATA");
         if (data.id != null && data.id != undefined) {
+            data.dictionary = dictionary
             var allData = candidatesServices.updateFeature(data, function (result) {
                 Mensaje.Desocupar();
                 if (!result.error) {
