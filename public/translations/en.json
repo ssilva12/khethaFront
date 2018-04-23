@@ -230,5 +230,6 @@
     "404": "Service not found",
     "500": "Service error",
     "LOADING": "Loading",
-    "CHOOSE_ROLE": "You must select a role"   
+    "CHOOSE_ROLE": "You must select a role"  ,
+    "CHOOSE_RESOLVE": "The field resolve is mandatory" 
 }

@@ -1,5 +1,5 @@
 angular.module('myApp.vacancyListCtrl', ['ui.bootstrap']).
-controller('vacancyListController', ['$scope', '$state', 'filterFilter', 'Mensaje', '$rootScope', 'Dictionary', '$parse', 'vacancyService', 'keepData', '$timeout', function ($scope, $state, filterFilter, Mensaje, $rootScope, Dictionary, $parse, vacancyService, keepData, $timeout) {
+controller('vacancyListController', ['$scope', '$state', 'filterFilter', 'Mensaje', '$rootScope', 'Dictionary', '$parse', 'vacancyService', 'keepData', '$timeout', 'userService', function ($scope, $state, filterFilter, Mensaje, $rootScope, Dictionary, $parse, vacancyService, keepData, $timeout, userService) {
 
     $scope.lista = {};
     $scope.lista.vacantes = [];
@@ -101,31 +101,43 @@ controller('vacancyListController', ['$scope', '$state', 'filterFilter', 'Mensaj
         $scope.advSearch($scope.Dato.namePaginado, $scope.Dato.employerPaginado, $scope.Dato.jobPaginado, $scope.Dato.statusPaginado, $scope.Dato.analistPaginado, $scope.Dato.countryPaginado, $scope.Dato.fromDatePaginado, $scope.Dato.toDatePaginado, $scope.lista.currentPage, 12);
     };
 
-    var datosCookies = $rootScope.filtroVacante;
-    if (datosCookies != null && datosCookies != undefined) {
-        var datos = datosCookies;
-        //$scope.busquedaAvanzada = true;
-        $scope.Dato.namePaginado = datos.namePaginado != undefined ? datos.namePaginado : "";
-        $scope.Dato.employerPaginado = datos.employerPaginado != undefined ? datos.employerPaginado : "";
-        $scope.Dato.jobPaginado = datos.jobPaginado != undefined ? datos.jobPaginado : "";
-        $scope.Dato.countryPaginado = datos.countryPaginado != undefined ? datos.countryPaginado : "";
-        $scope.Dato.statusPaginado = datos.statusPaginado != undefined ? datos.statusPaginado : "";
-        $scope.Dato.analistPaginado = datos.analistPaginado != undefined ? datos.analistPaginado : "";
-        $scope.Dato.fromDatePaginado = datos.fromDatePaginado != undefined ? datos.fromDatePaginado : "";
-        $scope.Dato.toDatePaginado = datos.toDatePaginado != undefined ? datos.toDatePaginado : "";
+    Mensaje.Esperar();
+    userService.getPortfolio("", function (result) {
+        Mensaje.Desocupar();
+        if (!result.error) {
+            $rootScope.sesion.portFolios = result.data
+            if ($rootScope.sesion.portFolio == "" && result.data.length > 0) {
+                $rootScope.sesion.portFolio = result.data[0].id
+            }
+            var datosCookies = $rootScope.filtroVacante;
+            if (datosCookies != null && datosCookies != undefined) {
+                var datos = datosCookies;
+                //$scope.busquedaAvanzada = true;
+                $scope.Dato.namePaginado = datos.namePaginado != undefined ? datos.namePaginado : "";
+                $scope.Dato.employerPaginado = datos.employerPaginado != undefined ? datos.employerPaginado : "";
+                $scope.Dato.jobPaginado = datos.jobPaginado != undefined ? datos.jobPaginado : "";
+                $scope.Dato.countryPaginado = datos.countryPaginado != undefined ? datos.countryPaginado : "";
+                $scope.Dato.statusPaginado = datos.statusPaginado != undefined ? datos.statusPaginado : "";
+                $scope.Dato.analistPaginado = datos.analistPaginado != undefined ? datos.analistPaginado : "";
+                $scope.Dato.fromDatePaginado = datos.fromDatePaginado != undefined ? datos.fromDatePaginado : "";
+                $scope.Dato.toDatePaginado = datos.toDatePaginado != undefined ? datos.toDatePaginado : "";
 
-        $scope.Dato.name = $scope.Dato.namePaginado;
-        $scope.Dato.employer = $scope.Dato.employerPaginado;
-        $scope.Dato.job = $scope.Dato.jobPaginado;
-        $scope.Dato.country = $scope.Dato.countryPaginado;
-        $scope.Dato.status = $scope.Dato.statusPaginado;
-        $scope.Dato.analist = $scope.Dato.analistPaginado;
-        $scope.Dato.fromDate = $scope.Dato.fromDatePaginado;
-        $scope.Dato.toDate = $scope.Dato.toDatePaginado;
-        $scope.pagination();
-    } else {
-        $scope.advSearch("", "", "", "", "", "", "", "", 1, 12);
-    }
+                $scope.Dato.name = $scope.Dato.namePaginado;
+                $scope.Dato.employer = $scope.Dato.employerPaginado;
+                $scope.Dato.job = $scope.Dato.jobPaginado;
+                $scope.Dato.country = $scope.Dato.countryPaginado;
+                $scope.Dato.status = $scope.Dato.statusPaginado;
+                $scope.Dato.analist = $scope.Dato.analistPaginado;
+                $scope.Dato.fromDate = $scope.Dato.fromDatePaginado;
+                $scope.Dato.toDate = $scope.Dato.toDatePaginado;
+                $scope.pagination();
+            } else {
+                $scope.advSearch("", "", "", "", "", "", "", "", 1, 12);
+            }
+        } else {
+            Mensaje.Alerta("error", 'Error', result.message);
+        }
+    });
 
     $scope.clearFilter = function () {
         $scope.Dato.name = "";

@@ -1,5 +1,5 @@
 angular.module('myApp.candidatesCtrl', ['ui.select', 'ADM-dateTimePicker']).
-controller('candidatesController', ['$scope', '$stateParams', 'candidatesServices', 'Mensaje', 'Dictionary', '$parse', '$timeout', function ($scope, $stateParams, candidatesServices, Mensaje, Dictionary, $parse, $timeout) {
+controller('candidatesController', ['$scope', '$stateParams', 'candidatesServices', 'Mensaje', 'Dictionary', '$parse', '$timeout', '$filter', function ($scope, $stateParams, candidatesServices, Mensaje, Dictionary, $parse, $timeout, $filter) {
     //Variables globales
     $scope.variablesGlobales = {};
     $scope.variablesGlobales.expandir = false;
@@ -619,13 +619,39 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         }, 125);
     }
 
-    $scope.solveAsAsociation = function (idNoun, name, dictionary, id) {
-        Dictionary.solveAsAsociation(idNoun, name, dictionary, id, function (error, result) {
-            if (!error) {
-                $scope.cargarCandidato($scope.usuario.candidateInfo.id);
+    $scope.solveAsAsociation = function (caracteristica, name, dictionary, id) {
+        if (caracteristica.nombre == "" || caracteristica.nombre == null || caracteristica.nombre == undefined) {
+            Mensaje.Alerta("error", 'Error', 'CHOOSE_RESOLVE');
+        } else {
+            if (dictionary == "EmployerName") {
+                Dictionary.getSynonyms(caracteristica.nombre, caracteristica.dictionary, 'null', function (error, result) {
+                    if (!error) {
+                        if (result.suggested.length == 0) {
+                            Mensaje.Alerta("confirm", "", $filter('translate')('CREATE_FEATURE'), function () {
+                                Dictionary.solveAsNoun(caracteristica.id, caracteristica.nombre, dictionary, function (error, result) {
+                                    if (!error) {
+                                        $scope.cargarCandidato($scope.usuario.candidateInfo.id);
+                                    }
+                                })
+                            }, function () {
+
+                            }, "YES", "NO")
+                        } else {
+                            Dictionary.solveAsAsociation(caracteristica.idNoun, name, dictionary, id, function (error, result) {
+                                if (!error) {
+                                    $scope.cargarCandidato($scope.usuario.candidateInfo.id);
+                                }
+                            })
+                        }
+                    }
+                })
+            } else {
+                Dictionary.solveAsAsociation(caracteristica.idNoun, name, dictionary, id, function (error, result) {
+                    if (!error) {
+                        $scope.cargarCandidato($scope.usuario.candidateInfo.id);
+                    }
+                })
             }
-        })
+        }
     }
-
-
 }]);
