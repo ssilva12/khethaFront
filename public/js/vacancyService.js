@@ -80,7 +80,7 @@ value('version', '0.2')
             });
         }
     }])
-    .factory('vacancyService', ['request', 'URL', function (request, URL) {
+    .factory('vacancyService', ['request', 'URL', '$rootScope', function (request, URL, $rootScope) {
 
         var vacancyService = {};
 
@@ -89,7 +89,8 @@ value('version', '0.2')
                 method: 'POST',
                 data: {
                     employerId: employerId,
-                    jobId: jobId
+                    jobId: jobId,
+                    portFolio: $rootScope.sesion.portFolio
                 },
                 url: URL.URL_REST_SERVICE + 'vacancy',
                 contentType: "application/json"
@@ -146,7 +147,8 @@ value('version', '0.2')
                     fromDate: fromDate,
                     toDate: toDate,
                     page: page,
-                    itemsPerPage: itemsPerPage
+                    itemsPerPage: itemsPerPage,
+                    portFolio: $rootScope.sesion.portFolio
                 },
                 url: URL.URL_REST_SERVICE + 'paginatedVacanciesSearch'
             }
@@ -222,7 +224,8 @@ value('version', '0.2')
                 method: 'GET',
                 params: {
                     employerId: employerId,
-                    jobId: jobId
+                    jobId: jobId,
+                    portFolio: $rootScope.sesion.portFolio
                 },
                 contentType: "application/json",
                 url: URL.URL_REST_SERVICE + 'api/vacancy/all/'

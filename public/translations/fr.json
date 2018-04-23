@@ -230,5 +230,6 @@
     "SELECT_DATA": "Sélectionnez un employeur, l’emploi ou la vacance de poste",
     "NO_ACCESS": "Vous n’avez pas accès",
     "LOADING": "Chargement",
-    "CHOOSE_ROLE": "Sie müssen eine Rolle auswählen"
+    "CHOOSE_ROLE": "Sie müssen eine Rolle auswählen",
+    "CHOOSE_RESOLVE": "Le champ résoudre est obligatoire"
 }
