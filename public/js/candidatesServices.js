@@ -14,7 +14,7 @@ angular.module('myApp.candidatesServices', [])
             fd.append('curriculum', file);
             fd.append('portFolio', $rootScope.sesion.portFolio);
             fd.append('countryCV', paisCV);
-            var uploadUrl = URL.URL_REST_SERVICE + 'uploadCv';
+            var uploadUrl = URL.URL_REST_SERVICE + 'api/candidate/uploadCV';
             $http.post(uploadUrl, fd, {
                 transformRequest: angular.identity,
                 headers: {
@@ -179,6 +179,35 @@ angular.module('myApp.candidatesServices', [])
                     candidate: candidateId
                 },
                 url: URL.URL_REST_SERVICE + 'api/vacancy/candidate-match',
+                contentType: "application/json"
+            }
+            request.send(config, callback);
+        };
+
+        candidatesServices.createByCV = function (idDoc, countryCV, callback) {
+            var config = {
+                method: 'POST',
+                data: {
+                    idDoc: idDoc,
+                    portFolio: $rootScope.sesion.portFolio,
+                    countryCV: countryCV
+                },
+                url: URL.URL_REST_SERVICE + 'api/candidate/createByCV',
+                contentType: "application/json"
+            }
+            request.send(config, callback);
+        };
+
+        candidatesServices.updateByCV = function (candidateId, idDoc, countryCV, callback) {
+            var config = {
+                method: 'POST',
+                data: {
+                    candidateId: candidateId,
+                    idDoc: idDoc,
+                    portFolio: $rootScope.sesion.portFolio,
+                    countryCV: countryCV
+                },
+                url: URL.URL_REST_SERVICE + 'api/candidate/updateByCV',
                 contentType: "application/json"
             }
             request.send(config, callback);

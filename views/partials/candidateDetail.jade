@@ -1256,8 +1256,41 @@ div(class="page-content-wrap")
                                                                                 a(class="panel-remove", ng-click="eliminarCaracteristicaPsicologica(caracteristica)")
                                                                                     span(class="fa fa-times")
 
-
-           
+div(id="myModalCandidate", class="modal", role="dialog")
+    div(class="modal-dialog modal-lg")
+        div(class="modal-content") 
+            div(class="modal-header")
+                button(type="button", class="close", data-dismiss="modal") &times;
+                h4(class="modal-title") Candidatos
+            div(class="modal-body")
+                div(class="row row-space")
+                    div(class="col-sm-10")
+                        label() Ya existen candidatos con ese mismo nombre. ¿Desea crearlo como uno nuevo o actualizar uno existente?
+                    div(class="col-sm-2")
+                        button(type="button", class="btn btn-default", ng-click="crearCV()") Crear nuevo
+                div(class="row row-space")
+                    div(class="col-sm-12")
+                        table(class="table table-striped")
+                            thead()
+                                tr()
+                                    td(class="col-md-4") 
+                                        h4() {{'CANDIDATE' | translate}}
+                                    td(class="col-md-4") 
+                                        h4() {{'EMAIL' | translate}} 
+                                    td(class="col-md-3") 
+                                        h4() Fecha de registro
+                                    td(class="col-md-1") 
+                            tbody()
+                                tr(ng-repeat="user in exist.uploadExist.candidates")
+                                    td() {{user.name}}
+                                    td() {{user.email}}
+                                    td() {{user.addressLine}}
+                                    td() 
+                                        button(class="btn btn-success btn-condensed",ng-click="actualizarCV(user.candidateId)")
+                                            span(class="fa fa-check")
+            div(class="modal-footer")
+                button(type="button", class="btn btn-default", data-dismiss="modal") {{ 'CLOSE' | translate}} 
+        
 
 
 
