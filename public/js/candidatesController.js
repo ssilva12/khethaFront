@@ -551,9 +551,15 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
             var resultado = candidatesServices.uploadFile(files[0], $scope.usuario.paisCV, function (result) {
                 Mensaje.Desocupar();
                 if (!result.error) {
-                    $scope.cargarCandidato(result.data.id);
+                    if (result.data.code == 2) {
+                        $scope.cargarCandidato(result.data.data.candidateId);
+                    } else if (result.data.code == 1) {
+                        $scope.exist = {}
+                        $scope.exist.uploadExist = result.data.data
+                        $('#myModalCandidate').modal('show');
+                    }
                 } else {
-                    Mensaje.Alerta("Error", "Error", result.message);
+                    Mensaje.Alerta("error", "Error", result.message);
                 }
             });
         };
@@ -561,6 +567,32 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
             console.log('Error: ', error);
         };
     };
+
+    $scope.crearCV = function () {
+        $('#myModalCandidate').modal('hide');
+        Mensaje.Esperar("UPLOADING_CV");
+        candidatesServices.createByCV($scope.exist.uploadExist.idDoc, $scope.usuario.paisCV, function (result) {
+            Mensaje.Desocupar();
+            if (!result.error) {
+                $scope.cargarCandidato(result.data.candidateId);
+            } else {
+                Mensaje.Alerta("error", "Error", result.message);
+            }
+        });
+    }
+
+    $scope.actualizarCV = function (candidateId) {
+        $('#myModalCandidate').modal('hide');
+        Mensaje.Esperar("UPLOADING_CV");
+        candidatesServices.updateByCV(candidateId, $scope.exist.uploadExist.idDoc, $scope.usuario.paisCV, function (result) {
+            Mensaje.Desocupar();
+            if (!result.error) {
+                $scope.cargarCandidato(result.data.candidateId);
+            } else {
+                Mensaje.Alerta("error", "Error", result.message);
+            }
+        });
+    }
 
     $scope.uploadFormat = function (files) {
         Mensaje.Esperar("UPLOADING_CV");
@@ -572,14 +604,14 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
             var resultado = candidatesServices.uploadFormat(files[0], function (result) {
                 Mensaje.Desocupar();
                 if (!result.error) {
-                    $scope.cargarCandidato(result.data.id);
+                    $scope.cargarCandidato(result.data.data.candidateId);
                 } else {
-                    Mensaje.Alerta("Error", result.message);
+                    Mensaje.Alerta("error", "Error", result.message);
                 }
             });
         };
         reader.onerror = function (error) {
-            console.log('Error: ', error);
+            console.log('error: ', error);
         };
     };
 
