@@ -357,7 +357,7 @@ value('version', '0.1')
         nouLeft: firstNounId.id,
         nouDer: secondNounId.id,
       },
-      headers: headers,
+      headers: headersJson,
       url: URL.URL_REST_SERVICE + 'test_fusion'
     }).
     then(function onSuccess(response) {
@@ -373,7 +373,7 @@ value('version', '0.1')
         unfoldNoun: noun.id,
         unfoldNgram: nGram.id,
       },
-      headers:  headers,
+      headers:  headersJson,
       url: URL.URL_REST_SERVICE + 'test_unfold'
     }).
     then(function onSuccess(response) {
