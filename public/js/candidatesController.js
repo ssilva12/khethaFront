@@ -308,6 +308,17 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         $scope.usuario.studies.splice(index, 1);
     };
 
+    $scope.deleteFeature = function (feature) {
+        Dictionary.deleteCandidateFeature(feature,function(error,data){
+            if (!error){
+                Mensaje.Alerta("success", 'OK', data.message);
+                $scope.cargarCandidato($scope.usuario.candidateInfo.id);
+            }else{
+                Mensaje.Alerta("error", 'Error', data.message);
+            }
+        })
+    };
+
     $scope.agregarEstudio = function () {
         var estudio = {
             name: "",
