@@ -90,7 +90,10 @@ div(class="page-content-wrap")
                                                                     table(class="table table-bordered table-condensed")
                                                                         thead(style="text-align: center;")
                                                                             tr(style="text-align: center;")
-                                                                                th() {{'FEATURE' | translate}}
+                                                                                th(ng-click="sortType = 'name'; sortReverse = !sortReverse") 
+                                                                                    label() {{'FEATURE' | translate}}
+                                                                                    span(ng-show="sortType == 'name' && !sortReverse", class="fa fa-caret-down")
+                                                                                    span(ng-show="sortType == 'name' && sortReverse", class="fa fa-caret-up")
                                                                                 th() MR1
                                                                                 th() MR2
                                                                                 th() MR3
@@ -112,7 +115,7 @@ div(class="page-content-wrap")
                                                                                 th() {{'MFR_WEIGHT' | translate}}
                                                                                 th() {{'POINT_VALUE' | translate}}
                                                                         tbody()
-                                                                            tr(ng-repeat="feature in methaFeatures.features | orderBy : ['name']", ng-show="feature.count >= (methaFeatures.totalCount * Dato.minPercentage / 100)")
+                                                                            tr(ng-repeat="feature in methaFeatures.features | orderBy:sortType:sortReverse")
                                                                                 td() {{ feature.name }}
                                                                                 td(ng-class="!feature.isWeightInferred[0] && methaFeatures.levelNames[0] && Dato.vacancy !== '' ? 'warning' : ''", title="MR: {{methaFeatures.levelNames[0]}}\r\nFrecuencia: {{feature.frequency[0]}}\r\nFrecuencia Corregida: {{feature.frequencyCorrected[0].toFixed(2)}}\r\nFrecuencia Preselect: {{feature.frequencyPreselect[0]}}\r\nFrecuencia Preselect Corregida: {{feature.frequencyPreselectCorrected[0].toFixed(2)}}\r\nPeso establecido: {{feature.weightSetted[0]}}\r\nPeso Inferido: {{feature.weightInferred[0]}}\r\nProbabilidad: {{feature.probability[0].toFixed(2)}}\r\nProbabilidad Condicionada: {{feature.conditionalProbability[0].toFixed(2)}}") 
                                                                                     span(ng-bind="feature.frequency[0] > 0 ? feature.frequency[0] : ''")
@@ -144,16 +147,26 @@ div(class="page-content-wrap")
                                                                                 td() 
                                                                                     input(ng-show="!feature.discarded && Dato.vacancy !== ''", class="btn btn-default", type="button", value="{{ feature.discarded }}", ng-click="showDiscarded(feature, methaFeatures, feature.discarded)", data-toggle="modal", data-target="#modalDiscarded")
                                                                                     span(ng-show="feature.discarded || Dato.vacancy === ''") {{ feature.discarded }}
-                                                                                td() {{ feature.mandatory }}
+                                                                                td() 
+                                                                                    button(type="button", class="btn", ng-click="changeMandatory(feature,feature.mandatory)", ng-class="feature.mandatory ? 'btn-success' : 'btn-danger'") 
+                                                                                        span() {{ feature.mandatory }}
                                                                                 td() {{ feature.topWeight }}
                                                                                 td() {{ methaFeatures.mfrWeight }}
                                                                                 td() {{ methaFeatures.pointValue | number:2 }}
                                                     div(id="tab2", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab2'}")
                                                         div(ng-repeat="methaFeatures in methaFeatures | orderBy : ['methaFeatureOrder', 'name']", class="panel panel-primary")
                                                             div(class="panel-heading") 
-                                                                div(class="col-sm-10")
+                                                                div(class="col-sm-7")
                                                                     h4() 
                                                                         span() {{methaFeatures.name}}
+                                                                div(class="col-sm-1")
+                                                                    h5() 
+                                                                        span() {{'WEIGHT' | translate}}:
+                                                                div(class="col-sm-1")
+                                                                    input(type="number", class="form-control", ng-model="methaFeatures.mfrWeight")
+                                                                div(class="col-sm-1")
+                                                                    button(type="button", class="btn btn-default pull-right", ng-click="setWeight(methaFeatures)") 
+                                                                        li(class="fa fa-save")
                                                                 div(class="col-sm-2")
                                                                     button(type="button", class="btn btn-default pull-right", ng-click="showAddFeature(methaFeatures)", data-toggle="modal", data-target="#modalAddFeature") 
                                                                         li(class="fa fa-plus")
@@ -163,7 +176,10 @@ div(class="page-content-wrap")
                                                                     table(class="table table-bordered table-condensed")
                                                                         thead()
                                                                             tr()
-                                                                                th() {{'FEATURE' | translate}}
+                                                                                th(ng-click="sortType = 'name'; sortReverse = !sortReverse") 
+                                                                                    label() {{'FEATURE' | translate}}
+                                                                                    span(ng-show="sortType == 'name' && !sortReverse", class="fa fa-caret-down")
+                                                                                    span(ng-show="sortType == 'name' && sortReverse", class="fa fa-caret-up")
                                                                                 th() MR1
                                                                                 th() MR2
                                                                                 th() MR3
@@ -185,7 +201,7 @@ div(class="page-content-wrap")
                                                                                 th() {{'MFR_WEIGHT' | translate}}
                                                                                 th() {{'POINT_VALUE' | translate}}
                                                                         tbody()
-                                                                            tr(ng-repeat="feature in methaFeatures.features | orderBy : ['name']", ng-show="feature.count >= (methaFeatures.totalCount * Dato.minPercentage / 100)")
+                                                                            tr(ng-repeat="feature in methaFeatures.features  | orderBy:sortType:sortReverse")
                                                                                 td() {{ feature.name }}
                                                                                 td(ng-class="!feature.isWeightInferred[0] && methaFeatures.levelNames[0] && Dato.vacancy !== '' ? 'warning' : ''", title="MR: {{methaFeatures.levelNames[0]}}\r\nFrecuencia: {{feature.frequency[0]}}\r\nFrecuencia Corregida: {{feature.frequencyCorrected[0].toFixed(2)}}\r\nFrecuencia Preselect: {{feature.frequencyPreselect[0]}}\r\nFrecuencia Preselect Corregida: {{feature.frequencyPreselectCorrected[0].toFixed(2)}}\r\nPeso establecido: {{feature.weightSetted[0]}}\r\nPeso Inferido: {{feature.weightInferred[0]}}\r\nProbabilidad: {{feature.probability[0].toFixed(2)}}\r\nProbabilidad Condicionada: {{feature.conditionalProbability[0].toFixed(2)}}") 
                                                                                     span(ng-bind="methaFeatures.levelNames[0] ? (Dato.vacancy == '' ? feature.weightInferred[0] : (feature.isWeightInferred[0] ? feature.weightInferred[0] : feature.weightSetted[0])) : ''") 
@@ -224,9 +240,17 @@ div(class="page-content-wrap")
                                                     div(id="tab3", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab3'}")
                                                         div(ng-repeat="methaFeatures in methaFeatures | orderBy : ['methaFeatureOrder', 'name']", class="panel panel-primary")
                                                             div(class="panel-heading") 
-                                                                div(class="col-sm-10")
+                                                                div(class="col-sm-7")
                                                                     h4() 
                                                                         span() {{methaFeatures.name}}
+                                                                div(class="col-sm-1")
+                                                                    h5() 
+                                                                        span() {{'WEIGHT' | translate}}:
+                                                                div(class="col-sm-1")
+                                                                    input(type="number", class="form-control", ng-model="methaFeatures.mfrWeight")
+                                                                div(class="col-sm-1")
+                                                                    button(type="button", class="btn btn-default pull-right", ng-click="setWeight(methaFeatures)") 
+                                                                        li(class="fa fa-save")
                                                                 div(class="col-sm-2")
                                                                     button(type="button", class="btn btn-default pull-right", ng-click="showAddFeature(methaFeatures)", data-toggle="modal", data-target="#modalAddFeature") 
                                                                         li(class="fa fa-plus")
@@ -236,7 +260,10 @@ div(class="page-content-wrap")
                                                                     table(class="table table-bordered table-condensed")
                                                                         thead()
                                                                             tr()
-                                                                                th() {{'FEATURE' | translate}}
+                                                                                th(ng-click="sortType = 'name'; sortReverse = !sortReverse") 
+                                                                                    label() {{'FEATURE' | translate}}
+                                                                                    span(ng-show="sortType == 'name' && !sortReverse", class="fa fa-caret-down")
+                                                                                    span(ng-show="sortType == 'name' && sortReverse", class="fa fa-caret-up")
                                                                                 th() MR1
                                                                                 th() MR2
                                                                                 th() MR3
@@ -258,7 +285,7 @@ div(class="page-content-wrap")
                                                                                 th() {{'MFR_WEIGHT' | translate}}
                                                                                 th() {{'POINT_VALUE' | translate}}
                                                                         tbody()
-                                                                            tr(ng-repeat="feature in methaFeatures.features | orderBy : ['name']", ng-show="feature.count >= (methaFeatures.totalCount * Dato.minPercentage / 100)")
+                                                                            tr(ng-repeat="feature in methaFeatures.features  | orderBy:sortType:sortReverse")
                                                                                 td() {{ feature.name }}
                                                                                 td(ng-class="!feature.isWeightInferred[0] && methaFeatures.levelNames[0] && Dato.vacancy !== '' ? 'warning' : ''", title="MR: {{methaFeatures.levelNames[0]}}\r\nFrecuencia: {{feature.frequency[0]}}\r\nFrecuencia Corregida: {{feature.frequencyCorrected[0].toFixed(2)}}\r\nFrecuencia Preselect: {{feature.frequencyPreselect[0]}}\r\nFrecuencia Preselect Corregida: {{feature.frequencyPreselectCorrected[0].toFixed(2)}}\r\nPeso establecido: {{feature.weightSetted[0]}}\r\nPeso Inferido: {{feature.weightInferred[0]}}\r\nProbabilidad: {{feature.probability[0].toFixed(2)}}\r\nProbabilidad Condicionada: {{feature.conditionalProbability[0].toFixed(2)}}") 
                                                                                     span(ng-bind="methaFeatures.levelNames[0] ? (feature.weightSetted[0] > 0 ? feature.weightSetted[0] : '') : ''")
@@ -333,7 +360,10 @@ div(class="page-content-wrap")
                                                                     table(class="table table-bordered table-condensed")
                                                                         thead()
                                                                             tr()
-                                                                                th() {{'FEATURE' | translate}}
+                                                                                th(ng-click="sortType = 'name'; sortReverse = !sortReverse") 
+                                                                                    label() {{'FEATURE' | translate}}
+                                                                                    span(ng-show="sortType == 'name' && !sortReverse", class="fa fa-caret-down")
+                                                                                    span(ng-show="sortType == 'name' && sortReverse", class="fa fa-caret-up")
                                                                                 th() MR1
                                                                                 th() MR2
                                                                                 th() MR3
@@ -355,7 +385,7 @@ div(class="page-content-wrap")
                                                                                 th() {{'MFR_WEIGHT' | translate}}
                                                                                 th() {{'POINT_VALUE' | translate}}
                                                                         tbody()
-                                                                            tr(ng-repeat="feature in methaFeatures.features | orderBy : ['name']", ng-show="feature.count >= (methaFeatures.totalCount * Dato.minPercentage / 100)")
+                                                                            tr(ng-repeat="feature in methaFeatures.features  | orderBy:sortType:sortReverse")
                                                                                 td() {{ feature.name }}
                                                                                 td(ng-class="!feature.isWeightInferred[0] && methaFeatures.levelNames[0] && Dato.vacancy !== '' ? 'warning' : ''", title="MR: {{methaFeatures.levelNames[0]}}\r\nFrecuencia: {{feature.frequency[0]}}\r\nFrecuencia Corregida: {{feature.frequencyCorrected[0].toFixed(2)}}\r\nFrecuencia Preselect: {{feature.frequencyPreselect[0]}}\r\nFrecuencia Preselect Corregida: {{feature.frequencyPreselectCorrected[0].toFixed(2)}}\r\nPeso establecido: {{feature.weightSetted[0]}}\r\nPeso Inferido: {{feature.weightInferred[0]}}\r\nProbabilidad: {{feature.probability[0].toFixed(2)}}\r\nProbabilidad Condicionada: {{feature.conditionalProbability[0].toFixed(2)}}") 
                                                                                     span(ng-bind="methaFeatures.levelNames[0] && feature.probability[0] > 0 ? feature.probability[0].toFixed(2) : ''")

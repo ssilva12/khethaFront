@@ -11,6 +11,8 @@ controller('vacancyCharacterizationCtrl', ['$scope', '$rootScope', '$stateParams
     $scope.Dato.minPercentage = 10;
     $scope.methaFeatures = [];
     $scope.Dato.tab = "tab1";
+    $scope.sortType = 'name';
+    $scope.sortReverse = false;
 
     $scope.getJobs = function () {
         Mensaje.Esperar();
@@ -74,6 +76,31 @@ controller('vacancyCharacterizationCtrl', ['$scope', '$rootScope', '$stateParams
             if (!result.error) {
                 $scope.methaFeatures = result.data;
                 //$scope.showValue = "w";
+            }
+        })
+    }
+
+    $scope.setWeight = function (methaFeature) {
+        Mensaje.Esperar();
+        vacancyService.setWeight(methaFeature.id, $scope.Dato.vacancy, methaFeature.mfrWeight, function (result) {
+            Mensaje.Desocupar();
+            if (!result.error) {
+                Mensaje.Alerta("success", "OK","ok");
+            } else {
+                Mensaje.Alerta("error", result.message);
+            }
+        })
+    }
+
+    $scope.changeMandatory = function (feature,option) {
+        Mensaje.Esperar();
+        vacancyService.changeMandatory(feature.nameId, $scope.Dato.vacancy, !option, function (result) {
+            Mensaje.Desocupar();
+            if (!result.error) {
+                feature.mandatory = !option;
+                Mensaje.Alerta("success", "OK", "ok");
+            } else {
+                Mensaje.Alerta("error", result.message);
             }
         })
     }
