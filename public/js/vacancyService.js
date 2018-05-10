@@ -251,6 +251,34 @@ value('version', '0.2')
             request.send(config, callback);
         }
 
+        vacancyService.setWeight = function (methaFeatureId, vacancyId, weight, callback) {
+            var config = {
+                method: 'POST',
+                data: {
+                    methaFeatureId: methaFeatureId,
+                    vacancyId: vacancyId,
+                    weight: weight
+                },
+                contentType: "application/json",
+                url: URL.URL_REST_SERVICE + 'api/frequencymatrix/setWeight'
+            }
+            request.send(config, callback);
+        }
+
+        vacancyService.changeMandatory = function (nounId, vacancyId, option, callback) {
+            var config = {
+                method: 'POST',
+                data: {
+                    nounId: nounId,
+                    vacancyId: vacancyId,
+                    option: option
+                },
+                contentType: "application/json",
+                url: URL.URL_REST_SERVICE + 'api/frequencymatrix/changeMandatory'
+            }
+            request.send(config, callback);
+        }
+
         vacancyService.getFeatureNames = function (dictionary, callback) {
             var config = {
                 method: 'GET',
