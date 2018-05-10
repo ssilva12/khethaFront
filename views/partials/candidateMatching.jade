@@ -233,7 +233,9 @@ div(class="page-content-wrap")
                                                                                 td() 
                                                                                     input(ng-show="!feature.discarded && Dato.vacancy !== ''", class="btn btn-default", type="button", value="{{ feature.discarded }}", ng-click="showDiscarded(feature, methaFeatures, feature.discarded)", data-toggle="modal", data-target="#modalDiscarded")
                                                                                     span(ng-show="feature.discarded || Dato.vacancy === ''") {{ feature.discarded }}
-                                                                                td() {{ feature.mandatory }}
+                                                                                td() 
+                                                                                    button(type="button", class="btn", ng-click="changeMandatory(feature,feature.mandatory)", ng-class="feature.mandatory ? 'btn-success' : 'btn-danger'") 
+                                                                                        span() {{ feature.mandatory }}
                                                                                 td() {{ feature.topWeight }}
                                                                                 td() {{ methaFeatures.mfrWeight }}
                                                                                 td() {{ methaFeatures.pointValue | number:2 }}
@@ -341,7 +343,9 @@ div(class="page-content-wrap")
                                                                                 td() 
                                                                                     input(ng-show="!feature.discarded && Dato.vacancy !== ''", class="btn btn-default", type="button", value="{{ feature.discarded }}", ng-click="showDiscarded(feature, methaFeatures, feature.discarded)", data-toggle="modal", data-target="#modalDiscarded")
                                                                                     span(ng-show="feature.discarded || Dato.vacancy === ''") {{ feature.discarded }}
-                                                                                td() {{ feature.mandatory }}
+                                                                                td() 
+                                                                                    button(type="button", class="btn", ng-click="changeMandatory(feature,feature.mandatory)", ng-class="feature.mandatory ? 'btn-success' : 'btn-danger'") 
+                                                                                        span() {{ feature.mandatory }}
                                                                                 td() {{ feature.topWeight }}
                                                                                 td() {{ methaFeatures.mfrWeight }}
                                                                                 td() {{ methaFeatures.pointValue | number:2 }}
@@ -416,7 +420,9 @@ div(class="page-content-wrap")
                                                                                 td() 
                                                                                     input(ng-show="!feature.discarded && Dato.vacancy !== ''", class="btn btn-default", type="button", value="{{ feature.discarded }}", ng-click="showDiscarded(feature, methaFeatures, feature.discarded)", data-toggle="modal", data-target="#modalDiscarded")
                                                                                     span(ng-show="feature.discarded || Dato.vacancy === ''") {{ feature.discarded }}
-                                                                                td() {{ feature.mandatory }}
+                                                                                td() 
+                                                                                    button(type="button", class="btn", ng-click="changeMandatory(feature,feature.mandatory)", ng-class="feature.mandatory ? 'btn-success' : 'btn-danger'") 
+                                                                                        span() {{ feature.mandatory }}
                                                                                 td() {{ feature.topWeight }}
                                                                                 td() {{ methaFeatures.mfrWeight }}
                                                                                 td() {{ methaFeatures.pointValue | number:2 }}
