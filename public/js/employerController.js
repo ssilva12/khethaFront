@@ -33,12 +33,12 @@ controller('employerController', ['$scope', '$stateParams', 'employerService', '
                 Mensaje.Desocupar();
                 if (!result.error) {
                     Mensaje.Alerta("success", 'OK', result.message);
+                    //$scope.cargarEmpleador($scope.employer.id);
                 } else {
                     Mensaje.Alerta("error", 'Error', result.message);
                 }
             });
         }
-        $scope.cargarEmpleador($scope.employer.id);
     };
 
 
