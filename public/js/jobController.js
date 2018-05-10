@@ -33,12 +33,12 @@ angular.module('myApp.jobCtrl', []).
                     Mensaje.Desocupar();
                     if (!result.error) {
                         Mensaje.Alerta("success", 'OK', result.message);
+                        //$scope.cargarJob($scope.job.id);
                     } else {
                         Mensaje.Alerta("error", 'Error', result.message);
                     }
                 });
             }
-            $scope.cargarJob($scope.job.id);
         };
 
 
