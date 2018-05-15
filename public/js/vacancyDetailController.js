@@ -178,7 +178,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                         $scope.Data.promedioConcur = $scope.Data.concur.length == 0 ? 0 : (promedioConcur / $scope.Data.concur.length)
                         $scope.Data.promedioPreSelected = $scope.Data.preselected.length == 0 ? 0 : (promedioPreselected / $scope.Data.preselected.length)
                         $scope.Data.promedioSelected = $scope.Data.selected.length == 0 ? 0 : (promedioSelected / $scope.Data.selected.length)
-                        
+
                         vacancyService.getSuggesteds(id, function (result) {
                             Mensaje.Desocupar();
                             if (!result.error) {
@@ -195,7 +195,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                 });
 
                 Mensaje.Esperar();
-                
+
                 vacancyService.getMethaFeatures($scope.Data.vacancy.idEmployer, $scope.Data.vacancy.idJob, $scope.Data.vacancy.id, "", "", function (result) {
                     Mensaje.Desocupar();
                     if (!result.error) {
@@ -250,7 +250,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                 }
             }
         }
-        
+
     }
 
 
@@ -260,14 +260,14 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
         }
     }
 
-    $scope.greaterThanMultiple = function (prop, prop2, prop3, val) {
+    $scope.greaterThanMultiple = function (prop, prop2, prop3, val, mandatory) {
         return function (item) {
             var value = 0;
             for (index = 0; index < item[prop].length; index++) {
                 var value2 = item[prop][index] ? item[prop2][index] : item[prop3][index];
                 value = value + value2;
             }
-            return value > val;
+            return (value > val || item[mandatory]);
         }
     }
 
@@ -351,7 +351,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
         var reader = new FileReader();
         reader.readAsDataURL(files[0]);
         reader.onload = function () {
-            var resultado = candidatesServices.uploadFile(files[0],"", function (result) {
+            var resultado = candidatesServices.uploadFile(files[0], "", function (result) {
                 Mensaje.Desocupar();
                 if (!result.error) {
                     $scope.agregarCandidato(result.data.id, 'CND_CONCUR');
