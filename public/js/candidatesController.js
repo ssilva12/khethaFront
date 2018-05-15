@@ -128,29 +128,31 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                             addFeature = feature;
                             addFeature.dictionaryName = result.data[index2].name;
                         }
-                    });
-                    if (exist) {
-                        switch (addFeature.dictionaryName) {
-                            case "Job Function":
-                                $scope.vacancy.jobFunctions.push(addFeature);
-                                break;
-                            case "Educational center":
-                                $scope.vacancy.schooling.push(addFeature);
-                                break;
-                            case "Employer":
-                                $scope.vacancy.jobs.push(addFeature);
-                                break;
-                            case "Language":
-                                $scope.vacancy.languages.push(addFeature);
-                                break;
-                            case "Skill":
-                                $scope.vacancy.skills.push(addFeature);
-                                break;
-                            case "Studies":
-                                $scope.vacancy.studies.push(addFeature);
-                                break;
+                        if (exist) {
+                            switch (addFeature.dictionaryName) {
+                                case "Job Function":
+                                    $scope.vacancy.jobFunctions.push(addFeature);
+                                    break;
+                                case "Educational center":
+                                    $scope.vacancy.schooling.push(addFeature);
+                                    break;
+                                case "Employer":
+                                    $scope.vacancy.jobs.push(addFeature);
+                                    break;
+                                case "Language":
+                                    $scope.vacancy.languages.push(addFeature);
+                                    break;
+                                case "Skill":
+                                    $scope.vacancy.skills.push(addFeature);
+                                    break;
+                                case "Studies":
+                                    $scope.vacancy.studies.push(addFeature);
+                                    break;
+                            }
                         }
-                    }
+                        exist = false;
+                    });
+                    
                 }
 
 
