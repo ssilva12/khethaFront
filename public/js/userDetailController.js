@@ -98,12 +98,32 @@ controller('userDetailController', ['$scope', '$rootScope', '$stateParams', 'Men
         var data = userService.getPortfolio(string, function (result) {
             if (!result.error) {
                 if (result.data) {
+                    console.log(result.data)
                     model.assign($scope, result.data);
                 } else {
                     model.assign($scope, []);
                 }
             } else {
                 Mensaje.Alerta("error", 'Error', '');
+                model.assign($scope, []);
+            }
+        });
+    };
+    $scope.autocompletarInput2 = function (string, tipo, datos, acronimo) {
+        var model = $parse(datos);
+        var data = Dictionary.getSynonyms(string, tipo, acronimo, function (error, result) {
+            if (!error) {
+                console.log(result)
+                if (result.suggested) {
+                    //$scope.data = [result.primary];
+                    model.assign($scope, result.suggested);
+                } else {
+                    //$scope.data = result.suggested;
+                    model.assign($scope, [result.primary]);
+                }
+            } else {
+                Mensaje.Alerta("error", 'Error', '');
+                //$scope.data = [];
                 model.assign($scope, []);
             }
         });
