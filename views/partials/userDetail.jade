@@ -44,7 +44,7 @@ div(class="page-content-wrap")
                                     div(class="col-md-6")
                                         input(name="fullName",autocomplete="off", class="form-control has-error",ng-focus="onFocus('fullName',1)",ng-blur="onBlur('fullName',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput2(user.name,'Name','dataName','null','user.name')", ng-model="user.name")
                                         ul(ng-show="{{ 'fullName' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                            li(class="list-group-item",ng-mousedown="assign('user.name',item)", ng-repeat="item in dataName") {{item.er}}
+                                            li(class="list-group-item",ng-mousedown="user.name = item.er", ng-repeat="item in dataName") {{item.er}}
                                 div(class="row row-space")
                                     div(class="col-md-12")
                                         button(type="button", class="btn btn-primary pull-right", ng-click="actualizarUser()") 
