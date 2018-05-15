@@ -492,7 +492,7 @@ value('version', '0.1')
       data: {
         metaRelation: metaRelation
       },
-      headers: headers,
+      headers: headersJson,
       url: URL.URL_REST_SERVICE + 'metaRelation'
     }).
     then(function onSuccess(response) {
