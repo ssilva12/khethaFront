@@ -74,7 +74,6 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         var allData = candidatesServices.getById(id, function (result) {
             Mensaje.Desocupar();
             if (!result.error) {
-                console.log(result.data);
                 $scope.usuario = result.data;
                 if ($scope.usuario.candidateInfo.gps != null) {
                     var coordenadas = [];
@@ -113,177 +112,50 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.vacancy = []
-                $scope.vacancy.jobFunctions = []
-                $scope.vacancy.schooling = []
-                $scope.vacancy.jobs = []
-                $scope.vacancy.languages = []
-                $scope.vacancy.skills = []
-                $scope.vacancy.studies = []
                 for (var index2 = 0; index2 < result.data.length; index2++) {
                     var exist = false;
                     var addFeature = {}
                     result.data[index2].features.forEach(feature => {
-                        if (!existe(result.data[index2].name, feature.nameId, feature) && feature.score < 1 && feature.mandatory) {
+                        if (!existe(feature.nameId, feature) && feature.score < 1 && feature.mandatory) {
                             exist = true;
                             addFeature = feature;
-                            addFeature.dictionaryName = result.data[index2].name;
+                            addFeature.dictionary = result.data[index2].dictionary;
                         }
                         if (exist) {
-                            switch (addFeature.dictionaryName) {
-                                case "Job Function":
-                                    $scope.vacancy.jobFunctions.push(addFeature);
-                                    break;
-                                case "Educational center":
-                                    $scope.vacancy.schooling.push(addFeature);
-                                    break;
-                                case "Employer":
-                                    $scope.vacancy.jobs.push(addFeature);
-                                    break;
-                                case "Language":
-                                    $scope.vacancy.languages.push(addFeature);
-                                    break;
-                                case "Skill":
-                                    $scope.vacancy.skills.push(addFeature);
-                                    break;
-                                case "Studies":
-                                    $scope.vacancy.studies.push(addFeature);
-                                    break;
-                            }
+                            $scope.vacancy.push(addFeature);
                         }
                         exist = false;
                     });
-                    
+
                 }
 
 
                 var resultado = result.data;
-
-                // for (index2 = 0; index2 < result.data.length; index2++) {
-                //     var a = 0;
-                //     result.data[index2].features.forEach(feature => {
-                //         if (existe(result.data[index2].name, feature.nameId)) {
-                //             result.data[index2].features.splice(a, 1);
-                //         }
-                //         a++;
-                //     });
-                // }
-                // resultado = result.data;
-                // $scope.vacancy = resultado;
             } else {
                 Mensaje.Alerta("error", 'Error', result.message);
             }
         });
     };
 
-    var existe = function (name, id, feature) {
+    var existe = function (id, feature) {
         var value = false;
-
-        switch (name) {
-            case "Job Function":
-                for (var index = 0; index < $scope.usuario.jobFunctions.length; index++) {
-                    if ($scope.usuario.jobFunctions[index].idNoun == id) {
-                        $scope.usuario.jobFunctions[index].score = feature.score;
-                        value = true;
-                        break;
-                    }
-                }
+        for (var index = 0; index < $scope.usuario.features.length; index++) {
+            if ($scope.usuario.features[index].idNoun == id) {
+                $scope.usuario.features[index].score = feature.score;
+                value = true;
                 break;
-            case "Educational center":
-                for (var index = 0; index < $scope.usuario.schooling.length; index++) {
-                    if ($scope.usuario.schooling[index].idNoun == id) {
-                        $scope.usuario.schooling[index].score = feature.score;
-                        value = true;
-                        break;
-                    }
-                }
-                break;
-            case "Employer":
-                for (var index = 0; index < $scope.usuario.jobs.length; index++) {
-                    if ($scope.usuario.jobs[index].idNoun == id) {
-                        $scope.usuario.jobs[index].score = feature.score;
-                        value = true;
-                        break;
-                    }
-                }
-                break;
-            case "Language":
-                for (var index = 0; index < $scope.usuario.languages.length; index++) {
-                    if ($scope.usuario.languages[index].idNoun == id) {
-                        $scope.usuario.languages[index].score = feature.score;
-                        value = true;
-                        break;
-                    }
-                }
-                break;
-            case "Skill":
-                for (var index = 0; index < $scope.usuario.skills.length; index++) {
-                    if ($scope.usuario.skills[index].idNoun == id) {
-                        $scope.usuario.skills[index].score = feature.score;
-                        value = true;
-                        break;
-                    }
-                }
-                break;
-            case "Studies":
-                for (var index = 0; index < $scope.usuario.studies.length; index++) {
-                    if ($scope.usuario.studies[index].idNoun == id) {
-                        $scope.usuario.studies[index].score = feature.score;
-                        value = true;
-                        break;
-                    }
-                }
-                break;
+            }
         }
-
         return value;
     }
 
     $scope.getTotal = function (name) {
         var total = 0;
         if ($scope.usuario != null && $scope.usuario != undefined) {
-            switch (name) {
-                case "Job Function":
-                    if ($scope.usuario.jobFunctions != null && $scope.usuario.jobFunctions != undefined) {
-                        for (var index = 0; index < $scope.usuario.jobFunctions.length; index++) {
-                            total = total + ($scope.usuario.jobFunctions[index].score == null ? 0 : $scope.usuario.jobFunctions[index].score)
-                        }
-                    }
-                    break;
-                case "Educational center":
-                    if ($scope.usuario.schooling != null && $scope.usuario.schooling != undefined) {
-                        for (var index = 0; index < $scope.usuario.schooling.length; index++) {
-                            total = total + ($scope.usuario.schooling[index].score == null ? 0 : $scope.usuario.schooling[index].score)
-                        }
-                    }
-                    break;
-                case "Employer":
-                    if ($scope.usuario.jobs != null && $scope.usuario.jobs != undefined) {
-                        for (var index = 0; index < $scope.usuario.jobs.length; index++) {
-                            total = total + ($scope.usuario.jobs[index].score == null ? 0 : $scope.usuario.jobs[index].score)
-                        }
-                    }
-                    break;
-                case "Language":
-                    if ($scope.usuario.languages != null && $scope.usuario.languages != undefined) {
-                        for (var index = 0; index < $scope.usuario.languages.length; index++) {
-                            total = total + ($scope.usuario.languages[index].score == null ? 0 : $scope.usuario.languages[index].score)
-                        }
-                    }
-                    break;
-                case "Skill":
-                    if ($scope.usuario.skills != null && $scope.usuario.skills != undefined) {
-                        for (var index = 0; index < $scope.usuario.skills.length; index++) {
-                            total = total + ($scope.usuario.skills[index].score == null ? 0 : $scope.usuario.skills[index].score)
-                        }
-                    }
-                    break;
-                case "Studies":
-                    if ($scope.usuario.studies != null && $scope.usuario.studies != undefined) {
-                        for (var index = 0; index < $scope.usuario.studies.length; index++) {
-                            total = total + ($scope.usuario.studies[index].score == null ? 0 : $scope.usuario.studies[index].score)
-                        }
-                    }
-                    break;
+            for (var index2 = 0; index2 < $scope.usuario.features.length; index2++) {
+                if (name == $scope.usuario.features[index2].dictionary) {
+                    total = total + ($scope.usuario.features[index2].score == null ? 0 : $scope.usuario.features[index2].score)
+                }
             }
             return total;
         }
@@ -305,17 +177,32 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
     };
     init();
 
+    $scope.agregarFeatureCopy = function (feature, methaFeature) {
+        var featureCopy = {
+            name: "",
+            dictionary: methaFeature.dictionary,
+            lastDate: "",
+            lastUpdate: "",
+            value: "",
+            mrName: "",
+            levelOrOrder: "",
+            edit: true
+        };
+
+        $scope.usuario.features.push(featureCopy);
+    };
+ 
     $scope.eliminarEstudio = function (estudio) {
         var index = $scope.usuario.studies.indexOf(estudio);
         $scope.usuario.studies.splice(index, 1);
     };
 
     $scope.deleteFeature = function (feature) {
-        Dictionary.deleteCandidateFeature(feature,function(error,data){
-            if (!error){
+        Dictionary.deleteCandidateFeature(feature, function (error, data) {
+            if (!error) {
                 Mensaje.Alerta("success", 'OK', data.message);
                 $scope.cargarCandidato($scope.usuario.candidateInfo.id);
-            }else{
+            } else {
                 Mensaje.Alerta("error", 'Error', data.message);
             }
         })
@@ -474,10 +361,9 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         }
     };
 
-    $scope.actualizarFeature = function (data, dictionary) {
+    $scope.actualizarFeature = function (data) {
         Mensaje.Esperar("SAVING_DATA");
         if (data.id != null && data.id != undefined) {
-            data.dictionary = dictionary
             var allData = candidatesServices.updateFeature(data, function (result) {
                 Mensaje.Desocupar();
                 if (!result.error) {
@@ -489,7 +375,6 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                 }
             });
         } else {
-            data.dictionary = dictionary
             var allData = candidatesServices.createFeature($scope.usuario.candidateInfo.id, data, function (result) {
                 Mensaje.Desocupar();
                 if (!result.error) {
@@ -503,11 +388,10 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         }
     }
 
-    $scope.createFeature = function (data, dictionary) {
+    $scope.createFeature = function (data) {
         Mensaje.Esperar("SAVING_DATA");
-        data.dictionary = dictionary
         candidatesServices.createFeature($scope.usuario.candidateInfo.id, data, function (result) {
-            //Mensaje.Desocupar();
+            Mensaje.Desocupar();
             if (!result.error) {
                 $scope.cargarCandidato($scope.usuario.candidateInfo.id);
                 Mensaje.Alerta("success", 'OK', result.message);
