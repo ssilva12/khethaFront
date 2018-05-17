@@ -191,7 +191,7 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="feature.name = item.er", ng-repeat="item in Data") {{item.er}}
                                                                         div(class="form-group row row-space", ng-hide="methafeature.Class == 'Mesurable'")
                                                                             div(class="col-md-3")
-                                                                                label(for="") {{methafeature.relationName == 'null' ? 'Metha relación' : methafeature.relationName}}
+                                                                                label(for="") {{methafeature.valueName == 'null' ? 'Metha relación' : methafeature.valueName}}
                                                                             div(class="col-md-9") 
                                                                                 div(style="width:100%")
                                                                                     select(select2="", ng-model="feature.levelOrOrder", class="form-control")  
@@ -235,7 +235,7 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="feature.name = item.er", ng-repeat="item in Data") {{item.er}}
                                                                         div(class="form-group row row-space", ng-hide="methafeature.Class == 'Mesurable'")
                                                                             div(class="col-md-3")
-                                                                                label(for="") {{methafeature.relationName == 'null' ? 'Metha relación' : methafeature.relationName}}
+                                                                                label(for="") {{methafeature.valueName == 'null' ? 'Metha relación' : methafeature.valueName}}
                                                                             div(class="col-md-9") 
                                                                                 p(ng-bind="feature.mrName", ng-hide="feature.edit")
                                                                                 div(style="width:100%", ng-show="feature.edit")
