@@ -198,7 +198,7 @@ div(class="page-content-wrap")
                                                                                         option(value="{{relation.levelOrOrder}}", ng-repeat="relation in usuario.metaRelation | filter:{ dictionary: methafeature.dictionary }") {{relation.name}}
                                                                         div(class="form-group row row-space", ng-hide="methafeature.HasValue == 'false'")
                                                                             div(class="col-md-3")
-                                                                                label(for="") {{methafeature.ValueName == 'null' ? 'Valor' : methafeature.ValueName}}
+                                                                                label(for="") {{methafeature.valueName == 'null' ? 'Valor' : methafeature.valueName}}
                                                                             div(class="col-md-9")
                                                                                 input(ng-model="feature.value", type="text", class="form-control")
                                                                         div(class="form-group row row-space", ng-hide="methafeature.HasEndDate == 'false'")
@@ -243,7 +243,7 @@ div(class="page-content-wrap")
                                                                                         option(value="{{relation.levelOrOrder}}", ng-repeat="relation in usuario.metaRelation | filter:{ dictionary: methafeature.dictionary }") {{relation.name}}
                                                                         div(class="form-group row row-space", ng-hide="methafeature.HasValue == 'false'")
                                                                             div(class="col-md-3")
-                                                                                label(for="") {{methafeature.ValueName == 'null' ? 'Valor' : methafeature.ValueName}}
+                                                                                label(for="") {{methafeature.valueName == 'null' ? 'Valor' : methafeature.valueName}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="feature.value", ng-hide="feature.edit")
                                                                                 input(ng-model="feature.value", type="text", class="form-control", ng-show="feature.edit")
