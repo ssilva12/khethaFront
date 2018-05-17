@@ -145,15 +145,15 @@ div(class="page-content-wrap")
                 div(class="col-sm-12")
                     div(class="panel panel-default nav-tabs-vertical")
                         ul(class="nav nav-tabs")
-                            li(style="border-bottom: 1px solid #ddd;", ng-repeat="item in usuario.metaFeatures | orderBy : '-oredr'")
+                            li(style="border-bottom: 1px solid #ddd;", ng-repeat="item in usuario.metaFeatures | orderBy : '-oredr'", ng-click="variablesGlobales.tab = 'tab'+ $index")
                                 a(data-toggle="tab", ng-attr-data-target="{{ '#tab' + $index }}") {{item.name | translate}}
                                     span(class="badge", ng-if="(vacancy|filter:{dictionary:item.dictionary}).length > 0") {{(vacancy|filter:{dictionary:item.dictionary}).length}}
-                            li(style="border-bottom: 1px solid #ddd;")
+                            li(style="border-bottom: 1px solid #ddd;", ng-click="variablesGlobales.tab = 'tabPostulaciones'")
                                 a(data-toggle="tab", data-target="#tabPostulaciones") {{ 'POSTULATED_JOBS' | translate}}
-                            li(style="border-bottom: 1px solid #ddd;")
+                            li(style="border-bottom: 1px solid #ddd;", ng-click="variablesGlobales.tab = 'tabSinResolver'")
                                 a(data-toggle="tab", data-target="#tabSinResolver") {{ 'UNRESOLVED' | translate}}
                         div(class="tab-content", style="min-height:100vh; border-left: 1px solid #ddd;")
-                            div(id="{{ 'tab' + $index }}", class="tab-pane fade", ng-repeat="methafeature in usuario.metaFeatures")                                
+                            div(id="{{ 'tab' + $index }}", class="tab-pane fade", ng-repeat="methafeature in usuario.metaFeatures", ng-class="{'active' : variablesGlobales.tab == 'tab'+ $index}")                                
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-1") 
@@ -186,19 +186,19 @@ div(class="page-content-wrap")
                                                                                 label(for="") {{ 'NAME' | translate}}
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
-                                                                                    input(class="form-control",ng-focus="onFocus('featureName',$index)",ng-blur="onBlur('featureName',$index)", ng-model-options="{ debounce: 500 }", ng-change="autocompletarInput(feature.name,methaFeature.dictionary,'Data','null')", ng-model="feature.name")
+                                                                                    input(class="form-control",ng-focus="onFocus('featureName',$index)",ng-blur="onBlur('featureName',$index)", ng-model-options="{ debounce: 500 }", ng-change="autocompletarInput(feature.name,methafeature.dictionary,'Data','null')", ng-model="feature.name")
                                                                                     ul(ng-show="{{ 'featureName' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                                         li(class="list-group-item",ng-mousedown="feature.name = item.er", ng-repeat="item in Data") {{item.er}}
                                                                         div(class="form-group row row-space", ng-hide="methafeature.Class == 'Mesurable'")
                                                                             div(class="col-md-3")
-                                                                                label(for="") {{ 'METHARELATION' | translate}}
+                                                                                label(for="") {{methafeature.relationName}}
                                                                             div(class="col-md-9") 
                                                                                 div(style="width:100%")
                                                                                     select(select2="", ng-model="feature.levelOrOrder", class="form-control")  
                                                                                         option(value="{{levelOrOrder}}", ng-repeat="relation in usuario.metaRelation | filter:{ dictionary: methafeature.dictionary }") {{relation.name}}
                                                                         div(class="form-group row row-space", ng-hide="methafeature.HasValue == 'false'")
                                                                             div(class="col-md-3")
-                                                                                label(for="") {{ 'VALUE' | translate}}
+                                                                                label(for="") {{methafeature.ValueName}}
                                                                             div(class="col-md-9")
                                                                                 input(ng-model="feature.value", type="text", class="form-control")
                                                                         div(class="form-group row row-space", ng-hide="methafeature.HasEndDate == 'false'")
@@ -230,12 +230,12 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="feature.name", ng-hide="feature.edit")
                                                                                 div(style="width:100%", ng-show="feature.edit")
-                                                                                    input(class="form-control",ng-focus="onFocus('featureName',$index)",ng-blur="onBlur('featureName',$index)", ng-model-options="{ debounce: 500 }", ng-change="autocompletarInput(feature.name,methaFeature.dictionary,'Data','null')", ng-model="feature.name")
+                                                                                    input(class="form-control",ng-focus="onFocus('featureName',$index)",ng-blur="onBlur('featureName',$index)", ng-model-options="{ debounce: 500 }", ng-change="autocompletarInput(feature.name,methafeature.dictionary,'Data','null')", ng-model="feature.name")
                                                                                     ul(ng-show="{{ 'featureName' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                                         li(class="list-group-item",ng-mousedown="feature.name = item.er", ng-repeat="item in Data") {{item.er}}
                                                                         div(class="form-group row row-space", ng-hide="methafeature.Class == 'Mesurable'")
                                                                             div(class="col-md-3")
-                                                                                label(for="") {{ 'METHARELATION' | translate}}
+                                                                                label(for="") {{methafeature.relationName}}
                                                                             div(class="col-md-9") 
                                                                                 p(ng-bind="feature.mrName", ng-hide="feature.edit")
                                                                                 div(style="width:100%", ng-show="feature.edit")
@@ -243,7 +243,7 @@ div(class="page-content-wrap")
                                                                                         option(value="{{levelOrOrder}}", ng-repeat="relation in usuario.metaRelation | filter:{ dictionary: methafeature.dictionary }") {{relation.name}}
                                                                         div(class="form-group row row-space", ng-hide="methafeature.HasValue == 'false'")
                                                                             div(class="col-md-3")
-                                                                                label(for="") {{ 'VALUE' | translate}}
+                                                                                label(for="") {{methafeature.ValueName}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="feature.value", ng-hide="feature.edit")
                                                                                 input(ng-model="feature.value", type="text", class="form-control", ng-show="feature.edit")
@@ -291,7 +291,7 @@ div(class="page-content-wrap")
                                                                                 label(for="") Resolver
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
-                                                                                    input(class="form-control",ng-focus="onFocus('caracteristicasPsicologicasNombre',$index)",ng-blur="onBlur('caracteristicasPsicologicasNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(feature.nombre,feature.dictionary,'dataUnresolved','null')", ng-model="feature.nombre")
+                                                                                    input(class="form-control",ng-focus="onFocus('caracteristicasPsicologicasNombre',$index)",ng-blur="onBlur('caracteristicasPsicologicasNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(feature.nombre,methafeature.dictionary,'dataUnresolved','null')", ng-model="feature.nombre")
                                                                                     input(type="hidden",ng-model="feature.idNoun")
                                                                                     ul(ng-show="{{ 'caracteristicasPsicologicasNombre' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                                         li(class="list-group-item",ng-mousedown="feature.nombre = item.er; feature.idNoun=item.id", ng-repeat="item in dataUnresolved") {{item.er}}
@@ -309,7 +309,7 @@ div(class="page-content-wrap")
                                             button(type="button", class="btn btn-default pull-right", ng-click="agregarFeatureCopy(feature,methafeature)") 
                                                 li(class="fa fa-plus")
                                                 span() {{ 'ADD' | translate}}
-                            div(id="tabPostulaciones", class="tab-pane fade")
+                            div(id="tabPostulaciones", class="tab-pane fade", ng-class="{'active' : variablesGlobales.tab == 'tabPostulaciones'}")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="row", style="display: flex; flex-wrap: wrap;")
@@ -339,7 +339,7 @@ div(class="page-content-wrap")
                                                                     <input type="radio" class="icheckbox" checked="checked" value="true" ng-model="postulacion.selected" disabled="disabled"/> No
                                                                     <input type="radio" class="icheckbox" value="false" ng-model="postulacion.selected"  disabled="disabled"/>
                                                                 </p>
-                            div(id="tabSinResolver", class="tab-pane fade")
+                            div(id="tabSinResolver", class="tab-pane fade", ng-class="{'active' : variablesGlobales.tab == 'tabSinResolver'}")
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="row", style="display: flex; flex-wrap: wrap;")
