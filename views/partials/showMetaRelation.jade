@@ -22,15 +22,15 @@ div(class="page-content-wrap")
                         div.form-group
                             span.col-md-3.col-xs-12.control-label Posición
                             div.col-md-6.col-xs-12
-                                input.form-control(type="text", id="orderNumber", name="orderNumber",ng-model="metaRelation.orderNumber") 
+                                input.form-control(type="text", id="levelOrOrder:", name="levelOrOrder:",ng-model="metaRelation.levelOrOrder") 
                         div.form-group
                             span.col-md-3.col-xs-12.control-label Desde
                             div.col-md-6.col-xs-12
-                                input.form-control(type="text", ng-disabled="metaFeature.type != 'Mesurable'", id="fromValue", name="fromValue",ng-model="metaRelation.from") 
+                                input.form-control(type="text", id="fromValue", name="fromValue",ng-model="metaRelation.from") 
                         div.form-group
                             span.col-md-3.col-xs-12.control-label Hasta
                             div.col-md-6.col-xs-12
-                                input.form-control(type="text", disabled, id="toValue", name="toValue",ng-model="metaRelation.to")
+                                input.form-control(type="text", id="toValue", name="toValue",ng-model="metaRelation.to")
                         div(class="form-group")
                             div.col-md-1.col-md-offset-8
                                 button(class="btn btn-primary mb-control",ng-click="updateMetaRelation(metaRelation)") guardar
