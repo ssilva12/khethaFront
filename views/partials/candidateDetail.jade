@@ -195,7 +195,7 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-9") 
                                                                                 div(style="width:100%")
                                                                                     select(select2="", ng-model="feature.levelOrOrder", class="form-control")  
-                                                                                        option(value="{{levelOrOrder}}", ng-repeat="relation in usuario.metaRelation | filter:{ dictionary: methafeature.dictionary }") {{relation.name}}
+                                                                                        option(value="{{relation.levelOrOrder}}", ng-repeat="relation in usuario.metaRelation | filter:{ dictionary: methafeature.dictionary }") {{relation.name}}
                                                                         div(class="form-group row row-space", ng-hide="methafeature.HasValue == 'false'")
                                                                             div(class="col-md-3")
                                                                                 label(for="") {{ 'VALUE' | translate}}
@@ -240,7 +240,7 @@ div(class="page-content-wrap")
                                                                                 p(ng-bind="feature.mrName", ng-hide="feature.edit")
                                                                                 div(style="width:100%", ng-show="feature.edit")
                                                                                     select(select2="", ng-model="feature.levelOrOrder", class="form-control")  
-                                                                                        option(value="{{levelOrOrder}}", ng-repeat="relation in usuario.metaRelation | filter:{ dictionary: methafeature.dictionary }") {{relation.name}}
+                                                                                        option(value="{{relation.levelOrOrder}}", ng-repeat="relation in usuario.metaRelation | filter:{ dictionary: methafeature.dictionary }") {{relation.name}}
                                                                         div(class="form-group row row-space", ng-hide="methafeature.HasValue == 'false'")
                                                                             div(class="col-md-3")
                                                                                 label(for="") {{ 'VALUE' | translate}}
