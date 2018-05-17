@@ -145,7 +145,7 @@ div(class="page-content-wrap")
                 div(class="col-sm-12")
                     div(class="panel panel-default nav-tabs-vertical")
                         ul(class="nav nav-tabs")
-                            li(style="border-bottom: 1px solid #ddd;", ng-repeat="item in usuario.metaFeatures | orderBy : '-oredr'", ng-click="variablesGlobales.tab = 'tab'+ $index")
+                            li(style="border-bottom: 1px solid #ddd;", ng-repeat="item in usuario.metaFeatures | orderBy : '-oredr'", ng-click="variablesGlobales.tab = 'tab'+ $index", ng-class="{'active' : variablesGlobales.tab == 'tab'+ $index}")
                                 a(data-toggle="tab", ng-attr-data-target="{{ '#tab' + $index }}") {{item.name | translate}}
                                     span(class="badge", ng-if="(vacancy|filter:{dictionary:item.dictionary}).length > 0") {{(vacancy|filter:{dictionary:item.dictionary}).length}}
                             li(style="border-bottom: 1px solid #ddd;", ng-click="variablesGlobales.tab = 'tabPostulaciones'")
@@ -153,7 +153,7 @@ div(class="page-content-wrap")
                             li(style="border-bottom: 1px solid #ddd;", ng-click="variablesGlobales.tab = 'tabSinResolver'")
                                 a(data-toggle="tab", data-target="#tabSinResolver") {{ 'UNRESOLVED' | translate}}
                         div(class="tab-content", style="min-height:100vh; border-left: 1px solid #ddd;")
-                            div(id="{{ 'tab' + $index }}", class="tab-pane fade", ng-repeat="methafeature in usuario.metaFeatures", ng-class="{'active' : variablesGlobales.tab == 'tab'+ $index}")                                
+                            div(id="{{ 'tab' + $index }}", class="tab-pane fade", ng-repeat="methafeature in usuario.metaFeatures",ng-class="{'active in' : variablesGlobales.tab == 'tab'+ $index}")                                
                                 div(class="panel-body")
                                     div(class="form-group")
                                         div(class="col-md-1") 
