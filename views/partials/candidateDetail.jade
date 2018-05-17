@@ -191,14 +191,14 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="feature.name = item.er", ng-repeat="item in Data") {{item.er}}
                                                                         div(class="form-group row row-space", ng-hide="methafeature.Class == 'Mesurable'")
                                                                             div(class="col-md-3")
-                                                                                label(for="") {{methafeature.relationName}}
+                                                                                label(for="") {{methafeature.relationName == 'null' ? 'Metha relación' : methafeature.relationName}}
                                                                             div(class="col-md-9") 
                                                                                 div(style="width:100%")
                                                                                     select(select2="", ng-model="feature.levelOrOrder", class="form-control")  
                                                                                         option(value="{{relation.levelOrOrder}}", ng-repeat="relation in usuario.metaRelation | filter:{ dictionary: methafeature.dictionary }") {{relation.name}}
                                                                         div(class="form-group row row-space", ng-hide="methafeature.HasValue == 'false'")
                                                                             div(class="col-md-3")
-                                                                                label(for="") {{methafeature.ValueName}}
+                                                                                label(for="") {{methafeature.ValueName == 'null' ? 'Valor' : methafeature.ValueName}}
                                                                             div(class="col-md-9")
                                                                                 input(ng-model="feature.value", type="text", class="form-control")
                                                                         div(class="form-group row row-space", ng-hide="methafeature.HasEndDate == 'false'")
@@ -235,7 +235,7 @@ div(class="page-content-wrap")
                                                                                         li(class="list-group-item",ng-mousedown="feature.name = item.er", ng-repeat="item in Data") {{item.er}}
                                                                         div(class="form-group row row-space", ng-hide="methafeature.Class == 'Mesurable'")
                                                                             div(class="col-md-3")
-                                                                                label(for="") {{methafeature.relationName}}
+                                                                                label(for="") {{methafeature.relationName == 'null' ? 'Metha relación' : methafeature.relationName}}
                                                                             div(class="col-md-9") 
                                                                                 p(ng-bind="feature.mrName", ng-hide="feature.edit")
                                                                                 div(style="width:100%", ng-show="feature.edit")
@@ -243,7 +243,7 @@ div(class="page-content-wrap")
                                                                                         option(value="{{relation.levelOrOrder}}", ng-repeat="relation in usuario.metaRelation | filter:{ dictionary: methafeature.dictionary }") {{relation.name}}
                                                                         div(class="form-group row row-space", ng-hide="methafeature.HasValue == 'false'")
                                                                             div(class="col-md-3")
-                                                                                label(for="") {{methafeature.ValueName}}
+                                                                                label(for="") {{methafeature.ValueName == 'null' ? 'Valor' : methafeature.ValueName}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="feature.value", ng-hide="feature.edit")
                                                                                 input(ng-model="feature.value", type="text", class="form-control", ng-show="feature.edit")
