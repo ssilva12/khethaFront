@@ -116,7 +116,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                     var exist = false;
                     var addFeature = {}
                     result.data[index2].features.forEach(feature => {
-                        if (!existe(feature.nameId, feature) && feature.score < 1 && feature.mandatory) {
+                        if (!existe(feature.nameId, feature) && feature.score <= 0 && feature.mandatory) {
                             exist = true;
                             addFeature = feature;
                             addFeature.dictionary = result.data[index2].dictionary;
@@ -142,6 +142,9 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         for (var index = 0; index < $scope.usuario.features.length; index++) {
             if ($scope.usuario.features[index].idNoun == id) {
                 $scope.usuario.features[index].score = feature.score;
+                if (feature.mandatory && feature.score <= 0){
+                    $scope.usuario.features[index].noCumple = true;
+                }
                 value = true;
                 break;
             }
@@ -584,5 +587,43 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                 })
             }
         }
+    }
+
+    $scope.buscarDetalle = function (id) {
+        Mensaje.Esperar();
+        candidatesServices.getDocument(String(id), function (result) {
+            Mensaje.Desocupar();
+            if (!result.error) {
+                var str = JSON.stringify(result.data.document, undefined, 4);
+                $scope.Document = syntaxHighlight(str);
+                document.getElementById("data").appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(str);
+                $("#modalDocument").show();
+            } else {
+                Mensaje.Alerta("error", 'Error', result.message);
+            }
+        })
+    };
+
+    $scope.closeModal = function () {
+        $("#modalDocument").hide();
+    };
+
+    function syntaxHighlight(json) {
+        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+            var cls = 'number';
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                    cls = 'key';
+                } else {
+                    cls = 'string';
+                }
+            } else if (/true|false/.test(match)) {
+                cls = 'boolean';
+            } else if (/null/.test(match)) {
+                cls = 'null';
+            }
+            return '<span class="' + cls + '">' + match + '</span>';
+        });
     }
 }]);

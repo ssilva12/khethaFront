@@ -171,6 +171,31 @@ angular.module('myApp.candidatesServices', [])
             request.send(config, callback);
         };
 
+        candidatesServices.advSearchDocuments = function (name, page, itemsPerPage, callback) {
+            var config = {
+                method: 'GET',
+                params: {
+                    name: name,
+                    page: page,
+                    itemsPerPage: itemsPerPage,
+                    portFolio: $rootScope.sesion.portFolio
+                },
+                url: URL.URL_REST_SERVICE + 'api/candidate/paginatedSearchDocuments'
+            }
+            request.send(config, callback);
+        };
+
+        candidatesServices.getDocument = function (id, callback) {
+            var config = {
+                method: 'GET',
+                params: {
+                    id: id
+                },
+                url: URL.URL_REST_SERVICE + 'api/candidate/document'
+            }
+            request.send(config, callback);
+        };
+
         candidatesServices.getVacancyInfo = function (vacancyId, candidateId, callback) {
             var config = {
                 method: 'GET',

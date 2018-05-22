@@ -36,7 +36,7 @@ div(class="page-container page-navigation-top-fixed",ng-controller="AppCtrl")
             a(href="",ng-click="Redirect('synonyms')") 
               i(class="fa fa-copy", aria-hidden="true") 
               span(class="xn-title") &nbsp;{{ 'DICTIONARIES' | translate }}
-          li(ng-class="{'active' : activeId == 'metaFeatures'}")
+          li(ng-class="{'active' : activeId == 'metaFeatures'}", ng-show="sesion.role=='5'")
             a(href="",ng-click="Redirect('metaFeatures')") 
               i(class="fa fa-tag", aria-hidden="true") 
               span(class="xn-title") &nbsp;{{ 'METHAFEATURES' | translate }}
@@ -55,7 +55,11 @@ div(class="page-container page-navigation-top-fixed",ng-controller="AppCtrl")
           li(ng-class="{'active' : activeId == 'jobList'}")
             a(href="",ng-click="Redirect('jobList')") 
               i(class="fa fa-desktop", aria-hidden="true") 
-              span(class="xn-title") &nbsp;{{ 'JOBS' | translate }}     
+              span(class="xn-title") &nbsp;{{ 'JOBS' | translate }} 
+          li(ng-class="{'active' : activeId == 'documents'}")
+            a(href="",ng-click="Redirect('documents')") 
+              i(class="fa fa-file-text-o", aria-hidden="true") 
+              span(class="xn-title") &nbsp;{{ 'Documentos' | translate }}    
       li(class="xn-openable", ng-show="sesion.role == '5'")
         a(href="")
           i(class="fa fa-gears", aria-hidden="true") 

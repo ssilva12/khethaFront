@@ -244,7 +244,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                     $scope.Data.concur[index2].disabled = true;
                 }
             }
-            for (var index2 = 0; index2 < $scope.Data.concur.length; index2++) {
+            for (var index2 = 0; index2 < $scope.Data.suggested.length; index2++) {
                 if ($scope.Data.preselected[index].id == $scope.Data.suggested[index2].candidateId) {
                     $scope.Data.suggested[index2].disabled = true;
                 }
