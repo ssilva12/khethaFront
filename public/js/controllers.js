@@ -529,7 +529,7 @@ controller('metaFeaturesCtrl', function ($scope, $state, metaFeaturesFactory, Di
           for (var i = 0; i < data.metaRelations.length; i++) {
             data.metaRelations[i].Number = i;
             if (i != (data.metaRelations.length - 1)) {
-              data.metaRelations[i].to = data.metaRelations[i + 1].from
+              //data.metaRelations[i].to = data.metaRelations[i + 1].from
             }
           }
         } else {
