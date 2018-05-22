@@ -232,5 +232,8 @@
     "LOADING": "Cargando",
     "CHOOSE_ROLE": "Debe escoger un rol",
     "CREATE_FEATURE": "¿Desea crear la entrada seleccionada?",
-    "CHOOSE_RESOLVE": "El campo resolver es obligatorio"
+    "CHOOSE_RESOLVE": "El campo resolver es obligatorio",
+    "USE_SEARCH_DOCUMENTS": "Usa la búsqueda para encontrar documentos.",
+    "DOCUMENTS": "Documentos",
+    "DOCUMENT": "Documento"
 }

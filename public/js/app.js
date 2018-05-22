@@ -13,6 +13,7 @@ angular.module('myApp', [
     'myApp.vacancyCharacterizationController',
     'myApp.candidatesServices',
     'myApp.candidatesCtrl',
+    'myApp.candidatesDocumentCtrl',
     'myApp.candidatesListCtrl',
     'myApp.employerService',
     'myApp.employerListCtrl',
@@ -378,6 +379,20 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
                 }
             }
         })
+        .state('documents', {
+            parent: 'principal',
+            url: '/documents',
+            templateUrl: 'partials/candidateDocument',
+            controller: 'candidatesDocumentController',
+            activetab: 'documents',
+            title: 'DOCUMENTS',
+            data: {
+                permissions: {
+                    only: ['5', '4', '3'],
+                    redirectTo: 'login'
+                }
+            }
+        })
         .state('jobs', {
             parent: 'principal',
             url: '/jobs',
@@ -426,7 +441,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             title: 'METHAFEATURES',
             data: {
                 permissions: {
-                    only: ['5', '4', '3'],
+                    only: ['5'],
                     redirectTo: 'login'
                 }
             }
@@ -440,7 +455,7 @@ config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             title: 'METHAFEATURE',
             data: {
                 permissions: {
-                    only: ['5', '4', '3'],
+                    only: ['5'],
                     redirectTo: 'login'
                 }
             }

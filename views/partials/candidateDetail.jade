@@ -28,6 +28,11 @@ div(class="page-content-wrap")
                                                 span() cv formato
                                                 input(type="file", id="format", accept="image/pdf", class="custom-file-input", onchange="angular.element(this).scope().uploadFormat(this.files)")
                                     li()
+                                        div(class="input-group", ng-show="usuario.candidateInfo.documentId")
+                                            button(type="button", class="btn btn-default btn-primary", ng-click="buscarDetalle(usuario.candidateInfo.documentId)")
+                                                li(class="fa fa-file-text-o")
+                                                span() {{ 'DOCUMENT' | translate}} 
+                                    li()
                                         div(class="input-group", ng-hide="usuario.candidateInfo.id")
                                             label(class="file-input-wrapper btn btn-default fileinput btn-primary")
                                                 i(class="fa fa-upload", aria-hidden="true")
@@ -133,6 +138,10 @@ div(class="page-content-wrap")
                                         label(for="") {{ 'GRADE' | translate}}
                                     div(class="col-md-8 col-xs-8")
                                         p(ng-bind="usuario.candidateInfo.maxDegree")
+                                div(class="form-group", ng-show="((usuario.features|filter:{dictionary:'null', name:'Academic Degree', noCumple: true}).length + (vacancy|filter:{dictionary:'', name:'Academic Degree'}).length) > 0")
+                                    div(class="col-md-12 col-xs-12")
+                                        div(class="label label-danger label-form", role="alert", style="width: 100%")
+                                            span() No posee el grado requerido
                         div(class="panel panel-default", ng-show="vacancy")
                             div(class="panel-body")
                                 div(class="form-group")
@@ -147,7 +156,7 @@ div(class="page-content-wrap")
                         ul(class="nav nav-tabs")
                             li(style="border-bottom: 1px solid #ddd;", ng-repeat="item in usuario.metaFeatures | orderBy : '-oredr'", ng-click="variablesGlobales.tab = 'tab'+ $index", ng-class="{'active' : variablesGlobales.tab == 'tab'+ $index}")
                                 a(data-toggle="tab", ng-attr-data-target="{{ '#tab' + $index }}") {{item.name | translate}}
-                                    span(class="badge", ng-if="(vacancy|filter:{dictionary:item.dictionary}).length > 0") {{(vacancy|filter:{dictionary:item.dictionary}).length}}
+                                    span(class="badge", ng-if="((vacancy|filter:{dictionary:item.dictionary}).length + (usuario.features|filter:{dictionary:item.dictionary, noCumple: true}).length)> 0") {{(vacancy|filter:{dictionary:item.dictionary}).length + (usuario.features|filter:{dictionary:item.dictionary, noCumple: true}).length}}
                             li(style="border-bottom: 1px solid #ddd;", ng-click="variablesGlobales.tab = 'tabPostulaciones'")
                                 a(data-toggle="tab", data-target="#tabPostulaciones") {{ 'POSTULATED_JOBS' | translate}}
                             li(style="border-bottom: 1px solid #ddd;", ng-click="variablesGlobales.tab = 'tabSinResolver'")
@@ -189,16 +198,16 @@ div(class="page-content-wrap")
                                                                                     input(class="form-control",ng-focus="onFocus('featureName',$index)",ng-blur="onBlur('featureName',$index)", ng-model-options="{ debounce: 500 }", ng-change="autocompletarInput(feature.name,methafeature.dictionary,'Data','null')", ng-model="feature.name")
                                                                                     ul(ng-show="{{ 'featureName' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                                         li(class="list-group-item",ng-mousedown="feature.name = item.er", ng-repeat="item in Data") {{item.er}}
-                                                                        div(class="form-group row row-space", ng-hide="methafeature.Class == 'Mesurable'")
+                                                                        div(class="form-group row row-space", ng-hide="methafeature.Class == 'Mesurable' || methafeature.valueName == 'null'")
                                                                             div(class="col-md-3")
-                                                                                label(for="") {{methafeature.valueName == 'null' ? 'Metha relación' : methafeature.valueName}}
+                                                                                label(for="") {{methafeature.valueName}}
                                                                             div(class="col-md-9") 
                                                                                 div(style="width:100%")
                                                                                     select(select2="", ng-model="feature.levelOrOrder", class="form-control")  
                                                                                         option(value="{{relation.levelOrOrder}}", ng-repeat="relation in usuario.metaRelation | filter:{ dictionary: methafeature.dictionary }") {{relation.name}}
-                                                                        div(class="form-group row row-space", ng-hide="methafeature.HasValue == 'false'")
+                                                                        div(class="form-group row row-space", ng-hide="methafeature.HasValue == 'false' || methafeature.valueName == 'null'")
                                                                             div(class="col-md-3")
-                                                                                label(for="") {{methafeature.valueName == 'null' ? 'Valor' : methafeature.valueName}}
+                                                                                label(for="") {{methafeature.valueName}}
                                                                             div(class="col-md-9")
                                                                                 input(ng-model="feature.value", type="text", class="form-control")
                                                                         div(class="form-group row row-space", ng-hide="methafeature.HasEndDate == 'false'")
@@ -233,17 +242,17 @@ div(class="page-content-wrap")
                                                                                     input(class="form-control",ng-focus="onFocus('featureName',$index)",ng-blur="onBlur('featureName',$index)", ng-model-options="{ debounce: 500 }", ng-change="autocompletarInput(feature.name,methafeature.dictionary,'Data','null')", ng-model="feature.name")
                                                                                     ul(ng-show="{{ 'featureName' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                                         li(class="list-group-item",ng-mousedown="feature.name = item.er", ng-repeat="item in Data") {{item.er}}
-                                                                        div(class="form-group row row-space", ng-hide="methafeature.Class == 'Mesurable'")
+                                                                        div(class="form-group row row-space", ng-hide="methafeature.Class == 'Mesurable' || methafeature.valueName == 'null'")
                                                                             div(class="col-md-3")
-                                                                                label(for="") {{methafeature.valueName == 'null' ? 'Metha relación' : methafeature.valueName}}
+                                                                                label(for="") {{methafeature.valueName}}
                                                                             div(class="col-md-9") 
                                                                                 p(ng-bind="feature.mrName", ng-hide="feature.edit")
                                                                                 div(style="width:100%", ng-show="feature.edit")
                                                                                     select(select2="", ng-model="feature.levelOrOrder", class="form-control")  
                                                                                         option(value="{{relation.levelOrOrder}}", ng-repeat="relation in usuario.metaRelation | filter:{ dictionary: methafeature.dictionary }") {{relation.name}}
-                                                                        div(class="form-group row row-space", ng-hide="methafeature.HasValue == 'false'")
+                                                                        div(class="form-group row row-space", ng-hide="methafeature.HasValue == 'false' || methafeature.valueName == 'null'")
                                                                             div(class="col-md-3")
-                                                                                label(for="") {{methafeature.valueName == 'null' ? 'Valor' : methafeature.valueName}}
+                                                                                label(for="") {{methafeature.valueName}}
                                                                             div(class="col-md-9")
                                                                                 p(ng-bind="feature.value", ng-hide="feature.edit")
                                                                                 input(ng-model="feature.value", type="text", class="form-control", ng-show="feature.edit")
@@ -257,7 +266,7 @@ div(class="page-content-wrap")
                                                                             div(class="col-md-3")
                                                                                 label(for="") {{ 'SCORE' | translate}}
                                                                             div(class="col-md-9")
-                                                                                span(class="badge") {{(!feature.score ? 0 : feature.score) | number : 2}}
+                                                                                span(class="badge", ng-class="{'badge-danger' : feature.noCumple == true}") {{(!feature.score ? 0 : feature.score) | number : 2}}
                                                                     div(class="col-md-3")
                                                                         ul(class="panel-controls")
                                                                             li()
@@ -414,7 +423,23 @@ div(id="myModalCandidate", class="modal", role="dialog")
             div(class="modal-footer")
                 button(type="button", class="btn btn-default", data-dismiss="modal") {{ 'CLOSE' | translate}} 
         
-
+div(id="modalDocument", class="modal", role="dialog")
+    div(class="modal-dialog modal-lg")
+        div(class="modal-content") 
+            div(class="modal-header")
+                button(type="button", class="close", ng-click="closeModal()") &times;
+                h4(class="modal-title") {{ 'DOCUMENT' | translate}}
+            div(class="modal-body")
+                div(id="data", style="width:100%;height:400px;overflow:auto;")
+            div(class="modal-footer")
+                button(type="button", class="btn btn-default", ng-click="closeModal()") {{ 'CLOSE' | translate}}
+style().
+    pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+    .string { color: black; }
+    .number { color: darkorange; }
+    .boolean { color: blue; }
+    .null { color: red; }
+    .key { color: green; }
 
 
 
