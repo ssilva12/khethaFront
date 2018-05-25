@@ -142,6 +142,11 @@ div(class="page-content-wrap")
                                     div(class="col-md-12 col-xs-12")
                                         div(class="label label-danger label-form", role="alert", style="width: 100%")
                                             span() No posee el grado requerido
+                                div(class="form-group")
+                                    div(class="col-md-4 col-xs-4")
+                                        label(for="") {{ 'Experiencia profesional' | translate}}
+                                    div(class="col-md-8 col-xs-8")
+                                        p() {{(usuario.features|filter:{dictionary:'JobFunctionName', name:'Experiencia profesional'})[0].value}} {{ 'MONTHS' | translate}}
                         div(class="panel panel-default", ng-show="vacancy")
                             div(class="panel-body")
                                 div(class="form-group")

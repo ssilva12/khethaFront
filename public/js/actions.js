@@ -308,6 +308,20 @@ var page_actions = function(){
         });
     }});
      END PROGGRESS COMPLETE */
+
+    $(document).on('click', '.panel-heading li.clickable', function (e) {
+        e.preventDefault()
+        var $this = $(this);
+        if (!$this.hasClass('panel-collapsed')) {
+            $this.parents('.panel .data').find('.panel-body').slideUp();
+            $this.addClass('panel-collapsed');
+            $this.find('i').removeClass('fa fa-angle-up').addClass('fa fa-angle-down');
+        } else {
+            $this.parents('.panel .data').find('.panel-body').slideDown();
+            $this.removeClass('panel-collapsed');
+            $this.find('i').removeClass('fa fa-angle-down').addClass('fa fa-angle-up');
+        }
+    })
 }
 
 $(document).ready(function(){        

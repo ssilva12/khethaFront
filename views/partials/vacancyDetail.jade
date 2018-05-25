@@ -161,12 +161,18 @@ div(class="page-content-wrap")
                                                                 tr(ng-repeat="methaFeatures in methaFeatures | filter: greaterThan('mfrWeight', 0) | orderBy : ['methaFeatureOrder', 'name']")
                                                                     td(class="col-sm-12")
                                                                         div(class="col-sm-12")
-                                                                            div(class="panel panel-primary")
+                                                                            div(class="panel panel-primary data")
                                                                                 div(class="panel-heading") 
-                                                                                    h4() 
-                                                                                        span() {{methaFeatures.name | translate}}
-                                                                                        span(class="pull-right") {{ 'WEIGHT' | translate}}: {{methaFeatures.mfrWeight}}
-                                                                                div(class="panel-body")
+                                                                                    div(class="col-sm-11")
+                                                                                        h4() 
+                                                                                            span() {{methaFeatures.name | translate}}
+                                                                                            span(class="pull-right") {{ 'WEIGHT' | translate}}: {{methaFeatures.mfrWeight}}
+                                                                                    div(class="col-sm-1")
+                                                                                        ul(class="panel-controls") 
+                                                                                            li(class="clickable panel-collapsed")
+                                                                                                a(class="panel-collapse")
+                                                                                                    i(class="fa fa-angle-down")
+                                                                                div(class="panel-body", style="overflow: hidden; display: none;")
                                                                                     table(class="col-sm-12 table")
                                                                                         thead()
                                                                                             tr()
