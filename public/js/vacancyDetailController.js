@@ -123,6 +123,8 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                 console.log(result.data)
                 if (result.data.vacancy.conditionalProbability == "TRUE") {
                     result.data.vacancy.conditionalProbability = true
+                }else{
+                    result.data.vacancy.conditionalProbability = false
                 }
                 $scope.Data = result.data;
                 $scope.Data.cantidadpreselected = $scope.Data.preselected.length + "/" + $scope.Data.concur.length
