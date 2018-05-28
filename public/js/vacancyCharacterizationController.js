@@ -13,6 +13,7 @@ controller('vacancyCharacterizationCtrl', ['$scope', '$rootScope', '$stateParams
     $scope.Dato.tab = "tab1";
     $scope.sortType = 'name';
     $scope.sortReverse = false;
+    $scope.Dato.activeClick = {}
 
     $scope.getJobs = function () {
         Mensaje.Esperar();
@@ -85,14 +86,14 @@ controller('vacancyCharacterizationCtrl', ['$scope', '$rootScope', '$stateParams
         vacancyService.setWeight(methaFeature.id, $scope.Dato.vacancy, methaFeature.mfrWeight, function (result) {
             Mensaje.Desocupar();
             if (!result.error) {
-                Mensaje.Alerta("success", "OK","ok");
+                Mensaje.Alerta("success", "OK", "ok");
             } else {
                 Mensaje.Alerta("error", result.message);
             }
         })
     }
 
-    $scope.changeMandatory = function (feature,option) {
+    $scope.changeMandatory = function (feature, option) {
         Mensaje.Esperar();
         vacancyService.changeMandatory(feature.nameId, $scope.Dato.vacancy, !option, function (result) {
             Mensaje.Desocupar();
@@ -248,4 +249,7 @@ controller('vacancyCharacterizationCtrl', ['$scope', '$rootScope', '$stateParams
     };
     init();
 
+    $scope.setAccordion = function (params) {
+        $scope.Dato.activeClick[params] = $scope.Dato.activeClick[params] ? true : !$scope.Dato.activeClick[params]
+    }
 }]);
