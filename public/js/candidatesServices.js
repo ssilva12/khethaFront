@@ -215,7 +215,7 @@ angular.module('myApp.candidatesServices', [])
                 data: {
                     idDoc: idDoc,
                     portFolio: $rootScope.sesion.portFolio,
-                    countryCV: countryCV
+                    countryCV: (countryCV == null || countryCV == undefined ? "" : countryCV)
                 },
                 url: URL.URL_REST_SERVICE + 'api/candidate/createByCV',
                 contentType: "application/json"
@@ -230,7 +230,7 @@ angular.module('myApp.candidatesServices', [])
                     candidateId: candidateId,
                     idDoc: idDoc,
                     portFolio: $rootScope.sesion.portFolio,
-                    countryCV: countryCV
+                    countryCV: (countryCV == null || countryCV == undefined ? "" : countryCV)
                 },
                 url: URL.URL_REST_SERVICE + 'api/candidate/updateByCV',
                 contentType: "application/json"
