@@ -226,18 +226,19 @@ div(class="page-content-wrap")
                                                                             table(class="table ")
                                                                                 thead()
                                                                                     tr()
-                                                                                        th(class="col-sm-8",ng-click="sortType = 'name'; sortReverse = !sortReverse") 
+                                                                                        th(class="col-sm-7",style="text-align: center;",ng-click="sortType = 'name'; sortReverse = !sortReverse") 
                                                                                             label() {{ 'CANDIDATE' | translate}}
                                                                                             span(ng-show="sortType == 'name' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'name' && sortReverse", class="fa fa-caret-up")
-                                                                                        th(class="col-sm-1") 
+                                                                                        th(class="col-sm-1",style="text-align: center;") 
                                                                                             label() {{ 'PENDING' | translate}}
-                                                                                        th(class="col-sm-1",ng-click="sortType = 'score'; sortReverse = !sortReverse") 
+                                                                                        th(class="col-sm-1",style="text-align: center;",ng-click="sortType = 'score'; sortReverse = !sortReverse") 
                                                                                             label() {{ 'SCORE' | translate}}
                                                                                             span(ng-show="sortType == 'score' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'score' && sortReverse", class="fa fa-caret-up")
-                                                                                        th(class="col-sm-1") {{ 'DETAIL' | translate}} 
-                                                                                        th(class="col-sm-1") {{ 'PRESELECT' | translate}}  
+                                                                                        th(class="col-sm-1",style="text-align: center;") {{ 'DETAIL' | translate}} 
+                                                                                        th(class="col-sm-1",style="text-align: center;") {{ 'PRESELECT' | translate}}  
+                                                                                        th(class="col-sm-1",style="text-align: center;") Quitar
                                                                                 tbody()
                                                                                     tr(ng-repeat="candidato in Data.concur | orderBy:sortType:sortReverse", ng-class="Dato.searched == candidato.id ? 'info' : (candidato.disabled == true ? 'warning' : '')")
                                                                                         td() 
@@ -246,12 +247,15 @@ div(class="page-content-wrap")
                                                                                             span(ng-bind="candidato.missingMandatory")
                                                                                         td(style="text-align: center;") 
                                                                                             span(ng-bind="candidato.score | number:2")
-                                                                                        td() 
-                                                                                            button(class="btn btn-success btn-condensed", ng-click="buscarDetalle(candidato.id)")
+                                                                                        td(style="text-align: center;") 
+                                                                                            button(class="btn btn-info btn-condensed", ng-click="buscarDetalle(candidato.id)")
                                                                                                 span(class="fa fa-file-text-o")
-                                                                                        td() 
-                                                                                            button(class="btn btn-success btn-condensed",ng-click="agregarCandidato(candidato.id,'CND_PRESELECTED')",ng-disabled="candidato.disabled")
-                                                                                                span(class="fa fa-check")
+                                                                                        td(style="text-align: center;") 
+                                                                                            button(type="button", class="btn btn-condensed",ng-class="candidato.select == true ? 'btn-success' : 'btn-warning'", ng-click="candidato.select = !candidato.select", ng-disabled="candidato.disabled")
+                                                                                                span(class="fa", ng-class="candidato.select == true ? 'fa-check-square-o' : 'fa-square-o'")
+                                                                                        td(style="text-align: center;") 
+                                                                                            button(type="button", class="btn btn-condensed",ng-class="candidato.quitar == true ? 'btn-success' : 'btn-danger'", ng-click="candidato.quitar = !candidato.quitar", ng-disabled="candidato.disabled")
+                                                                                                span(class="fa", ng-class="candidato.quitar == true ? 'fa-check-square-o' : 'fa-square-o'")
                                                             div(class="col-sm-3")  
                                                                 div(class="panel panel-default")  
                                                                     div(class="panel-body")
@@ -261,6 +265,14 @@ div(class="page-content-wrap")
                                                                                 span(class="label label-primary") {{Data.concur.length}}
                                                                             a() {{ 'AVERAGE_SCORE' | translate}}
                                                                                 span(class="label label-info") {{Data.promedioConcur | number:2}}
+                                                                div(class="panel panel-default")  
+                                                                    div(class="panel-body")
+                                                                        div(class="row row-space")
+                                                                            h4() Preseleccionar candidatos escogidos:
+                                                                            button(type="button", class="btn btn-condensed btn-success", ng-click="seleccionarMultiple('CND_PRESELECTED')") Preseleccionar
+                                                                        div(class="row row-space")
+                                                                            h4() Remover candidatos escogidos:
+                                                                            button(type="button", class="btn btn-condensed btn-danger", ng-click="removerMultiple('CND_CONCUR')") Remover
                                             div(id="tab5", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab5'}")     
                                                 div(class="panel-body")      
                                                     div(class="row row-space")
@@ -274,18 +286,19 @@ div(class="page-content-wrap")
                                                                             table(class="table")
                                                                                 thead()
                                                                                     tr()
-                                                                                        th(class="col-sm-8",ng-click="sortType = 'name'; sortReverse = !sortReverse") 
+                                                                                        th(class="col-sm-7",style="text-align: center;",ng-click="sortType = 'name'; sortReverse = !sortReverse") 
                                                                                             label() {{ 'CANDIDATE' | translate}}
                                                                                             span(ng-show="sortType == 'name' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'name' && sortReverse", class="fa fa-caret-up")
-                                                                                        th(class="col-sm-1") 
+                                                                                        th(class="col-sm-1",style="text-align: center;") 
                                                                                             label() {{ 'PENDING' | translate}}
-                                                                                        th(class="col-sm-1",ng-click="sortType = 'score'; sortReverse = !sortReverse") 
+                                                                                        th(class="col-sm-1",style="text-align: center;",ng-click="sortType = 'score'; sortReverse = !sortReverse") 
                                                                                             label() {{ 'SCORE2' | translate}}
                                                                                             span(ng-show="sortType == 'score' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'score' && sortReverse", class="fa fa-caret-up")
-                                                                                        th(class="col-sm-1") {{ 'DETAIL' | translate}} 
-                                                                                        th(class="col-sm-1") {{ 'SELECT2' | translate}} 
+                                                                                        th(class="col-sm-1",style="text-align: center;") {{ 'DETAIL' | translate}} 
+                                                                                        th(class="col-sm-1",style="text-align: center;") {{ 'SELECT2' | translate}} 
+                                                                                        th(class="col-sm-1",style="text-align: center;") Quitar 
                                                                                 tbody()
                                                                                     tr(ng-repeat="candidato in Data.preselected | orderBy:sortType:sortReverse", ng-class="Dato.searched == candidato.id ? 'info' : (candidato.disabled == true ? 'warning' : '')")
                                                                                         td() 
@@ -295,11 +308,14 @@ div(class="page-content-wrap")
                                                                                         td(style="text-align: center;") 
                                                                                             span(ng-bind="candidato.score | number:2")
                                                                                         td() 
-                                                                                            button(class="btn btn-success btn-condensed", ng-click="buscarDetalle(candidato.id)")
+                                                                                            button(class="btn btn-info btn-condensed", ng-click="buscarDetalle(candidato.id)")
                                                                                                 span(class="fa fa-file-text-o")
-                                                                                        td() 
-                                                                                            button(class="btn btn-success btn-condensed",ng-click="agregarCandidato(candidato.id,'CND_SELECTED')",ng-disabled="candidato.disabled")
-                                                                                                span(class="fa fa-check") 
+                                                                                        td(style="text-align: center;") 
+                                                                                            button(type="button", class="btn btn-condensed",ng-class="candidato.select == true ? 'btn-success' : 'btn-warning'", ng-click="candidato.select = !candidato.select", ng-disabled="candidato.disabled")
+                                                                                                span(class="fa", ng-class="candidato.select == true ? 'fa-check-square-o' : 'fa-square-o'")
+                                                                                        td(style="text-align: center;") 
+                                                                                            button(type="button", class="btn btn-condensed",ng-class="candidato.quitar == true ? 'btn-success' : 'btn-danger'", ng-click="candidato.quitar = !candidato.quitar", ng-disabled="candidato.disabled")
+                                                                                                span(class="fa", ng-class="candidato.quitar == true ? 'fa-check-square-o' : 'fa-square-o'")
                                                             div(class="col-sm-3")  
                                                                 div(class="panel panel-default")  
                                                                     div(class="panel-body")
@@ -311,6 +327,14 @@ div(class="page-content-wrap")
                                                                                 span(class="label label-primary") {{Data.concur.length}}
                                                                             a() {{ 'AVERAGE_SCORE' | translate}}
                                                                                 span(class="label label-info") {{Data.promedioPreSelected | number:2}}
+                                                                div(class="panel panel-default")  
+                                                                    div(class="panel-body")
+                                                                        div(class="row row-space")
+                                                                            h4() Seleccionar candidatos:
+                                                                            button(type="button", class="btn btn-condensed btn-success", ng-click="seleccionarMultiple('CND_SELECTED')") Seleccionar
+                                                                        div(class="row row-space")
+                                                                            h4() Remover candidatos:
+                                                                            button(type="button", class="btn btn-condensed btn-danger", ng-click="removerMultiple('CND_PRESELECTED')") Remover
                                             div(id="tab6", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab6'}")  
                                                 div(class="panel-body")
                                                     div(class="row row-space")
@@ -324,17 +348,18 @@ div(class="page-content-wrap")
                                                                             table(class="table")
                                                                                 thead()
                                                                                     tr()
-                                                                                        th(class="col-sm-8",ng-click="sortType = 'name'; sortReverse = !sortReverse") 
+                                                                                        th(class="col-sm-8",style="text-align: center;",ng-click="sortType = 'name'; sortReverse = !sortReverse") 
                                                                                             label() {{ 'CANDIDATE' | translate}}
                                                                                             span(ng-show="sortType == 'name' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'name' && sortReverse", class="fa fa-caret-up")
-                                                                                        th(class="col-sm-1") 
+                                                                                        th(class="col-sm-1",style="text-align: center;") 
                                                                                             label() {{ 'PENDING' | translate}}
-                                                                                        th(class="col-sm-1",ng-click="sortType = 'score'; sortReverse = !sortReverse") 
+                                                                                        th(class="col-sm-1",style="text-align: center;",ng-click="sortType = 'score'; sortReverse = !sortReverse") 
                                                                                             label() {{ 'SCORE2' | translate}}
                                                                                             span(ng-show="sortType == 'score' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'score' && sortReverse", class="fa fa-caret-up")
-                                                                                        th(class="col-sm-1") {{ 'DETAIL' | translate}}  
+                                                                                        th(class="col-sm-1",style="text-align: center;") {{ 'DETAIL' | translate}}  
+                                                                                        th(class="col-sm-1",style="text-align: center;") Quitar  
                                                                                 tbody()
                                                                                     tr(ng-repeat="candidato in Data.selected | orderBy:sortType:sortReverse", ng-class="Dato.searched == candidato.id ? 'info' : (candidato.disabled == true ? 'warning' : '')")
                                                                                         td() 
@@ -343,9 +368,12 @@ div(class="page-content-wrap")
                                                                                             span(ng-bind="candidato.missingMandatory")
                                                                                         td(style="text-align: center;") 
                                                                                             span(ng-bind="candidato.score | number:2")
-                                                                                        td() 
-                                                                                            button(class="btn btn-success btn-condensed", ng-click="buscarDetalle(candidato.id)")
+                                                                                        td(style="text-align: center;") 
+                                                                                            button(class="btn btn-info btn-condensed", ng-click="buscarDetalle(candidato.id)")
                                                                                                 span(class="fa fa-file-text-o")
+                                                                                        td(style="text-align: center;") 
+                                                                                            button(type="button", class="btn btn-condensed",ng-class="candidato.quitar == true ? 'btn-success' : 'btn-danger'", ng-click="candidato.quitar = !candidato.quitar", ng-disabled="candidato.disabled")
+                                                                                                span(class="fa", ng-class="candidato.quitar == true ? 'fa-check-square-o' : 'fa-square-o'")
                                                             div(class="col-sm-3")  
                                                                 div(class="panel panel-default")  
                                                                     div(class="panel-body")
@@ -357,6 +385,11 @@ div(class="page-content-wrap")
                                                                                 span(class="label label-primary") {{Data.preselected.length}}
                                                                             a() {{ 'AVERAGE_SCORE' | translate}}
                                                                                 span(class="label label-info") {{Data.promedioSelected | number:2}}
+                                                                div(class="panel panel-default")  
+                                                                    div(class="panel-body")
+                                                                        div(class="row row-space")
+                                                                            h4() Remover candidatos:
+                                                                            button(type="button", class="btn btn-condensed btn-danger", ng-click="removerMultiple('CND_SELECTED')") Remover
                                             div(id="tab7", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab7'}")
                                                 div(class="panel-body")       
                                                     div(class="row row-space")
@@ -370,18 +403,18 @@ div(class="page-content-wrap")
                                                                             table(class="table ")
                                                                                 thead()
                                                                                     tr()
-                                                                                        th(class="col-sm-8",ng-click="sortType = 'name'; sortReverse = !sortReverse") 
+                                                                                        th(class="col-sm-8",style="text-align: center;",ng-click="sortType = 'name'; sortReverse = !sortReverse") 
                                                                                             label() {{ 'CANDIDATE' | translate}}
                                                                                             span(ng-show="sortType == 'name' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'name' && sortReverse", class="fa fa-caret-up")
-                                                                                        th(class="col-sm-1") 
+                                                                                        th(class="col-sm-1",style="text-align: center;") 
                                                                                             label() {{ 'PENDING' | translate}}
-                                                                                        th(class="col-sm-1",ng-click="sortType = 'score'; sortReverse = !sortReverse") 
+                                                                                        th(class="col-sm-1",style="text-align: center;",ng-click="sortType = 'score'; sortReverse = !sortReverse") 
                                                                                             label() {{ 'SCORE' | translate}}
                                                                                             span(ng-show="sortType == 'score' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'score' && sortReverse", class="fa fa-caret-up")
-                                                                                        th(class="col-sm-1") {{ 'DETAIL' | translate}} 
-                                                                                        th(class="col-sm-1") {{ 'ADD' | translate}}  
+                                                                                        th(class="col-sm-1",style="text-align: center;") {{ 'DETAIL' | translate}} 
+                                                                                        th(class="col-sm-1",style="text-align: center;") {{ 'ADD' | translate}}  
                                                                                 tbody()
                                                                                     tr(ng-repeat="candidato in Data.suggested | orderBy:sortType:sortReverse", ng-class="Dato.searched == candidato.candidateId ? 'info' : (candidato.disabled == true ? 'warning' : '')")
                                                                                         td() 
@@ -390,10 +423,10 @@ div(class="page-content-wrap")
                                                                                             span(ng-bind="candidato.missingMandatory")
                                                                                         td(style="text-align: center;") 
                                                                                             span(ng-bind="candidato.score | number:2")
-                                                                                        td() 
-                                                                                            button(class="btn btn-success btn-condensed", ng-click="buscarDetalle(candidato.candidateId)")
+                                                                                        td(style="text-align: center;") 
+                                                                                            button(class="btn btn-info btn-condensed", ng-click="buscarDetalle(candidato.candidateId)")
                                                                                                 span(class="fa fa-file-text-o")
-                                                                                        td() 
+                                                                                        td(style="text-align: center;")
                                                                                             button(class="btn btn-success btn-condensed",ng-click="agregarCandidato(candidato.candidateId,'CND_CONCUR')",ng-disabled="candidato.disabled")
                                                                                                 span(class="fa fa-check")
                 

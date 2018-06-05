@@ -134,6 +134,34 @@ value('version', '0.2')
             request.send(config, callback);
         }
 
+        vacancyService.addMultipleCandidate = function (candidateIds, vacancyId, relationName, callback) {
+            var config = {
+                method: 'POST',
+                data: {
+                    vacancyId: vacancyId,
+                    candidateId: candidateIds,
+                    relationName: relationName
+                },
+                contentType: "application/json",
+                url: URL.URL_REST_SERVICE + 'linkJobVancancyMultipleCandidate'
+            }
+            request.send(config, callback);
+        }
+
+        vacancyService.removeMultipleCandidate = function (candidateIds, vacancyId, relationName, callback) {
+            var config = {
+                method: 'POST',
+                data: {
+                    vacancyId: vacancyId,
+                    candidateId: candidateIds,
+                    relationName: relationName
+                },
+                contentType: "application/json",
+                url: URL.URL_REST_SERVICE + 'unBindJobVancancyMultipleCandidate'
+            }
+            request.send(config, callback);
+        }
+
         vacancyService.advSearch = function (name, employer, job, status, analist, country, fromDate, toDate, page, itemsPerPage, callback) {
             var config = {
                 method: 'GET',

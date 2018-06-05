@@ -123,7 +123,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                 console.log(result.data)
                 if (result.data.vacancy.conditionalProbability == "TRUE") {
                     result.data.vacancy.conditionalProbability = true
-                }else{
+                } else {
                     result.data.vacancy.conditionalProbability = false
                 }
                 $scope.Data = result.data;
@@ -319,6 +319,85 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
             }
         });
     };
+
+    $scope.seleccionarMultiple = function (tipo) {
+        var ids = []
+        if (tipo == "CND_CONCUR") {
+            for (var index = 0; index < $scope.Data.suggested.length; index++) {
+                if ($scope.Data.suggested[index].select == true) {
+                    ids.push($scope.Data.suggested[index].id);
+                }
+
+            }
+        } else if (tipo == "CND_PRESELECTED") {
+            for (var index = 0; index < $scope.Data.concur.length; index++) {
+                if ($scope.Data.concur[index].select == true) {
+                    ids.push($scope.Data.concur[index].id);
+                }
+
+            }
+        } else if (tipo == "CND_SELECTED") {
+            for (var index = 0; index < $scope.Data.preselected.length; index++) {
+                if ($scope.Data.preselected[index].select == true) {
+                    ids.push($scope.Data.preselected[index].id);
+                }
+
+            }
+        }
+        if (ids.length == 0) {
+            Mensaje.Alerta("error", 'Error', "Debe seleccionar al menos un candidato.");
+            return;
+        }
+        Mensaje.Esperar();
+        vacancyService.addMultipleCandidate(ids, $scope.Data.vacancy.id, tipo, function (result) {
+            Mensaje.Desocupar();
+            if (!result.error) {
+                $scope.cargarVacante($scope.Data.vacancy.id);
+            } else {
+                Mensaje.Alerta("error", "Error", result.message);
+            }
+        });
+    }
+
+    $scope.removerMultiple = function (tipo) {
+        var ids = []
+        if (tipo == "CND_CONCUR") {
+            for (var index = 0; index < $scope.Data.concur.length; index++) {
+                if ($scope.Data.concur[index].quitar == true) {
+                    ids.push($scope.Data.concur[index].id);
+                }
+
+            }
+        } else if (tipo == "CND_PRESELECTED") {
+            for (var index = 0; index < $scope.Data.preselected.length; index++) {
+                if ($scope.Data.preselected[index].quitar == true) {
+                    ids.push($scope.Data.preselected[index].id);
+                }
+
+            }
+        } else if (tipo == "CND_SELECTED") {
+            for (var index = 0; index < $scope.Data.selected.length; index++) {
+                if ($scope.Data.selected[index].quitar == true) {
+                    ids.push($scope.Data.selected[index].id);
+                }
+
+            }
+        }
+        if (ids.length == 0) {
+            Mensaje.Alerta("error", 'Error', "Debe seleccionar al menos un candidato.");
+            return;
+        }
+
+        Mensaje.Esperar();
+        vacancyService.removeMultipleCandidate(ids, $scope.Data.vacancy.id, tipo, function (result) {
+            Mensaje.Desocupar();
+            if (!result.error) {
+                $scope.cargarVacante($scope.Data.vacancy.id);
+            } else {
+                Mensaje.Alerta("error", "Error", result.message);
+            }
+        });
+    }
 
     $scope.advSearch = function (name, country, status, skill, jobFunction, jobs, page, itemsPerPage) {
         Mensaje.Esperar();

@@ -150,10 +150,8 @@ div(class="page-content-wrap")
                         div(class="panel panel-default", ng-show="vacancy")
                             div(class="panel-body")
                                 div(class="form-group")
-                                    div(class="col-md-4 col-xs-4")
+                                    div(class="col-md-12 col-xs-12")
                                         label(for="") {{ 'VACANCY' | translate}}
-                                    div(class="col-md-8 col-xs-8")
-                                        p(ng-bind="vacancy.name")
             //- FIN CANDIDATOS
             div(class="row")    
                 div(class="col-sm-12")
@@ -161,7 +159,7 @@ div(class="page-content-wrap")
                         ul(class="nav nav-tabs")
                             li(style="border-bottom: 1px solid #ddd;", ng-repeat="item in usuario.metaFeatures | orderBy : '-oredr'", ng-click="variablesGlobales.tab = 'tab'+ $index", ng-class="{'active' : variablesGlobales.tab == 'tab'+ $index}")
                                 a(data-toggle="tab", ng-attr-data-target="{{ '#tab' + $index }}") {{item.name | translate}}
-                                    span(class="badge", ng-if="((vacancy|filter:{dictionary:item.dictionary}).length + (usuario.features|filter:{dictionary:item.dictionary, noCumple: true}).length)> 0") {{(vacancy|filter:{dictionary:item.dictionary}).length + (usuario.features|filter:{dictionary:item.dictionary, noCumple: true}).length}}
+                                    span(class="badge badge-danger", ng-if="((vacancy|filter:{dictionary:item.dictionary}).length + (usuario.features|filter:{dictionary:item.dictionary, noCumple: true}).length)> 0") {{(vacancy|filter:{dictionary:item.dictionary}).length + (usuario.features|filter:{dictionary:item.dictionary, noCumple: true}).length}}
                             li(style="border-bottom: 1px solid #ddd;", ng-click="variablesGlobales.tab = 'tabPostulaciones'")
                                 a(data-toggle="tab", data-target="#tabPostulaciones") {{ 'POSTULATED_JOBS' | translate}}
                             li(style="border-bottom: 1px solid #ddd;", ng-click="variablesGlobales.tab = 'tabSinResolver'")
