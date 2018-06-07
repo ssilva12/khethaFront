@@ -63,6 +63,9 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
     }, {
         value: "N",
         label: "UNAVAILABLE"
+    }, {
+        value: "H",
+        label: "Contratado"
     }];
     //Fin variables globales
 
@@ -142,7 +145,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         for (var index = 0; index < $scope.usuario.features.length; index++) {
             if ($scope.usuario.features[index].idNoun == id) {
                 $scope.usuario.features[index].score = feature.score;
-                if (feature.mandatory && feature.score <= 0){
+                if (feature.mandatory && feature.score <= 0) {
                     $scope.usuario.features[index].noCumple = true;
                 }
                 value = true;
@@ -194,7 +197,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
 
         $scope.usuario.features.push(featureCopy);
     };
- 
+
     $scope.eliminarEstudio = function (estudio) {
         var index = $scope.usuario.studies.indexOf(estudio);
         $scope.usuario.studies.splice(index, 1);
