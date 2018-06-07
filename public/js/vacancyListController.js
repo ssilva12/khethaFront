@@ -132,7 +132,15 @@ controller('vacancyListController', ['$scope', '$state', 'filterFilter', 'Mensaj
                 $scope.Dato.toDate = $scope.Dato.toDatePaginado;
                 $scope.pagination();
             } else {
-                $scope.advSearch("", "", "", "", "", "", "", "", 1, 12);
+                var role = $rootScope.sesion.role;
+                $scope.Dato.status = "P"
+                if (role == "4") {
+                    $scope.Dato.analist = $rootScope.sesion.name
+                    $scope.advSearch("", "", "", "P", $rootScope.sesion.name, "", "", "", 1, 12);
+                } else {
+                    $scope.advSearch("", "", "", "P", "", "", "", "", 1, 12);
+                }
+
             }
         } else {
             Mensaje.Alerta("error", 'Error', result.message);

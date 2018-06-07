@@ -43,7 +43,7 @@ div(class="page-content-wrap")
                                         div(class="col-sm-11") 
                                             H3() {{ 'EMPLOYER' | translate}}: {{Data.vacancy.employer}} - {{ 'JOB' | translate}}: {{Data.vacancy.job}}
                                         div(class="col-sm-1")
-                                            button(type="button", class="btn btn-primary pull-right", ng-click="guardarDatos()")
+                                            button(type="button", class="btn btn-primary pull-right", ng-click="guardarDatos()", ng-hide="Data.vacancy.disabled==true")
                                                 li(class="fa fa-save")
                                                 span() {{ 'SAVE' | translate}}
                                     div(class="panel panel-default tabs")
@@ -71,84 +71,84 @@ div(class="page-content-wrap")
                                                         div(class="col-md-2")
                                                             label() {{ 'CODE' | translate}}
                                                         div(class="col-md-4")
-                                                            input(type='text', class="form-control", data-ng-model="Data.vacancy.code")
+                                                            input(type='text', class="form-control", data-ng-model="Data.vacancy.code", ng-disabled="Data.vacancy.disabled==true")
                                                         div(class="col-md-2")
                                                             label() {{ 'VACANCY_NUMBER' | translate}}
                                                         div(class="col-md-4")
-                                                            input(type='text', class="form-control", data-ng-model="Data.vacancy.vacanciesNumber")
+                                                            input(type='text', class="form-control", data-ng-model="Data.vacancy.vacanciesNumber", ng-disabled="Data.vacancy.disabled==true")
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
                                                             label() {{ 'STATUS' | translate}}
                                                         div(class="col-sm-4")
-                                                            select(class="form-control", select2="", name="estado", data-ng-model="Data.vacancy.status")
+                                                            select(class="form-control", select2="", name="estado", data-ng-model="Data.vacancy.status", ng-disabled="Data.vacancy.disabled==true")
                                                                 option(value="") {{ 'SELECT' | translate}}
                                                                 option(ng-repeat="estado in variablesGlobales.estados", value="{{estado.value}}") {{estado.label | translate}}
                                                         div(class="col-md-2")
                                                             label() {{ 'START_DATE' | translate}}
                                                         div(class="col-md-4")
-                                                            adm-dtp(ng-model='Data.vacancy.fromDate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
+                                                            adm-dtp(ng-model='Data.vacancy.fromDate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false", ng-disabled="Data.vacancy.disabled==true")
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
                                                             label() {{ 'END_DATE' | translate}}
                                                         div(class="col-sm-4")
-                                                            adm-dtp(ng-model='Data.vacancy.toDate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false")
+                                                            adm-dtp(ng-model='Data.vacancy.toDate', options='{calType: "gregorian", format: "YYYY-MM-DD"}', dtpType="date", autoClose="true", transition="false", ng-disabled="Data.vacancy.disabled==true")
                                                         div(class="col-md-2")
                                                             label() {{ 'EXPECTED_SALARY' | translate}}
                                                         div(class="col-md-4")
-                                                            input(type='text', class="form-control", data-ng-model="Data.vacancy.salary")
+                                                            input(type='text', class="form-control", data-ng-model="Data.vacancy.salary", ng-disabled="Data.vacancy.disabled==true")
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
                                                             label() {{ 'ADDRESS' | translate}}
                                                         div(class="col-sm-4")
-                                                            input(type='text', class="form-control", data-ng-model="Data.vacancy.address")
+                                                            input(type='text', class="form-control", data-ng-model="Data.vacancy.address", ng-disabled="Data.vacancy.disabled==true")
                                                         div(class="col-md-2")
                                                             label() {{ 'COUNTRY' | translate}}
                                                         div(class="col-md-4")
-                                                            input(class="form-control",ng-focus="onFocus('paisVisible',1)",ng-blur="onBlur('paisVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Data.vacancy.country,'CountryName','dataPais','null','Data.vacancy.country'); cityName =''; postalCode =''", ng-model="Data.vacancy.country", ng-required="Data.vacancy.countrySelected")
+                                                            input(class="form-control",ng-focus="onFocus('paisVisible',1)",ng-blur="onBlur('paisVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Data.vacancy.country,'CountryName','dataPais','null','Data.vacancy.country'); cityName =''; postalCode =''", ng-model="Data.vacancy.country", ng-required="Data.vacancy.countrySelected", ng-disabled="Data.vacancy.disabled==true")
                                                             ul(ng-show="{{ 'paisVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                 li(class="list-group-item",ng-mousedown="assign('Data.vacancy.country',pais); getAcronym(pais)", ng-repeat="pais in dataPais") {{pais.er}}
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
                                                             label() {{ 'POSTAL_CODE' | translate}}
                                                         div(class="col-sm-4")
-                                                            input(type='text', class="form-control", ng-model="Data.vacancy.postalCode", ng-disabled="!Data.vacancy.country")
+                                                            input(type='text', class="form-control", ng-model="Data.vacancy.postalCode", ng-disabled="!Data.vacancy.country", ng-disabled="Data.vacancy.disabled==true")
                                                         div(class="col-md-2")
                                                             label() {{ 'CITY' | translate}}
                                                         div(class="col-md-4")
-                                                            input(class="form-control",ng-focus="onFocus('poblacionVisible',1)",ng-blur="onBlur('poblacionVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Data.vacancy.city,'CityName','dataCity',Data.vacancy.acronym,'Data.vacancy.city')", ng-model="Data.vacancy.city", ng-required="Data.vacancy.citySelected", ng-disabled="!Data.vacancy.country")
+                                                            input(class="form-control",ng-focus="onFocus('poblacionVisible',1)",ng-blur="onBlur('poblacionVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Data.vacancy.city,'CityName','dataCity',Data.vacancy.acronym,'Data.vacancy.city')", ng-model="Data.vacancy.city", ng-required="Data.vacancy.citySelected", ng-disabled="!Data.vacancy.country", ng-disabled="Data.vacancy.disabled==true")
                                                             ul(ng-show="{{ 'poblacionVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                 li(class="list-group-item",ng-mousedown="assign('Data.vacancy.city',city)", ng-repeat="city in dataCity") {{city.er}}
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
                                                             label() {{ 'JOB_FUNCTION' | translate}}
                                                         div(class="col-sm-4")
-                                                            input(type='text', class="form-control",ng-model="Data.vacancy.jobDescription")
+                                                            input(type='text', class="form-control",ng-model="Data.vacancy.jobDescription", ng-disabled="Data.vacancy.disabled==true")
                                                         div(class="col-md-2")
                                                             label() {{ 'ANALIST' | translate}}
                                                         div(class="col-md-4")
-                                                            input(class="form-control", ng-focus="onFocus('analista',1)",ng-blur="onBlur('analista',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Data.vacancy.analist,'Name','dataAnalista','null','Data.vacancy.analist')", ng-model="Data.vacancy.analist")
+                                                            input(class="form-control", ng-focus="onFocus('analista',1)",ng-blur="onBlur('analista',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Data.vacancy.analist,'Name','dataAnalista','null','Data.vacancy.analist')", ng-model="Data.vacancy.analist", ng-disabled="Data.vacancy.disabled==true")
                                                             ul(ng-show="{{ 'analista' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                 li(class="list-group-item",ng-mousedown="assign('Data.vacancy.analist',item)", ng-repeat="item in dataAnalista") {{item.er}}
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
                                                             label() {{ 'CONTACT_PERSON' | translate}}
                                                         div(class="col-sm-4")
-                                                            input(class="form-control", ng-focus="onFocus('persona',1)",ng-blur="onBlur('persona',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Data.vacancy.contact,'Name','dataPersona','null','Data.vacancy.contact')", ng-model="Data.vacancy.contact")
+                                                            input(class="form-control", ng-focus="onFocus('persona',1)",ng-blur="onBlur('persona',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(Data.vacancy.contact,'Name','dataPersona','null','Data.vacancy.contact')", ng-model="Data.vacancy.contact", ng-disabled="Data.vacancy.disabled==true")
                                                             ul(ng-show="{{ 'persona' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                 li(class="list-group-item",ng-mousedown="assign('Data.vacancy.contact',item)", ng-repeat="item in dataPersona") {{item.er}}
                                                         div(class="col-md-2")
                                                             label() {{ 'CONDITIONAL_PROBABILITY' | translate}}
                                                         div(class="col-md-4")
-                                                            input(type='checkbox', data-ng-model="Data.vacancy.conditionalProbability", value="true")
+                                                            input(type='checkbox', data-ng-model="Data.vacancy.conditionalProbability", value="true", ng-disabled="Data.vacancy.disabled==true")
                                                     div(class="row row-space")
                                                         div(class="col-md-2")
                                                             label() {{ 'GPS_COORDINATES' | translate}}
                                                         div(class="col-sm-4")
-                                                            input(type='text', class="form-control", data-ng-model="Data.vacancy.gps")
+                                                            input(type='text', class="form-control", data-ng-model="Data.vacancy.gps", ng-disabled="true")
                                                         div(class="col-md-2")
                                                             label() {{ 'LAST_UPDATE' | translate}}
                                                         div(class="col-md-4")
-                                                            input(type='text', class="form-control", data-ng-model="Data.vacancy.lastUpdate")
+                                                            input(type='text', class="form-control", data-ng-model="Data.vacancy.lastUpdate", ng-disabled="true")
                                             div(id="tab3", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab3'}")
                                                 div(class="panel-body")
                                                     div(class="row row-space")
@@ -194,7 +194,7 @@ div(class="page-content-wrap")
                                                 div(class="panel-body")
                                                     div(class="row row-space")
                                                         h3() {{ 'CANDIDATES_CONCUR' | translate}}
-                                                    div(class="row row-space")
+                                                    div(class="row row-space", ng-hide="Data.vacancy.disabled==true")
                                                         div(class="col-md-8") 
                                                             div(class="input-group")
                                                                 div(class="input-group-addon")
@@ -211,7 +211,7 @@ div(class="page-content-wrap")
                                                                 i(class="fa fa-cloud-upload", aria-hidden="true")
                                                                 span() {{ 'IMPORT_CV' | translate}}
                                                                 input(type="file", id="file", accept="image/pdf", class="custom-file-input", onchange="angular.element(this).scope().uploadFile(this.files)")
-                                                    div(class="row row-space")
+                                                    div(class="row row-space", ng-hide="Data.vacancy.disabled==true")
                                                         div(class="col-md-8") 
                                                         div(class="col-md-4") 
                                                                 button(class="btn btn-default btn-block mb-control", data-toggle="modal", data-target="#myModal", data-backdrop="static")
@@ -237,8 +237,8 @@ div(class="page-content-wrap")
                                                                                             span(ng-show="sortType == 'score' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'score' && sortReverse", class="fa fa-caret-up")
                                                                                         th(class="col-sm-1",style="text-align: center;") {{ 'DETAIL' | translate}} 
-                                                                                        th(class="col-sm-1",style="text-align: center;") {{ 'PRESELECT' | translate}}  
-                                                                                        th(class="col-sm-1",style="text-align: center;") Quitar
+                                                                                        th(class="col-sm-1",style="text-align: center;", ng-hide="Data.vacancy.disabled==true") {{ 'PRESELECT' | translate}}  
+                                                                                        th(class="col-sm-1",style="text-align: center;", ng-hide="Data.vacancy.disabled==true") Quitar
                                                                                 tbody()
                                                                                     tr(ng-repeat="candidato in Data.concur | orderBy:sortType:sortReverse", ng-class="Dato.searched == candidato.id ? 'info' : (candidato.disabled == true ? 'warning' : '')")
                                                                                         td() 
@@ -250,11 +250,11 @@ div(class="page-content-wrap")
                                                                                         td(style="text-align: center;") 
                                                                                             button(class="btn btn-info btn-condensed", ng-click="buscarDetalle(candidato.id)")
                                                                                                 span(class="fa fa-file-text-o")
-                                                                                        td(style="text-align: center;") 
-                                                                                            button(type="button", class="btn btn-condensed",ng-class="candidato.select == true ? 'btn-success' : 'btn-warning'", ng-click="candidato.select = !candidato.select", ng-disabled="candidato.disabled")
+                                                                                        td(style="text-align: center;", ng-hide="Data.vacancy.disabled==true") 
+                                                                                            button(type="button", class="btn btn-condensed",ng-class="candidato.select == true ? 'btn-success' : 'btn-warning'", ng-click="candidato.select = !candidato.select", ng-disabled="candidato.disabled", ng-hide="candidato.disabled == true")
                                                                                                 span(class="fa", ng-class="candidato.select == true ? 'fa-check-square-o' : 'fa-square-o'")
-                                                                                        td(style="text-align: center;") 
-                                                                                            button(type="button", class="btn btn-condensed",ng-class="candidato.quitar == true ? 'btn-success' : 'btn-danger'", ng-click="candidato.quitar = !candidato.quitar", ng-disabled="candidato.disabled")
+                                                                                        td(style="text-align: center;", ng-hide="Data.vacancy.disabled==true") 
+                                                                                            button(type="button", class="btn btn-condensed",ng-class="candidato.quitar == true ? 'btn-success' : 'btn-danger'", ng-click="candidato.quitar = !candidato.quitar", ng-disabled="candidato.disabled", ng-hide="candidato.disabled == true")
                                                                                                 span(class="fa", ng-class="candidato.quitar == true ? 'fa-check-square-o' : 'fa-square-o'")
                                                             div(class="col-sm-3")  
                                                                 div(class="panel panel-default")  
@@ -265,14 +265,14 @@ div(class="page-content-wrap")
                                                                                 span(class="label label-primary") {{Data.concur.length}}
                                                                             a() {{ 'AVERAGE_SCORE' | translate}}
                                                                                 span(class="label label-info") {{Data.promedioConcur | number:2}}
-                                                                div(class="panel panel-default")  
+                                                                div(class="panel panel-default", ng-hide="Data.vacancy.disabled==true")  
                                                                     div(class="panel-body")
                                                                         div(class="row row-space")
-                                                                            h4() Preseleccionar candidatos escogidos:
+                                                                            h4() Preseleccionar candidatos:
                                                                             button(type="button", class="btn btn-condensed btn-success", ng-click="seleccionarMultiple('CND_PRESELECTED')") Preseleccionar
                                                                         div(class="row row-space")
-                                                                            h4() Remover candidatos escogidos:
-                                                                            button(type="button", class="btn btn-condensed btn-danger", ng-click="removerMultiple('CND_CONCUR')") Remover
+                                                                            h4() Quitar candidatos:
+                                                                            button(type="button", class="btn btn-condensed btn-danger", ng-click="removerMultiple('CND_CONCUR')") Quitar
                                             div(id="tab5", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab5'}")     
                                                 div(class="panel-body")      
                                                     div(class="row row-space")
@@ -297,8 +297,8 @@ div(class="page-content-wrap")
                                                                                             span(ng-show="sortType == 'score' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'score' && sortReverse", class="fa fa-caret-up")
                                                                                         th(class="col-sm-1",style="text-align: center;") {{ 'DETAIL' | translate}} 
-                                                                                        th(class="col-sm-1",style="text-align: center;") {{ 'SELECT2' | translate}} 
-                                                                                        th(class="col-sm-1",style="text-align: center;") Quitar 
+                                                                                        th(class="col-sm-1",style="text-align: center;", ng-hide="Data.vacancy.disabled==true") {{ 'SELECT2' | translate}} 
+                                                                                        th(class="col-sm-1",style="text-align: center;", ng-hide="Data.vacancy.disabled==true") Quitar 
                                                                                 tbody()
                                                                                     tr(ng-repeat="candidato in Data.preselected | orderBy:sortType:sortReverse", ng-class="Dato.searched == candidato.id ? 'info' : (candidato.disabled == true ? 'warning' : '')")
                                                                                         td() 
@@ -310,11 +310,11 @@ div(class="page-content-wrap")
                                                                                         td() 
                                                                                             button(class="btn btn-info btn-condensed", ng-click="buscarDetalle(candidato.id)")
                                                                                                 span(class="fa fa-file-text-o")
-                                                                                        td(style="text-align: center;") 
-                                                                                            button(type="button", class="btn btn-condensed",ng-class="candidato.select == true ? 'btn-success' : 'btn-warning'", ng-click="candidato.select = !candidato.select", ng-disabled="candidato.disabled")
+                                                                                        td(style="text-align: center;", ng-hide="Data.vacancy.disabled==true") 
+                                                                                            button(type="button", class="btn btn-condensed",ng-class="candidato.select == true ? 'btn-success' : 'btn-warning'", ng-click="candidato.select = !candidato.select", ng-disabled="candidato.disabled", ng-hide="candidato.disabled == true")
                                                                                                 span(class="fa", ng-class="candidato.select == true ? 'fa-check-square-o' : 'fa-square-o'")
-                                                                                        td(style="text-align: center;") 
-                                                                                            button(type="button", class="btn btn-condensed",ng-class="candidato.quitar == true ? 'btn-success' : 'btn-danger'", ng-click="candidato.quitar = !candidato.quitar", ng-disabled="candidato.disabled")
+                                                                                        td(style="text-align: center;", ng-hide="Data.vacancy.disabled==true") 
+                                                                                            button(type="button", class="btn btn-condensed",ng-class="candidato.quitar == true ? 'btn-success' : 'btn-danger'", ng-click="candidato.quitar = !candidato.quitar", ng-disabled="candidato.disabled", ng-hide="candidato.disabled == true")
                                                                                                 span(class="fa", ng-class="candidato.quitar == true ? 'fa-check-square-o' : 'fa-square-o'")
                                                             div(class="col-sm-3")  
                                                                 div(class="panel panel-default")  
@@ -327,14 +327,14 @@ div(class="page-content-wrap")
                                                                                 span(class="label label-primary") {{Data.concur.length}}
                                                                             a() {{ 'AVERAGE_SCORE' | translate}}
                                                                                 span(class="label label-info") {{Data.promedioPreSelected | number:2}}
-                                                                div(class="panel panel-default")  
+                                                                div(class="panel panel-default", ng-hide="Data.vacancy.disabled==true")  
                                                                     div(class="panel-body")
                                                                         div(class="row row-space")
                                                                             h4() Seleccionar candidatos:
                                                                             button(type="button", class="btn btn-condensed btn-success", ng-click="seleccionarMultiple('CND_SELECTED')") Seleccionar
                                                                         div(class="row row-space")
-                                                                            h4() Remover candidatos:
-                                                                            button(type="button", class="btn btn-condensed btn-danger", ng-click="removerMultiple('CND_PRESELECTED')") Remover
+                                                                            h4() Quitar candidatos:
+                                                                            button(type="button", class="btn btn-condensed btn-danger", ng-click="removerMultiple('CND_PRESELECTED')") Quitar
                                             div(id="tab6", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab6'}")  
                                                 div(class="panel-body")
                                                     div(class="row row-space")
@@ -348,7 +348,7 @@ div(class="page-content-wrap")
                                                                             table(class="table")
                                                                                 thead()
                                                                                     tr()
-                                                                                        th(class="col-sm-8",style="text-align: center;",ng-click="sortType = 'name'; sortReverse = !sortReverse") 
+                                                                                        th(class="col-sm-7",style="text-align: center;",ng-click="sortType = 'name'; sortReverse = !sortReverse") 
                                                                                             label() {{ 'CANDIDATE' | translate}}
                                                                                             span(ng-show="sortType == 'name' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'name' && sortReverse", class="fa fa-caret-up")
@@ -359,7 +359,8 @@ div(class="page-content-wrap")
                                                                                             span(ng-show="sortType == 'score' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'score' && sortReverse", class="fa fa-caret-up")
                                                                                         th(class="col-sm-1",style="text-align: center;") {{ 'DETAIL' | translate}}  
-                                                                                        th(class="col-sm-1",style="text-align: center;") Quitar  
+                                                                                        th(class="col-sm-1",style="text-align: center;", ng-hide="Data.vacancy.disabled==true") Contratar
+                                                                                        th(class="col-sm-1",style="text-align: center;", ng-hide="Data.vacancy.disabled==true") Quitar  
                                                                                 tbody()
                                                                                     tr(ng-repeat="candidato in Data.selected | orderBy:sortType:sortReverse", ng-class="Dato.searched == candidato.id ? 'info' : (candidato.disabled == true ? 'warning' : '')")
                                                                                         td() 
@@ -371,8 +372,11 @@ div(class="page-content-wrap")
                                                                                         td(style="text-align: center;") 
                                                                                             button(class="btn btn-info btn-condensed", ng-click="buscarDetalle(candidato.id)")
                                                                                                 span(class="fa fa-file-text-o")
-                                                                                        td(style="text-align: center;") 
-                                                                                            button(type="button", class="btn btn-condensed",ng-class="candidato.quitar == true ? 'btn-success' : 'btn-danger'", ng-click="candidato.quitar = !candidato.quitar", ng-disabled="candidato.disabled")
+                                                                                        td(style="text-align: center;", ng-hide="Data.vacancy.disabled==true") 
+                                                                                            button(type="button", class="btn btn-condensed",ng-class="candidato.select == true ? 'btn-success' : 'btn-warning'", ng-click="candidato.select = !candidato.select", ng-disabled="candidato.disabled", ng-hide="candidato.disabled == true")
+                                                                                                span(class="fa", ng-class="candidato.select == true ? 'fa-check-square-o' : 'fa-square-o'")
+                                                                                        td(style="text-align: center;", ng-hide="Data.vacancy.disabled==true") 
+                                                                                            button(type="button", class="btn btn-condensed",ng-class="candidato.quitar == true ? 'btn-success' : 'btn-danger'", ng-click="candidato.quitar = !candidato.quitar", ng-disabled="candidato.disabled", ng-hide="candidato.disabled == true")
                                                                                                 span(class="fa", ng-class="candidato.quitar == true ? 'fa-check-square-o' : 'fa-square-o'")
                                                             div(class="col-sm-3")  
                                                                 div(class="panel panel-default")  
@@ -385,11 +389,15 @@ div(class="page-content-wrap")
                                                                                 span(class="label label-primary") {{Data.preselected.length}}
                                                                             a() {{ 'AVERAGE_SCORE' | translate}}
                                                                                 span(class="label label-info") {{Data.promedioSelected | number:2}}
-                                                                div(class="panel panel-default")  
+                                                                div(class="panel panel-default", ng-hide="Data.vacancy.disabled==true")  
                                                                     div(class="panel-body")
                                                                         div(class="row row-space")
-                                                                            h4() Remover candidatos:
-                                                                            button(type="button", class="btn btn-condensed btn-danger", ng-click="removerMultiple('CND_SELECTED')") Remover
+                                                                            div(class="row row-space")
+                                                                                h4() Contratar candidatos:
+                                                                                button(type="button", class="btn btn-condensed btn-success", ng-click="seleccionarMultiple('CND_HIRED')") Seleccionar
+                                                                            div(class="row row-space")
+                                                                                h4() Quitar candidatos:
+                                                                                button(type="button", class="btn btn-condensed btn-danger", ng-click="removerMultiple('CND_SELECTED')") Quitar
                                             div(id="tab7", class="tab-pane",ng-class="{'active' : Dato.tab == 'tab7'}")
                                                 div(class="panel-body")       
                                                     div(class="row row-space")
@@ -414,7 +422,7 @@ div(class="page-content-wrap")
                                                                                             span(ng-show="sortType == 'score' && !sortReverse", class="fa fa-caret-down")
                                                                                             span(ng-show="sortType == 'score' && sortReverse", class="fa fa-caret-up")
                                                                                         th(class="col-sm-1",style="text-align: center;") {{ 'DETAIL' | translate}} 
-                                                                                        th(class="col-sm-1",style="text-align: center;") {{ 'ADD' | translate}}  
+                                                                                        th(class="col-sm-1",style="text-align: center;", ng-hide="Data.vacancy.disabled==true") {{ 'ADD' | translate}}  
                                                                                 tbody()
                                                                                     tr(ng-repeat="candidato in Data.suggested | orderBy:sortType:sortReverse", ng-class="Dato.searched == candidato.candidateId ? 'info' : (candidato.disabled == true ? 'warning' : '')")
                                                                                         td() 
@@ -426,8 +434,8 @@ div(class="page-content-wrap")
                                                                                         td(style="text-align: center;") 
                                                                                             button(class="btn btn-info btn-condensed", ng-click="buscarDetalle(candidato.candidateId)")
                                                                                                 span(class="fa fa-file-text-o")
-                                                                                        td(style="text-align: center;")
-                                                                                            button(class="btn btn-success btn-condensed",ng-click="agregarCandidato(candidato.candidateId,'CND_CONCUR')",ng-disabled="candidato.disabled")
+                                                                                        td(style="text-align: center;", ng-hide="Data.vacancy.disabled==true")
+                                                                                            button(class="btn btn-success btn-condensed",ng-click="agregarCandidato(candidato.candidateId,'CND_CONCUR')",ng-disabled="candidato.disabled", ng-hide="candidato.disabled == true")
                                                                                                 span(class="fa fa-check")
                 
                 

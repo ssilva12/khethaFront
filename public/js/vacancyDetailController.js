@@ -131,6 +131,11 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                 $scope.Data.cantidadselected = $scope.Data.selected.length + "/" + $scope.Data.concur.length
                 $scope.Dato.tab = $rootScope.activeTabVacancy != null && $rootScope.activeTabVacancy != undefined ? $rootScope.activeTabVacancy : "tab1";
                 $scope.Dato.searched = $rootScope.searchedCandidate != null && $rootScope.searchedCandidate != undefined ? $rootScope.searchedCandidate : "";
+                if ($scope.Data.vacancy.status == "C" || $scope.Data.vacancy.status == "D") {
+                    $scope.Data.vacancy.disabled = true;
+                } else {
+                    $scope.Data.vacancy.disabled = false;
+                }
                 Mensaje.Esperar();
                 vacancyService.getCandidatesScore(id, function (result) {
                     Mensaje.Desocupar();
@@ -252,7 +257,13 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                 }
             }
         }
-
+        for (var index = 0; index < $scope.Data.hired.length; index++) {
+            for (var index2 = 0; index2 < $scope.Data.selected.length; index2++) {
+                if ($scope.Data.hired[index].id == $scope.Data.selected[index2].id) {
+                    $scope.Data.selected[index2].disabled = true;
+                }
+            }
+        }
     }
 
 
@@ -340,6 +351,13 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
             for (var index = 0; index < $scope.Data.preselected.length; index++) {
                 if ($scope.Data.preselected[index].select == true) {
                     ids.push($scope.Data.preselected[index].id);
+                }
+
+            }
+        } else if (tipo == "CND_HIRED") {
+            for (var index = 0; index < $scope.Data.selected.length; index++) {
+                if ($scope.Data.selected[index].select == true) {
+                    ids.push($scope.Data.selected[index].id);
                 }
 
             }

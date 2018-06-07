@@ -12,6 +12,7 @@ controller('AppCtrl', ['$scope', '$http', '$route', '$state', '$cookieStore', 'k
   if ($cookieStore.get("sesion") != null && $cookieStore.get("sesion") != "") {
     var tokenPayload = jwtHelper.decodeToken($cookieStore.get("sesion"));
     $rootScope.sesion.userName = tokenPayload.userName;
+    $rootScope.sesion.name = tokenPayload.name;
     $rootScope.sesion.role = tokenPayload.role;
     $rootScope.sesion.portFolio = tokenPayload.portFolio;
     
