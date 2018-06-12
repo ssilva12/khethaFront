@@ -198,7 +198,7 @@ controller('SynonymsCtrl', function ($scope, $state, Dictionary, termFactory, Up
   }
   
 }).
-controller('SetCtrl', function ($scope, $state, termFactory, Dictionary, $parse,$timeout) {
+controller('SetCtrl', function ($scope, $state, termFactory, Dictionary, $parse,$timeout,Mensaje) {
   $scope.newSyn = "";
   $scope.primary = termFactory.getPrimary();
   $scope.synonyms = termFactory.getSynonyms();
@@ -268,9 +268,16 @@ controller('SetCtrl', function ($scope, $state, termFactory, Dictionary, $parse,
   }
   $scope.createImplicit = function(implicitNoun,determinant){
     Dictionary.createImplicit(implicitNoun,determinant, function (error, result){
-      if (!error) {
-        $scope.implicits.push(implicitNoun);
+      if(result != undefined){
+        if (!result.response.error) {
+          $scope.implicits.push(implicitNoun);
+        }else{
+          Mensaje.Alerta("error", 'Error', result.response.error);
+        }
+      }else{
+        Mensaje.Alerta("error", 'Error', "");
       }
+      
     });
   }
 }).

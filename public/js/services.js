@@ -327,8 +327,8 @@ value('version', '0.1')
       url: URL.URL_REST_SERVICE + 'createImplicit'
     }).
     then(function onSuccess(response) {
-      if (response.data.synonym.error) {
-        alert(response.data.synonym.error)
+      if (response.data.response.error) {
+        //alert(response.data.response.error)
       }
       callback(null, response.data)
     }, function onError(response) {
