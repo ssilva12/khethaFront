@@ -124,6 +124,7 @@ controller('SynonymsCtrl', function ($scope, $state, Dictionary, termFactory, Up
         } else {
           termFactory.setSynonyms(data.synonyms);
           termFactory.setPrimary(data.primary);
+          termFactory.setImplicits(data.implicitNouns);
           var coordenadasGps = data.primary.gps.split(";")
           data.primary.latitud = coordenadasGps[0];
           data.primary.longitud = coordenadasGps[1];
@@ -197,11 +198,12 @@ controller('SynonymsCtrl', function ($scope, $state, Dictionary, termFactory, Up
   }
   
 }).
-controller('SetCtrl', function ($scope, $state, termFactory, Dictionary) {
+controller('SetCtrl', function ($scope, $state, termFactory, Dictionary, $parse,$timeout) {
   $scope.newSyn = "";
   $scope.primary = termFactory.getPrimary();
   $scope.synonyms = termFactory.getSynonyms();
   $scope.newSyn = termFactory.getCurrent();
+  $scope.implicits = termFactory.getImplicits();
   $scope.createSynonym = function (synonymEr, primary) {
     Dictionary.createSynonyms(synonymEr, primary.id, primary.dictionary, function (error, res) {
       if (!error) {
@@ -228,6 +230,47 @@ controller('SetCtrl', function ($scope, $state, termFactory, Dictionary) {
     Dictionary.deleteGram(id, type, function (err, res) {
       
       console.log(res)
+    });
+  }
+  //FIN ACTUALIZACION DE DATOS
+  $scope.data = [];
+  $scope.autocompletarInput = function (string, tipo, datos, acronimo) {
+      var model = $parse(datos);
+      var data = Dictionary.getSynonyms(string, tipo, acronimo, function (error, result) {
+          if (!error) {
+              console.log(result)
+              
+              if (result.suggested) {
+                  //$scope.data = [result.primary];
+                  model.assign($scope, result.suggested);
+              } else {
+                  //$scope.data = result.suggested;
+                  model.assign($scope, [result.primary]);
+              }
+          } else {
+              Mensaje.Alerta("error", 'Error', '');
+              //$scope.data = [];
+              model.assign($scope, []);
+          }
+      });
+  };
+  //EVENTOS AUTOCOMPLETAR
+  $scope.onFocus = function (variable, index) {
+      $parse(variable + index).assign($scope, true);
+  }
+  $scope.onBlur = function (variable, index) {
+      $timeout(function () {
+          $parse(variable + index).assign($scope, false);
+      }, 125);
+  }
+  $scope.assignValue = function (mod, val) {
+      $parse(mod).assign($scope, val);  
+  }
+  $scope.createImplicit = function(implicitNoun,determinant){
+    Dictionary.createImplicit(implicitNoun,determinant, function (error, result){
+      if (!error) {
+        $scope.implicits.push(implicitNoun);
+      }
     });
   }
 }).

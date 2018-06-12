@@ -15,11 +15,21 @@ value('version', '0.1')
                     this.synonyms = synonyms;
                 }
             },
+            setImplicits: function (implicits) {
+                if (Object.keys(implicits).length === 0) {
+                    this.implicits = [];
+                } else {
+                    this.implicits = implicits;
+                }
+            },
             getPrimary: function () {
                 return (this.primary);
             },
             getSynonyms: function () {
                 return (this.synonyms)
+            },
+            getImplicits: function () {
+                return (this.implicits)
             },
             setCurrent: function (current) {
                 this.current = current;

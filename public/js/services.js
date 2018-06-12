@@ -316,6 +316,25 @@ value('version', '0.1')
       callback("Error");
     });
   }
+  this.createImplicit = function(implicit, determinant, callback){
+    $http({
+      method: 'POST',
+      params: {
+        implicitId: implicit.id,
+        determinantId: determinant.id
+      },
+      headers: headers,
+      url: URL.URL_REST_SERVICE + 'createImplicit'
+    }).
+    then(function onSuccess(response) {
+      if (response.data.synonym.error) {
+        alert(response.data.synonym.error)
+      }
+      callback(null, response.data)
+    }, function onError(response) {
+      callback("Error");
+    });
+  }
   this.updateGram = function (er, id, callback) {
     $http({
       method: 'PUT',

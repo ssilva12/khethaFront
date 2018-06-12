@@ -64,3 +64,25 @@ div(class="page-content-wrap")
                                             span(class="fa fa-pencil")
                                     td: button(class="btn btn-danger mb-control",ng-click="deleteGram(synonym,synonym.id,'synonym')")
                                             span(class="fa fa-trash")
+            div(class="panel panel-default")
+                div.panel-heading
+                    h3 Implícitas
+                div(class="panel-body")
+                   form(class="form-horizontal")
+                        div(class="form-group")
+                            span.col-md-3.col-xs-12.control-label Nueva implicita
+                            div.col-md-6.col-xs-12
+                                input(class="form-control",ng-focus="onFocus('NombreVisible',1)",ng-blur="onBlur('NombreVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(secondNoun.er,primary.dictionary,'dataNoun2','null')", ng-model="secondNoun.er")
+                                ul(ng-show="{{ 'NombreVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                    li(class="list-group-item",ng-mousedown="assignValue('secondNoun' ,persona)", ng-repeat="persona in dataNoun2") {{persona.er}}
+                            div(class="form-group")
+                                div.col-md-1.col-md-offset-8
+                                    button(class="btn btn-primary mb-control", ng-click="createImplicit(secondNoun,primary)") Crear
+                    div(class="col-md-6 col-md-offset-3")
+                        span.label.black-form Implícitas
+                        table(class = "table")
+                                thead
+                                tr: th er
+                                tbody
+                                tr(ng-repeat = "(key, implicit) in implicits")
+                                    td: label {{implicit.er}}
