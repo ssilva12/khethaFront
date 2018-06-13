@@ -4,9 +4,34 @@ div(class="page-title")
         span(class="txt-grises", ng-bind="usuario.candidateInfo.name")
 //- END PAGE TITLE
 //- PAGE CONTENT WRAPPER
-div(class="page-content-wrap")
+div(class="page-content-wrap")    
     div(class="row")
         div(class="col-sm-12")
+            div(class="row row-space", ng-hide="usuario.candidateInfo.id")
+                div(class="col-sm-12")
+                    div(class="panel panel-default")
+                        div(class="panel-heading") 
+                            h3(class="panel-title") {{ 'IMPORT_CV' | translate }}
+                        div(class="panel-body")
+                            div(class="row row-space")
+                                div(class="col-sm-1") 
+                                    label(class="col-md-3 control-label") {{ 'COUNTRY' | translate}}:
+                                div(class="col-sm-2")
+                                    input(class="form-control",ng-focus="onFocus('paisCVVisible',1)",ng-blur="onBlur('paisCVVisible',1)", ng-model-options="{ debounce: 500 }", ng-change="autocompletarInput(usuario.paisCV,'CountryName','dataPaisCV','null');", ng-model="usuario.paisCV")
+                                    ul(ng-show="{{ 'paisCVVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                        li(class="list-group-item",ng-mousedown="usuario.paisCV = pais.acronym", ng-repeat="pais in dataPaisCV") {{pais.er}}
+                                div(class="col-sm-1") 
+                                    label(class="col-md-3 control-label") {{ 'JOB' | translate}}:
+                                div(class="col-sm-2")
+                                    input(class="form-control",ng-focus="onFocus('jobCVVisible',1)",ng-blur="onBlur('jobCVVisible',1)", ng-model-options="{ debounce: 500 }", ng-change="autocompletarInput(usuario.jobCV,'JobName','datajobCV','null');", ng-model="usuario.jobCV")
+                                    ul(ng-show="{{ 'jobCVVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
+                                        li(class="list-group-item",ng-mousedown="usuario.jobCV = job.er", ng-repeat="job in datajobCV") {{job.er}}
+                                div(class="col-sm-4")
+                                div(class="col-sm-2")
+                                    label(class="file-input-wrapper btn btn-default fileinput btn-primary")
+                                        i(class="fa fa-upload", aria-hidden="true")
+                                        span() {{ 'IMPORT_CV' | translate }}
+                                        input(type="file", id="file", accept="image/pdf", class="custom-file-input", onchange="angular.element(this).scope().uploadFile(this.files)")
             //- CANDIDATOS
             form(name="formCandidato", novalidate)
                 div(class="row")
@@ -16,11 +41,6 @@ div(class="page-content-wrap")
                             div(class="panel-heading")
                                 h3(class="panel-title") {{ 'CANDIDATE_FILE' | translate }}
                                 ul(class="panel-controls")
-                                    li()
-                                        div(class="col-sm-12", ng-hide="usuario.candidateInfo.id")
-                                            input(class="form-control",ng-focus="onFocus('paisCVVisible',1)",ng-blur="onBlur('paisCVVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.paisCV,'CountryName','dataPaisCV','null');", ng-model="usuario.paisCV")
-                                            ul(ng-show="{{ 'paisCVVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
-                                                li(class="list-group-item",ng-mousedown="usuario.paisCV = pais.acronym", ng-repeat="pais in dataPaisCV") {{pais.er}}
                                     li()
                                         div(class="input-group", ng-hide="usuario.candidateInfo.id", style="display:none;")
                                             label(class="file-input-wrapper btn btn-default fileinput btn-primary")
@@ -34,16 +54,13 @@ div(class="page-content-wrap")
                                                 span() {{ 'DOCUMENT' | translate}} 
                                     li()
                                         div(class="input-group", ng-hide="usuario.candidateInfo.id")
-                                            label(class="file-input-wrapper btn btn-default fileinput btn-primary")
-                                                i(class="fa fa-upload", aria-hidden="true")
-                                                span() {{ 'IMPORT_CV' | translate }}
-                                                input(type="file", id="file", accept="image/pdf", class="custom-file-input", onchange="angular.element(this).scope().uploadFile(this.files)")
+                                            
                             div(id="collapse1", class="panel-collapse collapse in")
                                 div(class="panel-body")
                                     div(class="form-group clearfix", ng-class="{ 'has-error' : formCandidato.nombre.$invalid && !formCandidato.nombre.$pristine }")   
                                         label(class="col-md-3 control-label") {{ 'FULL_NAME' | translate }}:
                                         div(class="col-md-9") 
-                                            input(class="form-control",ng-focus="onFocus('NombreVisible',1)",ng-blur="onBlur('NombreVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.name,'Name','dataName','null')", ng-model="usuario.candidateInfo.name")
+                                            input(class="form-control",ng-focus="onFocus('NombreVisible',1)",ng-blur="onBlur('NombreVisible',1)", ng-model-options="{ debounce: 500 }", ng-change="autocompletarInput(usuario.candidateInfo.name,'Name','dataName','null')", ng-model="usuario.candidateInfo.name")
                                             ul(ng-show="{{ 'NombreVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                 li(class="list-group-item",ng-mousedown="usuario.candidateInfo.name = persona.er", ng-repeat="persona in dataName") {{persona.er}}
                                     div(class="form-group clearfix")
@@ -78,13 +95,13 @@ div(class="page-content-wrap")
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") {{ 'COUNTRY' | translate}}:
                                         div(class="col-md-9")
-                                            input(class="form-control",ng-focus="onFocus('paisVisible',1)",ng-blur="onBlur('paisVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.country,'CountryName','dataPais','null'); usuario.candidateInfo.cityName =''; usuario.candidateInfo.postalCode =''", ng-model="usuario.candidateInfo.country")
+                                            input(class="form-control",ng-focus="onFocus('paisVisible',1)",ng-blur="onBlur('paisVisible',1)", ng-model-options="{ debounce: 500 }", ng-change="autocompletarInput(usuario.candidateInfo.country,'CountryName','dataPais','null'); usuario.candidateInfo.cityName =''; usuario.candidateInfo.postalCode =''", ng-model="usuario.candidateInfo.country")
                                             ul(ng-show="{{ 'paisVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                 li(class="list-group-item",ng-mousedown="getAcronym(pais)", ng-repeat="pais in dataPais") {{pais.er}}                 
                                     div(class="form-group clearfix")
                                         label(class="col-md-3 control-label") {{ 'CITY' | translate}}:
                                         div(class="col-md-9")
-                                            input(class="form-control",ng-focus="onFocus('poblacionVisible',1)",ng-blur="onBlur('poblacionVisible',1)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(usuario.candidateInfo.cityName,'CityName','dataCity',usuario.candidateInfo.acronym)", ng-model="usuario.candidateInfo.cityName", ng-disabled="!usuario.candidateInfo.country")
+                                            input(class="form-control",ng-focus="onFocus('poblacionVisible',1)",ng-blur="onBlur('poblacionVisible',1)", ng-model-options="{ debounce: 500 }", ng-change="autocompletarInput(usuario.candidateInfo.cityName,'CityName','dataCity',usuario.candidateInfo.acronym)", ng-model="usuario.candidateInfo.cityName", ng-disabled="!usuario.candidateInfo.country")
                                             ul(ng-show="{{ 'poblacionVisible' + 1 }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                 li(class="list-group-item",ng-mousedown="usuario.candidateInfo.cityName = city.er", ng-repeat="city in dataCity") {{city.er}}
                                     div(class="form-group clearfix")
@@ -303,7 +320,7 @@ div(class="page-content-wrap")
                                                                                 label(for="") Resolver
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
-                                                                                    input(class="form-control",ng-focus="onFocus('caracteristicasPsicologicasNombre',$index)",ng-blur="onBlur('caracteristicasPsicologicasNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(feature.nombre,methafeature.dictionary,'dataUnresolved','null')", ng-model="feature.nombre")
+                                                                                    input(class="form-control",ng-focus="onFocus('caracteristicasPsicologicasNombre',$index)",ng-blur="onBlur('caracteristicasPsicologicasNombre',$index)", ng-model-options="{ debounce: 500 }", ng-change="autocompletarInput(feature.nombre,methafeature.dictionary,'dataUnresolved','null')", ng-model="feature.nombre")
                                                                                     input(type="hidden",ng-model="feature.idNoun")
                                                                                     ul(ng-show="{{ 'caracteristicasPsicologicasNombre' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                                         li(class="list-group-item",ng-mousedown="feature.nombre = item.er; feature.idNoun=item.id", ng-repeat="item in dataUnresolved") {{item.er}}
@@ -377,7 +394,7 @@ div(class="page-content-wrap")
                                                                                 label(for="") {{ 'RESOLVE' | translate}}
                                                                             div(class="col-md-9")
                                                                                 div(style="width:100%")
-                                                                                    input(class="form-control",ng-focus="onFocus('caracteristicasPsicologicasNombre',$index)",ng-blur="onBlur('caracteristicasPsicologicasNombre',$index)", ng-model-options="{ debounce: 1000 }", ng-change="autocompletarInput(caracteristica.nombre,caracteristica.dictionary,'dataUnresolved','null')", ng-model="caracteristica.nombre")
+                                                                                    input(class="form-control",ng-focus="onFocus('caracteristicasPsicologicasNombre',$index)",ng-blur="onBlur('caracteristicasPsicologicasNombre',$index)", ng-model-options="{ debounce: 500 }", ng-change="autocompletarInput(caracteristica.nombre,caracteristica.dictionary,'dataUnresolved','null')", ng-model="caracteristica.nombre")
                                                                                     input(type="hidden",ng-model="caracteristica.idNoun")
                                                                                     ul(ng-show="{{ 'caracteristicasPsicologicasNombre' + $index }}", class="list-group select-list", style="z-index: 10; position: absolute;")
                                                                                         li(class="list-group-item",ng-mousedown="caracteristica.nombre = item.er; caracteristica.idNoun=item.id", ng-repeat="item in dataUnresolved") {{item.er}}

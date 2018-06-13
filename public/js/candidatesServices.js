@@ -9,11 +9,12 @@ angular.module('myApp.candidatesServices', [])
         Result.message = "";
         Result.data = null;
 
-        candidatesServices.uploadFile = function (file, paisCV, callback) {
+        candidatesServices.uploadFile = function (file, paisCV, jobCV, callback) {
             var fd = new FormData();
             fd.append('curriculum', file);
             fd.append('portFolio', $rootScope.sesion.portFolio);
             fd.append('countryCV', paisCV);
+            fd.append('jobCV', jobCV);
             var uploadUrl = URL.URL_REST_SERVICE + 'api/candidate/uploadCV';
             $http.post(uploadUrl, fd, {
                 transformRequest: angular.identity,
@@ -209,13 +210,14 @@ angular.module('myApp.candidatesServices', [])
             request.send(config, callback);
         };
 
-        candidatesServices.createByCV = function (idDoc, countryCV, callback) {
+        candidatesServices.createByCV = function (idDoc, countryCV, jobCV, callback) {
             var config = {
                 method: 'POST',
                 data: {
                     idDoc: idDoc,
                     portFolio: $rootScope.sesion.portFolio,
-                    countryCV: (countryCV == null || countryCV == undefined ? "" : countryCV)
+                    countryCV: (countryCV == null || countryCV == undefined ? "" : countryCV),
+                    jobCV: (jobCV == null || jobCV == undefined ? "" : jobCV)
                 },
                 url: URL.URL_REST_SERVICE + 'api/candidate/createByCV',
                 contentType: "application/json"
@@ -223,14 +225,15 @@ angular.module('myApp.candidatesServices', [])
             request.send(config, callback);
         };
 
-        candidatesServices.updateByCV = function (candidateId, idDoc, countryCV, callback) {
+        candidatesServices.updateByCV = function (candidateId, idDoc, countryCV, jobCV, callback) {
             var config = {
                 method: 'POST',
                 data: {
                     candidateId: candidateId,
                     idDoc: idDoc,
                     portFolio: $rootScope.sesion.portFolio,
-                    countryCV: (countryCV == null || countryCV == undefined ? "" : countryCV)
+                    countryCV: (countryCV == null || countryCV == undefined ? "" : countryCV),
+                    jobCV: (jobCV == null || jobCV == undefined ? "" : jobCV)
                 },
                 url: URL.URL_REST_SERVICE + 'api/candidate/updateByCV',
                 contentType: "application/json"

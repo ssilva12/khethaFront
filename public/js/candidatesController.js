@@ -451,7 +451,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         var reader = new FileReader();
         reader.readAsDataURL(files[0]);
         reader.onload = function () {
-            var resultado = candidatesServices.uploadFile(files[0], $scope.usuario.paisCV, function (result) {
+            var resultado = candidatesServices.uploadFile(files[0], $scope.usuario.paisCV, $scope.usuario.jobCV, function (result) {
                 Mensaje.Desocupar();
                 if (!result.error) {
                     if (result.data.code == 2) {
@@ -474,7 +474,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
     $scope.crearCV = function () {
         $('#myModalCandidate').modal('hide');
         Mensaje.Esperar("UPLOADING_CV");
-        candidatesServices.createByCV($scope.exist.uploadExist.idDoc, $scope.usuario.paisCV, function (result) {
+        candidatesServices.createByCV($scope.exist.uploadExist.idDoc, $scope.usuario.paisCV, $scope.usuario.jobCV, function (result) {
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.cargarCandidato(result.data.candidateId);
@@ -487,7 +487,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
     $scope.actualizarCV = function (candidateId) {
         $('#myModalCandidate').modal('hide');
         Mensaje.Esperar("UPLOADING_CV");
-        candidatesServices.updateByCV(candidateId, $scope.exist.uploadExist.idDoc, $scope.usuario.paisCV, function (result) {
+        candidatesServices.updateByCV(candidateId, $scope.exist.uploadExist.idDoc, $scope.usuario.paisCV, $scope.usuario.jobCV, function (result) {
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.cargarCandidato(result.data.candidateId);
