@@ -276,10 +276,24 @@ controller('SetCtrl', function ($scope, $state, termFactory, Dictionary, $parse,
         }
       }else{
         Mensaje.Alerta("error", 'Error', "");
-      }
-      
+      }    
     });
   }
+
+  $scope.deleteImplicit = function(implicitNoun,determinant){
+    Dictionary.deleteImplicit(implicitNoun,determinant, function (error, result){
+      if(result != undefined){
+        if (!result.error) {
+          $scope.implicits = result.implicitNouns
+        }else{
+          Mensaje.Alerta("error", 'Error', result.response.error);
+        }
+      }else{
+        Mensaje.Alerta("error", 'Error', "");
+      }    
+    });
+  }
+
 }).
 controller('EditCtrl', function ($scope, termFactory, Dictionary) {
   $scope.current = termFactory.getCurrent();

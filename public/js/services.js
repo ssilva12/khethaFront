@@ -335,6 +335,22 @@ value('version', '0.1')
       callback("Error");
     });
   }
+  this.deleteImplicit = function(implicit, determinant, callback){
+    $http({
+      method: 'POST',
+      params: {
+        implicitId: implicit.id,
+        determinantId: determinant.id
+      },
+      headers: headers,
+      url: URL.URL_REST_SERVICE + 'deleteImplicit'
+    }).
+    then(function onSuccess(response) {
+      callback(null, response.data)
+    }, function onError(response) {
+      callback("Error");
+    });
+  }
   this.updateGram = function (er, id, callback) {
     $http({
       method: 'PUT',

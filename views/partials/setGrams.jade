@@ -83,6 +83,9 @@ div(class="page-content-wrap")
                         table(class = "table")
                                 thead
                                 tr: th er
+                                    th
                                 tbody
                                 tr(ng-repeat = "(key, implicit) in implicits")
                                     td: label {{implicit.er}}
+                                    td: button(class="btn btn-danger mb-control",ng-click="deleteImplicit(implicit,primary)")
+                                            span(class="fa fa-trash")
