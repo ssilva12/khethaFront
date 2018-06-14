@@ -31,7 +31,22 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
         value: "S",
         label: "INFERRED"
     }];
-
+    $scope.variablesGlobales.estadosCandidato = [{
+        value: "A",
+        label: "ASSIGNED"
+    }, {
+        value: "P",
+        label: "SELECTION_PROCESS"
+    }, {
+        value: "F",
+        label: "AVAILABLE"
+    }, {
+        value: "N",
+        label: "UNAVAILABLE"
+    }, {
+        value: "H",
+        label: "Contratado"
+    }];
     $scope.crearVacante = function () {
         Mensaje.Esperar("CREATING_VACANCY");
         var vacante = vacancyService.createVacancy($scope.Dato.employerSelected.id, $scope.Dato.jobSelected.id, function (result) {

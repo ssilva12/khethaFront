@@ -90,6 +90,7 @@ div(class="page-content-wrap")
                                                 span(ng-if="Dato.statusPaginado == 'P'") {{ 'STATUS' | translate}}: {{ 'SELECTION_PROCESS' | translate}}
                                                 span(ng-if="Dato.statusPaginado == 'F'") {{ 'STATUS' | translate}}: {{ 'AVAILABLE' | translate}}
                                                 span(ng-if="Dato.statusPaginado == 'N'") {{ 'STATUS' | translate}}: {{ 'UNAVAILABLE' | translate}}
+                                                span(ng-if="Dato.statusPaginado == 'H'") {{ 'STATUS' | translate}}: {{ 'Contratado' | translate}}
                                         li(ng-show="Dato.skillPaginado")
                                             a()
                                                 span() {{ 'SKILL' | translate}}: {{Dato.skillPaginado}}
@@ -112,6 +113,7 @@ div(class="page-content-wrap")
                                 i(ng-if="candidato.sex == '0'", style="color: #FFFFFF", class="fa fa-5x fa-male")
                             div(class="profile-data")
                                 h3(class="profile-data-name") {{candidato.name}}
+                                h5(class="profile-data-title", style="color: #a9acb1") {{candidato.job}}
                         div(class="panel-body")
                             div(class="contact-info")
                                 p()

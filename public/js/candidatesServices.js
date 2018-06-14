@@ -128,6 +128,32 @@ angular.module('myApp.candidatesServices', [])
             request.send(config, callback);
         };
 
+        candidatesServices.assignCNDtoJOB = function (candidateId, job, callback) {
+            var config = {
+                method: 'POST',
+                data: {
+                    candidateId: candidateId,
+                    job: job
+                },
+                url: URL.URL_REST_SERVICE + 'api/candidate/cndRelatedJob',
+                contentType: "application/json"
+            }
+            request.send(config, callback);
+        };
+
+        candidatesServices.removeCNDtoJOB = function (candidateId, job, callback) {
+            var config = {
+                method: 'POST',
+                data: {
+                    candidateId: candidateId,
+                    job: job
+                },
+                url: URL.URL_REST_SERVICE + 'api/candidate/removeCndRelatedJob',
+                contentType: "application/json"
+            }
+            request.send(config, callback);
+        };
+
         candidatesServices.updateFeature = function (feature, callback) {
             var config = {
                 method: 'PUT',

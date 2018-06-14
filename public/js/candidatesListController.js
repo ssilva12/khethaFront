@@ -23,6 +23,9 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$state'
     }, {
         value: "N",
         label: "UNAVAILABLE"
+    }, {
+        value: "H",
+        label: "Contratado"
     }];
 
 
@@ -77,7 +80,7 @@ controller('candidatesListController', ['$scope', 'candidatesServices', '$state'
         if (!result.error) {
             $rootScope.sesion.portFolios = result.data
             if ($rootScope.sesion.portFolio == "" && result.data.length > 0) {
-                $rootScope.sesion.portFolio = result.data[0].id                
+                $rootScope.sesion.portFolio = result.data[0].id
             }
             var datosCookies = $rootScope.filtroCandidato;
             if (datosCookies != null && datosCookies != undefined) {

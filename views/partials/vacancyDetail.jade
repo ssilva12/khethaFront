@@ -465,7 +465,7 @@ div(class="page-content-wrap")
                                         div(class="col-sm-3")
                                             select(style="width:100%",class="form-control", select2="", name="estatus", ng-model="Dato.status")
                                                 option(value="") Seleccione
-                                                option(ng-repeat="estado in variablesGlobales.estados", value="{{estado.value}}") {{estado.label}}
+                                                option(ng-repeat="estado in variablesGlobales.estadosCandidato", value="{{estado.value}}") {{estado.label}}
                                         div(class="col-sm-1") 
                                             label(for="") {{ 'SKILL' | translate}}
                                         div(class="col-sm-3")

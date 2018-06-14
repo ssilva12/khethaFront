@@ -90,10 +90,6 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                     var parts = $scope.usuario.candidateInfo.birthdate.split('-');
                     $scope.usuario.candidateInfo.birthdate = new Date(parts[0], parts[1] - 1, parts[2]);
                 }
-                //Datos faltantes
-                $scope.usuario.estudiosCertificaciones = [];
-                $scope.usuario.caracteristicas = [];
-                $scope.usuario.caracteristicasPsicologicas = [];
 
                 if ($stateParams.vacancyId != null) {
                     $scope.cargarVacancy($stateParams.vacancyId, $stateParams.id);
@@ -129,10 +125,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
                         }
                         exist = false;
                     });
-
                 }
-
-
                 var resultado = result.data;
             } else {
                 Mensaje.Alerta("error", 'Error', result.message);
@@ -171,14 +164,6 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
             $scope.cargarCandidato($stateParams.id);
         } else {
             $scope.usuario.jobs = [];
-            $scope.usuario.schooling = [];
-            $scope.usuario.jobFunctions = [];
-            $scope.usuario.studies = [];
-            $scope.usuario.estudiosCertificaciones = [];
-            $scope.usuario.languages = [];
-            $scope.usuario.skills = [];
-            $scope.usuario.caracteristicas = [];
-            $scope.usuario.caracteristicasPsicologicas = [];
         }
     };
     init();
@@ -198,11 +183,6 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         $scope.usuario.features.push(featureCopy);
     };
 
-    $scope.eliminarEstudio = function (estudio) {
-        var index = $scope.usuario.studies.indexOf(estudio);
-        $scope.usuario.studies.splice(index, 1);
-    };
-
     $scope.deleteFeature = function (feature) {
         Dictionary.deleteCandidateFeature(feature, function (error, data) {
             if (!error) {
@@ -214,132 +194,42 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
         })
     };
 
-    $scope.agregarEstudio = function () {
-        var estudio = {
+    $scope.eliminarJob = function (job) {
+        Mensaje.Esperar("SAVING_DATA");
+        candidatesServices.removeCNDtoJOB($scope.usuario.candidateInfo.id, job, function (result) {
+            Mensaje.Desocupar();
+            if (!result.error) {
+                $scope.cargarCandidato($scope.usuario.candidateInfo.id);
+                Mensaje.Alerta("success", 'OK', result.message);
+            } else {
+                $scope.cargarCandidato($scope.usuario.candidateInfo.id);
+                Mensaje.Alerta("error", 'Error', result.message);
+            }
+        });
+    };
+
+    $scope.agregarJob = function () {
+        var featureCopy = {
             name: "",
-            mrName: "",
-            levelOrOrder: "",
-            lastDate: "",
-            pais: "",
+            score: "",
             edit: true
         };
-        $scope.usuario.studies.push(estudio);
+        $scope.usuario.jobs.push(featureCopy);
     };
 
-    $scope.eliminarCentroEstudio = function (estudio) {
-        var index = $scope.usuario.schooling.indexOf(estudio);
-        $scope.usuario.schooling.splice(index, 1);
-    };
-
-    $scope.agregarCentroEstudio = function () {
-        var estudio = {
-            name: "",
-            pais: "",
-            edit: true
-        };
-        $scope.usuario.schooling.push(estudio);
-    };
-
-    $scope.eliminarCertificado = function (estudio) {
-        var index = $scope.usuario.estudiosCertificaciones.indexOf(estudio);
-        $scope.usuario.estudiosCertificaciones.splice(index, 1);
-    };
-
-    $scope.agregarCertificado = function () {
-        var estudio = {
-            name: "",
-            pais: "",
-            edit: true
-        };
-        $scope.usuario.estudiosCertificaciones.push(estudio);
-    };
-
-    $scope.agregarExperiencia = function () {
-        var experiencia = {
-            name: "",
-            lastDate: "",
-            value: "",
-            edit: true
-        };
-        $scope.usuario.jobFunctions.push(experiencia);
-    };
-
-    $scope.eliminarExperiencia = function (experiencia) {
-        var index = $scope.usuario.experiencia.indexOf(experiencia);
-        $scope.usuario.experiencia.splice(index, 1);
-    };
-
-    $scope.agregarEmpleador = function () {
-        var empleador = {
-            job: "",
-            value: "",
-            methaRelation: "",
-            edit: true
-        };
-        $scope.usuario.jobs.push(empleador);
-    };
-
-    $scope.eliminarEmpleador = function (empleador) {
-        var index = $scope.usuario.jobs.indexOf(empleador);
-        $scope.usuario.jobs.splice(index, 1);
-    };
-
-    $scope.eliminarIdioma = function (idioma) {
-        var index = $scope.usuario.idiomas.indexOf(idioma);
-        $scope.usuario.languages.splice(index, 1);
-    };
-
-    $scope.agregarIdioma = function () {
-        var idioma = {
-            lenguageName: "",
-            methaRelation: "",
-            edit: true
-        };
-        $scope.usuario.languages.push(idioma);
-    };
-
-    $scope.agregarSkill = function () {
-        var skill = {
-            name: "",
-            value: "",
-            lastDate: "",
-            edit: true
-        };
-        $scope.usuario.skills.push(skill);
-    };
-
-    $scope.eliminarSkill = function (skill) {
-        var index = $scope.usuario.skills.indexOf(skill);
-        $scope.usuario.skills.splice(index, 1);
-    };
-
-    $scope.eliminarCaracteristica = function (caracteristica) {
-        var index = $scope.usuario.caracteristicas.indexOf(caracteristica);
-        $scope.usuario.caracteristicas.splice(index, 1);
-    };
-
-    $scope.agregarCaracteristica = function () {
-        var caracteristica = {
-            nombre: "",
-            valor: "",
-            edit: true
-        };
-        $scope.usuario.caracteristicas.push(caracteristica);
-    };
-
-    $scope.eliminarCaracteristicaPsicologica = function (caracteristica) {
-        var index = $scope.usuario.caracteristicasPsicologicas.indexOf(caracteristica);
-        $scope.usuario.caracteristicasPsicologicas.splice(index, 1);
-    };
-
-    $scope.agregarCaracteristicaPsicologica = function () {
-        var caracteristica = {
-            nombre: "",
-            valor: "",
-            edit: true
-        };
-        $scope.usuario.caracteristicasPsicologicas.push(caracteristica);
-    };
+    $scope.guardarJob = function (job) {
+        Mensaje.Esperar("SAVING_DATA");
+        candidatesServices.assignCNDtoJOB($scope.usuario.candidateInfo.id, job, function (result) {
+            Mensaje.Desocupar();
+            if (!result.error) {
+                $scope.cargarCandidato($scope.usuario.candidateInfo.id);
+                Mensaje.Alerta("success", 'OK', result.message);
+            } else {
+                $scope.cargarCandidato($scope.usuario.candidateInfo.id);
+                Mensaje.Alerta("error", 'Error', result.message);
+            }
+        });
+    }
 
     //INICIO ACTUALIZACIONES DE DATOS
     $scope.actualizarCandidato = function () {
