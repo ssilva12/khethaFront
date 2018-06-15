@@ -109,6 +109,7 @@ controller('candidatesController', ['$scope', '$stateParams', 'candidatesService
     $scope.cargarVacancy = function (vacancyId, candidateId) {
         var allData = candidatesServices.getVacancyInfo(vacancyId, candidateId, function (result) {
             Mensaje.Desocupar();
+            console.log(JSON.stringify(result.data))
             if (!result.error) {
                 $scope.vacancy = []
                 for (var index2 = 0; index2 < result.data.length; index2++) {
