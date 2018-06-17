@@ -363,11 +363,12 @@ value('version', '0.2')
             request.send(config, callback);
         }
 
-        vacancyService.getSuggesteds = function (idVacancy, callback) {
+        vacancyService.getSuggesteds = function (idVacancy,cantidad, callback) {
             var config = {
                 method: 'GET',
                 params: {
-                    jobVacancy: idVacancy
+                    jobVacancy: idVacancy,
+                    cantidad: cantidad
                 },
                 url: URL.URL_REST_SERVICE + 'api/vacancy/candidate-filter'
             }

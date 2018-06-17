@@ -201,7 +201,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                         $scope.Data.promedioPreSelected = $scope.Data.preselected.length == 0 ? 0 : (promedioPreselected / $scope.Data.preselected.length)
                         $scope.Data.promedioSelected = $scope.Data.selected.length == 0 ? 0 : (promedioSelected / $scope.Data.selected.length)
 
-                        vacancyService.getSuggesteds(id, function (result) {
+                        vacancyService.getSuggesteds(id,5, function (result) {
                             Mensaje.Desocupar();
                             if (!result.error) {
                                 $scope.Data.suggested = result.data;
