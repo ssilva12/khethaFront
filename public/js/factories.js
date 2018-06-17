@@ -210,7 +210,8 @@ value('version', '0.1')
                 url: config.url,
                 data: config.data,
                 params: config.params,
-                headers: headers
+                headers: headers,
+                timeout: 600
             }).
             then(function onSuccess(response) {
                 Result.error = response.data.error != null ? response.data.error : false;
