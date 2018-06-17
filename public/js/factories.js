@@ -211,7 +211,7 @@ value('version', '0.1')
                 data: config.data,
                 params: config.params,
                 headers: headers,
-                timeout: 600
+                timeout: "600"
             }).
             then(function onSuccess(response) {
                 Result.error = response.data.error != null ? response.data.error : false;
