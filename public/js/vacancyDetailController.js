@@ -201,7 +201,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                         $scope.Data.promedioPreSelected = $scope.Data.preselected.length == 0 ? 0 : (promedioPreselected / $scope.Data.preselected.length)
                         $scope.Data.promedioSelected = $scope.Data.selected.length == 0 ? 0 : (promedioSelected / $scope.Data.selected.length)
 
-                        vacancyService.getSuggesteds(id,5, function (result) {
+                        vacancyService.getSuggesteds(id, 5, function (result) {
                             Mensaje.Desocupar();
                             if (!result.error) {
                                 $scope.Data.suggested = result.data;
@@ -426,6 +426,18 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
             Mensaje.Desocupar();
             if (!result.error) {
                 $scope.cargarVacante($scope.Data.vacancy.id);
+            } else {
+                Mensaje.Alerta("error", "Error", result.message);
+            }
+        });
+    }
+
+    $scope.buscarMas = function () {
+        Mensaje.Esperar();
+        vacancyService.testTimeout(function (result) {
+            Mensaje.Desocupar();
+            if (!result.error) {
+                Mensaje.Alerta("success", "ok", result.message);
             } else {
                 Mensaje.Alerta("error", "Error", result.message);
             }

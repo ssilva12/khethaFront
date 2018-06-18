@@ -363,6 +363,14 @@ value('version', '0.2')
             request.send(config, callback);
         }
 
+        vacancyService.testTimeout = function (callback) {
+            var config = {
+                method: 'GET',
+                url: URL.URL_REST_SERVICE + 'api/vacancy/test-timeout'
+            }
+            request.send(config, callback);
+        }
+
         vacancyService.getSuggesteds = function (idVacancy,cantidad, callback) {
             var config = {
                 method: 'GET',
