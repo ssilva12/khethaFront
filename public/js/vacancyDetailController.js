@@ -14,7 +14,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
     $scope.variablesGlobales = {};
     $scope.sortType = '-score';
     $scope.sortReverse = false;
-
+    $scope.Dato.cantidadSugeridos = 5;
     $scope.variablesGlobales.estados = [{
         value: "A",
         label: "ASSIGNED_A"
@@ -201,7 +201,7 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
                         $scope.Data.promedioPreSelected = $scope.Data.preselected.length == 0 ? 0 : (promedioPreselected / $scope.Data.preselected.length)
                         $scope.Data.promedioSelected = $scope.Data.selected.length == 0 ? 0 : (promedioSelected / $scope.Data.selected.length)
 
-                        vacancyService.getSuggesteds(id, 5, function (result) {
+                        vacancyService.getSuggesteds(id, $scope.Dato.cantidadSugeridos, function (result) {
                             Mensaje.Desocupar();
                             if (!result.error) {
                                 $scope.Data.suggested = result.data;
@@ -434,10 +434,12 @@ controller('vacancyDetailController', ['$scope', '$rootScope', '$stateParams', '
 
     $scope.buscarMas = function () {
         Mensaje.Esperar();
-        vacancyService.testTimeout(function (result) {
+        $scope.Dato.cantidadSugeridos = $scope.Dato.cantidadSugeridos + 5
+        vacancyService.getSuggesteds($scope.Data.vacancy.id, $scope.Dato.cantidadSugeridos, function (result) {
             Mensaje.Desocupar();
             if (!result.error) {
-                Mensaje.Alerta("success", "ok", result.message);
+                $scope.Data.suggested = result.data;
+                $scope.disableCandidates();
             } else {
                 Mensaje.Alerta("error", "Error", result.message);
             }
